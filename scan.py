@@ -89,6 +89,8 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
             raise ValueError("document exceeds the configured model input limit; not silently truncated")
         save_json(output_dir / "request.json", {
             "prompt_sha256": engine.prompt_hash(), "input_sha256": evidence_document["sha256"],
+            "input_binding_version": evidence_document.get("input_binding_version"),
+            "model_content_sha256": evidence_document.get("model_content_sha256"),
             "max_input_chars": max_input_chars,
             "evidence_scope": "supplied_paper_and_source" if repository is not None else "supplied_document_only",
             "engine": type(client).__name__ if client else "no_model_or_replay",
@@ -107,9 +109,7 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
             if repository is not None:
                 # Only raw paper/source text and provenance are supplied. Curated
                 # permissions, gold labels and historical reports are not read.
-                content.update(input_binding=evidence_document["sha256"],
-                               repository=evidence_document["repository"],
-                               paper_sha256=document["sha256"])
+                content = engine.model_content(evidence_document)
             if extraction is None:
                 if client is None:
                     raise ValueError("choose an inference engine, or supply extraction and review JSON for replay")

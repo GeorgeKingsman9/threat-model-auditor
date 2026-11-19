@@ -388,6 +388,92 @@ class ExtractionV4Tests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     v4.combine_inputs(paper, altered)
 
+    def test_binding_changes_with_selected_files_even_when_repository_manifest_is_identical(self):
+        paper, _, _, _, _ = self.fixtures()
+        with tempfile.TemporaryDirectory(prefix="binding budget ") as temporary:
+            root = Path(temporary)
+            (root / "pipeline.py").write_text("def construct(x):\n    return x\n", encoding="utf-8")
+            (root / "unrelated.py").write_text("# extra source\n" * 100, encoding="utf-8")
+            small = load_repository(str(root), max_chars=50)
+            large = load_repository(str(root), max_chars=5000)
+        self.assertEqual(small["manifest_sha256"], large["manifest_sha256"])
+        self.assertNotEqual(len(small["segments"]), len(large["segments"]))
+        self.assertNotEqual(v4.combine_inputs(paper, small)["sha256"],
+                            v4.combine_inputs(paper, large)["sha256"])
+
+    def test_binding_covers_reading_order_and_primary_citation_views_independently(self):
+        paper, repository, merged, _, _ = self.fixtures()
+        reading = copy.deepcopy(paper)
+        reading["segments"][0]["reading_order_text"] = "Another reading-order representation."
+        first = v4.combine_inputs(reading, repository)
+        self.assertEqual(first["paper_sha256"], merged["paper_sha256"])
+        self.assertNotEqual(first["sha256"], merged["sha256"])
+        primary = copy.deepcopy(reading)
+        primary["segments"][0]["text"] += " Different primary-layout citation view."
+        second = v4.combine_inputs(primary, repository)
+        self.assertEqual(v4.model_content(first)["segments"], v4.model_content(second)["segments"])
+        self.assertNotEqual(first["sha256"], second["sha256"])
+
+    def test_binding_covers_ordered_source_segments_and_all_model_repository_metadata(self):
+        paper, repository, merged, _, _ = self.fixtures()
+        reordered = copy.deepcopy(repository)
+        reordered["segments"].reverse()
+        self.assertEqual(reordered["manifest_sha256"], repository["manifest_sha256"])
+        self.assertNotEqual(v4.combine_inputs(paper, reordered)["sha256"], merged["sha256"])
+        metadata = copy.deepcopy(repository)
+        metadata["coverage"]["max_characters"] += 1
+        changed = v4.combine_inputs(paper, metadata)
+        self.assertEqual(changed["segments"], merged["segments"])
+        self.assertNotEqual(changed["sha256"], merged["sha256"])
+
+    def test_model_content_preserves_original_payload_contract_without_exposing_labels(self):
+        _, _, merged, _, _ = self.fixtures()
+        actual = v4.model_content(merged)
+        old_caller = {
+            "source_type": merged["media_type"],
+            "segments": [{"id": p["id"], "text": p.get("reading_order_text", p["text"])}
+                         for p in merged["segments"]],
+            "input_binding": merged["sha256"], "repository": merged["repository"],
+            "paper_sha256": merged["paper_sha256"],
+        }
+        self.assertEqual(actual, old_caller)
+        self.assertNotIn("expected", actual)
+        self.assertNotIn("gold", actual)
+        actual["repository"]["coverage"]["max_characters"] = 1
+        actual["segments"][0]["text"] = "A caller mutation cannot rewrite prepared evidence."
+        v4.validate_input_binding(merged)
+
+    def test_changed_combined_views_or_metadata_are_rejected_before_replay_decision(self):
+        _, _, merged, extraction, review = self.fixtures()
+        changes = [
+            lambda d: d["segments"][0].update(text=d["segments"][0]["text"] + " extra citation text"),
+            lambda d: d["segments"][0].update(reading_order_text="changed input view"),
+            lambda d: d["repository"]["coverage"].update(max_characters=999999),
+            lambda d: d["coverage"].update(complete=False),
+            lambda d: d["paper_coverage"].update(reason="different coverage statement"),
+            lambda d: d["segments"].reverse(),
+            lambda d: d.update(text="silently truncated bookkeeping text"),
+        ]
+        for index, change in enumerate(changes):
+            with self.subTest(index=index):
+                changed = copy.deepcopy(merged)
+                change(changed)
+                with self.assertRaisesRegex(ValueError, "input binding"):
+                    v4.model_content(changed)
+                with self.assertRaisesRegex(ValueError, "input binding"):
+                    self.decide(extraction, review, changed)
+
+    def test_legacy_three_identity_binding_does_not_masquerade_as_current_full_payload_binding(self):
+        _, _, merged, extraction, review = self.fixtures()
+        old = copy.deepcopy(merged)
+        old.pop("input_binding_version")
+        old.pop("model_content_sha256")
+        old["sha256"] = hashlib.sha256(json.dumps(old["input_binding"], sort_keys=True).encode()).hexdigest()
+        with self.assertRaisesRegex(ValueError, "obsolete"):
+            v4.model_content(old)
+        with self.assertRaisesRegex(ValueError, "obsolete"):
+            self.decide(extraction, review, old)
+
 
 if __name__ == "__main__":
     unittest.main()

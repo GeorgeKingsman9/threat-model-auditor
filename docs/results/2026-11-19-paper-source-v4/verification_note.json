@@ -1,0 +1,16 @@
+{
+  "fresh_run_runtime_commit": "d7ead6c",
+  "fresh_run": "outputs/2026-11-19-aspi-paper-source-e2e-v4",
+  "fresh_run_result": "inconsistent",
+  "fresh_run_model_calls": 3,
+  "subsequent_hardening": "Bind the actual selected source segments, all paper text views and model metadata, rather than only PDF/whole-repository identities. Classification and semantic review rules remain unchanged.",
+  "fresh_run_reexecuted_for_hash_only_change": false,
+  "validation_plan": "Offline tests must reject different selected source budgets, paper text views or metadata under the same stored binding; no additional model usage for this integrity-only fix.",
+  "binding_hardening_verified": true,
+  "current_input_binding_version": 2,
+  "semantic_payload_unchanged_except_binding": true,
+  "semantic_payload_sha256": "0c17468bac6d216e7e0d13285de77d4d2642c4675e284395363b913eadfd890d",
+  "fresh_run_legacy_input_binding": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+  "current_input_binding": "a185dff0d1d4474c54a640cf1809a9fdbfb8477fddb4ad75cd84711e34c94afe",
+  "new_binding_tests_added": 6
+}

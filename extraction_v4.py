@@ -109,6 +109,69 @@ def prompt_hash():
         [EXTRACTION_SCHEMA, REVIEW_SCHEMA], sort_keys=True)).encode()).hexdigest()
 
 
+INPUT_BINDING_VERSION = 2
+
+
+def _unbound_model_content(document):
+    """The exact model payload fields except the self-referential binding value."""
+    return {
+        "source_type": document["media_type"],
+        "segments": [{"id": part["id"], "text": part.get("reading_order_text", part["text"])}
+                     for part in document["segments"]],
+        "repository": copy.deepcopy(document["repository"]),
+        "paper_sha256": document["paper_sha256"],
+    }
+
+
+def _hash_json(value):
+    return hashlib.sha256(json.dumps(value, sort_keys=True).encode()).hexdigest()
+
+
+def _binding_material(document):
+    # Repository manifests describe every eligible file and intentionally remain
+    # stable across text budgets. They cannot alone identify the selected model
+    # input. Bind that ordered payload AND every citation view and coverage field.
+    # Neither document.sha256 nor input_binding enters this hash recursively.
+    return {
+        "version": INPUT_BINDING_VERSION,
+        "model_content": _unbound_model_content(document),
+        "citation_segments": document["segments"],
+        "coverage": document["coverage"],
+        "paper_coverage": document["paper_coverage"],
+        "source": document["source"],
+        "links": document["links"],
+        "text": document["text"],
+    }
+
+
+def validate_input_binding(document):
+    """Reject changed combined snapshots before inference or decision replay."""
+    if document.get("input_binding_version") != INPUT_BINDING_VERSION:
+        raise ValueError("combined paper/source input binding version is missing or obsolete")
+    expected = _hash_json(_binding_material(document))
+    model_digest = _hash_json(_unbound_model_content(document))
+    if document.get("sha256") != expected or document.get("model_content_sha256") != model_digest:
+        raise ValueError("combined paper/source input binding changed after preparation")
+    provenance = {"paper_sha256": document["paper_sha256"],
+                  "repository_manifest_sha256": document["repository"]["manifest_sha256"],
+                  "repository_revision": document["repository"]["revision"]}
+    if document.get("input_binding") != provenance:
+        raise ValueError("combined paper/source provenance identity changed")
+
+
+def model_content(document):
+    """Return the sole source-aware model payload, after checking its binding.
+
+    The payload schema and values match the original V4 caller. Only the binding
+    value is stronger; this function adds no classification or permission inputs.
+    """
+    validate_input_binding(document)
+    fields = _unbound_model_content(document)
+    return {"source_type": fields["source_type"], "segments": fields["segments"],
+            "input_binding": document["sha256"], "repository": fields["repository"],
+            "paper_sha256": fields["paper_sha256"]}
+
+
 def combine_inputs(paper, repository):
     """Bind a paper snapshot and source manifest; preserve both citation domains."""
     from source_bundle import validate_repository
@@ -118,7 +181,6 @@ def combine_inputs(paper, repository):
     binding = {"paper_sha256": paper["sha256"],
                "repository_manifest_sha256": repository["manifest_sha256"],
                "repository_revision": repository["revision"]}
-    digest = hashlib.sha256(json.dumps(binding, sort_keys=True).encode()).hexdigest()
     segments = []
     for part in paper["segments"]:
         segments.append({**copy.deepcopy(part), "id": "paper:" + part["id"], "source_kind": "paper"})
@@ -138,7 +200,7 @@ def combine_inputs(paper, repository):
         segments.append(segment)
     if len({part["id"] for part in segments}) != len(segments):
         raise ValueError("paper and source segment IDs must be unique")
-    return {"source": paper["source"], "sha256": digest, "input_binding": binding,
+    document = {"source": paper["source"], "input_binding": binding,
             "media_type": "paper+source", "segments": segments,
             "text": "\n\n".join(part.get("reading_order_text", part["text"]) for part in segments),
             "coverage": {"complete": bool(paper["coverage"]["complete"] and repository["coverage"]["complete"]),
@@ -146,6 +208,11 @@ def combine_inputs(paper, repository):
             "paper_coverage": paper["coverage"], "paper_sha256": paper["sha256"],
             "repository": {key: copy.deepcopy(value) for key, value in repository.items() if key not in {"segments", "files"}},
             "links": paper.get("links", [])}
+    document["input_binding_version"] = INPUT_BINDING_VERSION
+    document["model_content_sha256"] = _hash_json(_unbound_model_content(document))
+    document["sha256"] = _hash_json(_binding_material(document))
+    validate_input_binding(document)
+    return document
 
 
 def _locate(citation, document, kind=None):
@@ -217,6 +284,7 @@ def _path_check(flow, document):
 
 
 def decide_extraction(extraction, review, document, paper_id="uploaded_paper"):
+    validate_input_binding(document)
     validate_shape(extraction, EXTRACTION_SCHEMA)
     validate_shape(review, REVIEW_SCHEMA)
     if extraction["input_binding"] != document["sha256"] or review["input_binding"] != document["sha256"]:

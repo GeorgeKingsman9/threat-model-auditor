@@ -388,11 +388,11 @@ SRC 中列出的代码验收错误通常出现在 source_validation.validation_e
 
 #### SRC04
 
-- 触发条件：把 paper SHA、repository manifest SHA 与 revision 组合成输入摘要，抽取和复核的 input_binding 都必须等于这次组合输入。
-- 结果：绑定变化则拒绝复用模型输出，保留 paper/code 引用域与各自来源身份。原因码：无专用 reason code，处理方式见本条结果。
-- 优先序：source_validation 4。函数：`extraction_v4.combine_inputs, extraction_v4.decide_extraction`。
-- 正例：换了源码提交，却重放旧 input_binding 的模型输出。
-- 不触发例：同一冻结 paper+source 输入的输出可以接受绑定检查。
+- 触发条件：输入摘要须覆盖 paper SHA、repository manifest/revision、实际有序选入片段、论文阅读视图以及送模型的元数据。抽取和复核的 input_binding 都必须等于这次完整输入。
+- 结果：选文件预算、阅读视图、元数据或版本变化则拒绝复用模型输出，保留 paper/code 引用域与各自来源身份。原因码：无专用 reason code，处理方式见本条结果。
+- 优先序：source_validation 4。函数：`extraction_v4.combine_inputs, extraction_v4.model_content, extraction_v4.validate_input_binding, extraction_v4.decide_extraction`。
+- 正例：提交不变但选入源码集合改变，不能继续重放旧 input_binding。
+- 不触发例：同一冻结 paper+source 及完全相同模型输入的输出可以接受绑定检查。
 
 #### SRC05
 
