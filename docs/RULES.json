@@ -1,0 +1,1393 @@
+{
+  "catalog_version": 1,
+  "scope": "Core checker/scope_review, V3 extraction gates, and grouped V4/source_bundle evidence acceptance requirements.",
+  "counts": {
+    "business_rules": 30,
+    "business_by_group": {
+      "base": 8,
+      "scope": 19,
+      "paper": 3
+    },
+    "extraction_v3_gate_groups": 10,
+    "source_validation_rules": 15,
+    "structural_validation_groups": 11,
+    "value_option_groups": 26,
+    "v4_included": true
+  },
+  "counting_method": [
+    "核心业务规则只数 B/S/P 清单条目，同一语义检查在多个位置复用不重复计数。",
+    "B02/B03 也出现在 scope_review 中，S04/S06 各有两个落点。",
+    "P03 是一个汇总弃判规则，按是否存在未决检查产生两种 reason code。",
+    "X 是自动抽取验收/分流条件分组，V 是输入校验分组，均单列而不加入核心规则总数。",
+    "SRC 是论文加源码路径的证据验收规则，按职责归并后单列，不按每个 if 或每个状态值计数。",
+    "citation-only repair 是失败引文的候选修复步骤，最终仍满足原有引用标准，不新增核心规则或 SRC 验收规则。",
+    "状态值、模型提示中的工作步骤、测试数量和 golden 标签均不算业务规则。"
+  ],
+  "rules": [
+    {
+      "id": "B01",
+      "group": "base",
+      "priority": {
+        "base": [
+          1
+        ]
+      },
+      "functions": [
+        "checker.decide"
+      ],
+      "condition": "没有与目标边精确匹配的权限记录。",
+      "result": "insufficient_evidence",
+      "reason_codes": [
+        "policy_unspecified"
+      ],
+      "positive_example": "permissions 为空，不能从论文沉默推出 deny。",
+      "negative_example": "存在匹配的 deny。"
+    },
+    {
+      "id": "B02",
+      "group": "base",
+      "priority": {
+        "base": [
+          2
+        ],
+        "scope": [
+          2
+        ]
+      },
+      "functions": [
+        "checker.decide",
+        "scope_review.assess_claim"
+      ],
+      "condition": "同一目标边同时匹配 allow 和 deny。",
+      "result": "insufficient_evidence / unresolved",
+      "reason_codes": [
+        "conflicting_policy"
+      ],
+      "positive_example": "同一范围内两条权限记录互相冲突。",
+      "negative_example": "只有一条匹配的 allow。"
+    },
+    {
+      "id": "B03",
+      "group": "base",
+      "priority": {
+        "base": [
+          3
+        ],
+        "scope": [
+          3
+        ]
+      },
+      "functions": [
+        "checker.decide",
+        "scope_review.assess_claim"
+      ],
+      "condition": "同一目标边同时观察到 present 和 absent。",
+      "result": "insufficient_evidence / unresolved",
+      "reason_codes": [
+        "conflicting_observations"
+      ],
+      "positive_example": "同一配置既声明输入含目标信息，又声明该输入排除了它。",
+      "negative_example": "present 与 possible 并存不构成此冲突。"
+    },
+    {
+      "id": "B04",
+      "group": "base",
+      "priority": {
+        "base": [
+          4
+        ]
+      },
+      "functions": [
+        "checker.decide"
+      ],
+      "condition": "匹配权限为 deny，匹配观察包含 present。",
+      "result": "inconsistent（V3 仍须经过范围门）",
+      "reason_codes": [
+        "forbidden_flow_confirmed"
+      ],
+      "positive_example": "禁止的同一信息边被观察到。",
+      "negative_example": "只有 possible，不能确认实际交付。"
+    },
+    {
+      "id": "B05",
+      "group": "base",
+      "priority": {
+        "base": [
+          5
+        ]
+      },
+      "functions": [
+        "checker.decide"
+      ],
+      "condition": "匹配权限为 allow，匹配观察包含 present。",
+      "result": "consistent_within_scope（V3 仍须经过反证门）",
+      "reason_codes": [
+        "permitted_flow_confirmed"
+      ],
+      "positive_example": "明确允许的输入实际收到该信息。",
+      "negative_example": "allow 没有相应观察，不自动产生一致结论。"
+    },
+    {
+      "id": "B06",
+      "group": "base",
+      "priority": {
+        "base": [
+          6
+        ]
+      },
+      "functions": [
+        "checker.decide"
+      ],
+      "condition": "匹配观察含 absent 且不含 present，权限没有冲突。",
+      "result": "consistent_within_scope（基础边判定）",
+      "reason_codes": [
+        "absence_confirmed_at_boundary"
+      ],
+      "positive_example": "肯定性的输入边界证据表明目标信息未到达。",
+      "negative_example": "搜索时未找到相关代码不能标 absent。"
+    },
+    {
+      "id": "B07",
+      "group": "base",
+      "priority": {
+        "base": [
+          7
+        ]
+      },
+      "functions": [
+        "checker.decide"
+      ],
+      "condition": "没有 present 或 absent，只有可能路径 possible。",
+      "result": "insufficient_evidence",
+      "reason_codes": [
+        "path_or_configuration_unconfirmed"
+      ],
+      "positive_example": "代码存在可选读取路径，但目标配置是否启用未核实。",
+      "negative_example": "有匹配的 present 时优先适用 B04/B05。"
+    },
+    {
+      "id": "B08",
+      "group": "base",
+      "priority": {
+        "base": [
+          8
+        ]
+      },
+      "functions": [
+        "checker.decide"
+      ],
+      "condition": "存在单一匹配权限，但没有匹配观察。",
+      "result": "insufficient_evidence",
+      "reason_codes": [
+        "no_matching_observation"
+      ],
+      "positive_example": "观察记录属于另一角色、阶段或 query_form。",
+      "negative_example": "相同目标边已有 absent。"
+    },
+    {
+      "id": "S01",
+      "group": "scope",
+      "priority": {
+        "scope": [
+          1
+        ]
+      },
+      "functions": [
+        "scope_review.assess_claim"
+      ],
+      "condition": "target 标注 full_query/partial_query，但 information_level 未对应 exact_query/partial_query。",
+      "result": "insufficient_evidence / unresolved",
+      "reason_codes": [
+        "query_form_information_level_conflict"
+      ],
+      "positive_example": "target 为 full_query，assessment 却称 partial_query。",
+      "negative_example": "full_query 对应 exact_query。"
+    },
+    {
+      "id": "S02",
+      "group": "scope",
+      "priority": {
+        "scope": [
+          4
+        ]
+      },
+      "functions": [
+        "scope_review.assess_claim"
+      ],
+      "condition": "delivery 为 excluded 或 evaluator_only，但匹配观察含 present。",
+      "result": "insufficient_evidence / unresolved",
+      "reason_codes": [
+        "delivery_exclusion_conflicts_with_present"
+      ],
+      "positive_example": "同一边一处称仅评分器可见，另一处称构造输入已收到。",
+      "negative_example": "仅评分器可见，且没有匹配 present。"
+    },
+    {
+      "id": "S03",
+      "group": "scope",
+      "priority": {
+        "scope": [
+          5
+        ]
+      },
+      "functions": [
+        "scope_review.assess_claim"
+      ],
+      "condition": "delivery 为 confirmed，但匹配观察含 absent。",
+      "result": "insufficient_evidence / unresolved",
+      "reason_codes": [
+        "delivery_confirmation_conflicts_with_absent"
+      ],
+      "positive_example": "结构化交付标为确认，却有同边 absent。",
+      "negative_example": "confirmed 与 present 相符。"
+    },
+    {
+      "id": "S04",
+      "group": "scope",
+      "priority": {
+        "scope": [
+          6,
+          18
+        ]
+      },
+      "functions": [
+        "scope_review.assess_claim"
+      ],
+      "condition": "policy.status 已确定为 applicable/not_applicable，但没有非空范围引用。",
+      "result": "insufficient_evidence / unresolved",
+      "reason_codes": [
+        "policy_scope_evidence_missing"
+      ],
+      "positive_example": "声称禁令适用此阶段，却未提供范围证据引用。",
+      "negative_example": "uncertain 不要求确定范围的引用，但不能确认违规。"
+    },
+    {
+      "id": "S05",
+      "group": "scope",
+      "priority": {
+        "scope": [
+          7
+        ]
+      },
+      "functions": [
+        "scope_review.assess_claim"
+      ],
+      "condition": "delivery 不为 unresolved，却没有非空交付边界引用。",
+      "result": "insufficient_evidence / unresolved",
+      "reason_codes": [
+        "delivery_boundary_evidence_missing"
+      ],
+      "positive_example": "标 confirmed，但 delivery.reference 为空。",
+      "negative_example": "confirmed 具有输入边界证据引用。"
+    },
+    {
+      "id": "S06",
+      "group": "scope",
+      "priority": {
+        "scope": [
+          8,
+          21
+        ]
+      },
+      "functions": [
+        "scope_review.assess_claim"
+      ],
+      "condition": "已确定的 delivery 仅有非边界证据，或进入确认路径后仍未建立 confirmed 的实际输入交付。",
+      "result": "insufficient_evidence / unresolved",
+      "reason_codes": [
+        "delivery_to_input_boundary_not_established"
+      ],
+      "positive_example": "只有 document_presence/possible_path，或 delivery 仍 unresolved。",
+      "negative_example": "有引用的 static_bound_path 确认目标输入实际接收信息。"
+    },
+    {
+      "id": "S07",
+      "group": "scope",
+      "priority": {
+        "scope": [
+          9
+        ]
+      },
+      "functions": [
+        "scope_review.assess_claim"
+      ],
+      "condition": "refutation.basis 不为 none，但没有非空反证引用。",
+      "result": "insufficient_evidence / unresolved",
+      "reason_codes": [
+        "refutation_evidence_missing"
+      ],
+      "positive_example": "声称明确授权可排除怀疑，但未引用授权依据。",
+      "negative_example": "有具体授权反证引用。"
+    },
+    {
+      "id": "S08",
+      "group": "scope",
+      "priority": {
+        "scope": [
+          10
+        ]
+      },
+      "functions": [
+        "scope_review.assess_claim"
+      ],
+      "condition": "反证为 explicit_permission，匹配权限仅 allow，观察含 present，政策为适用的 attacker_knowledge_constraint，且引用与 confirmed 边界交付齐备。",
+      "result": "consistent_within_scope / refuted",
+      "reason_codes": [
+        "claim_refuted_explicit_permission"
+      ],
+      "positive_example": "该实验臂明确允许构造输入使用任务，且证明确实收到任务。",
+      "negative_example": "只写 stronger baseline，尚未核实其信息授权，不足以触发。"
+    },
+    {
+      "id": "S09",
+      "group": "scope",
+      "priority": {
+        "scope": [
+          11
+        ]
+      },
+      "functions": [
+        "scope_review.assess_claim"
+      ],
+      "condition": "反证为 different_instance，信息属于 training_instance/topic_only/different_instance，交付有边界引用且不为 unresolved，无匹配 present，政策有据为 not_applicable。",
+      "result": "consistent_within_scope / refuted",
+      "reason_codes": [
+        "claim_refuted_different_instance"
+      ],
+      "positive_example": "证据证明收到的是另一训练实例，目标评测实例禁令不适用。",
+      "negative_example": "只因数据集名称相同就断言实例不同或相同。"
+    },
+    {
+      "id": "S10",
+      "group": "scope",
+      "priority": {
+        "scope": [
+          12
+        ]
+      },
+      "functions": [
+        "scope_review.assess_claim"
+      ],
+      "condition": "反证为 excluded_delivery，delivery 为 excluded/evaluator_only，边界引用齐备，且没有匹配 present。",
+      "result": "consistent_within_scope / refuted",
+      "reason_codes": [
+        "claim_refuted_excluded_delivery"
+      ],
+      "positive_example": "肯定性边界证据证明任务只到评分器，没有到被怀疑的构造输入。",
+      "negative_example": "没有找到输入日志，不能当作交付排除证据。"
+    },
+    {
+      "id": "S11",
+      "group": "scope",
+      "priority": {
+        "scope": [
+          13
+        ]
+      },
+      "functions": [
+        "scope_review.assess_claim"
+      ],
+      "condition": "反证为 different_issue_type，issue_type 不是 information_boundary，policy_kind 为 victim_security_goal/protocol_requirement，并有反证引用。",
+      "result": "consistent_within_scope / refuted（仅排除本类怀疑）",
+      "reason_codes": [
+        "claim_refuted_different_issue_type"
+      ],
+      "positive_example": "已证明讨论的是受害系统安全目标被攻破，而非论文违反攻击者知识约束。",
+      "negative_example": "只是把 issue_type 改名，政策仍是攻击者知识限制。"
+    },
+    {
+      "id": "S12",
+      "group": "scope",
+      "priority": {
+        "scope": [
+          14
+        ]
+      },
+      "functions": [
+        "scope_review.assess_claim"
+      ],
+      "condition": "提供了反证 basis，但该类反证的必要条件未满足。",
+      "result": "insufficient_evidence / unresolved",
+      "reason_codes": [
+        "refutation_not_supported_by_scoped_evidence"
+      ],
+      "positive_example": "explicit_permission 反证只有 allow，没有匹配 present。",
+      "negative_example": "授权、适用范围与实际交付同时满足 S08。"
+    },
+    {
+      "id": "S13",
+      "group": "scope",
+      "priority": {
+        "scope": [
+          15
+        ]
+      },
+      "functions": [
+        "scope_review.assess_claim"
+      ],
+      "condition": "没有成立的反证，且 issue_type 不是 information_boundary。",
+      "result": "insufficient_evidence / unresolved",
+      "reason_codes": [
+        "information_boundary_issue_not_established"
+      ],
+      "positive_example": "仅有实验协议或任务完整性争议，尚未建立信息边界问题。",
+      "negative_example": "明确的 information_boundary 怀疑继续后续范围检查。"
+    },
+    {
+      "id": "S14",
+      "group": "scope",
+      "priority": {
+        "scope": [
+          16
+        ]
+      },
+      "functions": [
+        "scope_review.assess_claim"
+      ],
+      "condition": "进入确认路径，但 policy_kind 不是 attacker_knowledge_constraint。",
+      "result": "insufficient_evidence / unresolved",
+      "reason_codes": [
+        "policy_is_not_attacker_knowledge_constraint"
+      ],
+      "positive_example": "把受害系统不应泄露信息的安全目标当成攻击者不可知信息的限制。",
+      "negative_example": "政策确实约束攻击者能知道什么。"
+    },
+    {
+      "id": "S15",
+      "group": "scope",
+      "priority": {
+        "scope": [
+          17
+        ]
+      },
+      "functions": [
+        "scope_review.assess_claim"
+      ],
+      "condition": "进入确认路径，但 policy.status 不为 applicable。",
+      "result": "insufficient_evidence / unresolved",
+      "reason_codes": [
+        "policy_scope_not_established"
+      ],
+      "positive_example": "禁令是否适用于离线构造角色仍 uncertain。",
+      "negative_example": "原文明确限制同一角色、阶段和实验臂。"
+    },
+    {
+      "id": "S16",
+      "group": "scope",
+      "priority": {
+        "scope": [
+          19
+        ]
+      },
+      "functions": [
+        "scope_review.assess_claim"
+      ],
+      "condition": "进入确认路径，但 task_relation 为 different_instance 或 unknown。",
+      "result": "insufficient_evidence / unresolved",
+      "reason_codes": [
+        "evaluated_instance_alignment_not_established"
+      ],
+      "positive_example": "知道查询来自某基准，但尚不能对齐被评测的那条实例。",
+      "negative_example": "有同一评测实例的边界证据。"
+    },
+    {
+      "id": "S17",
+      "group": "scope",
+      "priority": {
+        "scope": [
+          20
+        ]
+      },
+      "functions": [
+        "scope_review.assess_claim"
+      ],
+      "condition": "task_relation 为 topic_only，却把 information_level 标成 exact_query/partial_query。",
+      "result": "insufficient_evidence / unresolved",
+      "reason_codes": [
+        "topic_information_is_not_instance_query"
+      ],
+      "positive_example": "仅给主题标签，却声称收到该实例的完整或部分查询。",
+      "negative_example": "只就 task_category 这一信息层级提出怀疑。"
+    },
+    {
+      "id": "S18",
+      "group": "scope",
+      "priority": {
+        "scope": [
+          22
+        ]
+      },
+      "functions": [
+        "scope_review.assess_claim"
+      ],
+      "condition": "前述范围门全部通过，基础 verdict 为 inconsistent，匹配权限仅 deny，观察含 present。",
+      "result": "inconsistent / confirmed",
+      "reason_codes": [
+        "scoped_forbidden_delivery_confirmed"
+      ],
+      "positive_example": "适用禁令、同一信息对象、实际构造输入交付三者形成同范围证据。",
+      "negative_example": "只有攻击成功或 ASR 差异，却没有证明禁止信息到达目标输入。"
+    },
+    {
+      "id": "S19",
+      "group": "scope",
+      "priority": {
+        "scope": [
+          23
+        ]
+      },
+      "functions": [
+        "scope_review.assess_claim"
+      ],
+      "condition": "范围门通过，但基础层没有确认被禁止的交付，且无成立反证。",
+      "result": "insufficient_evidence / unresolved",
+      "reason_codes": [
+        "base_rule_does_not_confirm_forbidden_delivery"
+      ],
+      "positive_example": "allow+present 未提供 explicit_permission 反证，V3 不自动排除怀疑。",
+      "negative_example": "deny+present 且所有范围门通过，适用 S18。"
+    },
+    {
+      "id": "P01",
+      "group": "paper",
+      "priority": {
+        "paper": [
+          1
+        ]
+      },
+      "functions": [
+        "checker.summarize_paper"
+      ],
+      "condition": "该论文 required_checks 中至少一条为 inconsistent。",
+      "result": "inconsistent",
+      "reason_codes": [
+        "confirmed_inconsistency_in_scope"
+      ],
+      "positive_example": "一个必要检查已确认不一致，另一个仍不足，也保留这项发现。",
+      "negative_example": "不在 required_checks 中的发现不能决定本论文范围的结果。"
+    },
+    {
+      "id": "P02",
+      "group": "paper",
+      "priority": {
+        "paper": [
+          2
+        ]
+      },
+      "functions": [
+        "checker.summarize_paper"
+      ],
+      "condition": "没有确认不一致，required_checks 非空，coverage_complete 为 true，且没有缺失或 insufficient_evidence 的必要检查。",
+      "result": "consistent_within_scope",
+      "reason_codes": [
+        "all_required_checks_consistent"
+      ],
+      "positive_example": "所有明确列出的怀疑都已被同范围反证排除。",
+      "negative_example": "空检查列表不能认证整篇论文一致。"
+    },
+    {
+      "id": "P03",
+      "group": "paper",
+      "priority": {
+        "paper": [
+          3
+        ]
+      },
+      "functions": [
+        "checker.summarize_paper"
+      ],
+      "condition": "既不满足 P01，也不满足 P02。",
+      "result": "insufficient_evidence",
+      "reason_codes": [
+        "unresolved_checks",
+        "audit_scope_not_fully_covered"
+      ],
+      "positive_example": "缺失/不足的必要检查用 unresolved_checks，否则覆盖未闭合用 audit_scope_not_fully_covered。",
+      "negative_example": "有确认发现时由 P01 优先决定论文结果。"
+    }
+  ],
+  "source_validation_rules": [
+    {
+      "id": "SRC01",
+      "group": "source_validation",
+      "priority": {
+        "source_validation": [
+          1
+        ]
+      },
+      "functions": [
+        "source_bundle.load_repository",
+        "source_bundle._git_snapshot",
+        "source_bundle._github_url",
+        "source_bundle.validate_repository"
+      ],
+      "condition": "源码必须有可核实的冻结身份。本地 Git 读取解析后的提交对象，GitHub 使用完整提交 SHA，普通目录只能用 content-manifest 身份。",
+      "result": "缺少或混用身份则拒绝快照，不把目录当前内容假称指定提交",
+      "reason_codes": [],
+      "positive_example": "普通目录只有内容 manifest，不能附会一个未验证的 Git revision。",
+      "negative_example": "已核实的 Git 提交和对应清单可以进入后续验收。"
+    },
+    {
+      "id": "SRC02",
+      "group": "source_validation",
+      "priority": {
+        "source_validation": [
+          2
+        ]
+      },
+      "functions": [
+        "source_bundle.validate_repository",
+        "extraction_v4.combine_inputs"
+      ],
+      "condition": "源码文本、字节数、文件 SHA、整文件行号/片段 ID、Git blob（如有）、inventory 与 manifest 必须自洽。",
+      "result": "篡改、缺段、重复或摘要不符则拒绝，完整重算的伪造快照仍须靠外部归档绑定鉴别",
+      "reason_codes": [],
+      "positive_example": "缓存文本改了一个字符却保留旧 SHA，应被拒绝。",
+      "negative_example": "原始快照所有摘要一致，只证明内部一致，不自动认证来源真实。"
+    },
+    {
+      "id": "SRC03",
+      "group": "source_validation",
+      "priority": {
+        "source_validation": [
+          3
+        ]
+      },
+      "functions": [
+        "source_bundle._safe_path",
+        "source_bundle._excluded_reason",
+        "source_bundle._git",
+        "source_bundle._directory_snapshot",
+        "source_bundle._download_archive",
+        "source_bundle._archive_snapshot",
+        "source_bundle.load_repository",
+        "source_bundle.validate_repository"
+      ],
+      "condition": "源码只作为受限静态数据读取。路径、符号/硬链接、特殊文件、敏感/标签内容、字节数、文件数、展开量与时间均受读取器约束。",
+      "result": "危险或超限输入拒绝或明确列为 excluded/omitted，execution 必须为 none",
+      "reason_codes": [],
+      "positive_example": "归档路径逃逸或来源文件在读取中改变，不能静默接纳。",
+      "negative_example": "普通合格 UTF-8 源文件可整文件读取，不执行其脚本或安装依赖。"
+    },
+    {
+      "id": "SRC04",
+      "group": "source_validation",
+      "priority": {
+        "source_validation": [
+          4
+        ]
+      },
+      "functions": [
+        "extraction_v4.combine_inputs",
+        "extraction_v4.decide_extraction"
+      ],
+      "condition": "把 paper SHA、repository manifest SHA 与 revision 组合成输入摘要，抽取和复核的 input_binding 都必须等于这次组合输入。",
+      "result": "绑定变化则拒绝复用模型输出，保留 paper/code 引用域与各自来源身份",
+      "reason_codes": [],
+      "positive_example": "换了源码提交，却重放旧 input_binding 的模型输出。",
+      "negative_example": "同一冻结 paper+source 输入的输出可以接受绑定检查。"
+    },
+    {
+      "id": "SRC05",
+      "group": "source_validation",
+      "priority": {
+        "source_validation": [
+          5
+        ]
+      },
+      "functions": [
+        "extraction_v4.decide_extraction",
+        "extraction.validate_shape"
+      ],
+      "condition": "V4 抽取/复核须符合各自严格 schema，每次最多六条源码怀疑，复核索引恰好覆盖每条一次。",
+      "result": "结构错误或漏复核直接拒绝，不产生证据不足研究标签",
+      "reason_codes": [],
+      "positive_example": "索引 0 被复核两次而索引 1 漏掉，应拒绝。",
+      "negative_example": "两个 flow 各有唯一且完整的复核项。"
+    },
+    {
+      "id": "SRC06",
+      "group": "source_validation",
+      "priority": {
+        "source_validation": [
+          6
+        ]
+      },
+      "functions": [
+        "extraction_v4._locate",
+        "extraction_v4._scope_check",
+        "extraction_v4.decide_extraction",
+        "citation_repair.citation_issues",
+        "citation_repair.repair_request",
+        "citation_repair.choice_request",
+        "citation_repair.apply_choices",
+        "citation_repair.apply_repairs"
+      ],
+      "condition": "非 unspecified 权限声明以及政策适用性/共同规则/具体例外的引文必须定位到 paper 域，不能只引用代码注释。失败引文可进入一次有预算的候选修复，但最终标准仍是精确 _locate。",
+      "result": "政策引用不合域或修复后仍不能定位时不接纳该权限，policy 降为 uncertain",
+      "reason_codes": [
+        "declaration_source",
+        "scope_resolution_citation"
+      ],
+      "positive_example": "代码注释称允许读取任务，不足以替代论文中的知识授权。",
+      "negative_example": "具体实验臂的论文授权短引可被定位。"
+    },
+    {
+      "id": "SRC07",
+      "group": "source_validation",
+      "priority": {
+        "source_validation": [
+          7
+        ]
+      },
+      "functions": [
+        "extraction_v4._scope_check",
+        "extraction_v4.decide_extraction"
+      ],
+      "condition": "必须解决共同知识合同与具体规则的关系。common_contract 需要共同规则引文，knowledge/diagnostic/unknown 的 override 不能仍按未变的 common_contract 接纳，specific_rule 需要具体规则引文。",
+      "result": "unresolved 或冲突降为政策不足，明确知识授权/诊断范围由独立语义复核确认",
+      "reason_codes": [
+        "scope_resolution_unresolved",
+        "common_contract_conflicts_with_specific_scope",
+        "scope_resolution_citation"
+      ],
+      "positive_example": "只放宽投递通道的 stronger baseline 不自动豁免共同知识约束。",
+      "negative_example": "论文明确给出知识授权或 diagnostic 限定，按其具体范围复核。"
+    },
+    {
+      "id": "SRC08",
+      "group": "source_validation",
+      "priority": {
+        "source_validation": [
+          8
+        ]
+      },
+      "functions": [
+        "extraction_v4._locate",
+        "extraction_v4._path_check",
+        "citation_repair.citation_issues",
+        "citation_repair.repair_request",
+        "citation_repair.choice_request",
+        "citation_repair.apply_choices",
+        "citation_repair.apply_repairs"
+      ],
+      "condition": "code_path 每一步及 implementation/delivery 的引文须精确定位到 code 域，附文件路径、行号、文件 SHA、提交与 manifest 身份。候选修复只能替换失败引文，已知原文件的代码引文不得换文件，不改变源码链结构。",
+      "result": "最终仍无法精确定位的引文使路径验收失败，词汇相似候选本身不算证据",
+      "reason_codes": [
+        "source_path_citation",
+        "source_boundary_citation"
+      ],
+      "positive_example": "候选窗口词汇相似，但不能定位或不支持该绑定，不能接纳为证据。",
+      "negative_example": "提供的冻结代码行含对应绑定，可唯一精确定位且通过新的独立复核。"
+    },
+    {
+      "id": "SRC09",
+      "group": "source_validation",
+      "priority": {
+        "source_validation": [
+          9
+        ]
+      },
+      "functions": [
+        "extraction_v4._path_check"
+      ],
+      "condition": "code_path 长度为 2–16 步，每步输入/输出符号非空，相邻步骤的 output_symbol 与下一步 input_symbol 完全相等。",
+      "result": "断链、空符号或长度越界则不接纳 confirmed 代码交付",
+      "reason_codes": [
+        "source_path_requires_two_to_sixteen_steps",
+        "source_path_empty_symbol",
+        "source_path_disconnected"
+      ],
+      "positive_example": "构造输出 A，下一步却从无连接证据的 B 读取。",
+      "negative_example": "相邻符号与实际引用均支持连续链。"
+    },
+    {
+      "id": "SRC10",
+      "group": "source_validation",
+      "priority": {
+        "source_validation": [
+          10
+        ]
+      },
+      "functions": [
+        "extraction_v4._path_check"
+      ],
+      "condition": "路径至少包含 request 和 delivery，首次 request 不晚于最后一次 delivery，experiment_arm 不得为空或 unresolved/unknown 等占位值。",
+      "result": "缺少接收端、次序异常或未解析实验臂则路径不足",
+      "reason_codes": [
+        "source_path_requires_request_and_delivery",
+        "source_path_delivery_precedes_request",
+        "source_path_experiment_arm_missing"
+      ],
+      "positive_example": "只有数据字段与模板，却没有请求输入或被评测分支的投递绑定。",
+      "negative_example": "请求和后续分支投递都有代码引文并标明同一实验臂。"
+    },
+    {
+      "id": "SRC11",
+      "group": "source_validation",
+      "priority": {
+        "source_validation": [
+          11
+        ]
+      },
+      "functions": [
+        "extraction_v4._path_check"
+      ],
+      "condition": "静态源码路径的 delivery.evidence_kind 必须为 static_bound_path。",
+      "result": "runtime/saved_request 等标注不能由源码快照证明，应使路径验收失败",
+      "reason_codes": [
+        "source_snapshot_cannot_establish_runtime"
+      ],
+      "positive_example": "已发布代码存在该链，不等于证明作者历史请求实际这样运行。",
+      "negative_example": "结论只指提供的静态修订与绑定分支。"
+    },
+    {
+      "id": "SRC12",
+      "group": "source_validation",
+      "priority": {
+        "source_validation": [
+          12
+        ]
+      },
+      "functions": [
+        "extraction_v4.decide_extraction"
+      ],
+      "condition": "政策轴须同时通过 declaration_supported、scope_resolution_supported、范围验收及 policy_kind/status 一致性检查。",
+      "result": "政策失败时只清除该权限并降为 uncertain，不因此抹去独立成立的源码交付",
+      "reason_codes": [],
+      "positive_example": "共同知识约束是否适用有争议，仍保存已经通过源码链复核的部分查询交付事实。",
+      "negative_example": "引用真实但复核不支持其权限含义，不能确认 deny 适用。"
+    },
+    {
+      "id": "SRC13",
+      "group": "source_validation",
+      "priority": {
+        "source_validation": [
+          13
+        ]
+      },
+      "functions": [
+        "extraction_v4.decide_extraction"
+      ],
+      "condition": "交付轴须同时通过 implementation_supported、code_path_supported、路径验收及 delivery 枚举一致性检查，与政策轴独立。",
+      "result": "交付失败则降为 unresolved，present/absent 降为 possible，政策可保留",
+      "reason_codes": [],
+      "positive_example": "模型找到了禁令，但请求到评测分支链没有闭合，只能保留可能路径。",
+      "negative_example": "政策 disputed 但代码链与交付轴通过，交付事实仍可保留。"
+    },
+    {
+      "id": "SRC14",
+      "group": "source_validation",
+      "priority": {
+        "source_validation": [
+          14
+        ]
+      },
+      "functions": [
+        "extraction_v4.decide_extraction",
+        "extraction_v3.decide_extraction",
+        "scope_review.assess_claim"
+      ],
+      "condition": "反证轴必须与复核 basis 一致，通常还须政策轴通过，excluded_delivery 可独立保留。之后继续经过 V3 引文/交付门和 S08–S12 必要条件。",
+      "result": "不支持的反证改为 none，不因总体 supported 一票决定所有证据轴",
+      "reason_codes": [],
+      "positive_example": "政策语义未支持时，不保留依赖该授权的 explicit_permission 反证。",
+      "negative_example": "有独立交付排除证据可继续验收 excluded_delivery，而不是自动宣称全篇一致。"
+    },
+    {
+      "id": "SRC15",
+      "group": "source_validation",
+      "priority": {
+        "source_validation": [
+          15
+        ]
+      },
+      "functions": [
+        "source_bundle.load_repository",
+        "source_bundle.validate_repository",
+        "extraction_v4.combine_inputs",
+        "extraction_v3.decide_extraction",
+        "checker.summarize_paper"
+      ],
+      "condition": "合并 coverage.complete 需要 paper 与源码各自完整。源码完整仅指全部合格文件已供应，不能覆盖被排除的内容。存在 omitted 源文件时不得以有限片段认证负面不存在。",
+      "result": "有限证据仍可支持已闭合的正面发现，但不足覆盖不能触发 P02",
+      "reason_codes": [],
+      "positive_example": "部分源码包含一条确认禁止输入链，可以记录发现，不能据此排除其余分支。",
+      "negative_example": "合格文件完整仍只对列明的怀疑/分支作有限范围结果。"
+    }
+  ],
+  "value_options": {
+    "permission": [
+      "allow",
+      "deny"
+    ],
+    "observation": [
+      "present",
+      "absent",
+      "possible"
+    ],
+    "verdict": [
+      "inconsistent",
+      "consistent_within_scope",
+      "insufficient_evidence"
+    ],
+    "claim_result": [
+      "confirmed",
+      "refuted",
+      "unresolved"
+    ],
+    "source_group": [
+      "archived",
+      "paper_text",
+      "synthetic"
+    ],
+    "curated_case.schema_version": [
+      2,
+      3
+    ],
+    "query_form": [
+      "full_query",
+      "partial_query"
+    ],
+    "issue_type": [
+      "information_boundary",
+      "experimental_protocol",
+      "task_integrity",
+      "acquisition_gap",
+      "security_outcome"
+    ],
+    "information_level": [
+      "exact_query",
+      "partial_query",
+      "task_category",
+      "document_content",
+      "runtime_trace",
+      "user_identity",
+      "resource_metadata",
+      "other"
+    ],
+    "policy_kind": [
+      "attacker_knowledge_constraint",
+      "victim_security_goal",
+      "protocol_requirement",
+      "unspecified"
+    ],
+    "policy_application.status": [
+      "applicable",
+      "not_applicable",
+      "uncertain"
+    ],
+    "delivery.status": [
+      "confirmed",
+      "excluded",
+      "evaluator_only",
+      "unresolved"
+    ],
+    "delivery.evidence_kind": [
+      "paper_procedure",
+      "static_bound_path",
+      "saved_request",
+      "runtime",
+      "document_presence",
+      "possible_path",
+      "not_applicable"
+    ],
+    "delivery.task_relation": [
+      "same_evaluated_instance",
+      "training_instance",
+      "topic_only",
+      "different_instance",
+      "unknown"
+    ],
+    "refutation.basis": [
+      "none",
+      "explicit_permission",
+      "different_instance",
+      "excluded_delivery",
+      "different_issue_type"
+    ],
+    "validation_mode": [
+      "legacy_v2",
+      "scope_review_v3"
+    ],
+    "extraction_v3.applicability": [
+      "in_scope",
+      "out_of_scope",
+      "uncertain"
+    ],
+    "extraction_v3.permission": [
+      "allow",
+      "deny",
+      "unspecified"
+    ],
+    "extraction_v3.observation": [
+      "present",
+      "absent",
+      "possible",
+      "unspecified"
+    ],
+    "extraction_v3.query_form": [
+      "full_query",
+      "partial_query",
+      "unspecified"
+    ],
+    "extraction_v3.domain_verdict": [
+      "not_applicable"
+    ],
+    "extraction_v4.scope_resolution.basis": [
+      "common_contract",
+      "specific_rule",
+      "unresolved"
+    ],
+    "extraction_v4.schema_version": [
+      4
+    ],
+    "extraction_v4.scope_resolution.override_dimension": [
+      "none",
+      "knowledge",
+      "delivery",
+      "diagnostic",
+      "unknown"
+    ],
+    "extraction_v4.code_path.kind": [
+      "source",
+      "transform",
+      "request",
+      "artifact_write",
+      "artifact_read",
+      "delivery"
+    ],
+    "source.revision_kind": [
+      "git_commit",
+      "content_manifest"
+    ]
+  },
+  "validation_summary": {
+    "extraction_v3_gates": [
+      {
+        "id": "X01",
+        "group": "extraction_v3",
+        "priority": {
+          "extraction_v3": [
+            1
+          ]
+        },
+        "functions": [
+          "extraction_v3.decide_extraction"
+        ],
+        "condition": "抽取与复核同意域外、文档完整，但提议仍含 flows。",
+        "result": "insufficient_evidence",
+        "reason_codes": [
+          "out_of_scope_proposal_contains_claims"
+        ],
+        "positive_example": "域外声明同时提出一个信息流怀疑。",
+        "negative_example": "域外且 flows 为空，继续检查域外引用。"
+      },
+      {
+        "id": "X02",
+        "group": "extraction_v3",
+        "priority": {
+          "extraction_v3": [
+            2
+          ]
+        },
+        "functions": [
+          "extraction_v3.decide_extraction"
+        ],
+        "condition": "完整域外文档无 flows，但适用性引用无法精确定位。",
+        "result": "insufficient_evidence",
+        "reason_codes": [
+          "applicability_citation_unverified"
+        ],
+        "positive_example": "引用的主题短语不在指定片段。",
+        "negative_example": "唯一匹配的主题引用可以定位。"
+      },
+      {
+        "id": "X03",
+        "group": "extraction_v3",
+        "priority": {
+          "extraction_v3": [
+            3
+          ]
+        },
+        "functions": [
+          "extraction_v3.decide_extraction"
+        ],
+        "condition": "抽取与复核同意域外，文档完整、无 flows，适用性引用已定位。",
+        "result": "not_applicable，单独的域外结果",
+        "reason_codes": [
+          "reviewed_out_of_domain"
+        ],
+        "positive_example": "与 IPI 无关的论文经过完整文档和主题引用检查。",
+        "negative_example": "域外结果不是 consistent_within_scope，也不进入论文一致率分母。"
+      },
+      {
+        "id": "X04",
+        "group": "extraction_v3",
+        "priority": {
+          "extraction_v3": [
+            4
+          ]
+        },
+        "functions": [
+          "extraction_v3.decide_extraction"
+        ],
+        "condition": "适用性复核不支持、双方分类不同，或尚不能进入 in_scope 分支。",
+        "result": "insufficient_evidence",
+        "reason_codes": [
+          "applicability_uncertain_or_disputed"
+        ],
+        "positive_example": "抽取称 in_scope，复核称 uncertain。",
+        "negative_example": "双方同意 in_scope，继续逐项检查。"
+      },
+      {
+        "id": "X05",
+        "group": "extraction_v3",
+        "priority": {
+          "extraction_v3": [
+            5
+          ]
+        },
+        "functions": [
+          "extraction_v3.decide_extraction"
+        ],
+        "condition": "某 flow 复核不支持，或 policy_kind/status、delivery、refutation 任一轴与提议不一致。",
+        "result": "记录复核分歧，降为 uncertain/unresolved/none，不接纳该项权限或观察",
+        "reason_codes": [
+          "semantic_review_disagrees_with_proposed_assessment"
+        ],
+        "positive_example": "复核认为禁令适用性 uncertain，提议却标 applicable。",
+        "negative_example": "复核支持且四轴一致仍需引用检查。"
+      },
+      {
+        "id": "X06",
+        "group": "extraction_v3",
+        "priority": {
+          "extraction_v3": [
+            6
+          ]
+        },
+        "functions": [
+          "extraction_v3.decide_extraction",
+          "extraction_v3.locate"
+        ],
+        "condition": "政策范围、交付、反证或非 unspecified 权限/观察的引用无法通过 locate。",
+        "result": "对应引用保持空或记录不入库，并记录 citation_errors，随后由核心规则裁定",
+        "reason_codes": [],
+        "positive_example": "引文不存在、过长或在同一视图中多处匹配，不能成为肯定证据。",
+        "negative_example": "短引文在同 PDF 的指定文本视图唯一精确匹配。"
+      },
+      {
+        "id": "X07",
+        "group": "extraction_v3",
+        "priority": {
+          "extraction_v3": [
+            7
+          ]
+        },
+        "functions": [
+          "extraction_v3.decide_extraction"
+        ],
+        "condition": "implementation 与 declaration 的引用定位区间重叠。",
+        "result": "清除观察，delivery 降为 unresolved 并清空引用",
+        "reason_codes": [
+          "policy_sentence_cannot_establish_implementation"
+        ],
+        "positive_example": "用同一句禁止访问声明，同时证明实现没有访问。",
+        "negative_example": "独立的程序描述与政策引文不重叠。"
+      },
+      {
+        "id": "X08",
+        "group": "extraction_v3",
+        "priority": {
+          "extraction_v3": [
+            8
+          ]
+        },
+        "functions": [
+          "extraction_v3.decide_extraction"
+        ],
+        "condition": "非 unresolved 的 delivery 与 declaration 的引用定位区间重叠。",
+        "result": "delivery 降为 unresolved 并清空引用",
+        "reason_codes": [
+          "policy_sentence_cannot_establish_delivery_boundary"
+        ],
+        "positive_example": "用禁令原句本身证明信息确实未到构造输入。",
+        "negative_example": "有另一处独立输入边界描述。"
+      },
+      {
+        "id": "X09",
+        "group": "extraction_v3",
+        "priority": {
+          "extraction_v3": [
+            9
+          ]
+        },
+        "functions": [
+          "extraction_v3.decide_extraction"
+        ],
+        "condition": "delivery 为 unresolved，而反证依赖 explicit_permission/different_instance/excluded_delivery。",
+        "result": "清除这三类依赖交付的反证 basis，随后执行核心判定",
+        "reason_codes": [],
+        "positive_example": "交付引用失败后，不能保留依赖该交付的明确授权反证。",
+        "negative_example": "different_issue_type 不在此清除范围。"
+      },
+      {
+        "id": "X10",
+        "group": "extraction_v3",
+        "priority": {
+          "extraction_v3": [
+            10
+          ]
+        },
+        "functions": [
+          "extraction_v3.decide_extraction"
+        ],
+        "condition": "仅当 flows 非空、复核完成列明范围、无具体未决问题、文档覆盖完整时设置 coverage_complete。",
+        "result": "生成有限范围论文输入，交给 P01–P03，不新增一致标签",
+        "reason_codes": [],
+        "positive_example": "仍有未决问题时 coverage_complete=false，即使部分怀疑已排除。",
+        "negative_example": "已有确认发现仍由 P01 保留，不被覆盖不足抹去。"
+      }
+    ],
+    "structure_checks": [
+      {
+        "id": "V01",
+        "functions": [
+          "checker.audit_case",
+          "checker.required_text"
+        ],
+        "check": "案例 id/description/source_group、四项 scope 为非空文本，source_group 属于允许集合。",
+        "failure": "拒绝输入，不生成论文结论。"
+      },
+      {
+        "id": "V02",
+        "functions": [
+          "checker.match_edge",
+          "checker.matching_records"
+        ],
+        "check": "每条边精确包含五个必填字段及可选 query_form，字段为非空文本，权限/观察取值有效且引用非空。",
+        "failure": "拒绝无效记录，非目标边的有效记录不参与该目标判定。"
+      },
+      {
+        "id": "V03",
+        "functions": [
+          "scope_review.assess_claim"
+        ],
+        "check": "schema_version 必须为整数 2/3，基础 verdict 有效且 reason 非空。",
+        "failure": "ValueError，不能把结构损坏记为证据不足。"
+      },
+      {
+        "id": "V04",
+        "functions": [
+          "scope_review._validate_assessment"
+        ],
+        "check": "V3 claim 非空，issue_type 有效，assessment 及三个子对象字段精确齐全，所有枚举有效，reason 非空，reference 为字符串。",
+        "failure": "ValueError，引用可为空但肯定判定须再过范围门。"
+      },
+      {
+        "id": "V05",
+        "functions": [
+          "scope_review.assess_claim"
+        ],
+        "check": "V3 permissions/observations 为 set/frozenset，内容只能取允许值。",
+        "failure": "ValueError，不执行范围裁定。"
+      },
+      {
+        "id": "V06",
+        "functions": [
+          "checker.run_pilot"
+        ],
+        "check": "cases 为非空数组，案例 ID 唯一。",
+        "failure": "拒绝整批输入。"
+      },
+      {
+        "id": "V07",
+        "functions": [
+          "checker.summarize_paper"
+        ],
+        "check": "论文身份与范围文本非空，coverage_complete 为布尔值，required_checks 为不重复的非空字符串 ID 列表，不允许 synthetic 案例决定真实论文。",
+        "failure": "拒绝非法论文输入。列表本身允许为空，但不能触发 P02。"
+      },
+      {
+        "id": "V08",
+        "functions": [
+          "checker.run_paper_pilot"
+        ],
+        "check": "papers 为非空数组，一个 paper ID 只选一个版本/范围，一个检查不分配给多篇论文。",
+        "failure": "拒绝有歧义的批次。"
+      },
+      {
+        "id": "V09",
+        "functions": [
+          "checker.run_pilot",
+          "checker.run_paper_pilot"
+        ],
+        "check": "可选 gold 为对象、ID 集合完全一致、标签有效，只在裁定后比对。",
+        "failure": "拒绝无效 gold。有效 gold 不参与生成 verdict。"
+      },
+      {
+        "id": "V10",
+        "functions": [
+          "extraction.validate_shape",
+          "extraction_v3.decide_extraction"
+        ],
+        "check": "自动抽取与复核输出严格符合各自 schema，每次最多六条怀疑，复核索引恰好覆盖每条一次。",
+        "failure": "ValueError，不把不合格式的模型输出当研究结论。"
+      },
+      {
+        "id": "V11",
+        "functions": [
+          "extraction_v3.locate",
+          "extraction_v3.normalized_with_offsets",
+          "extraction_v3.overlapping_locators"
+        ],
+        "check": "引文非空且不超过 300 字符，指定片段存在，仅进行 Unicode NFKD/空白规范化后的唯一精确匹配，优先同页 reading_order_text 再 primary。同页跨文本视图无法证明独立，按重叠处理。",
+        "failure": "引用失败进入 X02/X06。同一文档 SHA 与具体文本视图 SHA 记入定位结果，不能靠编辑距离或语义近似补齐。"
+      }
+    ],
+    "boundary_evidence_kinds": [
+      "paper_procedure",
+      "static_bound_path",
+      "saved_request",
+      "runtime"
+    ],
+    "matching_contract": "role/phase/source/representation/operation 及可选 query_form 全部精确相同才连接权限与观察，不用模糊匹配。",
+    "legacy_adapter": "schema_version 缺省或为 2 时保留基础 verdict/reason，只映射 claim_result，validation_mode=legacy_v2，不声称通过 V3 范围审查。",
+    "model_workflow": [
+      "从提供的文档形成至多六个明确且有界的怀疑和必要的允许对照。",
+      "抽取角色、阶段、实验臂、信息对象、权限、交付与反证，并提供原文短引。",
+      "V4 先定位 citation issue。在预算允许时，最多进行一次有界的 citation-only 候选修复，只能替换失败引文。",
+      "对修复后的提议重新进行独立模型复核，分别核对政策、交付、范围解释和源码链。V3 仍执行其独立复核流程。",
+      "由确定性代码按原标准校验结构、精确定位引文，处理自证与复核分歧。词汇相似候选不参与最终证据匹配。",
+      "将可接纳记录转成 V3 输入，执行同一 B/S/P 核心规则。"
+    ],
+    "citation_recovery": {
+      "functions": [
+        "citation_repair.citation_issues",
+        "citation_repair.repair_request",
+        "citation_repair.choice_request",
+        "citation_repair.apply_choices",
+        "citation_repair.apply_repairs"
+      ],
+      "max_repair_calls": 1,
+      "max_issues_per_request": 24,
+      "budget_required": true,
+      "mutable_fields": [
+        "failed_citation_pointers_only"
+      ],
+      "immutable_fields": [
+        "claim",
+        "permission",
+        "policy_status",
+        "information_level",
+        "experiment_arm",
+        "code_path_structure"
+      ],
+      "final_acceptance": "extraction_v4._locate exact grounding plus fresh independent review and unchanged B/S/P/SRC requirements",
+      "candidate_status": "lexical retrieval only, never evidence",
+      "counts_as_new_rule": false
+    },
+    "v4_status": "已按 SRC01–SRC15 收录当前 extraction_v4/source_bundle 的证据验收职责。源码读取器的路径/资源限制按职责归并，不声称逐个 if、每个文件类型或全部运行系统逻辑各算一条规则。"
+  }
+}

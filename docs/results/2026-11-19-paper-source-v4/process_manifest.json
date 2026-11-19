@@ -1,0 +1,354 @@
+{
+  "runtime_manifest": {
+    "runtime_sha256": {
+      "scan.py": "7686f11794867b0f5de530a007a88ae7da52f07d488d3006df8a245be96a4d06",
+      "extraction.py": "31142bffbf3a8e9974d063a8ab589609b7e556bfd8d666e96605d57c74e164d1",
+      "extraction_v3.py": "c50150a71998712e10f8f5fd130d0ad9dc349bed9bddb62a65401345320aaed6",
+      "extraction_v4.py": "65daee212b6e61a897e3cbdce2e6b4ef38f5a9f83b38e3deecd92f0806b9c3ad",
+      "citation_repair.py": "bc9f35edd05eac7cb6fa4d00c66f48556c58937f5640e152ef46bb490c2c911b",
+      "checker.py": "859d59dda2b4f465e6efd248b410ec4bdd68896e2adeb03eac32fc2c210cfb0c",
+      "scope_review.py": "1d27e004537617c18590e1afa28eec7e3d6d2105cf3b10c975646c7e63e882c9",
+      "documents.py": "6552d6589fe52d517bc6a9344c3b7ec623ff7a2bd18e92c039a78466f5324977",
+      "providers.py": "4ffc276927083e72671cbe6c5cb75068934cbe94265ec97c43b0bef5273d1dfa",
+      "codex_provider.py": "b70a294c7d66b39d3b13b7a5c3e09a6a980d31b86eebeca94dcdba23f71c34dd",
+      "reports.py": "8cd23db543ddb802ddfc0ce9851b97496f5c08ee1e856411de84e3839f3b6e9c",
+      "source_bundle.py": "1261efcc448a59fae08c7f1b45519ca7dd6c6c16c432ef7c5f8b07cefbb7164d"
+    },
+    "paper": "https://arxiv.org/pdf/2605.17324v1",
+    "repository": "https://github.com/scaleapi/aspi",
+    "revision": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+    "requested_model": "gpt-6.1-sol",
+    "max_calls": 3,
+    "provider": "codex_chatgpt_login",
+    "steps": "fresh extraction, at most one automatic candidate citation selection, fresh independent review",
+    "reused_automatic_proposal": false,
+    "manual_cases_available_in_runtime": false,
+    "gold_labels_available_in_runtime": false,
+    "repository_execution": "none"
+  },
+  "development_attempts": [
+    {
+      "label": "Initial source-aware extraction and review",
+      "local_run": "outputs/2026-11-19-aspi-paper-source-auto-v4",
+      "status": "completed",
+      "verdict": "insufficient_evidence",
+      "reason": "unresolved_checks",
+      "calls": 2,
+      "input_binding": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+      "automatic_proposal_reused": false,
+      "artifacts": {
+        "request.json": "e8f479008981f6424a33706afd942eea5346ee53379922eb8bb9122e5518716e",
+        "report.json": "2939db5b76c0005724733745dc129ef0ed92919d38e8fabd19de0dbec79ab075",
+        "result.json": "cf23d1d83a04ddcdd0749989c6ea43bb976fba619be5e5c6a54edfc9eb960a37",
+        "extraction.json": "48c4c4bb8dec484aca7fde43992449f0577b237d8c0ad891797dd6c9e5516b1b",
+        "review.json": "194982d500505a79e20375aa0fb9623607c32a3060f7b6a5bd64a86575726f25"
+      },
+      "inference": {
+        "provider": "codex",
+        "authentication": "chatgpt",
+        "model": "gpt-6.1-sol",
+        "max_calls": 2,
+        "calls": [
+          {
+            "provider": "codex",
+            "authentication": "chatgpt",
+            "requested_model": "gpt-6.1-sol",
+            "actual_model": null,
+            "actual_models": [],
+            "usage": {
+              "input_tokens": 128653,
+              "cached_input_tokens": 0,
+              "output_tokens": 2603,
+              "reasoning_output_tokens": 84
+            },
+            "request_sha256": "b75442029574d171f095ca4d992305942c9cc1279b24671dedd746441bb5c0eb",
+            "status": "completed",
+            "diagnostics": [],
+            "execution": {
+              "returncode": 0,
+              "turn_completed": true,
+              "fatal_error_count": 0,
+              "error_notification_count": 0
+            }
+          },
+          {
+            "provider": "codex",
+            "authentication": "chatgpt",
+            "requested_model": "gpt-6.1-sol",
+            "actual_model": null,
+            "actual_models": [],
+            "usage": {
+              "input_tokens": 129927,
+              "cached_input_tokens": 0,
+              "output_tokens": 490,
+              "reasoning_output_tokens": 23
+            },
+            "request_sha256": "c54805ba59869baffb889a09c5b1b73b94ca185454842c06fbbf9a27ed8290e1",
+            "status": "completed",
+            "diagnostics": [],
+            "execution": {
+              "returncode": 0,
+              "turn_completed": true,
+              "fatal_error_count": 0,
+              "error_notification_count": 0
+            }
+          }
+        ],
+        "usage": {
+          "input_tokens": 258580,
+          "cached_input_tokens": 0,
+          "output_tokens": 3093,
+          "reasoning_output_tokens": 107
+        },
+        "usage_reporting_complete": true,
+        "preflight_failures": [],
+        "account_usage_note": "Uses the existing ChatGPT/Codex account's access, limits and possible credits; not a guarantee of free usage. The wrapper does not retry or fall back. max_calls counts CLI invocations, not CLI-internal transport attempts. Usage totals sum only reported events; missing usage is not proof of zero use. Actual model remains null when the CLI events do not expose it."
+      }
+    },
+    {
+      "label": "Free-quote citation recovery rejected",
+      "local_run": "outputs/2026-11-19-aspi-paper-source-repaired-v4",
+      "status": "failed",
+      "verdict": "technical_failure",
+      "reason": "citation is ambiguous after whitespace/Unicode normalization",
+      "calls": 1,
+      "input_binding": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+      "automatic_proposal_reused": true,
+      "artifacts": {
+        "request.json": "e8f479008981f6424a33706afd942eea5346ee53379922eb8bb9122e5518716e",
+        "citation_repair.response.json": "eddbe830455d16843b7eeb1123b634175cfb667b5dcf1b8e2dd66966201852f5",
+        "report.json": "fce3901d8b1140af2170eae210ee8270f64ce7caddd9c3cb8650963aca69c951",
+        "result.json": "aa3085fc15a43588bdc0ade1edc66d45998d74c0c0c147e0f5a4c52a5892ea65",
+        "citation_repair.request.json": "2a058f33efcc28d0af8738fac62fb269531f609461e2fa4546badf141e0555e4",
+        "extraction.json": "48c4c4bb8dec484aca7fde43992449f0577b237d8c0ad891797dd6c9e5516b1b"
+      },
+      "inference": {
+        "provider": "codex",
+        "authentication": "chatgpt",
+        "model": "gpt-6.1-sol",
+        "max_calls": 2,
+        "calls": [
+          {
+            "provider": "codex",
+            "authentication": "chatgpt",
+            "requested_model": "gpt-6.1-sol",
+            "actual_model": null,
+            "actual_models": [],
+            "usage": {
+              "input_tokens": 16161,
+              "cached_input_tokens": 0,
+              "output_tokens": 375,
+              "reasoning_output_tokens": 85
+            },
+            "request_sha256": "e756156af1b6b27fab3b3e4ba4ebabd653b21ed790411dab162b8e6e444b6948",
+            "status": "completed",
+            "diagnostics": [],
+            "execution": {
+              "returncode": 0,
+              "turn_completed": true,
+              "fatal_error_count": 0,
+              "error_notification_count": 0
+            }
+          }
+        ],
+        "usage": {
+          "input_tokens": 16161,
+          "cached_input_tokens": 0,
+          "output_tokens": 375,
+          "reasoning_output_tokens": 85
+        },
+        "usage_reporting_complete": true,
+        "preflight_failures": [],
+        "account_usage_note": "Uses the existing ChatGPT/Codex account's access, limits and possible credits; not a guarantee of free usage. The wrapper does not retry or fall back. max_calls counts CLI invocations, not CLI-internal transport attempts. Usage totals sum only reported events; missing usage is not proof of zero use. Actual model remains null when the CLI events do not expose it."
+      }
+    },
+    {
+      "label": "Candidate recovery before anchor-retention fix",
+      "local_run": "outputs/2026-11-19-aspi-paper-source-auto-final-v4",
+      "status": "completed",
+      "verdict": "insufficient_evidence",
+      "reason": "unresolved_checks",
+      "calls": 2,
+      "input_binding": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+      "automatic_proposal_reused": true,
+      "artifacts": {
+        "request.json": "e8f479008981f6424a33706afd942eea5346ee53379922eb8bb9122e5518716e",
+        "citation_repair.response.json": "b7e1bf0f4ec82d8c392e519073df554d30a5b7bc1566081dc76210e772d220e5",
+        "report.json": "c679665ea70497fafa63f8abdde1409a341eb9f48451983dfe740ffecc1e0e95",
+        "result.json": "46390e93a61e5650d0afe1d873b4e7615383f4bf631209f194bb6bdbdfed255e",
+        "extraction.repaired.json": "5675db4ccd7d8b7842870bb48a2528af516f125f241f163091581525c486a490",
+        "citation_repair.request.json": "0e01286521ecef722aed7542e7b3bc4567ff10ae8ff8b7e3903a2f827725d318",
+        "extraction.json": "48c4c4bb8dec484aca7fde43992449f0577b237d8c0ad891797dd6c9e5516b1b",
+        "review.json": "64b7bf155020d01c347acb8e5753a5212d4e2428d953ac0d1982cf0ad4ffb450"
+      },
+      "inference": {
+        "provider": "codex",
+        "authentication": "chatgpt",
+        "model": "gpt-6.1-sol",
+        "max_calls": 2,
+        "calls": [
+          {
+            "provider": "codex",
+            "authentication": "chatgpt",
+            "requested_model": "gpt-6.1-sol",
+            "actual_model": null,
+            "actual_models": [],
+            "usage": {
+              "input_tokens": 20079,
+              "cached_input_tokens": 0,
+              "output_tokens": 261,
+              "reasoning_output_tokens": 126
+            },
+            "request_sha256": "2266e88098da77bac18ef415222561acaf770970215d097b604c1cf320b3a2a5",
+            "status": "completed",
+            "diagnostics": [],
+            "execution": {
+              "returncode": 0,
+              "turn_completed": true,
+              "fatal_error_count": 0,
+              "error_notification_count": 0
+            }
+          },
+          {
+            "provider": "codex",
+            "authentication": "chatgpt",
+            "requested_model": "gpt-6.1-sol",
+            "actual_model": null,
+            "actual_models": [],
+            "usage": {
+              "input_tokens": 130013,
+              "cached_input_tokens": 0,
+              "output_tokens": 485,
+              "reasoning_output_tokens": 27
+            },
+            "request_sha256": "e2e6af45b05030bbe408e017f307ad0ed218752ca88a45a28de48ea0e012d51e",
+            "status": "completed",
+            "diagnostics": [],
+            "execution": {
+              "returncode": 0,
+              "turn_completed": true,
+              "fatal_error_count": 0,
+              "error_notification_count": 0
+            }
+          }
+        ],
+        "usage": {
+          "input_tokens": 150092,
+          "cached_input_tokens": 0,
+          "output_tokens": 746,
+          "reasoning_output_tokens": 153
+        },
+        "usage_reporting_complete": true,
+        "preflight_failures": [],
+        "account_usage_note": "Uses the existing ChatGPT/Codex account's access, limits and possible credits; not a guarantee of free usage. The wrapper does not retry or fall back. max_calls counts CLI invocations, not CLI-internal transport attempts. Usage totals sum only reported events; missing usage is not proof of zero use. Actual model remains null when the CLI events do not expose it."
+      }
+    },
+    {
+      "label": "Final fresh end-to-end run",
+      "local_run": "outputs/2026-11-19-aspi-paper-source-e2e-v4",
+      "status": "completed",
+      "verdict": "inconsistent",
+      "reason": "confirmed_inconsistency_in_scope",
+      "calls": 3,
+      "input_binding": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+      "automatic_proposal_reused": false,
+      "artifacts": {
+        "request.json": "e8f479008981f6424a33706afd942eea5346ee53379922eb8bb9122e5518716e",
+        "citation_repair.response.json": "fb5dbd06de0db9518b5da6a6f54684eca7e9a4490a0d63221efe2711b3322668",
+        "report.json": "7f6d9c64467488b0352d2c0017d7660ad434808b00a1233d44c86566a9ff71c3",
+        "result.json": "09f9dec7a39a4f637a65a2f7812c9d124dfd224e78ab14505839083933f6837d",
+        "extraction.repaired.json": "4c7306569f7fc4c73ce3f0da0bb4107a21daf48e44ec1685a3d98e893efa7936",
+        "citation_repair.request.json": "959059a6ef7dd7e093abfe5224e986783091e5390aede1a2c87c9ba2ef0b8e79",
+        "extraction.json": "8f34ec499da1b235d4b0e2ca849b2657d96bec0cf4a72dba8ef5d17e2e845a89",
+        "review.json": "3324104009a951b4b5391823f300c46fd69519645bb7709b3868cc2e62d1b7d2"
+      },
+      "inference": {
+        "provider": "codex",
+        "authentication": "chatgpt",
+        "model": "gpt-6.1-sol",
+        "max_calls": 3,
+        "calls": [
+          {
+            "provider": "codex",
+            "authentication": "chatgpt",
+            "requested_model": "gpt-6.1-sol",
+            "actual_model": null,
+            "actual_models": [],
+            "usage": {
+              "input_tokens": 128653,
+              "cached_input_tokens": 0,
+              "output_tokens": 2885,
+              "reasoning_output_tokens": 188
+            },
+            "request_sha256": "b75442029574d171f095ca4d992305942c9cc1279b24671dedd746441bb5c0eb",
+            "status": "completed",
+            "diagnostics": [],
+            "execution": {
+              "returncode": 0,
+              "turn_completed": true,
+              "fatal_error_count": 0,
+              "error_notification_count": 0
+            }
+          },
+          {
+            "provider": "codex",
+            "authentication": "chatgpt",
+            "requested_model": "gpt-6.1-sol",
+            "actual_model": null,
+            "actual_models": [],
+            "usage": {
+              "input_tokens": 16086,
+              "cached_input_tokens": 0,
+              "output_tokens": 100,
+              "reasoning_output_tokens": 0
+            },
+            "request_sha256": "d81237fd76adbe4d3509702a9c4b379589bf636133dca73df7bf9919de5be8a3",
+            "status": "completed",
+            "diagnostics": [],
+            "execution": {
+              "returncode": 0,
+              "turn_completed": true,
+              "fatal_error_count": 0,
+              "error_notification_count": 0
+            }
+          },
+          {
+            "provider": "codex",
+            "authentication": "chatgpt",
+            "requested_model": "gpt-6.1-sol",
+            "actual_model": null,
+            "actual_models": [],
+            "usage": {
+              "input_tokens": 130143,
+              "cached_input_tokens": 0,
+              "output_tokens": 412,
+              "reasoning_output_tokens": 25
+            },
+            "request_sha256": "dc1348ac42c6599caf7d285224b564c3052fd7de66d1d988b1effcf53069f1e5",
+            "status": "completed",
+            "diagnostics": [],
+            "execution": {
+              "returncode": 0,
+              "turn_completed": true,
+              "fatal_error_count": 0,
+              "error_notification_count": 0
+            }
+          }
+        ],
+        "usage": {
+          "input_tokens": 274882,
+          "cached_input_tokens": 0,
+          "output_tokens": 3397,
+          "reasoning_output_tokens": 213
+        },
+        "usage_reporting_complete": true,
+        "preflight_failures": [],
+        "account_usage_note": "Uses the existing ChatGPT/Codex account's access, limits and possible credits; not a guarantee of free usage. The wrapper does not retry or fall back. max_calls counts CLI invocations, not CLI-internal transport attempts. Usage totals sum only reported events; missing usage is not proof of zero use. Actual model remains null when the CLI events do not expose it."
+      }
+    }
+  ],
+  "final_fresh_run": "outputs/2026-11-19-aspi-paper-source-e2e-v4",
+  "manual_cases_read": false,
+  "gold_labels_read": false,
+  "repository_code_executed": false
+}

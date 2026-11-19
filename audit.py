@@ -108,6 +108,9 @@ def render_table(report):
 def make_parser():
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
+    rules = subparsers.add_parser("rules", help="Show the rule inventory and counting method without model calls")
+    rules.add_argument("--json", action="store_true", help="Export the complete machine-readable rule catalog")
+    rules.add_argument("--markdown", action="store_true", help="Print the complete Chinese rule manual")
     listing = subparsers.add_parser("list", help="List the bundled paper IDs")
     listing.add_argument("--json", action="store_true", help="Print the paper catalog as JSON")
     listing.add_argument("--legacy", action="store_true", help="Use the legacy V2 paper catalog")
@@ -132,6 +135,21 @@ def main(argv=None):
     parser = make_parser()
     args = parser.parse_args(argv)
     try:
+        if args.command == "rules":
+            if args.json and args.markdown:
+                raise ValueError("choose --json or --markdown")
+            from rule_catalog import catalog, markdown
+            data = catalog()
+            if args.json:
+                print(json.dumps(data, ensure_ascii=False, indent=2))
+            elif args.markdown:
+                print(markdown(), end="")
+            else:
+                print(json.dumps(data["counts"], ensure_ascii=False, indent=2))
+                print("规则详情：python3 -B audit.py rules --markdown")
+                for rule in data["rules"]:
+                    print(f"{rule['id']}\t{rule['group']}\t{rule['condition']}\t{rule['result']}")
+            return 0
         if args.command == "list":
             catalog = "paper_pilot.json" if args.legacy else REVIEWED_PAPERS_FILE
             papers = read_json(ROOT / catalog)

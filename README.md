@@ -13,6 +13,12 @@ access and manually normalized implementation evidence. One final row per paper.
 `scan.py` 默认接现有 Codex CLI 的 ChatGPT 登录，使用该账号的 Codex 额度；不要求另配 Claude API。
 模型判断尚需人工复核，文档入口目前只审提供的论文文本，不会自动运行攻击、证明历史实验输入，或完整审计任意源码仓库。
 
+新增 **论文＋源码自动入口**：`scan.py --repo ... --repo-revision ...` 实际读取固定源码快照，再自动抽取与独立复核跨文件信息流。输入不含人工审定案例或 gold；不执行仓库代码。完整命令和范围见 [论文与源码自动审计](docs/PAPER_SOURCE_AUDIT_ZH.md)。
+
+ASPI 的最终原始论文＋源码新鲜自动运行已输出限定 `inconsistent`，3 次调用，12 步代码链与全部引文通过验收。此前失败尝试也保留，详见 [实际自动结果与过程](docs/PAPER_SOURCE_RESULTS_ZH.md)。这是一篇已知开发案例的验证，不是总体检测准确率。
+
+判定规则的定义、数量、优先序、状态取值及例子见 [规则说明书](docs/RULES_ZH.md)。可运行 `python3 -B audit.py rules --json` 导出；核心业务规则 30 条，源码验收要求 15 条，抽取门与结构校验单列。
+
 ## 输入 PDF 或论文网址
 
 需要已安装且以 ChatGPT 登录的 Codex CLI。PDF 提取需要 Poppler 的 `pdftotext`，或可选的 `pypdf` 包。

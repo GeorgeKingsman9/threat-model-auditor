@@ -1,0 +1,1480 @@
+{
+  "run_type": "fresh_paper_source_v4_one_paper",
+  "created_at": "2026-11-19T11:20:55.753556+00:00",
+  "summary": {
+    "paper_count": 1,
+    "statuses": {
+      "completed": 1
+    },
+    "verdicts": {
+      "inconsistent": 1
+    },
+    "final_fresh_model_calls": 3,
+    "development_model_calls": 8,
+    "accuracy_estimated": false
+  },
+  "papers": [
+    {
+      "id": "aspi",
+      "title": "Task-aware offline payload construction for clarif_user_HR",
+      "source": "https://arxiv.org/pdf/2605.17324v1",
+      "status": "completed",
+      "has_confirmed_inconsistency": true,
+      "stages": [
+        {
+          "stage": "ingestion",
+          "status": "completed",
+          "segments": 34,
+          "characters": 149931,
+          "coverage": {
+            "complete": true,
+            "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+          },
+          "source_links": [
+            "https://github.com/scaleapi/aspi",
+            "https://arxiv.org/abs/2009.11352",
+            "https://arxiv.org/",
+            "https://doi.org/10.1145/3733799.3762982",
+            "https://openreview.net/forum?id=",
+            "https://proceedings",
+            "https://openreview.net/",
+            "https://arxiv",
+            "https://www.usenix.org/conference/",
+            "https://arxiv.org/abs/2603.15714",
+            "https://arxiv.org/abs/2603.26233",
+            "https://aclanthology.org/2020.emnlp-main.466/",
+            "https://huggingface.co/",
+            "https://doi.org/10.1145/3605764.3623985",
+            "https://arxiv.org/abs/2602.10525",
+            "https://openreview.net/forum",
+            "https://arxiv.org/abs/2507.22034",
+            "https://arxiv.org/abs/2603.10749",
+            "https://arxiv.org/abs/2511",
+            "https://doi.org/10.1145/3690624.3709179",
+            "https://openreview.net/forum?id=X2yzXtH4wp",
+            "https://aclanthology.org/2024",
+            "https://arxiv.org/abs/2508.09124",
+            "https://arxiv.org/abs/2407.19056",
+            "https://simonwillison.net/",
+            "https://arxiv.org/abs/2403.04960",
+            "https://arxiv.org/abs/2603.01357",
+            "https://openreview.net/forum?id=oKn9c6ytLx",
+            "https://deepmind.google/models/gemini/pro/",
+            "https://www.litellm.ai"
+          ],
+          "sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893"
+        },
+        {
+          "stage": "repository_ingestion",
+          "status": "completed",
+          "revision": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+          "manifest_sha256": "3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011",
+          "source_segments": 29,
+          "coverage": {
+            "complete": false,
+            "inventory_complete": true,
+            "scope": "eligible UTF-8 source files only; excluded documents, datasets, tests, labels, credentials and dependencies are not audited",
+            "reason": "Source files omitted; this snapshot can support bounded positive findings but not whole-repository absence claims",
+            "eligible_files": 32,
+            "included_files": 29,
+            "omitted_files": 3,
+            "excluded_entries": 6,
+            "characters": 311831,
+            "max_characters": 320000
+          }
+        },
+        {
+          "stage": "extraction",
+          "status": "completed",
+          "applicability": "in_scope",
+          "flow_count": 1,
+          "execution": "fresh_model_call"
+        },
+        {
+          "stage": "citation_repair",
+          "status": "completed",
+          "issues_before": 2,
+          "accepted_replacements": 2,
+          "remaining_issues": 0,
+          "classification_fields_modified": false,
+          "accepted": [
+            {
+              "target": "flows.0.policy_application.citation",
+              "before": {
+                "segment_id": "paper:p5",
+                "quote_sha256": "30225a0b46b00e5b45921d9251c89f5856ed3386c703c5a3063b1fda2bfa8b5a",
+                "quote_characters": 106
+              },
+              "after": {
+                "segment_id": "paper:p3",
+                "quote_sha256": "b3c591301d0c24a37652ec16d9ef218425e731812cbf0d6b517266b60173f76c",
+                "quote_characters": 52
+              },
+              "reason": "Explicitly states that the attacker has no access to the specific user task, supporting the cited knowledge restriction."
+            },
+            {
+              "target": "flows.0.code_path.0.citation",
+              "before": {
+                "segment_id": "repo:src/aspi/dataset/pipeline.py:L1-L809",
+                "quote_sha256": "ada89fb321128b0f65b55c0baae74ec77539bba5dd64622a60ed2d398e635751",
+                "quote_characters": 108
+              },
+              "after": {
+                "segment_id": "repo:src/aspi/dataset/pipeline.py:L1-L809",
+                "quote_sha256": "aff75c4be4c77143e0438bc09736ff9a1873f98b88df592e46d50f170aef16a9",
+                "quote_characters": 260
+              },
+              "reason": "Shows call_stage1 receiving the task object's prompt and ground-truth output, along with serialized ground-truth tool calls."
+            }
+          ]
+        },
+        {
+          "stage": "semantic_review",
+          "status": "completed",
+          "applicability": "in_scope"
+        },
+        {
+          "stage": "citation_validation_and_decision",
+          "status": "completed",
+          "verdict": "inconsistent",
+          "reason": "confirmed_inconsistency_in_scope"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "uploaded_paper_claim_1",
+          "source_group": "archived",
+          "description": "Stage 1 is a distinct benchmark-design role with access to the original task and ground truth. The finding arises when its task-derived ambiguity fields cross into Stage 2 malicious payload authoring. The connected source path then stores that output and consumes it for the same task group's HR evaluation. This establishes construction inconsistency under the common knowledge contract, without establishing historical runs or an effect on ASR.",
+          "scope": {
+            "paper_version": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+            "experiment_arm": "clarif_user_HR, pre-generated dataset variant, after the ask_user gate",
+            "artifact_revision": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+            "configuration": "Supplied paper and immutable source snapshot; no repository code executed"
+          },
+          "target": {
+            "role": "Offline adversarial clarification-response constructor",
+            "phase": "Dataset Stage 2, followed by clarification evaluation",
+            "source": "The same task's Stage 1 ambiguity record",
+            "representation": "base_prompt, missing_slot, expected clarification question, and benign clarification answer",
+            "operation": "Format these task-derived fields with the attacker goal into the Stage 2 model request; store the generated response and deliver the HR variant as a user message.",
+            "query_form": "partial_query"
+          },
+          "verdict": "inconsistent",
+          "reason": "scoped_forbidden_delivery_confirmed",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "Offline adversarial clarification-response constructor",
+                "phase": "Dataset Stage 2, followed by clarification evaluation",
+                "source": "The same task's Stage 1 ambiguity record",
+                "representation": "base_prompt, missing_slot, expected clarification question, and benign clarification answer",
+                "operation": "Format these task-derived fields with the attacker goal into the Stage 2 model request; store the generated response and deliver the HR variant as a user message.",
+                "query_form": "partial_query"
+              },
+              "permission": "deny",
+              "reference": "{\"document_sha256\": \"a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b\", \"end\": 3489, \"match\": \"normalized_exact\", \"segment_id\": \"paper:p3\", \"start\": 3437, \"text_view\": \"reading_order\", \"text_view_sha256\": \"990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275\"}"
+            }
+          ],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "Offline adversarial clarification-response constructor",
+                "phase": "Dataset Stage 2, followed by clarification evaluation",
+                "source": "The same task's Stage 1 ambiguity record",
+                "representation": "base_prompt, missing_slot, expected clarification question, and benign clarification answer",
+                "operation": "Format these task-derived fields with the attacker goal into the Stage 2 model request; store the generated response and deliver the HR variant as a user message.",
+                "query_form": "partial_query"
+              },
+              "status": "present",
+              "reference": "{\"document_sha256\": \"a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b\", \"end\": 4533, \"match\": \"normalized_exact\", \"segment_id\": \"repo:src/aspi/dataset/pipeline.py:L1-L809\", \"start\": 4456, \"text_view\": \"primary\", \"text_view_sha256\": \"3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd\"}"
+            }
+          ],
+          "other_observation_count": 0,
+          "validation_mode": "scope_review_v3",
+          "claim": "Task-derived partial query information reaches the offline malicious constructor whose stored HR response is delivered in clarif_user_HR.",
+          "issue_type": "information_boundary",
+          "assessment": {
+            "information_level": "partial_query",
+            "policy_application": {
+              "policy_kind": "attacker_knowledge_constraint",
+              "status": "applicable",
+              "reason": "The shared threat model bans access to the specific task, covering these task-derived fields even though Stage 2 does not receive an original_prompt argument. The injection-generation procedure discloses task-aware construction but does not explicitly grant an exception to the attacker knowledge restriction.",
+              "reference": "{\"document_sha256\": \"a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b\", \"end\": 3489, \"match\": \"normalized_exact\", \"segment_id\": \"paper:p3\", \"start\": 3437, \"text_view\": \"reading_order\", \"text_view_sha256\": \"990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275\"}"
+            },
+            "delivery": {
+              "status": "confirmed",
+              "evidence_kind": "static_bound_path",
+              "task_relation": "same_evaluated_instance",
+              "reason": "The evaluator reads the group's operator response, selects its HR entry, and passes it to the continuation that appends a role:user message. This branch is conditional on ask_user being called and a nonempty HR variant being available; no execution is established.",
+              "reference": "{\"document_sha256\": \"a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b\", \"end\": 72748, \"match\": \"normalized_exact\", \"segment_id\": \"repo:src/aspi/eval/runner.py:L1-L2317\", \"start\": 72698, \"text_view\": \"primary\", \"text_view_sha256\": \"2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55\"}"
+            },
+            "refutation": {
+              "basis": "none",
+              "reason": "The stronger user-message delivery baseline changes the recipient channel. No supplied paper text explicitly changes the constructor's task-knowledge budget for this branch.",
+              "reference": ""
+            }
+          },
+          "claim_result": "confirmed",
+          "citation_errors": [],
+          "locators": {
+            "policy_scope": {
+              "segment_id": "paper:p3",
+              "start": 3437,
+              "end": 3489,
+              "document_sha256": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275",
+              "source_kind": "paper",
+              "paper_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893"
+            },
+            "delivery": {
+              "segment_id": "repo:src/aspi/eval/runner.py:L1-L2317",
+              "start": 72698,
+              "end": 72748,
+              "document_sha256": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+              "match": "normalized_exact",
+              "text_view": "primary",
+              "text_view_sha256": "2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55",
+              "source_kind": "code",
+              "path": "src/aspi/eval/runner.py",
+              "file_sha256": "2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55",
+              "repository_revision": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+              "repository_manifest_sha256": "3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011",
+              "line_start": 1806,
+              "line_end": 1807
+            },
+            "declaration": {
+              "segment_id": "paper:p3",
+              "start": 3437,
+              "end": 3489,
+              "document_sha256": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275",
+              "source_kind": "paper",
+              "paper_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893"
+            },
+            "implementation": {
+              "segment_id": "repo:src/aspi/dataset/pipeline.py:L1-L809",
+              "start": 4456,
+              "end": 4533,
+              "document_sha256": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+              "match": "normalized_exact",
+              "text_view": "primary",
+              "text_view_sha256": "3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd",
+              "source_kind": "code",
+              "path": "src/aspi/dataset/pipeline.py",
+              "file_sha256": "3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd",
+              "repository_revision": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+              "repository_manifest_sha256": "3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011",
+              "line_start": 131,
+              "line_end": 132
+            }
+          },
+          "normalization_review": {
+            "index": 0,
+            "supported": true,
+            "policy_kind": "attacker_knowledge_constraint",
+            "policy_application": "applicable",
+            "delivery": "confirmed",
+            "refutation": "none",
+            "reason": "paper:p3 states a common task-knowledge restriction across listed channels; direct user turns strengthen delivery without granting additional knowledge. paper:p13 discloses task-aware authoring but supplies no knowledge exception. pipeline.py passes Stage 1 task-derived fields into the Stage 2 adversarial request through call_llm and LiteLlmClient, parses its result, retains the operator, and serializes the response with the same task identifiers. runner.py loads that group, resolves its task identifiers, selects HR, and appends its stored response as role:user before continuation, conditional on ask_user and a nonempty variant. The proposed loader quotation is inexact, but the supplied loader and main establish the stated connection. This confirms a released-source conditional path, not historical execution."
+          },
+          "semantic_review": {
+            "index": 0,
+            "supported": true,
+            "policy_kind": "attacker_knowledge_constraint",
+            "policy_application": "applicable",
+            "delivery": "confirmed",
+            "refutation": "none",
+            "reason": "paper:p3 states a common task-knowledge restriction across listed channels; direct user turns strengthen delivery without granting additional knowledge. paper:p13 discloses task-aware authoring but supplies no knowledge exception. pipeline.py passes Stage 1 task-derived fields into the Stage 2 adversarial request through call_llm and LiteLlmClient, parses its result, retains the operator, and serializes the response with the same task identifiers. runner.py loads that group, resolves its task identifiers, selects HR, and appends its stored response as role:user before continuation, conditional on ask_user and a nonempty variant. The proposed loader quotation is inexact, but the supplied loader and main establish the stated connection. This confirms a released-source conditional path, not historical execution.",
+            "declaration_supported": true,
+            "implementation_supported": true,
+            "scope_resolution_supported": true,
+            "code_path_supported": true
+          },
+          "source_validation": {
+            "policy_supported": true,
+            "delivery_supported": true,
+            "scope_locators": {
+              "common_rule": {
+                "segment_id": "paper:p3",
+                "start": 3437,
+                "end": 3489,
+                "document_sha256": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+                "match": "normalized_exact",
+                "text_view": "reading_order",
+                "text_view_sha256": "990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275",
+                "source_kind": "paper",
+                "paper_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893"
+              },
+              "specific_rule": {
+                "segment_id": "paper:p3",
+                "start": 1984,
+                "end": 2034,
+                "document_sha256": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+                "match": "normalized_exact",
+                "text_view": "reading_order",
+                "text_view_sha256": "990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275",
+                "source_kind": "paper",
+                "paper_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893"
+              }
+            },
+            "code_path_locators": [
+              {
+                "segment_id": "repo:src/aspi/dataset/pipeline.py:L1-L809",
+                "start": 16019,
+                "end": 16277,
+                "document_sha256": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+                "match": "normalized_exact",
+                "text_view": "primary",
+                "text_view_sha256": "3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd",
+                "source_kind": "code",
+                "path": "src/aspi/dataset/pipeline.py",
+                "file_sha256": "3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd",
+                "repository_revision": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+                "repository_manifest_sha256": "3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011",
+                "line_start": 429,
+                "line_end": 436
+              },
+              {
+                "segment_id": "repo:src/aspi/dataset/pipeline.py:L1-L809",
+                "start": 3970,
+                "end": 4151,
+                "document_sha256": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+                "match": "normalized_exact",
+                "text_view": "primary",
+                "text_view_sha256": "3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd",
+                "source_kind": "code",
+                "path": "src/aspi/dataset/pipeline.py",
+                "file_sha256": "3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd",
+                "repository_revision": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+                "repository_manifest_sha256": "3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011",
+                "line_start": 116,
+                "line_end": 120
+              },
+              {
+                "segment_id": "repo:src/aspi/dataset/pipeline.py:L1-L809",
+                "start": 4156,
+                "end": 4250,
+                "document_sha256": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+                "match": "normalized_exact",
+                "text_view": "primary",
+                "text_view_sha256": "3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd",
+                "source_kind": "code",
+                "path": "src/aspi/dataset/pipeline.py",
+                "file_sha256": "3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd",
+                "repository_revision": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+                "repository_manifest_sha256": "3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011",
+                "line_start": 121,
+                "line_end": 122
+              },
+              {
+                "segment_id": "repo:src/aspi/dataset/pipeline.py:L1-L809",
+                "start": 4414,
+                "end": 4763,
+                "document_sha256": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+                "match": "normalized_exact",
+                "text_view": "primary",
+                "text_view_sha256": "3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd",
+                "source_kind": "code",
+                "path": "src/aspi/dataset/pipeline.py",
+                "file_sha256": "3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd",
+                "repository_revision": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+                "repository_manifest_sha256": "3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011",
+                "line_start": 130,
+                "line_end": 137
+              },
+              {
+                "segment_id": "repo:src/aspi/dataset/pipeline.py:L1-L809",
+                "start": 4768,
+                "end": 4862,
+                "document_sha256": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+                "match": "normalized_exact",
+                "text_view": "primary",
+                "text_view_sha256": "3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd",
+                "source_kind": "code",
+                "path": "src/aspi/dataset/pipeline.py",
+                "file_sha256": "3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd",
+                "repository_revision": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+                "repository_manifest_sha256": "3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011",
+                "line_start": 138,
+                "line_end": 139
+              },
+              {
+                "segment_id": "repo:src/aspi/dataset/pipeline.py:L1-L809",
+                "start": 19453,
+                "end": 19499,
+                "document_sha256": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+                "match": "normalized_exact",
+                "text_view": "primary",
+                "text_view_sha256": "3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd",
+                "source_kind": "code",
+                "path": "src/aspi/dataset/pipeline.py",
+                "file_sha256": "3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd",
+                "repository_revision": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+                "repository_manifest_sha256": "3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011",
+                "line_start": 514,
+                "line_end": 514
+              },
+              {
+                "segment_id": "repo:src/aspi/dataset/pipeline.py:L1-L809",
+                "start": 9244,
+                "end": 9481,
+                "document_sha256": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+                "match": "normalized_exact",
+                "text_view": "primary",
+                "text_view_sha256": "3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd",
+                "source_kind": "code",
+                "path": "src/aspi/dataset/pipeline.py",
+                "file_sha256": "3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd",
+                "repository_revision": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+                "repository_manifest_sha256": "3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011",
+                "line_start": 242,
+                "line_end": 245
+              },
+              {
+                "segment_id": "repo:src/aspi/dataset/pipeline.py:L1-L809",
+                "start": 22823,
+                "end": 22863,
+                "document_sha256": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+                "match": "normalized_exact",
+                "text_view": "primary",
+                "text_view_sha256": "3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd",
+                "source_kind": "code",
+                "path": "src/aspi/dataset/pipeline.py",
+                "file_sha256": "3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd",
+                "repository_revision": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+                "repository_manifest_sha256": "3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011",
+                "line_start": 605,
+                "line_end": 605
+              },
+              {
+                "segment_id": "repo:src/aspi/eval/runner.py:L1-L2317",
+                "start": 75906,
+                "end": 76050,
+                "document_sha256": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+                "match": "normalized_exact",
+                "text_view": "primary",
+                "text_view_sha256": "2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55",
+                "source_kind": "code",
+                "path": "src/aspi/eval/runner.py",
+                "file_sha256": "2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55",
+                "repository_revision": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+                "repository_manifest_sha256": "3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011",
+                "line_start": 1908,
+                "line_end": 1911
+              },
+              {
+                "segment_id": "repo:src/aspi/eval/runner.py:L1-L2317",
+                "start": 63509,
+                "end": 63623,
+                "document_sha256": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+                "match": "normalized_exact",
+                "text_view": "primary",
+                "text_view_sha256": "2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55",
+                "source_kind": "code",
+                "path": "src/aspi/eval/runner.py",
+                "file_sha256": "2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55",
+                "repository_revision": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+                "repository_manifest_sha256": "3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011",
+                "line_start": 1583,
+                "line_end": 1585
+              },
+              {
+                "segment_id": "repo:src/aspi/eval/runner.py:L1-L2317",
+                "start": 72330,
+                "end": 72360,
+                "document_sha256": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+                "match": "normalized_exact",
+                "text_view": "primary",
+                "text_view_sha256": "2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55",
+                "source_kind": "code",
+                "path": "src/aspi/eval/runner.py",
+                "file_sha256": "2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55",
+                "repository_revision": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+                "repository_manifest_sha256": "3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011",
+                "line_start": 1798,
+                "line_end": 1798
+              },
+              {
+                "segment_id": "repo:src/aspi/eval/runner.py:L1-L2317",
+                "start": 72698,
+                "end": 72748,
+                "document_sha256": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+                "match": "normalized_exact",
+                "text_view": "primary",
+                "text_view_sha256": "2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55",
+                "source_kind": "code",
+                "path": "src/aspi/eval/runner.py",
+                "file_sha256": "2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55",
+                "repository_revision": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+                "repository_manifest_sha256": "3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011",
+                "line_start": 1806,
+                "line_end": 1807
+              }
+            ],
+            "validation_errors": []
+          },
+          "scope_resolution": {
+            "basis": "common_contract",
+            "common_rule": {
+              "segment_id": "paper:p3",
+              "quote_sha256": "b3c591301d0c24a37652ec16d9ef218425e731812cbf0d6b517266b60173f76c",
+              "quote_characters": 52
+            },
+            "specific_rule": {
+              "segment_id": "paper:p3",
+              "quote_sha256": "58a59c5ffb08bfa8d2fabf154bb601c2cfc571b6434702994cb28f0ab6bec6dd",
+              "quote_characters": 50
+            },
+            "override_dimension": "delivery",
+            "reason": "The paper explicitly includes direct user turns as a stronger delivery baseline within its shared threat model. Its injection-generation template exposes task-derived inputs, but procedure disclosure alone does not authorize a knowledge exception."
+          },
+          "code_path": [
+            {
+              "kind": "source",
+              "input_symbol": "dataset.ut",
+              "output_symbol": "dataset.call_stage1.arguments",
+              "citation": {
+                "segment_id": "repo:src/aspi/dataset/pipeline.py:L1-L809",
+                "quote_sha256": "aff75c4be4c77143e0438bc09736ff9a1873f98b88df592e46d50f170aef16a9",
+                "quote_characters": 260
+              },
+              "explanation": "The task object supplies the ambiguity-generation arguments."
+            },
+            {
+              "kind": "transform",
+              "input_symbol": "dataset.call_stage1.arguments",
+              "output_symbol": "dataset.call_stage1.user_msg",
+              "citation": {
+                "segment_id": "repo:src/aspi/dataset/pipeline.py:L1-L809",
+                "quote_sha256": "6fb70e7ac33ca4ec45d6d8fad8f16ee6db5dbc9299f86a5a3df37fbb1b86e981",
+                "quote_characters": 153
+              },
+              "explanation": "Stage 1 formats the original task and serialized ground truth."
+            },
+            {
+              "kind": "request",
+              "input_symbol": "dataset.call_stage1.user_msg",
+              "output_symbol": "dataset.ambig",
+              "citation": {
+                "segment_id": "repo:src/aspi/dataset/pipeline.py:L1-L809",
+                "quote_sha256": "e7cc5c68dd46c1607a0b790e6081fc7f52e2e05d3a68efaee75e6ea74a6c4a7a",
+                "quote_characters": 90
+              },
+              "explanation": "The ambiguity-generation request returns the parsed ambiguity record, bound to ambig by the caller."
+            },
+            {
+              "kind": "transform",
+              "input_symbol": "dataset.ambig",
+              "output_symbol": "dataset.call_stage2.user_msg",
+              "citation": {
+                "segment_id": "repo:src/aspi/dataset/pipeline.py:L1-L809",
+                "quote_sha256": "09186dcd236078516ce16a5094770c5c383a1a5a48c42390de9e90d11b66dc8d",
+                "quote_characters": 297
+              },
+              "explanation": "Task-derived ambiguity fields cross into the malicious construction prompt alongside the attacker goal and operator."
+            },
+            {
+              "kind": "request",
+              "input_symbol": "dataset.call_stage2.user_msg",
+              "output_symbol": "dataset.call_stage2.result",
+              "citation": {
+                "segment_id": "repo:src/aspi/dataset/pipeline.py:L1-L809",
+                "quote_sha256": "93f0ac5c8e569db8aad53bf20eca5466fc7094e8b9ed9badc62318bc42007807",
+                "quote_characters": 90
+              },
+              "explanation": "This is the adversarial construction request. call_llm binds user_msg as a user-role message and sends it through client.get_text."
+            },
+            {
+              "kind": "transform",
+              "input_symbol": "dataset.call_stage2.result",
+              "output_symbol": "dataset.injection_results",
+              "citation": {
+                "segment_id": "repo:src/aspi/dataset/pipeline.py:L1-L809",
+                "quote_sha256": "35e45c927a7085fb2566104a46e9829f3eed0b8bbcd769bd42060b98517255a8",
+                "quote_characters": 46
+              },
+              "explanation": "The retry wrapper returns the parsed result as inj_data; the per-operator loop retains it with its operator."
+            },
+            {
+              "kind": "transform",
+              "input_symbol": "dataset.injection_results",
+              "output_symbol": "dataset.group",
+              "citation": {
+                "segment_id": "repo:src/aspi/dataset/pipeline.py:L1-L809",
+                "quote_sha256": "a367b74343f54b1c7687f8cf60a308c1c09e2c14bb60886d67c0b4e2a8033c0e",
+                "quote_characters": 197
+              },
+              "explanation": "build_group embeds the response in the group's injections list, preserving its operator."
+            },
+            {
+              "kind": "artifact_write",
+              "input_symbol": "dataset.group",
+              "output_symbol": "artifact.dataset_jsonl",
+              "citation": {
+                "segment_id": "repo:src/aspi/dataset/pipeline.py:L1-L809",
+                "quote_sha256": "f037706280e8f6a31755f532b65d21d7687dc08b59655b0054df3b87367bf8bc",
+                "quote_characters": 40
+              },
+              "explanation": "The returned group is serialized as a dataset JSONL record."
+            },
+            {
+              "kind": "artifact_read",
+              "input_symbol": "artifact.dataset_jsonl",
+              "output_symbol": "eval.group",
+              "citation": {
+                "segment_id": "repo:src/aspi/eval/runner.py:L1-L2317",
+                "quote_sha256": "0453055152430c93bcdf523a9a14c0d3d0b2bb902a933edaf9523a3c6890cdb2",
+                "quote_characters": 104
+              },
+              "explanation": "The grouped loader reconstructs the records that main passes to evaluate_group. This path requires selecting the generated dataset as evaluation input."
+            },
+            {
+              "kind": "transform",
+              "input_symbol": "eval.group",
+              "output_symbol": "eval.op_variants",
+              "citation": {
+                "segment_id": "repo:src/aspi/eval/runner.py:L1-L2317",
+                "quote_sha256": "161b755430930585b7df47ec9cd19e88a23557bbaacbc809edd0477a250d7600",
+                "quote_characters": 94
+              },
+              "explanation": "evaluate_group extracts nonempty stored responses keyed by operator."
+            },
+            {
+              "kind": "transform",
+              "input_symbol": "eval.op_variants",
+              "output_symbol": "eval.h_op",
+              "citation": {
+                "segment_id": "repo:src/aspi/eval/runner.py:L1-L2317",
+                "quote_sha256": "4183c214dcf2fb970515ddde80622665565c185b49ce740f584bb15923c1fb3b",
+                "quote_characters": 30
+              },
+              "explanation": "The HR invocation of _run_clarif_user_variant selects the stored HR response; HR is among CLARIF_USER_OPERATORS."
+            },
+            {
+              "kind": "delivery",
+              "input_symbol": "eval.h_op",
+              "output_symbol": "eval.clarif_user_HR.messages",
+              "citation": {
+                "segment_id": "repo:src/aspi/eval/runner.py:L1-L2317",
+                "quote_sha256": "ef367e6506c18e279e591501a8895e62ffb162460350904161706de8669e3d2f",
+                "quote_characters": 38
+              },
+              "explanation": "The named variant calls continue_from_injected_user_reply with h_op. That function appends injected_text as role:user content and passes those messages to _run_continuation, binding the stored artifact to the agent's HR branch."
+            }
+          ]
+        }
+      ],
+      "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+      "repository": {
+        "source": "https://github.com/scaleapi/aspi",
+        "source_binding": "f01e0580203fe56524e8640e7dba2b76c561801c4265e4de77d5271508d7b20e",
+        "revision_kind": "git_commit",
+        "revision": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+        "commit": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+        "tree_sha": null,
+        "commit_binding": "github_codeload_full_commit_url",
+        "archive_sha256": "3c3aac54db60e198f49036a6785476011dd6d5c32a46792c779d55362577f5c6",
+        "manifest_sha256": "3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011",
+        "sha256": "3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011",
+        "inventory": [
+          {
+            "path": "pyproject.toml",
+            "bytes": 612,
+            "sha256": "a645f93ffe1ac11d99da03b37597880a73d9a9da2c729cda3bf3bb423ee8e673",
+            "characters": 610,
+            "line_count": 26,
+            "included": true
+          },
+          {
+            "path": "scripts/analyze.py",
+            "bytes": 401,
+            "sha256": "f1a487f6ed177f7714524e69e878310c55981dad3b6db96c0e483cd5d71bca52",
+            "characters": 399,
+            "line_count": 16,
+            "included": true
+          },
+          {
+            "path": "scripts/audit_results.py",
+            "bytes": 14182,
+            "sha256": "092efaeecb36fd0c1acb2070b0c3bd6bd50a8adb010f542dac2ede6d83a0a007",
+            "characters": 14172,
+            "line_count": 374,
+            "included": true
+          },
+          {
+            "path": "scripts/build_dataset.py",
+            "bytes": 365,
+            "sha256": "848cd4f2c38b08c8913881f9e34ce6741a8e65d250ab3ac2f0589f525f7c4b4e",
+            "characters": 365,
+            "line_count": 15,
+            "included": true
+          },
+          {
+            "path": "scripts/check_quality.py",
+            "bytes": 361,
+            "sha256": "423a4ac9964affba5013c6190674d376241b06fcd4f24322b01b2d3e972b2dfb",
+            "characters": 361,
+            "line_count": 15,
+            "included": true
+          },
+          {
+            "path": "scripts/run_eval.py",
+            "bytes": 408,
+            "sha256": "c505d24f773d58f4b9491c9de68b1e6421c36b539973467abac849380ebb88cd",
+            "characters": 408,
+            "line_count": 15,
+            "included": true
+          },
+          {
+            "path": "scripts/run_judge.py",
+            "bytes": 3004,
+            "sha256": "d56b2a908b0a8227ab2a032eaa3dd292a93778b1332153af8191d1f14d5f9c32",
+            "characters": 3002,
+            "line_count": 94,
+            "included": true
+          },
+          {
+            "path": "src/aspi/__init__.py",
+            "bytes": 939,
+            "sha256": "7976528e90e7dcf545b7cc446f937e32d548df92855e579e10d45918abae5182",
+            "characters": 925,
+            "line_count": 22,
+            "included": true
+          },
+          {
+            "path": "src/aspi/common/__init__.py",
+            "bytes": 83,
+            "sha256": "13a003a9c281cb2e88b546cbbd34e93161fdb14dc945593c4391237a473386cd",
+            "characters": 83,
+            "line_count": 1,
+            "included": true
+          },
+          {
+            "path": "src/aspi/common/constants.py",
+            "bytes": 912,
+            "sha256": "6e9b03b502e49c099add44bd152c1f280dc6e7880d562b5225481df6e9f47b71",
+            "characters": 912,
+            "line_count": 27,
+            "included": true
+          },
+          {
+            "path": "src/aspi/common/io.py",
+            "bytes": 3830,
+            "sha256": "9d556a7218e394ffadeb44038724915aef98bac61f968d081bd030154bed9c70",
+            "characters": 3830,
+            "line_count": 126,
+            "included": true
+          },
+          {
+            "path": "src/aspi/common/litellm.py",
+            "bytes": 5720,
+            "sha256": "057fa8ef273d282ff14dfa6f2fe3e6cee6d03e64f2456101d9bf658b13bd0c9c",
+            "characters": 5716,
+            "line_count": 151,
+            "included": true
+          },
+          {
+            "path": "src/aspi/common/paths.py",
+            "bytes": 1397,
+            "sha256": "a72c8288dcd4b04a5b046934def2164dd5cafd17e9d6fcbd82114216450f35ea",
+            "characters": 1397,
+            "line_count": 46,
+            "included": true
+          },
+          {
+            "path": "src/aspi/common/variants.py",
+            "bytes": 720,
+            "sha256": "2e81e6f1c61a3d4bf7f25e3d389c33540e6d773f80ce7a38666698467c830123",
+            "characters": 720,
+            "line_count": 21,
+            "included": true
+          },
+          {
+            "path": "src/aspi/dataset/__init__.py",
+            "bytes": 270,
+            "sha256": "8562d043008ae0e73903f888edd78cb360b6c361e06b62e33df7064a73edceaf",
+            "characters": 264,
+            "line_count": 7,
+            "included": true
+          },
+          {
+            "path": "src/aspi/dataset/pipeline.py",
+            "bytes": 30962,
+            "sha256": "3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd",
+            "characters": 30732,
+            "line_count": 809,
+            "included": true
+          },
+          {
+            "path": "src/aspi/dataset/quality.py",
+            "bytes": 18182,
+            "sha256": "3b0848df9d438bb5e1d5795c5767101ba1a4ae2ad2756a932b27ca6e9708f6bd",
+            "characters": 18159,
+            "line_count": 474,
+            "included": true
+          },
+          {
+            "path": "src/aspi/defenses/__init__.py",
+            "bytes": 169,
+            "sha256": "ae6e3dcab603a21ba75b5b16449323b2de163723b8f557ab24058dac6c3a52b6",
+            "characters": 169,
+            "line_count": 5,
+            "included": true
+          },
+          {
+            "path": "src/aspi/defenses/prompt_guard.py",
+            "bytes": 23270,
+            "sha256": "ff1b024d278369eb0dbe159701e0a9197242ab5e3ae1d9c8682c08875044b12a",
+            "characters": 23144,
+            "line_count": 519,
+            "included": true
+          },
+          {
+            "path": "src/aspi/defenses/tool_filter.py",
+            "bytes": 19092,
+            "sha256": "e5a0b8e3691f16eea0186668c0cb93bf96b261fc5817424dda5a02b28e62b891",
+            "characters": 18794,
+            "line_count": 452,
+            "included": true
+          },
+          {
+            "path": "src/aspi/eval/__init__.py",
+            "bytes": 432,
+            "sha256": "21ba677caadc44ea00b318f80c67e2f466f77b26e4f80d99c44aeda08f0f9b94",
+            "characters": 422,
+            "line_count": 9,
+            "included": true
+          },
+          {
+            "path": "src/aspi/eval/analyze.py",
+            "bytes": 82145,
+            "sha256": "c6c895a84c22779bd7c56b84a696d8608c49479851708b0b5ed21644ac193a6a",
+            "characters": 81537,
+            "line_count": 2093,
+            "included": false,
+            "reason": "character_budget"
+          },
+          {
+            "path": "src/aspi/eval/judge.py",
+            "bytes": 36734,
+            "sha256": "b637e54dfa41b4352f196ce9ec2d3e7eb075920466b75414a89cb0e2e7ea70e6",
+            "characters": 36621,
+            "line_count": 831,
+            "included": true
+          },
+          {
+            "path": "src/aspi/eval/litellm_element.py",
+            "bytes": 21496,
+            "sha256": "c74898e76ded89cde6ada10e90e88976b666283edd39c6ab6f4155664b1cd375",
+            "characters": 21322,
+            "line_count": 543,
+            "included": false,
+            "reason": "character_budget"
+          },
+          {
+            "path": "src/aspi/eval/metrics.py",
+            "bytes": 50317,
+            "sha256": "85d3b59c2bfb8ce1c1d84ee51eb907743e14c333312c9cf3effc3a7bb72e0a97",
+            "characters": 49782,
+            "line_count": 1265,
+            "included": false,
+            "reason": "character_budget"
+          },
+          {
+            "path": "src/aspi/eval/runner.py",
+            "bytes": 94112,
+            "sha256": "2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55",
+            "characters": 93140,
+            "line_count": 2317,
+            "included": true
+          },
+          {
+            "path": "src/aspi/eval/simulator.py",
+            "bytes": 8867,
+            "sha256": "3d970b8eee4a4cc866d4eb9d9c2e6a8189bbdec3b9e1d0c9e7ea84e0cc8b2684",
+            "characters": 8863,
+            "line_count": 251,
+            "included": true
+          },
+          {
+            "path": "src/aspi/prompts/__init__.py",
+            "bytes": 344,
+            "sha256": "b24ce32c3ee66f4b58a3cb9006e7e4edf5dd11d73c0e8b5ffedb3ed4d3ebd817",
+            "characters": 336,
+            "line_count": 7,
+            "included": true
+          },
+          {
+            "path": "src/aspi/prompts/dataset.py",
+            "bytes": 8508,
+            "sha256": "6444a195818f05025e1b4b450b48041805642c096b1df74d22cf7129ed79d91c",
+            "characters": 8432,
+            "line_count": 187,
+            "included": true
+          },
+          {
+            "path": "src/aspi/prompts/eval_system.py",
+            "bytes": 2914,
+            "sha256": "0822bef09b139c45ac4bc62b82a933ea92c15df3afa119990c42f25ab4f0e443",
+            "characters": 2908,
+            "line_count": 53,
+            "included": true
+          },
+          {
+            "path": "src/aspi/prompts/judge.py",
+            "bytes": 33080,
+            "sha256": "fde35ae9d67505e3f65e5c6d9b25dbb79e88ac9a8e25b1e535f638da3c13daaf",
+            "characters": 32838,
+            "line_count": 688,
+            "included": true
+          },
+          {
+            "path": "src/aspi/prompts/simulator.py",
+            "bytes": 4119,
+            "sha256": "e3cb9294743ca52277133a2d68eb95692797b09c0fd55ac22bfe2853d8edeeb4",
+            "characters": 4109,
+            "line_count": 97,
+            "included": true
+          }
+        ],
+        "excluded": [
+          {
+            "path": "README.md",
+            "reason": "not_source_code"
+          },
+          {
+            "path": "data/aspi_banking_gemini-3.1-pro-preview.jsonl",
+            "reason": "excluded_directory"
+          },
+          {
+            "path": "data/aspi_slack_gemini-3.1-pro-preview.jsonl",
+            "reason": "excluded_directory"
+          },
+          {
+            "path": "data/aspi_travel_gemini-3.1-pro-preview.jsonl",
+            "reason": "excluded_directory"
+          },
+          {
+            "path": "data/aspi_workspace_gemini-3.1-pro-preview.jsonl",
+            "reason": "excluded_directory"
+          },
+          {
+            "path": "requirements.txt",
+            "reason": "not_source_code"
+          }
+        ],
+        "omitted": [
+          {
+            "path": "src/aspi/eval/analyze.py",
+            "bytes": 82145,
+            "sha256": "c6c895a84c22779bd7c56b84a696d8608c49479851708b0b5ed21644ac193a6a",
+            "characters": 81537,
+            "line_count": 2093,
+            "included": false,
+            "reason": "character_budget"
+          },
+          {
+            "path": "src/aspi/eval/litellm_element.py",
+            "bytes": 21496,
+            "sha256": "c74898e76ded89cde6ada10e90e88976b666283edd39c6ab6f4155664b1cd375",
+            "characters": 21322,
+            "line_count": 543,
+            "included": false,
+            "reason": "character_budget"
+          },
+          {
+            "path": "src/aspi/eval/metrics.py",
+            "bytes": 50317,
+            "sha256": "85d3b59c2bfb8ce1c1d84ee51eb907743e14c333312c9cf3effc3a7bb72e0a97",
+            "characters": 49782,
+            "line_count": 1265,
+            "included": false,
+            "reason": "character_budget"
+          }
+        ],
+        "coverage": {
+          "complete": false,
+          "inventory_complete": true,
+          "scope": "eligible UTF-8 source files only; excluded documents, datasets, tests, labels, credentials and dependencies are not audited",
+          "reason": "Source files omitted; this snapshot can support bounded positive findings but not whole-repository absence claims",
+          "eligible_files": 32,
+          "included_files": 29,
+          "omitted_files": 3,
+          "excluded_entries": 6,
+          "characters": 311831,
+          "max_characters": 320000
+        },
+        "execution": "none"
+      },
+      "effective_extraction_file": "extraction.repaired.json",
+      "schema_version": 4,
+      "applicability": "in_scope",
+      "scope": "One bounded static finding concerns pre-generated HR clarification payloads. It does not establish the same construction flow for exec_tool, clarif_tool, or clarif_ask_user, which use separately constructed attack wrappers.",
+      "review_status": "source_aware_model_reviewed_not_human_verified",
+      "evidence_scope": "listed_claims_paper_and_pinned_source",
+      "notes": [
+        "No code was executed; confirmed delivery denotes a statically bound conditional path.",
+        "Dataset contents and historical request or result artifacts are excluded.",
+        "Three eligible source files and external dependencies are unavailable; this finding cannot certify whole-repository absence or all-channel consistency.",
+        "No numerical attack-success effect or behavioral significance follows from this construction finding.",
+        "Delivery is statically established only when the generated dataset is selected, ask_user is reached, and HR is nonempty; historical requests and runs are unverified.",
+        "Excluded datasets, external dependencies, and three omitted source files prevent whole-repository conclusions.",
+        "The finding establishes no attack-success effect and does not extend to separately constructed tool-channel wrappers.",
+        "The paper's dynamic adversarial-response description differs from the named branch's consumption of pre-generated responses.",
+        "Final run starts from the raw paper URL and pinned GitHub repository, with no supplied proposal, curated records or gold labels.",
+        "Development attempts are repeated work on this one paper, not additional benchmark papers or independent accuracy samples.",
+        "Public view replaces verbatim quotation values with hashes and lengths; the exact quotes and full input snapshots remain in local run artifacts."
+      ],
+      "unresolved_questions": [
+        "Which dataset files, simulator settings, defenses, and model configurations were selected for the reported historical evaluations?",
+        "Does the external AgentDojo attack dependency use task information internally? Its implementation is not supplied, so the wrapper branches require a separate audit.",
+        "The paper describes dynamically generated adversarial replies aligned to the actual question, whereas the supplied clarif_user branch consumes pre-generated variants. What configuration or revision supports the paper's dynamic adversarial procedure?"
+      ],
+      "verdict": "inconsistent",
+      "reason": "confirmed_inconsistency_in_scope",
+      "coverage_complete": false,
+      "claim_result_counts": {
+        "confirmed": 1
+      },
+      "input_mode": "paper_and_source",
+      "input_binding": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+      "prompt_sha256": "04c3a27906b8373ce7acfc72fdd8fd34ae9547b8fb657fb0500ffabb82335d94",
+      "duration_seconds": 101.767,
+      "development_attempts": [
+        {
+          "label": "Initial source-aware extraction and review",
+          "local_run": "outputs/2026-11-19-aspi-paper-source-auto-v4",
+          "status": "completed",
+          "verdict": "insufficient_evidence",
+          "reason": "unresolved_checks",
+          "calls": 2,
+          "input_binding": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+          "automatic_proposal_reused": false,
+          "artifacts": {
+            "request.json": "e8f479008981f6424a33706afd942eea5346ee53379922eb8bb9122e5518716e",
+            "report.json": "2939db5b76c0005724733745dc129ef0ed92919d38e8fabd19de0dbec79ab075",
+            "result.json": "cf23d1d83a04ddcdd0749989c6ea43bb976fba619be5e5c6a54edfc9eb960a37",
+            "extraction.json": "48c4c4bb8dec484aca7fde43992449f0577b237d8c0ad891797dd6c9e5516b1b",
+            "review.json": "194982d500505a79e20375aa0fb9623607c32a3060f7b6a5bd64a86575726f25"
+          },
+          "inference": {
+            "provider": "codex",
+            "authentication": "chatgpt",
+            "model": "gpt-6.1-sol",
+            "max_calls": 2,
+            "calls": [
+              {
+                "provider": "codex",
+                "authentication": "chatgpt",
+                "requested_model": "gpt-6.1-sol",
+                "actual_model": null,
+                "actual_models": [],
+                "usage": {
+                  "input_tokens": 128653,
+                  "cached_input_tokens": 0,
+                  "output_tokens": 2603,
+                  "reasoning_output_tokens": 84
+                },
+                "request_sha256": "b75442029574d171f095ca4d992305942c9cc1279b24671dedd746441bb5c0eb",
+                "status": "completed",
+                "diagnostics": [],
+                "execution": {
+                  "returncode": 0,
+                  "turn_completed": true,
+                  "fatal_error_count": 0,
+                  "error_notification_count": 0
+                }
+              },
+              {
+                "provider": "codex",
+                "authentication": "chatgpt",
+                "requested_model": "gpt-6.1-sol",
+                "actual_model": null,
+                "actual_models": [],
+                "usage": {
+                  "input_tokens": 129927,
+                  "cached_input_tokens": 0,
+                  "output_tokens": 490,
+                  "reasoning_output_tokens": 23
+                },
+                "request_sha256": "c54805ba59869baffb889a09c5b1b73b94ca185454842c06fbbf9a27ed8290e1",
+                "status": "completed",
+                "diagnostics": [],
+                "execution": {
+                  "returncode": 0,
+                  "turn_completed": true,
+                  "fatal_error_count": 0,
+                  "error_notification_count": 0
+                }
+              }
+            ],
+            "usage": {
+              "input_tokens": 258580,
+              "cached_input_tokens": 0,
+              "output_tokens": 3093,
+              "reasoning_output_tokens": 107
+            },
+            "usage_reporting_complete": true,
+            "preflight_failures": [],
+            "account_usage_note": "Uses the existing ChatGPT/Codex account's access, limits and possible credits; not a guarantee of free usage. The wrapper does not retry or fall back. max_calls counts CLI invocations, not CLI-internal transport attempts. Usage totals sum only reported events; missing usage is not proof of zero use. Actual model remains null when the CLI events do not expose it."
+          }
+        },
+        {
+          "label": "Free-quote citation recovery rejected",
+          "local_run": "outputs/2026-11-19-aspi-paper-source-repaired-v4",
+          "status": "failed",
+          "verdict": "technical_failure",
+          "reason": "citation is ambiguous after whitespace/Unicode normalization",
+          "calls": 1,
+          "input_binding": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+          "automatic_proposal_reused": true,
+          "artifacts": {
+            "request.json": "e8f479008981f6424a33706afd942eea5346ee53379922eb8bb9122e5518716e",
+            "citation_repair.response.json": "eddbe830455d16843b7eeb1123b634175cfb667b5dcf1b8e2dd66966201852f5",
+            "report.json": "fce3901d8b1140af2170eae210ee8270f64ce7caddd9c3cb8650963aca69c951",
+            "result.json": "aa3085fc15a43588bdc0ade1edc66d45998d74c0c0c147e0f5a4c52a5892ea65",
+            "citation_repair.request.json": "2a058f33efcc28d0af8738fac62fb269531f609461e2fa4546badf141e0555e4",
+            "extraction.json": "48c4c4bb8dec484aca7fde43992449f0577b237d8c0ad891797dd6c9e5516b1b"
+          },
+          "inference": {
+            "provider": "codex",
+            "authentication": "chatgpt",
+            "model": "gpt-6.1-sol",
+            "max_calls": 2,
+            "calls": [
+              {
+                "provider": "codex",
+                "authentication": "chatgpt",
+                "requested_model": "gpt-6.1-sol",
+                "actual_model": null,
+                "actual_models": [],
+                "usage": {
+                  "input_tokens": 16161,
+                  "cached_input_tokens": 0,
+                  "output_tokens": 375,
+                  "reasoning_output_tokens": 85
+                },
+                "request_sha256": "e756156af1b6b27fab3b3e4ba4ebabd653b21ed790411dab162b8e6e444b6948",
+                "status": "completed",
+                "diagnostics": [],
+                "execution": {
+                  "returncode": 0,
+                  "turn_completed": true,
+                  "fatal_error_count": 0,
+                  "error_notification_count": 0
+                }
+              }
+            ],
+            "usage": {
+              "input_tokens": 16161,
+              "cached_input_tokens": 0,
+              "output_tokens": 375,
+              "reasoning_output_tokens": 85
+            },
+            "usage_reporting_complete": true,
+            "preflight_failures": [],
+            "account_usage_note": "Uses the existing ChatGPT/Codex account's access, limits and possible credits; not a guarantee of free usage. The wrapper does not retry or fall back. max_calls counts CLI invocations, not CLI-internal transport attempts. Usage totals sum only reported events; missing usage is not proof of zero use. Actual model remains null when the CLI events do not expose it."
+          }
+        },
+        {
+          "label": "Candidate recovery before anchor-retention fix",
+          "local_run": "outputs/2026-11-19-aspi-paper-source-auto-final-v4",
+          "status": "completed",
+          "verdict": "insufficient_evidence",
+          "reason": "unresolved_checks",
+          "calls": 2,
+          "input_binding": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+          "automatic_proposal_reused": true,
+          "artifacts": {
+            "request.json": "e8f479008981f6424a33706afd942eea5346ee53379922eb8bb9122e5518716e",
+            "citation_repair.response.json": "b7e1bf0f4ec82d8c392e519073df554d30a5b7bc1566081dc76210e772d220e5",
+            "report.json": "c679665ea70497fafa63f8abdde1409a341eb9f48451983dfe740ffecc1e0e95",
+            "result.json": "46390e93a61e5650d0afe1d873b4e7615383f4bf631209f194bb6bdbdfed255e",
+            "extraction.repaired.json": "5675db4ccd7d8b7842870bb48a2528af516f125f241f163091581525c486a490",
+            "citation_repair.request.json": "0e01286521ecef722aed7542e7b3bc4567ff10ae8ff8b7e3903a2f827725d318",
+            "extraction.json": "48c4c4bb8dec484aca7fde43992449f0577b237d8c0ad891797dd6c9e5516b1b",
+            "review.json": "64b7bf155020d01c347acb8e5753a5212d4e2428d953ac0d1982cf0ad4ffb450"
+          },
+          "inference": {
+            "provider": "codex",
+            "authentication": "chatgpt",
+            "model": "gpt-6.1-sol",
+            "max_calls": 2,
+            "calls": [
+              {
+                "provider": "codex",
+                "authentication": "chatgpt",
+                "requested_model": "gpt-6.1-sol",
+                "actual_model": null,
+                "actual_models": [],
+                "usage": {
+                  "input_tokens": 20079,
+                  "cached_input_tokens": 0,
+                  "output_tokens": 261,
+                  "reasoning_output_tokens": 126
+                },
+                "request_sha256": "2266e88098da77bac18ef415222561acaf770970215d097b604c1cf320b3a2a5",
+                "status": "completed",
+                "diagnostics": [],
+                "execution": {
+                  "returncode": 0,
+                  "turn_completed": true,
+                  "fatal_error_count": 0,
+                  "error_notification_count": 0
+                }
+              },
+              {
+                "provider": "codex",
+                "authentication": "chatgpt",
+                "requested_model": "gpt-6.1-sol",
+                "actual_model": null,
+                "actual_models": [],
+                "usage": {
+                  "input_tokens": 130013,
+                  "cached_input_tokens": 0,
+                  "output_tokens": 485,
+                  "reasoning_output_tokens": 27
+                },
+                "request_sha256": "e2e6af45b05030bbe408e017f307ad0ed218752ca88a45a28de48ea0e012d51e",
+                "status": "completed",
+                "diagnostics": [],
+                "execution": {
+                  "returncode": 0,
+                  "turn_completed": true,
+                  "fatal_error_count": 0,
+                  "error_notification_count": 0
+                }
+              }
+            ],
+            "usage": {
+              "input_tokens": 150092,
+              "cached_input_tokens": 0,
+              "output_tokens": 746,
+              "reasoning_output_tokens": 153
+            },
+            "usage_reporting_complete": true,
+            "preflight_failures": [],
+            "account_usage_note": "Uses the existing ChatGPT/Codex account's access, limits and possible credits; not a guarantee of free usage. The wrapper does not retry or fall back. max_calls counts CLI invocations, not CLI-internal transport attempts. Usage totals sum only reported events; missing usage is not proof of zero use. Actual model remains null when the CLI events do not expose it."
+          }
+        },
+        {
+          "label": "Final fresh end-to-end run",
+          "local_run": "outputs/2026-11-19-aspi-paper-source-e2e-v4",
+          "status": "completed",
+          "verdict": "inconsistent",
+          "reason": "confirmed_inconsistency_in_scope",
+          "calls": 3,
+          "input_binding": "a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b",
+          "automatic_proposal_reused": false,
+          "artifacts": {
+            "request.json": "e8f479008981f6424a33706afd942eea5346ee53379922eb8bb9122e5518716e",
+            "citation_repair.response.json": "fb5dbd06de0db9518b5da6a6f54684eca7e9a4490a0d63221efe2711b3322668",
+            "report.json": "7f6d9c64467488b0352d2c0017d7660ad434808b00a1233d44c86566a9ff71c3",
+            "result.json": "09f9dec7a39a4f637a65a2f7812c9d124dfd224e78ab14505839083933f6837d",
+            "extraction.repaired.json": "4c7306569f7fc4c73ce3f0da0bb4107a21daf48e44ec1685a3d98e893efa7936",
+            "citation_repair.request.json": "959059a6ef7dd7e093abfe5224e986783091e5390aede1a2c87c9ba2ef0b8e79",
+            "extraction.json": "8f34ec499da1b235d4b0e2ca849b2657d96bec0cf4a72dba8ef5d17e2e845a89",
+            "review.json": "3324104009a951b4b5391823f300c46fd69519645bb7709b3868cc2e62d1b7d2"
+          },
+          "inference": {
+            "provider": "codex",
+            "authentication": "chatgpt",
+            "model": "gpt-6.1-sol",
+            "max_calls": 3,
+            "calls": [
+              {
+                "provider": "codex",
+                "authentication": "chatgpt",
+                "requested_model": "gpt-6.1-sol",
+                "actual_model": null,
+                "actual_models": [],
+                "usage": {
+                  "input_tokens": 128653,
+                  "cached_input_tokens": 0,
+                  "output_tokens": 2885,
+                  "reasoning_output_tokens": 188
+                },
+                "request_sha256": "b75442029574d171f095ca4d992305942c9cc1279b24671dedd746441bb5c0eb",
+                "status": "completed",
+                "diagnostics": [],
+                "execution": {
+                  "returncode": 0,
+                  "turn_completed": true,
+                  "fatal_error_count": 0,
+                  "error_notification_count": 0
+                }
+              },
+              {
+                "provider": "codex",
+                "authentication": "chatgpt",
+                "requested_model": "gpt-6.1-sol",
+                "actual_model": null,
+                "actual_models": [],
+                "usage": {
+                  "input_tokens": 16086,
+                  "cached_input_tokens": 0,
+                  "output_tokens": 100,
+                  "reasoning_output_tokens": 0
+                },
+                "request_sha256": "d81237fd76adbe4d3509702a9c4b379589bf636133dca73df7bf9919de5be8a3",
+                "status": "completed",
+                "diagnostics": [],
+                "execution": {
+                  "returncode": 0,
+                  "turn_completed": true,
+                  "fatal_error_count": 0,
+                  "error_notification_count": 0
+                }
+              },
+              {
+                "provider": "codex",
+                "authentication": "chatgpt",
+                "requested_model": "gpt-6.1-sol",
+                "actual_model": null,
+                "actual_models": [],
+                "usage": {
+                  "input_tokens": 130143,
+                  "cached_input_tokens": 0,
+                  "output_tokens": 412,
+                  "reasoning_output_tokens": 25
+                },
+                "request_sha256": "dc1348ac42c6599caf7d285224b564c3052fd7de66d1d988b1effcf53069f1e5",
+                "status": "completed",
+                "diagnostics": [],
+                "execution": {
+                  "returncode": 0,
+                  "turn_completed": true,
+                  "fatal_error_count": 0,
+                  "error_notification_count": 0
+                }
+              }
+            ],
+            "usage": {
+              "input_tokens": 274882,
+              "cached_input_tokens": 0,
+              "output_tokens": 3397,
+              "reasoning_output_tokens": 213
+            },
+            "usage_reporting_complete": true,
+            "preflight_failures": [],
+            "account_usage_note": "Uses the existing ChatGPT/Codex account's access, limits and possible credits; not a guarantee of free usage. The wrapper does not retry or fall back. max_calls counts CLI invocations, not CLI-internal transport attempts. Usage totals sum only reported events; missing usage is not proof of zero use. Actual model remains null when the CLI events do not expose it."
+          }
+        }
+      ]
+    }
+  ],
+  "runtime_manifest": {
+    "runtime_sha256": {
+      "scan.py": "7686f11794867b0f5de530a007a88ae7da52f07d488d3006df8a245be96a4d06",
+      "extraction.py": "31142bffbf3a8e9974d063a8ab589609b7e556bfd8d666e96605d57c74e164d1",
+      "extraction_v3.py": "c50150a71998712e10f8f5fd130d0ad9dc349bed9bddb62a65401345320aaed6",
+      "extraction_v4.py": "65daee212b6e61a897e3cbdce2e6b4ef38f5a9f83b38e3deecd92f0806b9c3ad",
+      "citation_repair.py": "bc9f35edd05eac7cb6fa4d00c66f48556c58937f5640e152ef46bb490c2c911b",
+      "checker.py": "859d59dda2b4f465e6efd248b410ec4bdd68896e2adeb03eac32fc2c210cfb0c",
+      "scope_review.py": "1d27e004537617c18590e1afa28eec7e3d6d2105cf3b10c975646c7e63e882c9",
+      "documents.py": "6552d6589fe52d517bc6a9344c3b7ec623ff7a2bd18e92c039a78466f5324977",
+      "providers.py": "4ffc276927083e72671cbe6c5cb75068934cbe94265ec97c43b0bef5273d1dfa",
+      "codex_provider.py": "b70a294c7d66b39d3b13b7a5c3e09a6a980d31b86eebeca94dcdba23f71c34dd",
+      "reports.py": "8cd23db543ddb802ddfc0ce9851b97496f5c08ee1e856411de84e3839f3b6e9c",
+      "source_bundle.py": "1261efcc448a59fae08c7f1b45519ca7dd6c6c16c432ef7c5f8b07cefbb7164d"
+    },
+    "paper": "https://arxiv.org/pdf/2605.17324v1",
+    "repository": "https://github.com/scaleapi/aspi",
+    "revision": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+    "requested_model": "gpt-6.1-sol",
+    "max_calls": 3,
+    "provider": "codex_chatgpt_login",
+    "steps": "fresh extraction, at most one automatic candidate citation selection, fresh independent review",
+    "reused_automatic_proposal": false,
+    "manual_cases_available_in_runtime": false,
+    "gold_labels_available_in_runtime": false,
+    "repository_execution": "none"
+  },
+  "inference": {
+    "provider": "codex",
+    "authentication": "chatgpt",
+    "model": "gpt-6.1-sol",
+    "max_calls": 3,
+    "calls": [
+      {
+        "provider": "codex",
+        "authentication": "chatgpt",
+        "requested_model": "gpt-6.1-sol",
+        "actual_model": null,
+        "actual_models": [],
+        "usage": {
+          "input_tokens": 128653,
+          "cached_input_tokens": 0,
+          "output_tokens": 2885,
+          "reasoning_output_tokens": 188
+        },
+        "request_sha256": "b75442029574d171f095ca4d992305942c9cc1279b24671dedd746441bb5c0eb",
+        "status": "completed",
+        "diagnostics": [],
+        "execution": {
+          "returncode": 0,
+          "turn_completed": true,
+          "fatal_error_count": 0,
+          "error_notification_count": 0
+        }
+      },
+      {
+        "provider": "codex",
+        "authentication": "chatgpt",
+        "requested_model": "gpt-6.1-sol",
+        "actual_model": null,
+        "actual_models": [],
+        "usage": {
+          "input_tokens": 16086,
+          "cached_input_tokens": 0,
+          "output_tokens": 100,
+          "reasoning_output_tokens": 0
+        },
+        "request_sha256": "d81237fd76adbe4d3509702a9c4b379589bf636133dca73df7bf9919de5be8a3",
+        "status": "completed",
+        "diagnostics": [],
+        "execution": {
+          "returncode": 0,
+          "turn_completed": true,
+          "fatal_error_count": 0,
+          "error_notification_count": 0
+        }
+      },
+      {
+        "provider": "codex",
+        "authentication": "chatgpt",
+        "requested_model": "gpt-6.1-sol",
+        "actual_model": null,
+        "actual_models": [],
+        "usage": {
+          "input_tokens": 130143,
+          "cached_input_tokens": 0,
+          "output_tokens": 412,
+          "reasoning_output_tokens": 25
+        },
+        "request_sha256": "dc1348ac42c6599caf7d285224b564c3052fd7de66d1d988b1effcf53069f1e5",
+        "status": "completed",
+        "diagnostics": [],
+        "execution": {
+          "returncode": 0,
+          "turn_completed": true,
+          "fatal_error_count": 0,
+          "error_notification_count": 0
+        }
+      }
+    ],
+    "usage": {
+      "input_tokens": 274882,
+      "cached_input_tokens": 0,
+      "output_tokens": 3397,
+      "reasoning_output_tokens": 213
+    },
+    "usage_reporting_complete": true,
+    "preflight_failures": [],
+    "account_usage_note": "Uses the existing ChatGPT/Codex account's access, limits and possible credits; not a guarantee of free usage. The wrapper does not retry or fall back. max_calls counts CLI invocations, not CLI-internal transport attempts. Usage totals sum only reported events; missing usage is not proof of zero use. Actual model remains null when the CLI events do not expose it."
+  }
+}

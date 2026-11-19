@@ -1,0 +1,2040 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<title>论文审计：测试过程与结果</title>
+<style>
+:root{color-scheme:light;--ink:#172638;--muted:#526377;--border:#d9e1e9;--surface:#f4f7fa}
+*{box-sizing:border-box}body{margin:0;background:var(--surface);color:var(--ink);font:16px/1.6 system-ui,sans-serif}
+main{max-width:1250px;margin:auto;padding:32px 24px 60px}h1{font-size:30px;line-height:1.25;margin:0 0 12px}
+h2{margin:28px 0 12px}h3{font-size:17px;margin:20px 0 8px}p{margin:10px 0}.metadata,small{color:var(--muted)}
+small{display:block;font-weight:normal;margin-top:4px}a{color:#145a9a;text-decoration:underline;text-underline-offset:3px}
+.table-scroll{overflow-x:auto;background:white;border:1px solid var(--border);border-radius:8px}
+table{border-collapse:collapse;width:100%;text-align:left}th,td{padding:13px 14px;border-bottom:1px solid var(--border);vertical-align:top;overflow-wrap:anywhere}
+thead{background:#eaf0f6}tbody tr:last-child>*{border-bottom:0}th{font-weight:600}.stages td:last-child{min-width:260px}
+.badge{display:inline-block;padding:3px 9px;border-radius:5px;font-size:14px;white-space:nowrap}.attention{background:#ffe5df;color:#8c2b18}
+.complete{background:#e0f1e6;color:#1f6643}.pending{background:#fff0cf;color:#735013}
+details{background:white;border:1px solid var(--border);border-radius:8px;padding:14px 18px;margin:12px 0}
+summary{cursor:pointer;font-weight:600}pre{background:#f1f4f8;border:1px solid var(--border);border-radius:6px;padding:12px;white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.55 ui-monospace,monospace;margin:8px 0}
+td pre{max-height:360px;overflow:auto}code{font-family:ui-monospace,monospace}.explanation{color:var(--muted);max-width:88ch}
+@media(max-width:650px){main{padding:24px 12px}h1{font-size:25px}th,td{padding:10px}details{padding:12px}}
+@media print{body{background:white}main{max-width:none}.table-scroll{overflow:visible}pre,td pre{max-height:none;overflow:visible}}
+</style>
+</head><body><main>
+<h1>论文审计：测试过程与结果</h1>
+<p class="metadata">运行类型：fresh_paper_source_v4_one_paper · 生成时间：2026-11-19T11:20:55.753556+00:00 · 论文记录：1</p><p class="explanation">主表每篇论文一行，展开下方记录查看执行步骤和证据。“未确认”表示本次记录没有确认发现，需结合运行状态和审计范围阅读。运行错误、待运行与证据不足分别显示。</p><details><summary>本次运行汇总</summary><pre>{
+  &quot;paper_count&quot;: 1,
+  &quot;statuses&quot;: {
+    &quot;completed&quot;: 1
+  },
+  &quot;verdicts&quot;: {
+    &quot;inconsistent&quot;: 1
+  },
+  &quot;final_fresh_model_calls&quot;: 3,
+  &quot;development_model_calls&quot;: 8,
+  &quot;accuracy_estimated&quot;: false
+}</pre></details><h2>论文结果</h2><div class="table-scroll"><table id="paper-results"><thead><tr><th>论文</th><th>运行 / 判定</th><th>已确认不一致</th><th>标签对照</th><th>来源</th></tr></thead><tbody><tr class="paper-summary" data-paper-id="aspi"><th scope="row"><a href="#paper-0">Task-aware offline payload construction for clarif_user_HR</a><small>aspi</small></th><td><span class="badge attention">有已确认的不一致</span></td><td>有</td><td>未评分</td><td>https://arxiv.org/pdf/2605.17324v1</td></tr></tbody></table></div><h2>逐篇测试过程</h2><details class="paper-detail" id="paper-0"><summary>Task-aware offline payload construction for clarif_user_HR · 有已确认的不一致</summary><p>论文 ID：<code>aspi</code></p><h3>测试过程</h3><div class="table-scroll"><table class="stages"><thead><tr><th>步骤</th><th>状态</th><th>记录</th></tr></thead><tbody><tr><th scope="row">ingestion</th><td><span class="badge complete">已完成</span></td><td><pre>{
+  &quot;stage&quot;: &quot;ingestion&quot;,
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;segments&quot;: 34,
+  &quot;characters&quot;: 149931,
+  &quot;coverage&quot;: {
+    &quot;complete&quot;: true,
+    &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+  },
+  &quot;source_links&quot;: [
+    &quot;https://github.com/scaleapi/aspi&quot;,
+    &quot;https://arxiv.org/abs/2009.11352&quot;,
+    &quot;https://arxiv.org/&quot;,
+    &quot;https://doi.org/10.1145/3733799.3762982&quot;,
+    &quot;https://openreview.net/forum?id=&quot;,
+    &quot;https://proceedings&quot;,
+    &quot;https://openreview.net/&quot;,
+    &quot;https://arxiv&quot;,
+    &quot;https://www.usenix.org/conference/&quot;,
+    &quot;https://arxiv.org/abs/2603.15714&quot;,
+    &quot;https://arxiv.org/abs/2603.26233&quot;,
+    &quot;https://aclanthology.org/2020.emnlp-main.466/&quot;,
+    &quot;https://huggingface.co/&quot;,
+    &quot;https://doi.org/10.1145/3605764.3623985&quot;,
+    &quot;https://arxiv.org/abs/2602.10525&quot;,
+    &quot;https://openreview.net/forum&quot;,
+    &quot;https://arxiv.org/abs/2507.22034&quot;,
+    &quot;https://arxiv.org/abs/2603.10749&quot;,
+    &quot;https://arxiv.org/abs/2511&quot;,
+    &quot;https://doi.org/10.1145/3690624.3709179&quot;,
+    &quot;https://openreview.net/forum?id=X2yzXtH4wp&quot;,
+    &quot;https://aclanthology.org/2024&quot;,
+    &quot;https://arxiv.org/abs/2508.09124&quot;,
+    &quot;https://arxiv.org/abs/2407.19056&quot;,
+    &quot;https://simonwillison.net/&quot;,
+    &quot;https://arxiv.org/abs/2403.04960&quot;,
+    &quot;https://arxiv.org/abs/2603.01357&quot;,
+    &quot;https://openreview.net/forum?id=oKn9c6ytLx&quot;,
+    &quot;https://deepmind.google/models/gemini/pro/&quot;,
+    &quot;https://www.litellm.ai&quot;
+  ],
+  &quot;sha256&quot;: &quot;cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893&quot;
+}</pre></td></tr><tr><th scope="row">repository_ingestion</th><td><span class="badge complete">已完成</span></td><td><pre>{
+  &quot;stage&quot;: &quot;repository_ingestion&quot;,
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+  &quot;manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+  &quot;source_segments&quot;: 29,
+  &quot;coverage&quot;: {
+    &quot;complete&quot;: false,
+    &quot;inventory_complete&quot;: true,
+    &quot;scope&quot;: &quot;eligible UTF-8 source files only; excluded documents, datasets, tests, labels, credentials and dependencies are not audited&quot;,
+    &quot;reason&quot;: &quot;Source files omitted; this snapshot can support bounded positive findings but not whole-repository absence claims&quot;,
+    &quot;eligible_files&quot;: 32,
+    &quot;included_files&quot;: 29,
+    &quot;omitted_files&quot;: 3,
+    &quot;excluded_entries&quot;: 6,
+    &quot;characters&quot;: 311831,
+    &quot;max_characters&quot;: 320000
+  }
+}</pre></td></tr><tr><th scope="row">extraction</th><td><span class="badge complete">已完成</span></td><td><pre>{
+  &quot;stage&quot;: &quot;extraction&quot;,
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;applicability&quot;: &quot;in_scope&quot;,
+  &quot;flow_count&quot;: 1,
+  &quot;execution&quot;: &quot;fresh_model_call&quot;
+}</pre></td></tr><tr><th scope="row">citation_repair</th><td><span class="badge complete">已完成</span></td><td><pre>{
+  &quot;stage&quot;: &quot;citation_repair&quot;,
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;issues_before&quot;: 2,
+  &quot;accepted_replacements&quot;: 2,
+  &quot;remaining_issues&quot;: 0,
+  &quot;classification_fields_modified&quot;: false,
+  &quot;accepted&quot;: [
+    {
+      &quot;target&quot;: &quot;flows.0.policy_application.citation&quot;,
+      &quot;before&quot;: {
+        &quot;segment_id&quot;: &quot;paper:p5&quot;,
+        &quot;quote_sha256&quot;: &quot;30225a0b46b00e5b45921d9251c89f5856ed3386c703c5a3063b1fda2bfa8b5a&quot;,
+        &quot;quote_characters&quot;: 106
+      },
+      &quot;after&quot;: {
+        &quot;segment_id&quot;: &quot;paper:p3&quot;,
+        &quot;quote_sha256&quot;: &quot;b3c591301d0c24a37652ec16d9ef218425e731812cbf0d6b517266b60173f76c&quot;,
+        &quot;quote_characters&quot;: 52
+      },
+      &quot;reason&quot;: &quot;Explicitly states that the attacker has no access to the specific user task, supporting the cited knowledge restriction.&quot;
+    },
+    {
+      &quot;target&quot;: &quot;flows.0.code_path.0.citation&quot;,
+      &quot;before&quot;: {
+        &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+        &quot;quote_sha256&quot;: &quot;ada89fb321128b0f65b55c0baae74ec77539bba5dd64622a60ed2d398e635751&quot;,
+        &quot;quote_characters&quot;: 108
+      },
+      &quot;after&quot;: {
+        &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+        &quot;quote_sha256&quot;: &quot;aff75c4be4c77143e0438bc09736ff9a1873f98b88df592e46d50f170aef16a9&quot;,
+        &quot;quote_characters&quot;: 260
+      },
+      &quot;reason&quot;: &quot;Shows call_stage1 receiving the task object&#x27;s prompt and ground-truth output, along with serialized ground-truth tool calls.&quot;
+    }
+  ]
+}</pre></td></tr><tr><th scope="row">semantic_review</th><td><span class="badge complete">已完成</span></td><td><pre>{
+  &quot;stage&quot;: &quot;semantic_review&quot;,
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;applicability&quot;: &quot;in_scope&quot;
+}</pre></td></tr><tr><th scope="row">citation_validation_and_decision</th><td><span class="badge complete">已完成</span></td><td><pre>{
+  &quot;stage&quot;: &quot;citation_validation_and_decision&quot;,
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;verdict&quot;: &quot;inconsistent&quot;,
+  &quot;reason&quot;: &quot;confirmed_inconsistency_in_scope&quot;
+}</pre></td></tr></tbody></table></div><h3>证据</h3><pre>[
+  {
+    &quot;id&quot;: &quot;uploaded_paper_claim_1&quot;,
+    &quot;source_group&quot;: &quot;archived&quot;,
+    &quot;description&quot;: &quot;Stage 1 is a distinct benchmark-design role with access to the original task and ground truth. The finding arises when its task-derived ambiguity fields cross into Stage 2 malicious payload authoring. The connected source path then stores that output and consumes it for the same task group&#x27;s HR evaluation. This establishes construction inconsistency under the common knowledge contract, without establishing historical runs or an effect on ASR.&quot;,
+    &quot;scope&quot;: {
+      &quot;paper_version&quot;: &quot;cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893&quot;,
+      &quot;experiment_arm&quot;: &quot;clarif_user_HR, pre-generated dataset variant, after the ask_user gate&quot;,
+      &quot;artifact_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+      &quot;configuration&quot;: &quot;Supplied paper and immutable source snapshot; no repository code executed&quot;
+    },
+    &quot;target&quot;: {
+      &quot;role&quot;: &quot;Offline adversarial clarification-response constructor&quot;,
+      &quot;phase&quot;: &quot;Dataset Stage 2, followed by clarification evaluation&quot;,
+      &quot;source&quot;: &quot;The same task&#x27;s Stage 1 ambiguity record&quot;,
+      &quot;representation&quot;: &quot;base_prompt, missing_slot, expected clarification question, and benign clarification answer&quot;,
+      &quot;operation&quot;: &quot;Format these task-derived fields with the attacker goal into the Stage 2 model request; store the generated response and deliver the HR variant as a user message.&quot;,
+      &quot;query_form&quot;: &quot;partial_query&quot;
+    },
+    &quot;verdict&quot;: &quot;inconsistent&quot;,
+    &quot;reason&quot;: &quot;scoped_forbidden_delivery_confirmed&quot;,
+    &quot;matching_rules&quot;: [
+      {
+        &quot;edge&quot;: {
+          &quot;role&quot;: &quot;Offline adversarial clarification-response constructor&quot;,
+          &quot;phase&quot;: &quot;Dataset Stage 2, followed by clarification evaluation&quot;,
+          &quot;source&quot;: &quot;The same task&#x27;s Stage 1 ambiguity record&quot;,
+          &quot;representation&quot;: &quot;base_prompt, missing_slot, expected clarification question, and benign clarification answer&quot;,
+          &quot;operation&quot;: &quot;Format these task-derived fields with the attacker goal into the Stage 2 model request; store the generated response and deliver the HR variant as a user message.&quot;,
+          &quot;query_form&quot;: &quot;partial_query&quot;
+        },
+        &quot;permission&quot;: &quot;deny&quot;,
+        &quot;reference&quot;: &quot;{\&quot;document_sha256\&quot;: \&quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b\&quot;, \&quot;end\&quot;: 3489, \&quot;match\&quot;: \&quot;normalized_exact\&quot;, \&quot;segment_id\&quot;: \&quot;paper:p3\&quot;, \&quot;start\&quot;: 3437, \&quot;text_view\&quot;: \&quot;reading_order\&quot;, \&quot;text_view_sha256\&quot;: \&quot;990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275\&quot;}&quot;
+      }
+    ],
+    &quot;matching_observations&quot;: [
+      {
+        &quot;edge&quot;: {
+          &quot;role&quot;: &quot;Offline adversarial clarification-response constructor&quot;,
+          &quot;phase&quot;: &quot;Dataset Stage 2, followed by clarification evaluation&quot;,
+          &quot;source&quot;: &quot;The same task&#x27;s Stage 1 ambiguity record&quot;,
+          &quot;representation&quot;: &quot;base_prompt, missing_slot, expected clarification question, and benign clarification answer&quot;,
+          &quot;operation&quot;: &quot;Format these task-derived fields with the attacker goal into the Stage 2 model request; store the generated response and deliver the HR variant as a user message.&quot;,
+          &quot;query_form&quot;: &quot;partial_query&quot;
+        },
+        &quot;status&quot;: &quot;present&quot;,
+        &quot;reference&quot;: &quot;{\&quot;document_sha256\&quot;: \&quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b\&quot;, \&quot;end\&quot;: 4533, \&quot;match\&quot;: \&quot;normalized_exact\&quot;, \&quot;segment_id\&quot;: \&quot;repo:src/aspi/dataset/pipeline.py:L1-L809\&quot;, \&quot;start\&quot;: 4456, \&quot;text_view\&quot;: \&quot;primary\&quot;, \&quot;text_view_sha256\&quot;: \&quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd\&quot;}&quot;
+      }
+    ],
+    &quot;other_observation_count&quot;: 0,
+    &quot;validation_mode&quot;: &quot;scope_review_v3&quot;,
+    &quot;claim&quot;: &quot;Task-derived partial query information reaches the offline malicious constructor whose stored HR response is delivered in clarif_user_HR.&quot;,
+    &quot;issue_type&quot;: &quot;information_boundary&quot;,
+    &quot;assessment&quot;: {
+      &quot;information_level&quot;: &quot;partial_query&quot;,
+      &quot;policy_application&quot;: {
+        &quot;policy_kind&quot;: &quot;attacker_knowledge_constraint&quot;,
+        &quot;status&quot;: &quot;applicable&quot;,
+        &quot;reason&quot;: &quot;The shared threat model bans access to the specific task, covering these task-derived fields even though Stage 2 does not receive an original_prompt argument. The injection-generation procedure discloses task-aware construction but does not explicitly grant an exception to the attacker knowledge restriction.&quot;,
+        &quot;reference&quot;: &quot;{\&quot;document_sha256\&quot;: \&quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b\&quot;, \&quot;end\&quot;: 3489, \&quot;match\&quot;: \&quot;normalized_exact\&quot;, \&quot;segment_id\&quot;: \&quot;paper:p3\&quot;, \&quot;start\&quot;: 3437, \&quot;text_view\&quot;: \&quot;reading_order\&quot;, \&quot;text_view_sha256\&quot;: \&quot;990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275\&quot;}&quot;
+      },
+      &quot;delivery&quot;: {
+        &quot;status&quot;: &quot;confirmed&quot;,
+        &quot;evidence_kind&quot;: &quot;static_bound_path&quot;,
+        &quot;task_relation&quot;: &quot;same_evaluated_instance&quot;,
+        &quot;reason&quot;: &quot;The evaluator reads the group&#x27;s operator response, selects its HR entry, and passes it to the continuation that appends a role:user message. This branch is conditional on ask_user being called and a nonempty HR variant being available; no execution is established.&quot;,
+        &quot;reference&quot;: &quot;{\&quot;document_sha256\&quot;: \&quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b\&quot;, \&quot;end\&quot;: 72748, \&quot;match\&quot;: \&quot;normalized_exact\&quot;, \&quot;segment_id\&quot;: \&quot;repo:src/aspi/eval/runner.py:L1-L2317\&quot;, \&quot;start\&quot;: 72698, \&quot;text_view\&quot;: \&quot;primary\&quot;, \&quot;text_view_sha256\&quot;: \&quot;2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55\&quot;}&quot;
+      },
+      &quot;refutation&quot;: {
+        &quot;basis&quot;: &quot;none&quot;,
+        &quot;reason&quot;: &quot;The stronger user-message delivery baseline changes the recipient channel. No supplied paper text explicitly changes the constructor&#x27;s task-knowledge budget for this branch.&quot;,
+        &quot;reference&quot;: &quot;&quot;
+      }
+    },
+    &quot;claim_result&quot;: &quot;confirmed&quot;,
+    &quot;citation_errors&quot;: [],
+    &quot;locators&quot;: {
+      &quot;policy_scope&quot;: {
+        &quot;segment_id&quot;: &quot;paper:p3&quot;,
+        &quot;start&quot;: 3437,
+        &quot;end&quot;: 3489,
+        &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+        &quot;match&quot;: &quot;normalized_exact&quot;,
+        &quot;text_view&quot;: &quot;reading_order&quot;,
+        &quot;text_view_sha256&quot;: &quot;990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275&quot;,
+        &quot;source_kind&quot;: &quot;paper&quot;,
+        &quot;paper_sha256&quot;: &quot;cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893&quot;
+      },
+      &quot;delivery&quot;: {
+        &quot;segment_id&quot;: &quot;repo:src/aspi/eval/runner.py:L1-L2317&quot;,
+        &quot;start&quot;: 72698,
+        &quot;end&quot;: 72748,
+        &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+        &quot;match&quot;: &quot;normalized_exact&quot;,
+        &quot;text_view&quot;: &quot;primary&quot;,
+        &quot;text_view_sha256&quot;: &quot;2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55&quot;,
+        &quot;source_kind&quot;: &quot;code&quot;,
+        &quot;path&quot;: &quot;src/aspi/eval/runner.py&quot;,
+        &quot;file_sha256&quot;: &quot;2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55&quot;,
+        &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+        &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+        &quot;line_start&quot;: 1806,
+        &quot;line_end&quot;: 1807
+      },
+      &quot;declaration&quot;: {
+        &quot;segment_id&quot;: &quot;paper:p3&quot;,
+        &quot;start&quot;: 3437,
+        &quot;end&quot;: 3489,
+        &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+        &quot;match&quot;: &quot;normalized_exact&quot;,
+        &quot;text_view&quot;: &quot;reading_order&quot;,
+        &quot;text_view_sha256&quot;: &quot;990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275&quot;,
+        &quot;source_kind&quot;: &quot;paper&quot;,
+        &quot;paper_sha256&quot;: &quot;cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893&quot;
+      },
+      &quot;implementation&quot;: {
+        &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+        &quot;start&quot;: 4456,
+        &quot;end&quot;: 4533,
+        &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+        &quot;match&quot;: &quot;normalized_exact&quot;,
+        &quot;text_view&quot;: &quot;primary&quot;,
+        &quot;text_view_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+        &quot;source_kind&quot;: &quot;code&quot;,
+        &quot;path&quot;: &quot;src/aspi/dataset/pipeline.py&quot;,
+        &quot;file_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+        &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+        &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+        &quot;line_start&quot;: 131,
+        &quot;line_end&quot;: 132
+      }
+    },
+    &quot;normalization_review&quot;: {
+      &quot;index&quot;: 0,
+      &quot;supported&quot;: true,
+      &quot;policy_kind&quot;: &quot;attacker_knowledge_constraint&quot;,
+      &quot;policy_application&quot;: &quot;applicable&quot;,
+      &quot;delivery&quot;: &quot;confirmed&quot;,
+      &quot;refutation&quot;: &quot;none&quot;,
+      &quot;reason&quot;: &quot;paper:p3 states a common task-knowledge restriction across listed channels; direct user turns strengthen delivery without granting additional knowledge. paper:p13 discloses task-aware authoring but supplies no knowledge exception. pipeline.py passes Stage 1 task-derived fields into the Stage 2 adversarial request through call_llm and LiteLlmClient, parses its result, retains the operator, and serializes the response with the same task identifiers. runner.py loads that group, resolves its task identifiers, selects HR, and appends its stored response as role:user before continuation, conditional on ask_user and a nonempty variant. The proposed loader quotation is inexact, but the supplied loader and main establish the stated connection. This confirms a released-source conditional path, not historical execution.&quot;
+    },
+    &quot;semantic_review&quot;: {
+      &quot;index&quot;: 0,
+      &quot;supported&quot;: true,
+      &quot;policy_kind&quot;: &quot;attacker_knowledge_constraint&quot;,
+      &quot;policy_application&quot;: &quot;applicable&quot;,
+      &quot;delivery&quot;: &quot;confirmed&quot;,
+      &quot;refutation&quot;: &quot;none&quot;,
+      &quot;reason&quot;: &quot;paper:p3 states a common task-knowledge restriction across listed channels; direct user turns strengthen delivery without granting additional knowledge. paper:p13 discloses task-aware authoring but supplies no knowledge exception. pipeline.py passes Stage 1 task-derived fields into the Stage 2 adversarial request through call_llm and LiteLlmClient, parses its result, retains the operator, and serializes the response with the same task identifiers. runner.py loads that group, resolves its task identifiers, selects HR, and appends its stored response as role:user before continuation, conditional on ask_user and a nonempty variant. The proposed loader quotation is inexact, but the supplied loader and main establish the stated connection. This confirms a released-source conditional path, not historical execution.&quot;,
+      &quot;declaration_supported&quot;: true,
+      &quot;implementation_supported&quot;: true,
+      &quot;scope_resolution_supported&quot;: true,
+      &quot;code_path_supported&quot;: true
+    },
+    &quot;source_validation&quot;: {
+      &quot;policy_supported&quot;: true,
+      &quot;delivery_supported&quot;: true,
+      &quot;scope_locators&quot;: {
+        &quot;common_rule&quot;: {
+          &quot;segment_id&quot;: &quot;paper:p3&quot;,
+          &quot;start&quot;: 3437,
+          &quot;end&quot;: 3489,
+          &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+          &quot;match&quot;: &quot;normalized_exact&quot;,
+          &quot;text_view&quot;: &quot;reading_order&quot;,
+          &quot;text_view_sha256&quot;: &quot;990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275&quot;,
+          &quot;source_kind&quot;: &quot;paper&quot;,
+          &quot;paper_sha256&quot;: &quot;cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893&quot;
+        },
+        &quot;specific_rule&quot;: {
+          &quot;segment_id&quot;: &quot;paper:p3&quot;,
+          &quot;start&quot;: 1984,
+          &quot;end&quot;: 2034,
+          &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+          &quot;match&quot;: &quot;normalized_exact&quot;,
+          &quot;text_view&quot;: &quot;reading_order&quot;,
+          &quot;text_view_sha256&quot;: &quot;990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275&quot;,
+          &quot;source_kind&quot;: &quot;paper&quot;,
+          &quot;paper_sha256&quot;: &quot;cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893&quot;
+        }
+      },
+      &quot;code_path_locators&quot;: [
+        {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+          &quot;start&quot;: 16019,
+          &quot;end&quot;: 16277,
+          &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+          &quot;match&quot;: &quot;normalized_exact&quot;,
+          &quot;text_view&quot;: &quot;primary&quot;,
+          &quot;text_view_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+          &quot;source_kind&quot;: &quot;code&quot;,
+          &quot;path&quot;: &quot;src/aspi/dataset/pipeline.py&quot;,
+          &quot;file_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+          &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+          &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+          &quot;line_start&quot;: 429,
+          &quot;line_end&quot;: 436
+        },
+        {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+          &quot;start&quot;: 3970,
+          &quot;end&quot;: 4151,
+          &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+          &quot;match&quot;: &quot;normalized_exact&quot;,
+          &quot;text_view&quot;: &quot;primary&quot;,
+          &quot;text_view_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+          &quot;source_kind&quot;: &quot;code&quot;,
+          &quot;path&quot;: &quot;src/aspi/dataset/pipeline.py&quot;,
+          &quot;file_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+          &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+          &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+          &quot;line_start&quot;: 116,
+          &quot;line_end&quot;: 120
+        },
+        {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+          &quot;start&quot;: 4156,
+          &quot;end&quot;: 4250,
+          &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+          &quot;match&quot;: &quot;normalized_exact&quot;,
+          &quot;text_view&quot;: &quot;primary&quot;,
+          &quot;text_view_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+          &quot;source_kind&quot;: &quot;code&quot;,
+          &quot;path&quot;: &quot;src/aspi/dataset/pipeline.py&quot;,
+          &quot;file_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+          &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+          &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+          &quot;line_start&quot;: 121,
+          &quot;line_end&quot;: 122
+        },
+        {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+          &quot;start&quot;: 4414,
+          &quot;end&quot;: 4763,
+          &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+          &quot;match&quot;: &quot;normalized_exact&quot;,
+          &quot;text_view&quot;: &quot;primary&quot;,
+          &quot;text_view_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+          &quot;source_kind&quot;: &quot;code&quot;,
+          &quot;path&quot;: &quot;src/aspi/dataset/pipeline.py&quot;,
+          &quot;file_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+          &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+          &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+          &quot;line_start&quot;: 130,
+          &quot;line_end&quot;: 137
+        },
+        {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+          &quot;start&quot;: 4768,
+          &quot;end&quot;: 4862,
+          &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+          &quot;match&quot;: &quot;normalized_exact&quot;,
+          &quot;text_view&quot;: &quot;primary&quot;,
+          &quot;text_view_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+          &quot;source_kind&quot;: &quot;code&quot;,
+          &quot;path&quot;: &quot;src/aspi/dataset/pipeline.py&quot;,
+          &quot;file_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+          &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+          &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+          &quot;line_start&quot;: 138,
+          &quot;line_end&quot;: 139
+        },
+        {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+          &quot;start&quot;: 19453,
+          &quot;end&quot;: 19499,
+          &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+          &quot;match&quot;: &quot;normalized_exact&quot;,
+          &quot;text_view&quot;: &quot;primary&quot;,
+          &quot;text_view_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+          &quot;source_kind&quot;: &quot;code&quot;,
+          &quot;path&quot;: &quot;src/aspi/dataset/pipeline.py&quot;,
+          &quot;file_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+          &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+          &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+          &quot;line_start&quot;: 514,
+          &quot;line_end&quot;: 514
+        },
+        {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+          &quot;start&quot;: 9244,
+          &quot;end&quot;: 9481,
+          &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+          &quot;match&quot;: &quot;normalized_exact&quot;,
+          &quot;text_view&quot;: &quot;primary&quot;,
+          &quot;text_view_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+          &quot;source_kind&quot;: &quot;code&quot;,
+          &quot;path&quot;: &quot;src/aspi/dataset/pipeline.py&quot;,
+          &quot;file_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+          &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+          &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+          &quot;line_start&quot;: 242,
+          &quot;line_end&quot;: 245
+        },
+        {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+          &quot;start&quot;: 22823,
+          &quot;end&quot;: 22863,
+          &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+          &quot;match&quot;: &quot;normalized_exact&quot;,
+          &quot;text_view&quot;: &quot;primary&quot;,
+          &quot;text_view_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+          &quot;source_kind&quot;: &quot;code&quot;,
+          &quot;path&quot;: &quot;src/aspi/dataset/pipeline.py&quot;,
+          &quot;file_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+          &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+          &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+          &quot;line_start&quot;: 605,
+          &quot;line_end&quot;: 605
+        },
+        {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/eval/runner.py:L1-L2317&quot;,
+          &quot;start&quot;: 75906,
+          &quot;end&quot;: 76050,
+          &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+          &quot;match&quot;: &quot;normalized_exact&quot;,
+          &quot;text_view&quot;: &quot;primary&quot;,
+          &quot;text_view_sha256&quot;: &quot;2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55&quot;,
+          &quot;source_kind&quot;: &quot;code&quot;,
+          &quot;path&quot;: &quot;src/aspi/eval/runner.py&quot;,
+          &quot;file_sha256&quot;: &quot;2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55&quot;,
+          &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+          &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+          &quot;line_start&quot;: 1908,
+          &quot;line_end&quot;: 1911
+        },
+        {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/eval/runner.py:L1-L2317&quot;,
+          &quot;start&quot;: 63509,
+          &quot;end&quot;: 63623,
+          &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+          &quot;match&quot;: &quot;normalized_exact&quot;,
+          &quot;text_view&quot;: &quot;primary&quot;,
+          &quot;text_view_sha256&quot;: &quot;2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55&quot;,
+          &quot;source_kind&quot;: &quot;code&quot;,
+          &quot;path&quot;: &quot;src/aspi/eval/runner.py&quot;,
+          &quot;file_sha256&quot;: &quot;2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55&quot;,
+          &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+          &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+          &quot;line_start&quot;: 1583,
+          &quot;line_end&quot;: 1585
+        },
+        {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/eval/runner.py:L1-L2317&quot;,
+          &quot;start&quot;: 72330,
+          &quot;end&quot;: 72360,
+          &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+          &quot;match&quot;: &quot;normalized_exact&quot;,
+          &quot;text_view&quot;: &quot;primary&quot;,
+          &quot;text_view_sha256&quot;: &quot;2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55&quot;,
+          &quot;source_kind&quot;: &quot;code&quot;,
+          &quot;path&quot;: &quot;src/aspi/eval/runner.py&quot;,
+          &quot;file_sha256&quot;: &quot;2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55&quot;,
+          &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+          &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+          &quot;line_start&quot;: 1798,
+          &quot;line_end&quot;: 1798
+        },
+        {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/eval/runner.py:L1-L2317&quot;,
+          &quot;start&quot;: 72698,
+          &quot;end&quot;: 72748,
+          &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+          &quot;match&quot;: &quot;normalized_exact&quot;,
+          &quot;text_view&quot;: &quot;primary&quot;,
+          &quot;text_view_sha256&quot;: &quot;2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55&quot;,
+          &quot;source_kind&quot;: &quot;code&quot;,
+          &quot;path&quot;: &quot;src/aspi/eval/runner.py&quot;,
+          &quot;file_sha256&quot;: &quot;2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55&quot;,
+          &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+          &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+          &quot;line_start&quot;: 1806,
+          &quot;line_end&quot;: 1807
+        }
+      ],
+      &quot;validation_errors&quot;: []
+    },
+    &quot;scope_resolution&quot;: {
+      &quot;basis&quot;: &quot;common_contract&quot;,
+      &quot;common_rule&quot;: {
+        &quot;segment_id&quot;: &quot;paper:p3&quot;,
+        &quot;quote_sha256&quot;: &quot;b3c591301d0c24a37652ec16d9ef218425e731812cbf0d6b517266b60173f76c&quot;,
+        &quot;quote_characters&quot;: 52
+      },
+      &quot;specific_rule&quot;: {
+        &quot;segment_id&quot;: &quot;paper:p3&quot;,
+        &quot;quote_sha256&quot;: &quot;58a59c5ffb08bfa8d2fabf154bb601c2cfc571b6434702994cb28f0ab6bec6dd&quot;,
+        &quot;quote_characters&quot;: 50
+      },
+      &quot;override_dimension&quot;: &quot;delivery&quot;,
+      &quot;reason&quot;: &quot;The paper explicitly includes direct user turns as a stronger delivery baseline within its shared threat model. Its injection-generation template exposes task-derived inputs, but procedure disclosure alone does not authorize a knowledge exception.&quot;
+    },
+    &quot;code_path&quot;: [
+      {
+        &quot;kind&quot;: &quot;source&quot;,
+        &quot;input_symbol&quot;: &quot;dataset.ut&quot;,
+        &quot;output_symbol&quot;: &quot;dataset.call_stage1.arguments&quot;,
+        &quot;citation&quot;: {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+          &quot;quote_sha256&quot;: &quot;aff75c4be4c77143e0438bc09736ff9a1873f98b88df592e46d50f170aef16a9&quot;,
+          &quot;quote_characters&quot;: 260
+        },
+        &quot;explanation&quot;: &quot;The task object supplies the ambiguity-generation arguments.&quot;
+      },
+      {
+        &quot;kind&quot;: &quot;transform&quot;,
+        &quot;input_symbol&quot;: &quot;dataset.call_stage1.arguments&quot;,
+        &quot;output_symbol&quot;: &quot;dataset.call_stage1.user_msg&quot;,
+        &quot;citation&quot;: {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+          &quot;quote_sha256&quot;: &quot;6fb70e7ac33ca4ec45d6d8fad8f16ee6db5dbc9299f86a5a3df37fbb1b86e981&quot;,
+          &quot;quote_characters&quot;: 153
+        },
+        &quot;explanation&quot;: &quot;Stage 1 formats the original task and serialized ground truth.&quot;
+      },
+      {
+        &quot;kind&quot;: &quot;request&quot;,
+        &quot;input_symbol&quot;: &quot;dataset.call_stage1.user_msg&quot;,
+        &quot;output_symbol&quot;: &quot;dataset.ambig&quot;,
+        &quot;citation&quot;: {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+          &quot;quote_sha256&quot;: &quot;e7cc5c68dd46c1607a0b790e6081fc7f52e2e05d3a68efaee75e6ea74a6c4a7a&quot;,
+          &quot;quote_characters&quot;: 90
+        },
+        &quot;explanation&quot;: &quot;The ambiguity-generation request returns the parsed ambiguity record, bound to ambig by the caller.&quot;
+      },
+      {
+        &quot;kind&quot;: &quot;transform&quot;,
+        &quot;input_symbol&quot;: &quot;dataset.ambig&quot;,
+        &quot;output_symbol&quot;: &quot;dataset.call_stage2.user_msg&quot;,
+        &quot;citation&quot;: {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+          &quot;quote_sha256&quot;: &quot;09186dcd236078516ce16a5094770c5c383a1a5a48c42390de9e90d11b66dc8d&quot;,
+          &quot;quote_characters&quot;: 297
+        },
+        &quot;explanation&quot;: &quot;Task-derived ambiguity fields cross into the malicious construction prompt alongside the attacker goal and operator.&quot;
+      },
+      {
+        &quot;kind&quot;: &quot;request&quot;,
+        &quot;input_symbol&quot;: &quot;dataset.call_stage2.user_msg&quot;,
+        &quot;output_symbol&quot;: &quot;dataset.call_stage2.result&quot;,
+        &quot;citation&quot;: {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+          &quot;quote_sha256&quot;: &quot;93f0ac5c8e569db8aad53bf20eca5466fc7094e8b9ed9badc62318bc42007807&quot;,
+          &quot;quote_characters&quot;: 90
+        },
+        &quot;explanation&quot;: &quot;This is the adversarial construction request. call_llm binds user_msg as a user-role message and sends it through client.get_text.&quot;
+      },
+      {
+        &quot;kind&quot;: &quot;transform&quot;,
+        &quot;input_symbol&quot;: &quot;dataset.call_stage2.result&quot;,
+        &quot;output_symbol&quot;: &quot;dataset.injection_results&quot;,
+        &quot;citation&quot;: {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+          &quot;quote_sha256&quot;: &quot;35e45c927a7085fb2566104a46e9829f3eed0b8bbcd769bd42060b98517255a8&quot;,
+          &quot;quote_characters&quot;: 46
+        },
+        &quot;explanation&quot;: &quot;The retry wrapper returns the parsed result as inj_data; the per-operator loop retains it with its operator.&quot;
+      },
+      {
+        &quot;kind&quot;: &quot;transform&quot;,
+        &quot;input_symbol&quot;: &quot;dataset.injection_results&quot;,
+        &quot;output_symbol&quot;: &quot;dataset.group&quot;,
+        &quot;citation&quot;: {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+          &quot;quote_sha256&quot;: &quot;a367b74343f54b1c7687f8cf60a308c1c09e2c14bb60886d67c0b4e2a8033c0e&quot;,
+          &quot;quote_characters&quot;: 197
+        },
+        &quot;explanation&quot;: &quot;build_group embeds the response in the group&#x27;s injections list, preserving its operator.&quot;
+      },
+      {
+        &quot;kind&quot;: &quot;artifact_write&quot;,
+        &quot;input_symbol&quot;: &quot;dataset.group&quot;,
+        &quot;output_symbol&quot;: &quot;artifact.dataset_jsonl&quot;,
+        &quot;citation&quot;: {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+          &quot;quote_sha256&quot;: &quot;f037706280e8f6a31755f532b65d21d7687dc08b59655b0054df3b87367bf8bc&quot;,
+          &quot;quote_characters&quot;: 40
+        },
+        &quot;explanation&quot;: &quot;The returned group is serialized as a dataset JSONL record.&quot;
+      },
+      {
+        &quot;kind&quot;: &quot;artifact_read&quot;,
+        &quot;input_symbol&quot;: &quot;artifact.dataset_jsonl&quot;,
+        &quot;output_symbol&quot;: &quot;eval.group&quot;,
+        &quot;citation&quot;: {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/eval/runner.py:L1-L2317&quot;,
+          &quot;quote_sha256&quot;: &quot;0453055152430c93bcdf523a9a14c0d3d0b2bb902a933edaf9523a3c6890cdb2&quot;,
+          &quot;quote_characters&quot;: 104
+        },
+        &quot;explanation&quot;: &quot;The grouped loader reconstructs the records that main passes to evaluate_group. This path requires selecting the generated dataset as evaluation input.&quot;
+      },
+      {
+        &quot;kind&quot;: &quot;transform&quot;,
+        &quot;input_symbol&quot;: &quot;eval.group&quot;,
+        &quot;output_symbol&quot;: &quot;eval.op_variants&quot;,
+        &quot;citation&quot;: {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/eval/runner.py:L1-L2317&quot;,
+          &quot;quote_sha256&quot;: &quot;161b755430930585b7df47ec9cd19e88a23557bbaacbc809edd0477a250d7600&quot;,
+          &quot;quote_characters&quot;: 94
+        },
+        &quot;explanation&quot;: &quot;evaluate_group extracts nonempty stored responses keyed by operator.&quot;
+      },
+      {
+        &quot;kind&quot;: &quot;transform&quot;,
+        &quot;input_symbol&quot;: &quot;eval.op_variants&quot;,
+        &quot;output_symbol&quot;: &quot;eval.h_op&quot;,
+        &quot;citation&quot;: {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/eval/runner.py:L1-L2317&quot;,
+          &quot;quote_sha256&quot;: &quot;4183c214dcf2fb970515ddde80622665565c185b49ce740f584bb15923c1fb3b&quot;,
+          &quot;quote_characters&quot;: 30
+        },
+        &quot;explanation&quot;: &quot;The HR invocation of _run_clarif_user_variant selects the stored HR response; HR is among CLARIF_USER_OPERATORS.&quot;
+      },
+      {
+        &quot;kind&quot;: &quot;delivery&quot;,
+        &quot;input_symbol&quot;: &quot;eval.h_op&quot;,
+        &quot;output_symbol&quot;: &quot;eval.clarif_user_HR.messages&quot;,
+        &quot;citation&quot;: {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/eval/runner.py:L1-L2317&quot;,
+          &quot;quote_sha256&quot;: &quot;ef367e6506c18e279e591501a8895e62ffb162460350904161706de8669e3d2f&quot;,
+          &quot;quote_characters&quot;: 38
+        },
+        &quot;explanation&quot;: &quot;The named variant calls continue_from_injected_user_reply with h_op. That function appends injected_text as role:user content and passes those messages to _run_continuation, binding the stored artifact to the agent&#x27;s HR branch.&quot;
+      }
+    ]
+  }
+]</pre><h3>备注</h3><pre>[
+  &quot;No code was executed; confirmed delivery denotes a statically bound conditional path.&quot;,
+  &quot;Dataset contents and historical request or result artifacts are excluded.&quot;,
+  &quot;Three eligible source files and external dependencies are unavailable; this finding cannot certify whole-repository absence or all-channel consistency.&quot;,
+  &quot;No numerical attack-success effect or behavioral significance follows from this construction finding.&quot;,
+  &quot;Delivery is statically established only when the generated dataset is selected, ask_user is reached, and HR is nonempty; historical requests and runs are unverified.&quot;,
+  &quot;Excluded datasets, external dependencies, and three omitted source files prevent whole-repository conclusions.&quot;,
+  &quot;The finding establishes no attack-success effect and does not extend to separately constructed tool-channel wrappers.&quot;,
+  &quot;The paper&#x27;s dynamic adversarial-response description differs from the named branch&#x27;s consumption of pre-generated responses.&quot;,
+  &quot;Final run starts from the raw paper URL and pinned GitHub repository, with no supplied proposal, curated records or gold labels.&quot;,
+  &quot;Development attempts are repeated work on this one paper, not additional benchmark papers or independent accuracy samples.&quot;,
+  &quot;Public view replaces verbatim quotation values with hashes and lengths; the exact quotes and full input snapshots remain in local run artifacts.&quot;
+]</pre><details><summary>完整论文记录 JSON</summary><pre>{
+  &quot;id&quot;: &quot;aspi&quot;,
+  &quot;title&quot;: &quot;Task-aware offline payload construction for clarif_user_HR&quot;,
+  &quot;source&quot;: &quot;https://arxiv.org/pdf/2605.17324v1&quot;,
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;has_confirmed_inconsistency&quot;: true,
+  &quot;stages&quot;: [
+    {
+      &quot;stage&quot;: &quot;ingestion&quot;,
+      &quot;status&quot;: &quot;completed&quot;,
+      &quot;segments&quot;: 34,
+      &quot;characters&quot;: 149931,
+      &quot;coverage&quot;: {
+        &quot;complete&quot;: true,
+        &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+      },
+      &quot;source_links&quot;: [
+        &quot;https://github.com/scaleapi/aspi&quot;,
+        &quot;https://arxiv.org/abs/2009.11352&quot;,
+        &quot;https://arxiv.org/&quot;,
+        &quot;https://doi.org/10.1145/3733799.3762982&quot;,
+        &quot;https://openreview.net/forum?id=&quot;,
+        &quot;https://proceedings&quot;,
+        &quot;https://openreview.net/&quot;,
+        &quot;https://arxiv&quot;,
+        &quot;https://www.usenix.org/conference/&quot;,
+        &quot;https://arxiv.org/abs/2603.15714&quot;,
+        &quot;https://arxiv.org/abs/2603.26233&quot;,
+        &quot;https://aclanthology.org/2020.emnlp-main.466/&quot;,
+        &quot;https://huggingface.co/&quot;,
+        &quot;https://doi.org/10.1145/3605764.3623985&quot;,
+        &quot;https://arxiv.org/abs/2602.10525&quot;,
+        &quot;https://openreview.net/forum&quot;,
+        &quot;https://arxiv.org/abs/2507.22034&quot;,
+        &quot;https://arxiv.org/abs/2603.10749&quot;,
+        &quot;https://arxiv.org/abs/2511&quot;,
+        &quot;https://doi.org/10.1145/3690624.3709179&quot;,
+        &quot;https://openreview.net/forum?id=X2yzXtH4wp&quot;,
+        &quot;https://aclanthology.org/2024&quot;,
+        &quot;https://arxiv.org/abs/2508.09124&quot;,
+        &quot;https://arxiv.org/abs/2407.19056&quot;,
+        &quot;https://simonwillison.net/&quot;,
+        &quot;https://arxiv.org/abs/2403.04960&quot;,
+        &quot;https://arxiv.org/abs/2603.01357&quot;,
+        &quot;https://openreview.net/forum?id=oKn9c6ytLx&quot;,
+        &quot;https://deepmind.google/models/gemini/pro/&quot;,
+        &quot;https://www.litellm.ai&quot;
+      ],
+      &quot;sha256&quot;: &quot;cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893&quot;
+    },
+    {
+      &quot;stage&quot;: &quot;repository_ingestion&quot;,
+      &quot;status&quot;: &quot;completed&quot;,
+      &quot;revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+      &quot;manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+      &quot;source_segments&quot;: 29,
+      &quot;coverage&quot;: {
+        &quot;complete&quot;: false,
+        &quot;inventory_complete&quot;: true,
+        &quot;scope&quot;: &quot;eligible UTF-8 source files only; excluded documents, datasets, tests, labels, credentials and dependencies are not audited&quot;,
+        &quot;reason&quot;: &quot;Source files omitted; this snapshot can support bounded positive findings but not whole-repository absence claims&quot;,
+        &quot;eligible_files&quot;: 32,
+        &quot;included_files&quot;: 29,
+        &quot;omitted_files&quot;: 3,
+        &quot;excluded_entries&quot;: 6,
+        &quot;characters&quot;: 311831,
+        &quot;max_characters&quot;: 320000
+      }
+    },
+    {
+      &quot;stage&quot;: &quot;extraction&quot;,
+      &quot;status&quot;: &quot;completed&quot;,
+      &quot;applicability&quot;: &quot;in_scope&quot;,
+      &quot;flow_count&quot;: 1,
+      &quot;execution&quot;: &quot;fresh_model_call&quot;
+    },
+    {
+      &quot;stage&quot;: &quot;citation_repair&quot;,
+      &quot;status&quot;: &quot;completed&quot;,
+      &quot;issues_before&quot;: 2,
+      &quot;accepted_replacements&quot;: 2,
+      &quot;remaining_issues&quot;: 0,
+      &quot;classification_fields_modified&quot;: false,
+      &quot;accepted&quot;: [
+        {
+          &quot;target&quot;: &quot;flows.0.policy_application.citation&quot;,
+          &quot;before&quot;: {
+            &quot;segment_id&quot;: &quot;paper:p5&quot;,
+            &quot;quote_sha256&quot;: &quot;30225a0b46b00e5b45921d9251c89f5856ed3386c703c5a3063b1fda2bfa8b5a&quot;,
+            &quot;quote_characters&quot;: 106
+          },
+          &quot;after&quot;: {
+            &quot;segment_id&quot;: &quot;paper:p3&quot;,
+            &quot;quote_sha256&quot;: &quot;b3c591301d0c24a37652ec16d9ef218425e731812cbf0d6b517266b60173f76c&quot;,
+            &quot;quote_characters&quot;: 52
+          },
+          &quot;reason&quot;: &quot;Explicitly states that the attacker has no access to the specific user task, supporting the cited knowledge restriction.&quot;
+        },
+        {
+          &quot;target&quot;: &quot;flows.0.code_path.0.citation&quot;,
+          &quot;before&quot;: {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+            &quot;quote_sha256&quot;: &quot;ada89fb321128b0f65b55c0baae74ec77539bba5dd64622a60ed2d398e635751&quot;,
+            &quot;quote_characters&quot;: 108
+          },
+          &quot;after&quot;: {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+            &quot;quote_sha256&quot;: &quot;aff75c4be4c77143e0438bc09736ff9a1873f98b88df592e46d50f170aef16a9&quot;,
+            &quot;quote_characters&quot;: 260
+          },
+          &quot;reason&quot;: &quot;Shows call_stage1 receiving the task object&#x27;s prompt and ground-truth output, along with serialized ground-truth tool calls.&quot;
+        }
+      ]
+    },
+    {
+      &quot;stage&quot;: &quot;semantic_review&quot;,
+      &quot;status&quot;: &quot;completed&quot;,
+      &quot;applicability&quot;: &quot;in_scope&quot;
+    },
+    {
+      &quot;stage&quot;: &quot;citation_validation_and_decision&quot;,
+      &quot;status&quot;: &quot;completed&quot;,
+      &quot;verdict&quot;: &quot;inconsistent&quot;,
+      &quot;reason&quot;: &quot;confirmed_inconsistency_in_scope&quot;
+    }
+  ],
+  &quot;evidence&quot;: [
+    {
+      &quot;id&quot;: &quot;uploaded_paper_claim_1&quot;,
+      &quot;source_group&quot;: &quot;archived&quot;,
+      &quot;description&quot;: &quot;Stage 1 is a distinct benchmark-design role with access to the original task and ground truth. The finding arises when its task-derived ambiguity fields cross into Stage 2 malicious payload authoring. The connected source path then stores that output and consumes it for the same task group&#x27;s HR evaluation. This establishes construction inconsistency under the common knowledge contract, without establishing historical runs or an effect on ASR.&quot;,
+      &quot;scope&quot;: {
+        &quot;paper_version&quot;: &quot;cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893&quot;,
+        &quot;experiment_arm&quot;: &quot;clarif_user_HR, pre-generated dataset variant, after the ask_user gate&quot;,
+        &quot;artifact_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+        &quot;configuration&quot;: &quot;Supplied paper and immutable source snapshot; no repository code executed&quot;
+      },
+      &quot;target&quot;: {
+        &quot;role&quot;: &quot;Offline adversarial clarification-response constructor&quot;,
+        &quot;phase&quot;: &quot;Dataset Stage 2, followed by clarification evaluation&quot;,
+        &quot;source&quot;: &quot;The same task&#x27;s Stage 1 ambiguity record&quot;,
+        &quot;representation&quot;: &quot;base_prompt, missing_slot, expected clarification question, and benign clarification answer&quot;,
+        &quot;operation&quot;: &quot;Format these task-derived fields with the attacker goal into the Stage 2 model request; store the generated response and deliver the HR variant as a user message.&quot;,
+        &quot;query_form&quot;: &quot;partial_query&quot;
+      },
+      &quot;verdict&quot;: &quot;inconsistent&quot;,
+      &quot;reason&quot;: &quot;scoped_forbidden_delivery_confirmed&quot;,
+      &quot;matching_rules&quot;: [
+        {
+          &quot;edge&quot;: {
+            &quot;role&quot;: &quot;Offline adversarial clarification-response constructor&quot;,
+            &quot;phase&quot;: &quot;Dataset Stage 2, followed by clarification evaluation&quot;,
+            &quot;source&quot;: &quot;The same task&#x27;s Stage 1 ambiguity record&quot;,
+            &quot;representation&quot;: &quot;base_prompt, missing_slot, expected clarification question, and benign clarification answer&quot;,
+            &quot;operation&quot;: &quot;Format these task-derived fields with the attacker goal into the Stage 2 model request; store the generated response and deliver the HR variant as a user message.&quot;,
+            &quot;query_form&quot;: &quot;partial_query&quot;
+          },
+          &quot;permission&quot;: &quot;deny&quot;,
+          &quot;reference&quot;: &quot;{\&quot;document_sha256\&quot;: \&quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b\&quot;, \&quot;end\&quot;: 3489, \&quot;match\&quot;: \&quot;normalized_exact\&quot;, \&quot;segment_id\&quot;: \&quot;paper:p3\&quot;, \&quot;start\&quot;: 3437, \&quot;text_view\&quot;: \&quot;reading_order\&quot;, \&quot;text_view_sha256\&quot;: \&quot;990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275\&quot;}&quot;
+        }
+      ],
+      &quot;matching_observations&quot;: [
+        {
+          &quot;edge&quot;: {
+            &quot;role&quot;: &quot;Offline adversarial clarification-response constructor&quot;,
+            &quot;phase&quot;: &quot;Dataset Stage 2, followed by clarification evaluation&quot;,
+            &quot;source&quot;: &quot;The same task&#x27;s Stage 1 ambiguity record&quot;,
+            &quot;representation&quot;: &quot;base_prompt, missing_slot, expected clarification question, and benign clarification answer&quot;,
+            &quot;operation&quot;: &quot;Format these task-derived fields with the attacker goal into the Stage 2 model request; store the generated response and deliver the HR variant as a user message.&quot;,
+            &quot;query_form&quot;: &quot;partial_query&quot;
+          },
+          &quot;status&quot;: &quot;present&quot;,
+          &quot;reference&quot;: &quot;{\&quot;document_sha256\&quot;: \&quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b\&quot;, \&quot;end\&quot;: 4533, \&quot;match\&quot;: \&quot;normalized_exact\&quot;, \&quot;segment_id\&quot;: \&quot;repo:src/aspi/dataset/pipeline.py:L1-L809\&quot;, \&quot;start\&quot;: 4456, \&quot;text_view\&quot;: \&quot;primary\&quot;, \&quot;text_view_sha256\&quot;: \&quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd\&quot;}&quot;
+        }
+      ],
+      &quot;other_observation_count&quot;: 0,
+      &quot;validation_mode&quot;: &quot;scope_review_v3&quot;,
+      &quot;claim&quot;: &quot;Task-derived partial query information reaches the offline malicious constructor whose stored HR response is delivered in clarif_user_HR.&quot;,
+      &quot;issue_type&quot;: &quot;information_boundary&quot;,
+      &quot;assessment&quot;: {
+        &quot;information_level&quot;: &quot;partial_query&quot;,
+        &quot;policy_application&quot;: {
+          &quot;policy_kind&quot;: &quot;attacker_knowledge_constraint&quot;,
+          &quot;status&quot;: &quot;applicable&quot;,
+          &quot;reason&quot;: &quot;The shared threat model bans access to the specific task, covering these task-derived fields even though Stage 2 does not receive an original_prompt argument. The injection-generation procedure discloses task-aware construction but does not explicitly grant an exception to the attacker knowledge restriction.&quot;,
+          &quot;reference&quot;: &quot;{\&quot;document_sha256\&quot;: \&quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b\&quot;, \&quot;end\&quot;: 3489, \&quot;match\&quot;: \&quot;normalized_exact\&quot;, \&quot;segment_id\&quot;: \&quot;paper:p3\&quot;, \&quot;start\&quot;: 3437, \&quot;text_view\&quot;: \&quot;reading_order\&quot;, \&quot;text_view_sha256\&quot;: \&quot;990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275\&quot;}&quot;
+        },
+        &quot;delivery&quot;: {
+          &quot;status&quot;: &quot;confirmed&quot;,
+          &quot;evidence_kind&quot;: &quot;static_bound_path&quot;,
+          &quot;task_relation&quot;: &quot;same_evaluated_instance&quot;,
+          &quot;reason&quot;: &quot;The evaluator reads the group&#x27;s operator response, selects its HR entry, and passes it to the continuation that appends a role:user message. This branch is conditional on ask_user being called and a nonempty HR variant being available; no execution is established.&quot;,
+          &quot;reference&quot;: &quot;{\&quot;document_sha256\&quot;: \&quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b\&quot;, \&quot;end\&quot;: 72748, \&quot;match\&quot;: \&quot;normalized_exact\&quot;, \&quot;segment_id\&quot;: \&quot;repo:src/aspi/eval/runner.py:L1-L2317\&quot;, \&quot;start\&quot;: 72698, \&quot;text_view\&quot;: \&quot;primary\&quot;, \&quot;text_view_sha256\&quot;: \&quot;2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55\&quot;}&quot;
+        },
+        &quot;refutation&quot;: {
+          &quot;basis&quot;: &quot;none&quot;,
+          &quot;reason&quot;: &quot;The stronger user-message delivery baseline changes the recipient channel. No supplied paper text explicitly changes the constructor&#x27;s task-knowledge budget for this branch.&quot;,
+          &quot;reference&quot;: &quot;&quot;
+        }
+      },
+      &quot;claim_result&quot;: &quot;confirmed&quot;,
+      &quot;citation_errors&quot;: [],
+      &quot;locators&quot;: {
+        &quot;policy_scope&quot;: {
+          &quot;segment_id&quot;: &quot;paper:p3&quot;,
+          &quot;start&quot;: 3437,
+          &quot;end&quot;: 3489,
+          &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+          &quot;match&quot;: &quot;normalized_exact&quot;,
+          &quot;text_view&quot;: &quot;reading_order&quot;,
+          &quot;text_view_sha256&quot;: &quot;990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275&quot;,
+          &quot;source_kind&quot;: &quot;paper&quot;,
+          &quot;paper_sha256&quot;: &quot;cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893&quot;
+        },
+        &quot;delivery&quot;: {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/eval/runner.py:L1-L2317&quot;,
+          &quot;start&quot;: 72698,
+          &quot;end&quot;: 72748,
+          &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+          &quot;match&quot;: &quot;normalized_exact&quot;,
+          &quot;text_view&quot;: &quot;primary&quot;,
+          &quot;text_view_sha256&quot;: &quot;2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55&quot;,
+          &quot;source_kind&quot;: &quot;code&quot;,
+          &quot;path&quot;: &quot;src/aspi/eval/runner.py&quot;,
+          &quot;file_sha256&quot;: &quot;2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55&quot;,
+          &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+          &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+          &quot;line_start&quot;: 1806,
+          &quot;line_end&quot;: 1807
+        },
+        &quot;declaration&quot;: {
+          &quot;segment_id&quot;: &quot;paper:p3&quot;,
+          &quot;start&quot;: 3437,
+          &quot;end&quot;: 3489,
+          &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+          &quot;match&quot;: &quot;normalized_exact&quot;,
+          &quot;text_view&quot;: &quot;reading_order&quot;,
+          &quot;text_view_sha256&quot;: &quot;990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275&quot;,
+          &quot;source_kind&quot;: &quot;paper&quot;,
+          &quot;paper_sha256&quot;: &quot;cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893&quot;
+        },
+        &quot;implementation&quot;: {
+          &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+          &quot;start&quot;: 4456,
+          &quot;end&quot;: 4533,
+          &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+          &quot;match&quot;: &quot;normalized_exact&quot;,
+          &quot;text_view&quot;: &quot;primary&quot;,
+          &quot;text_view_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+          &quot;source_kind&quot;: &quot;code&quot;,
+          &quot;path&quot;: &quot;src/aspi/dataset/pipeline.py&quot;,
+          &quot;file_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+          &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+          &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+          &quot;line_start&quot;: 131,
+          &quot;line_end&quot;: 132
+        }
+      },
+      &quot;normalization_review&quot;: {
+        &quot;index&quot;: 0,
+        &quot;supported&quot;: true,
+        &quot;policy_kind&quot;: &quot;attacker_knowledge_constraint&quot;,
+        &quot;policy_application&quot;: &quot;applicable&quot;,
+        &quot;delivery&quot;: &quot;confirmed&quot;,
+        &quot;refutation&quot;: &quot;none&quot;,
+        &quot;reason&quot;: &quot;paper:p3 states a common task-knowledge restriction across listed channels; direct user turns strengthen delivery without granting additional knowledge. paper:p13 discloses task-aware authoring but supplies no knowledge exception. pipeline.py passes Stage 1 task-derived fields into the Stage 2 adversarial request through call_llm and LiteLlmClient, parses its result, retains the operator, and serializes the response with the same task identifiers. runner.py loads that group, resolves its task identifiers, selects HR, and appends its stored response as role:user before continuation, conditional on ask_user and a nonempty variant. The proposed loader quotation is inexact, but the supplied loader and main establish the stated connection. This confirms a released-source conditional path, not historical execution.&quot;
+      },
+      &quot;semantic_review&quot;: {
+        &quot;index&quot;: 0,
+        &quot;supported&quot;: true,
+        &quot;policy_kind&quot;: &quot;attacker_knowledge_constraint&quot;,
+        &quot;policy_application&quot;: &quot;applicable&quot;,
+        &quot;delivery&quot;: &quot;confirmed&quot;,
+        &quot;refutation&quot;: &quot;none&quot;,
+        &quot;reason&quot;: &quot;paper:p3 states a common task-knowledge restriction across listed channels; direct user turns strengthen delivery without granting additional knowledge. paper:p13 discloses task-aware authoring but supplies no knowledge exception. pipeline.py passes Stage 1 task-derived fields into the Stage 2 adversarial request through call_llm and LiteLlmClient, parses its result, retains the operator, and serializes the response with the same task identifiers. runner.py loads that group, resolves its task identifiers, selects HR, and appends its stored response as role:user before continuation, conditional on ask_user and a nonempty variant. The proposed loader quotation is inexact, but the supplied loader and main establish the stated connection. This confirms a released-source conditional path, not historical execution.&quot;,
+        &quot;declaration_supported&quot;: true,
+        &quot;implementation_supported&quot;: true,
+        &quot;scope_resolution_supported&quot;: true,
+        &quot;code_path_supported&quot;: true
+      },
+      &quot;source_validation&quot;: {
+        &quot;policy_supported&quot;: true,
+        &quot;delivery_supported&quot;: true,
+        &quot;scope_locators&quot;: {
+          &quot;common_rule&quot;: {
+            &quot;segment_id&quot;: &quot;paper:p3&quot;,
+            &quot;start&quot;: 3437,
+            &quot;end&quot;: 3489,
+            &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+            &quot;match&quot;: &quot;normalized_exact&quot;,
+            &quot;text_view&quot;: &quot;reading_order&quot;,
+            &quot;text_view_sha256&quot;: &quot;990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275&quot;,
+            &quot;source_kind&quot;: &quot;paper&quot;,
+            &quot;paper_sha256&quot;: &quot;cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893&quot;
+          },
+          &quot;specific_rule&quot;: {
+            &quot;segment_id&quot;: &quot;paper:p3&quot;,
+            &quot;start&quot;: 1984,
+            &quot;end&quot;: 2034,
+            &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+            &quot;match&quot;: &quot;normalized_exact&quot;,
+            &quot;text_view&quot;: &quot;reading_order&quot;,
+            &quot;text_view_sha256&quot;: &quot;990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275&quot;,
+            &quot;source_kind&quot;: &quot;paper&quot;,
+            &quot;paper_sha256&quot;: &quot;cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893&quot;
+          }
+        },
+        &quot;code_path_locators&quot;: [
+          {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+            &quot;start&quot;: 16019,
+            &quot;end&quot;: 16277,
+            &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+            &quot;match&quot;: &quot;normalized_exact&quot;,
+            &quot;text_view&quot;: &quot;primary&quot;,
+            &quot;text_view_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+            &quot;source_kind&quot;: &quot;code&quot;,
+            &quot;path&quot;: &quot;src/aspi/dataset/pipeline.py&quot;,
+            &quot;file_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+            &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+            &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+            &quot;line_start&quot;: 429,
+            &quot;line_end&quot;: 436
+          },
+          {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+            &quot;start&quot;: 3970,
+            &quot;end&quot;: 4151,
+            &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+            &quot;match&quot;: &quot;normalized_exact&quot;,
+            &quot;text_view&quot;: &quot;primary&quot;,
+            &quot;text_view_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+            &quot;source_kind&quot;: &quot;code&quot;,
+            &quot;path&quot;: &quot;src/aspi/dataset/pipeline.py&quot;,
+            &quot;file_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+            &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+            &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+            &quot;line_start&quot;: 116,
+            &quot;line_end&quot;: 120
+          },
+          {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+            &quot;start&quot;: 4156,
+            &quot;end&quot;: 4250,
+            &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+            &quot;match&quot;: &quot;normalized_exact&quot;,
+            &quot;text_view&quot;: &quot;primary&quot;,
+            &quot;text_view_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+            &quot;source_kind&quot;: &quot;code&quot;,
+            &quot;path&quot;: &quot;src/aspi/dataset/pipeline.py&quot;,
+            &quot;file_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+            &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+            &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+            &quot;line_start&quot;: 121,
+            &quot;line_end&quot;: 122
+          },
+          {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+            &quot;start&quot;: 4414,
+            &quot;end&quot;: 4763,
+            &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+            &quot;match&quot;: &quot;normalized_exact&quot;,
+            &quot;text_view&quot;: &quot;primary&quot;,
+            &quot;text_view_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+            &quot;source_kind&quot;: &quot;code&quot;,
+            &quot;path&quot;: &quot;src/aspi/dataset/pipeline.py&quot;,
+            &quot;file_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+            &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+            &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+            &quot;line_start&quot;: 130,
+            &quot;line_end&quot;: 137
+          },
+          {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+            &quot;start&quot;: 4768,
+            &quot;end&quot;: 4862,
+            &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+            &quot;match&quot;: &quot;normalized_exact&quot;,
+            &quot;text_view&quot;: &quot;primary&quot;,
+            &quot;text_view_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+            &quot;source_kind&quot;: &quot;code&quot;,
+            &quot;path&quot;: &quot;src/aspi/dataset/pipeline.py&quot;,
+            &quot;file_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+            &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+            &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+            &quot;line_start&quot;: 138,
+            &quot;line_end&quot;: 139
+          },
+          {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+            &quot;start&quot;: 19453,
+            &quot;end&quot;: 19499,
+            &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+            &quot;match&quot;: &quot;normalized_exact&quot;,
+            &quot;text_view&quot;: &quot;primary&quot;,
+            &quot;text_view_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+            &quot;source_kind&quot;: &quot;code&quot;,
+            &quot;path&quot;: &quot;src/aspi/dataset/pipeline.py&quot;,
+            &quot;file_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+            &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+            &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+            &quot;line_start&quot;: 514,
+            &quot;line_end&quot;: 514
+          },
+          {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+            &quot;start&quot;: 9244,
+            &quot;end&quot;: 9481,
+            &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+            &quot;match&quot;: &quot;normalized_exact&quot;,
+            &quot;text_view&quot;: &quot;primary&quot;,
+            &quot;text_view_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+            &quot;source_kind&quot;: &quot;code&quot;,
+            &quot;path&quot;: &quot;src/aspi/dataset/pipeline.py&quot;,
+            &quot;file_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+            &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+            &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+            &quot;line_start&quot;: 242,
+            &quot;line_end&quot;: 245
+          },
+          {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+            &quot;start&quot;: 22823,
+            &quot;end&quot;: 22863,
+            &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+            &quot;match&quot;: &quot;normalized_exact&quot;,
+            &quot;text_view&quot;: &quot;primary&quot;,
+            &quot;text_view_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+            &quot;source_kind&quot;: &quot;code&quot;,
+            &quot;path&quot;: &quot;src/aspi/dataset/pipeline.py&quot;,
+            &quot;file_sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+            &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+            &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+            &quot;line_start&quot;: 605,
+            &quot;line_end&quot;: 605
+          },
+          {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/eval/runner.py:L1-L2317&quot;,
+            &quot;start&quot;: 75906,
+            &quot;end&quot;: 76050,
+            &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+            &quot;match&quot;: &quot;normalized_exact&quot;,
+            &quot;text_view&quot;: &quot;primary&quot;,
+            &quot;text_view_sha256&quot;: &quot;2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55&quot;,
+            &quot;source_kind&quot;: &quot;code&quot;,
+            &quot;path&quot;: &quot;src/aspi/eval/runner.py&quot;,
+            &quot;file_sha256&quot;: &quot;2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55&quot;,
+            &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+            &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+            &quot;line_start&quot;: 1908,
+            &quot;line_end&quot;: 1911
+          },
+          {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/eval/runner.py:L1-L2317&quot;,
+            &quot;start&quot;: 63509,
+            &quot;end&quot;: 63623,
+            &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+            &quot;match&quot;: &quot;normalized_exact&quot;,
+            &quot;text_view&quot;: &quot;primary&quot;,
+            &quot;text_view_sha256&quot;: &quot;2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55&quot;,
+            &quot;source_kind&quot;: &quot;code&quot;,
+            &quot;path&quot;: &quot;src/aspi/eval/runner.py&quot;,
+            &quot;file_sha256&quot;: &quot;2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55&quot;,
+            &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+            &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+            &quot;line_start&quot;: 1583,
+            &quot;line_end&quot;: 1585
+          },
+          {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/eval/runner.py:L1-L2317&quot;,
+            &quot;start&quot;: 72330,
+            &quot;end&quot;: 72360,
+            &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+            &quot;match&quot;: &quot;normalized_exact&quot;,
+            &quot;text_view&quot;: &quot;primary&quot;,
+            &quot;text_view_sha256&quot;: &quot;2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55&quot;,
+            &quot;source_kind&quot;: &quot;code&quot;,
+            &quot;path&quot;: &quot;src/aspi/eval/runner.py&quot;,
+            &quot;file_sha256&quot;: &quot;2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55&quot;,
+            &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+            &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+            &quot;line_start&quot;: 1798,
+            &quot;line_end&quot;: 1798
+          },
+          {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/eval/runner.py:L1-L2317&quot;,
+            &quot;start&quot;: 72698,
+            &quot;end&quot;: 72748,
+            &quot;document_sha256&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+            &quot;match&quot;: &quot;normalized_exact&quot;,
+            &quot;text_view&quot;: &quot;primary&quot;,
+            &quot;text_view_sha256&quot;: &quot;2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55&quot;,
+            &quot;source_kind&quot;: &quot;code&quot;,
+            &quot;path&quot;: &quot;src/aspi/eval/runner.py&quot;,
+            &quot;file_sha256&quot;: &quot;2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55&quot;,
+            &quot;repository_revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+            &quot;repository_manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+            &quot;line_start&quot;: 1806,
+            &quot;line_end&quot;: 1807
+          }
+        ],
+        &quot;validation_errors&quot;: []
+      },
+      &quot;scope_resolution&quot;: {
+        &quot;basis&quot;: &quot;common_contract&quot;,
+        &quot;common_rule&quot;: {
+          &quot;segment_id&quot;: &quot;paper:p3&quot;,
+          &quot;quote_sha256&quot;: &quot;b3c591301d0c24a37652ec16d9ef218425e731812cbf0d6b517266b60173f76c&quot;,
+          &quot;quote_characters&quot;: 52
+        },
+        &quot;specific_rule&quot;: {
+          &quot;segment_id&quot;: &quot;paper:p3&quot;,
+          &quot;quote_sha256&quot;: &quot;58a59c5ffb08bfa8d2fabf154bb601c2cfc571b6434702994cb28f0ab6bec6dd&quot;,
+          &quot;quote_characters&quot;: 50
+        },
+        &quot;override_dimension&quot;: &quot;delivery&quot;,
+        &quot;reason&quot;: &quot;The paper explicitly includes direct user turns as a stronger delivery baseline within its shared threat model. Its injection-generation template exposes task-derived inputs, but procedure disclosure alone does not authorize a knowledge exception.&quot;
+      },
+      &quot;code_path&quot;: [
+        {
+          &quot;kind&quot;: &quot;source&quot;,
+          &quot;input_symbol&quot;: &quot;dataset.ut&quot;,
+          &quot;output_symbol&quot;: &quot;dataset.call_stage1.arguments&quot;,
+          &quot;citation&quot;: {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+            &quot;quote_sha256&quot;: &quot;aff75c4be4c77143e0438bc09736ff9a1873f98b88df592e46d50f170aef16a9&quot;,
+            &quot;quote_characters&quot;: 260
+          },
+          &quot;explanation&quot;: &quot;The task object supplies the ambiguity-generation arguments.&quot;
+        },
+        {
+          &quot;kind&quot;: &quot;transform&quot;,
+          &quot;input_symbol&quot;: &quot;dataset.call_stage1.arguments&quot;,
+          &quot;output_symbol&quot;: &quot;dataset.call_stage1.user_msg&quot;,
+          &quot;citation&quot;: {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+            &quot;quote_sha256&quot;: &quot;6fb70e7ac33ca4ec45d6d8fad8f16ee6db5dbc9299f86a5a3df37fbb1b86e981&quot;,
+            &quot;quote_characters&quot;: 153
+          },
+          &quot;explanation&quot;: &quot;Stage 1 formats the original task and serialized ground truth.&quot;
+        },
+        {
+          &quot;kind&quot;: &quot;request&quot;,
+          &quot;input_symbol&quot;: &quot;dataset.call_stage1.user_msg&quot;,
+          &quot;output_symbol&quot;: &quot;dataset.ambig&quot;,
+          &quot;citation&quot;: {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+            &quot;quote_sha256&quot;: &quot;e7cc5c68dd46c1607a0b790e6081fc7f52e2e05d3a68efaee75e6ea74a6c4a7a&quot;,
+            &quot;quote_characters&quot;: 90
+          },
+          &quot;explanation&quot;: &quot;The ambiguity-generation request returns the parsed ambiguity record, bound to ambig by the caller.&quot;
+        },
+        {
+          &quot;kind&quot;: &quot;transform&quot;,
+          &quot;input_symbol&quot;: &quot;dataset.ambig&quot;,
+          &quot;output_symbol&quot;: &quot;dataset.call_stage2.user_msg&quot;,
+          &quot;citation&quot;: {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+            &quot;quote_sha256&quot;: &quot;09186dcd236078516ce16a5094770c5c383a1a5a48c42390de9e90d11b66dc8d&quot;,
+            &quot;quote_characters&quot;: 297
+          },
+          &quot;explanation&quot;: &quot;Task-derived ambiguity fields cross into the malicious construction prompt alongside the attacker goal and operator.&quot;
+        },
+        {
+          &quot;kind&quot;: &quot;request&quot;,
+          &quot;input_symbol&quot;: &quot;dataset.call_stage2.user_msg&quot;,
+          &quot;output_symbol&quot;: &quot;dataset.call_stage2.result&quot;,
+          &quot;citation&quot;: {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+            &quot;quote_sha256&quot;: &quot;93f0ac5c8e569db8aad53bf20eca5466fc7094e8b9ed9badc62318bc42007807&quot;,
+            &quot;quote_characters&quot;: 90
+          },
+          &quot;explanation&quot;: &quot;This is the adversarial construction request. call_llm binds user_msg as a user-role message and sends it through client.get_text.&quot;
+        },
+        {
+          &quot;kind&quot;: &quot;transform&quot;,
+          &quot;input_symbol&quot;: &quot;dataset.call_stage2.result&quot;,
+          &quot;output_symbol&quot;: &quot;dataset.injection_results&quot;,
+          &quot;citation&quot;: {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+            &quot;quote_sha256&quot;: &quot;35e45c927a7085fb2566104a46e9829f3eed0b8bbcd769bd42060b98517255a8&quot;,
+            &quot;quote_characters&quot;: 46
+          },
+          &quot;explanation&quot;: &quot;The retry wrapper returns the parsed result as inj_data; the per-operator loop retains it with its operator.&quot;
+        },
+        {
+          &quot;kind&quot;: &quot;transform&quot;,
+          &quot;input_symbol&quot;: &quot;dataset.injection_results&quot;,
+          &quot;output_symbol&quot;: &quot;dataset.group&quot;,
+          &quot;citation&quot;: {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+            &quot;quote_sha256&quot;: &quot;a367b74343f54b1c7687f8cf60a308c1c09e2c14bb60886d67c0b4e2a8033c0e&quot;,
+            &quot;quote_characters&quot;: 197
+          },
+          &quot;explanation&quot;: &quot;build_group embeds the response in the group&#x27;s injections list, preserving its operator.&quot;
+        },
+        {
+          &quot;kind&quot;: &quot;artifact_write&quot;,
+          &quot;input_symbol&quot;: &quot;dataset.group&quot;,
+          &quot;output_symbol&quot;: &quot;artifact.dataset_jsonl&quot;,
+          &quot;citation&quot;: {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/dataset/pipeline.py:L1-L809&quot;,
+            &quot;quote_sha256&quot;: &quot;f037706280e8f6a31755f532b65d21d7687dc08b59655b0054df3b87367bf8bc&quot;,
+            &quot;quote_characters&quot;: 40
+          },
+          &quot;explanation&quot;: &quot;The returned group is serialized as a dataset JSONL record.&quot;
+        },
+        {
+          &quot;kind&quot;: &quot;artifact_read&quot;,
+          &quot;input_symbol&quot;: &quot;artifact.dataset_jsonl&quot;,
+          &quot;output_symbol&quot;: &quot;eval.group&quot;,
+          &quot;citation&quot;: {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/eval/runner.py:L1-L2317&quot;,
+            &quot;quote_sha256&quot;: &quot;0453055152430c93bcdf523a9a14c0d3d0b2bb902a933edaf9523a3c6890cdb2&quot;,
+            &quot;quote_characters&quot;: 104
+          },
+          &quot;explanation&quot;: &quot;The grouped loader reconstructs the records that main passes to evaluate_group. This path requires selecting the generated dataset as evaluation input.&quot;
+        },
+        {
+          &quot;kind&quot;: &quot;transform&quot;,
+          &quot;input_symbol&quot;: &quot;eval.group&quot;,
+          &quot;output_symbol&quot;: &quot;eval.op_variants&quot;,
+          &quot;citation&quot;: {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/eval/runner.py:L1-L2317&quot;,
+            &quot;quote_sha256&quot;: &quot;161b755430930585b7df47ec9cd19e88a23557bbaacbc809edd0477a250d7600&quot;,
+            &quot;quote_characters&quot;: 94
+          },
+          &quot;explanation&quot;: &quot;evaluate_group extracts nonempty stored responses keyed by operator.&quot;
+        },
+        {
+          &quot;kind&quot;: &quot;transform&quot;,
+          &quot;input_symbol&quot;: &quot;eval.op_variants&quot;,
+          &quot;output_symbol&quot;: &quot;eval.h_op&quot;,
+          &quot;citation&quot;: {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/eval/runner.py:L1-L2317&quot;,
+            &quot;quote_sha256&quot;: &quot;4183c214dcf2fb970515ddde80622665565c185b49ce740f584bb15923c1fb3b&quot;,
+            &quot;quote_characters&quot;: 30
+          },
+          &quot;explanation&quot;: &quot;The HR invocation of _run_clarif_user_variant selects the stored HR response; HR is among CLARIF_USER_OPERATORS.&quot;
+        },
+        {
+          &quot;kind&quot;: &quot;delivery&quot;,
+          &quot;input_symbol&quot;: &quot;eval.h_op&quot;,
+          &quot;output_symbol&quot;: &quot;eval.clarif_user_HR.messages&quot;,
+          &quot;citation&quot;: {
+            &quot;segment_id&quot;: &quot;repo:src/aspi/eval/runner.py:L1-L2317&quot;,
+            &quot;quote_sha256&quot;: &quot;ef367e6506c18e279e591501a8895e62ffb162460350904161706de8669e3d2f&quot;,
+            &quot;quote_characters&quot;: 38
+          },
+          &quot;explanation&quot;: &quot;The named variant calls continue_from_injected_user_reply with h_op. That function appends injected_text as role:user content and passes those messages to _run_continuation, binding the stored artifact to the agent&#x27;s HR branch.&quot;
+        }
+      ]
+    }
+  ],
+  &quot;document_sha256&quot;: &quot;cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893&quot;,
+  &quot;repository&quot;: {
+    &quot;source&quot;: &quot;https://github.com/scaleapi/aspi&quot;,
+    &quot;source_binding&quot;: &quot;f01e0580203fe56524e8640e7dba2b76c561801c4265e4de77d5271508d7b20e&quot;,
+    &quot;revision_kind&quot;: &quot;git_commit&quot;,
+    &quot;revision&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+    &quot;commit&quot;: &quot;e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d&quot;,
+    &quot;tree_sha&quot;: null,
+    &quot;commit_binding&quot;: &quot;github_codeload_full_commit_url&quot;,
+    &quot;archive_sha256&quot;: &quot;3c3aac54db60e198f49036a6785476011dd6d5c32a46792c779d55362577f5c6&quot;,
+    &quot;manifest_sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+    &quot;sha256&quot;: &quot;3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011&quot;,
+    &quot;inventory&quot;: [
+      {
+        &quot;path&quot;: &quot;pyproject.toml&quot;,
+        &quot;bytes&quot;: 612,
+        &quot;sha256&quot;: &quot;a645f93ffe1ac11d99da03b37597880a73d9a9da2c729cda3bf3bb423ee8e673&quot;,
+        &quot;characters&quot;: 610,
+        &quot;line_count&quot;: 26,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;scripts/analyze.py&quot;,
+        &quot;bytes&quot;: 401,
+        &quot;sha256&quot;: &quot;f1a487f6ed177f7714524e69e878310c55981dad3b6db96c0e483cd5d71bca52&quot;,
+        &quot;characters&quot;: 399,
+        &quot;line_count&quot;: 16,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;scripts/audit_results.py&quot;,
+        &quot;bytes&quot;: 14182,
+        &quot;sha256&quot;: &quot;092efaeecb36fd0c1acb2070b0c3bd6bd50a8adb010f542dac2ede6d83a0a007&quot;,
+        &quot;characters&quot;: 14172,
+        &quot;line_count&quot;: 374,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;scripts/build_dataset.py&quot;,
+        &quot;bytes&quot;: 365,
+        &quot;sha256&quot;: &quot;848cd4f2c38b08c8913881f9e34ce6741a8e65d250ab3ac2f0589f525f7c4b4e&quot;,
+        &quot;characters&quot;: 365,
+        &quot;line_count&quot;: 15,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;scripts/check_quality.py&quot;,
+        &quot;bytes&quot;: 361,
+        &quot;sha256&quot;: &quot;423a4ac9964affba5013c6190674d376241b06fcd4f24322b01b2d3e972b2dfb&quot;,
+        &quot;characters&quot;: 361,
+        &quot;line_count&quot;: 15,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;scripts/run_eval.py&quot;,
+        &quot;bytes&quot;: 408,
+        &quot;sha256&quot;: &quot;c505d24f773d58f4b9491c9de68b1e6421c36b539973467abac849380ebb88cd&quot;,
+        &quot;characters&quot;: 408,
+        &quot;line_count&quot;: 15,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;scripts/run_judge.py&quot;,
+        &quot;bytes&quot;: 3004,
+        &quot;sha256&quot;: &quot;d56b2a908b0a8227ab2a032eaa3dd292a93778b1332153af8191d1f14d5f9c32&quot;,
+        &quot;characters&quot;: 3002,
+        &quot;line_count&quot;: 94,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/__init__.py&quot;,
+        &quot;bytes&quot;: 939,
+        &quot;sha256&quot;: &quot;7976528e90e7dcf545b7cc446f937e32d548df92855e579e10d45918abae5182&quot;,
+        &quot;characters&quot;: 925,
+        &quot;line_count&quot;: 22,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/common/__init__.py&quot;,
+        &quot;bytes&quot;: 83,
+        &quot;sha256&quot;: &quot;13a003a9c281cb2e88b546cbbd34e93161fdb14dc945593c4391237a473386cd&quot;,
+        &quot;characters&quot;: 83,
+        &quot;line_count&quot;: 1,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/common/constants.py&quot;,
+        &quot;bytes&quot;: 912,
+        &quot;sha256&quot;: &quot;6e9b03b502e49c099add44bd152c1f280dc6e7880d562b5225481df6e9f47b71&quot;,
+        &quot;characters&quot;: 912,
+        &quot;line_count&quot;: 27,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/common/io.py&quot;,
+        &quot;bytes&quot;: 3830,
+        &quot;sha256&quot;: &quot;9d556a7218e394ffadeb44038724915aef98bac61f968d081bd030154bed9c70&quot;,
+        &quot;characters&quot;: 3830,
+        &quot;line_count&quot;: 126,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/common/litellm.py&quot;,
+        &quot;bytes&quot;: 5720,
+        &quot;sha256&quot;: &quot;057fa8ef273d282ff14dfa6f2fe3e6cee6d03e64f2456101d9bf658b13bd0c9c&quot;,
+        &quot;characters&quot;: 5716,
+        &quot;line_count&quot;: 151,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/common/paths.py&quot;,
+        &quot;bytes&quot;: 1397,
+        &quot;sha256&quot;: &quot;a72c8288dcd4b04a5b046934def2164dd5cafd17e9d6fcbd82114216450f35ea&quot;,
+        &quot;characters&quot;: 1397,
+        &quot;line_count&quot;: 46,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/common/variants.py&quot;,
+        &quot;bytes&quot;: 720,
+        &quot;sha256&quot;: &quot;2e81e6f1c61a3d4bf7f25e3d389c33540e6d773f80ce7a38666698467c830123&quot;,
+        &quot;characters&quot;: 720,
+        &quot;line_count&quot;: 21,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/dataset/__init__.py&quot;,
+        &quot;bytes&quot;: 270,
+        &quot;sha256&quot;: &quot;8562d043008ae0e73903f888edd78cb360b6c361e06b62e33df7064a73edceaf&quot;,
+        &quot;characters&quot;: 264,
+        &quot;line_count&quot;: 7,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/dataset/pipeline.py&quot;,
+        &quot;bytes&quot;: 30962,
+        &quot;sha256&quot;: &quot;3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd&quot;,
+        &quot;characters&quot;: 30732,
+        &quot;line_count&quot;: 809,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/dataset/quality.py&quot;,
+        &quot;bytes&quot;: 18182,
+        &quot;sha256&quot;: &quot;3b0848df9d438bb5e1d5795c5767101ba1a4ae2ad2756a932b27ca6e9708f6bd&quot;,
+        &quot;characters&quot;: 18159,
+        &quot;line_count&quot;: 474,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/defenses/__init__.py&quot;,
+        &quot;bytes&quot;: 169,
+        &quot;sha256&quot;: &quot;ae6e3dcab603a21ba75b5b16449323b2de163723b8f557ab24058dac6c3a52b6&quot;,
+        &quot;characters&quot;: 169,
+        &quot;line_count&quot;: 5,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/defenses/prompt_guard.py&quot;,
+        &quot;bytes&quot;: 23270,
+        &quot;sha256&quot;: &quot;ff1b024d278369eb0dbe159701e0a9197242ab5e3ae1d9c8682c08875044b12a&quot;,
+        &quot;characters&quot;: 23144,
+        &quot;line_count&quot;: 519,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/defenses/tool_filter.py&quot;,
+        &quot;bytes&quot;: 19092,
+        &quot;sha256&quot;: &quot;e5a0b8e3691f16eea0186668c0cb93bf96b261fc5817424dda5a02b28e62b891&quot;,
+        &quot;characters&quot;: 18794,
+        &quot;line_count&quot;: 452,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/eval/__init__.py&quot;,
+        &quot;bytes&quot;: 432,
+        &quot;sha256&quot;: &quot;21ba677caadc44ea00b318f80c67e2f466f77b26e4f80d99c44aeda08f0f9b94&quot;,
+        &quot;characters&quot;: 422,
+        &quot;line_count&quot;: 9,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/eval/analyze.py&quot;,
+        &quot;bytes&quot;: 82145,
+        &quot;sha256&quot;: &quot;c6c895a84c22779bd7c56b84a696d8608c49479851708b0b5ed21644ac193a6a&quot;,
+        &quot;characters&quot;: 81537,
+        &quot;line_count&quot;: 2093,
+        &quot;included&quot;: false,
+        &quot;reason&quot;: &quot;character_budget&quot;
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/eval/judge.py&quot;,
+        &quot;bytes&quot;: 36734,
+        &quot;sha256&quot;: &quot;b637e54dfa41b4352f196ce9ec2d3e7eb075920466b75414a89cb0e2e7ea70e6&quot;,
+        &quot;characters&quot;: 36621,
+        &quot;line_count&quot;: 831,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/eval/litellm_element.py&quot;,
+        &quot;bytes&quot;: 21496,
+        &quot;sha256&quot;: &quot;c74898e76ded89cde6ada10e90e88976b666283edd39c6ab6f4155664b1cd375&quot;,
+        &quot;characters&quot;: 21322,
+        &quot;line_count&quot;: 543,
+        &quot;included&quot;: false,
+        &quot;reason&quot;: &quot;character_budget&quot;
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/eval/metrics.py&quot;,
+        &quot;bytes&quot;: 50317,
+        &quot;sha256&quot;: &quot;85d3b59c2bfb8ce1c1d84ee51eb907743e14c333312c9cf3effc3a7bb72e0a97&quot;,
+        &quot;characters&quot;: 49782,
+        &quot;line_count&quot;: 1265,
+        &quot;included&quot;: false,
+        &quot;reason&quot;: &quot;character_budget&quot;
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/eval/runner.py&quot;,
+        &quot;bytes&quot;: 94112,
+        &quot;sha256&quot;: &quot;2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55&quot;,
+        &quot;characters&quot;: 93140,
+        &quot;line_count&quot;: 2317,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/eval/simulator.py&quot;,
+        &quot;bytes&quot;: 8867,
+        &quot;sha256&quot;: &quot;3d970b8eee4a4cc866d4eb9d9c2e6a8189bbdec3b9e1d0c9e7ea84e0cc8b2684&quot;,
+        &quot;characters&quot;: 8863,
+        &quot;line_count&quot;: 251,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/prompts/__init__.py&quot;,
+        &quot;bytes&quot;: 344,
+        &quot;sha256&quot;: &quot;b24ce32c3ee66f4b58a3cb9006e7e4edf5dd11d73c0e8b5ffedb3ed4d3ebd817&quot;,
+        &quot;characters&quot;: 336,
+        &quot;line_count&quot;: 7,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/prompts/dataset.py&quot;,
+        &quot;bytes&quot;: 8508,
+        &quot;sha256&quot;: &quot;6444a195818f05025e1b4b450b48041805642c096b1df74d22cf7129ed79d91c&quot;,
+        &quot;characters&quot;: 8432,
+        &quot;line_count&quot;: 187,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/prompts/eval_system.py&quot;,
+        &quot;bytes&quot;: 2914,
+        &quot;sha256&quot;: &quot;0822bef09b139c45ac4bc62b82a933ea92c15df3afa119990c42f25ab4f0e443&quot;,
+        &quot;characters&quot;: 2908,
+        &quot;line_count&quot;: 53,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/prompts/judge.py&quot;,
+        &quot;bytes&quot;: 33080,
+        &quot;sha256&quot;: &quot;fde35ae9d67505e3f65e5c6d9b25dbb79e88ac9a8e25b1e535f638da3c13daaf&quot;,
+        &quot;characters&quot;: 32838,
+        &quot;line_count&quot;: 688,
+        &quot;included&quot;: true
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/prompts/simulator.py&quot;,
+        &quot;bytes&quot;: 4119,
+        &quot;sha256&quot;: &quot;e3cb9294743ca52277133a2d68eb95692797b09c0fd55ac22bfe2853d8edeeb4&quot;,
+        &quot;characters&quot;: 4109,
+        &quot;line_count&quot;: 97,
+        &quot;included&quot;: true
+      }
+    ],
+    &quot;excluded&quot;: [
+      {
+        &quot;path&quot;: &quot;README.md&quot;,
+        &quot;reason&quot;: &quot;not_source_code&quot;
+      },
+      {
+        &quot;path&quot;: &quot;data/aspi_banking_gemini-3.1-pro-preview.jsonl&quot;,
+        &quot;reason&quot;: &quot;excluded_directory&quot;
+      },
+      {
+        &quot;path&quot;: &quot;data/aspi_slack_gemini-3.1-pro-preview.jsonl&quot;,
+        &quot;reason&quot;: &quot;excluded_directory&quot;
+      },
+      {
+        &quot;path&quot;: &quot;data/aspi_travel_gemini-3.1-pro-preview.jsonl&quot;,
+        &quot;reason&quot;: &quot;excluded_directory&quot;
+      },
+      {
+        &quot;path&quot;: &quot;data/aspi_workspace_gemini-3.1-pro-preview.jsonl&quot;,
+        &quot;reason&quot;: &quot;excluded_directory&quot;
+      },
+      {
+        &quot;path&quot;: &quot;requirements.txt&quot;,
+        &quot;reason&quot;: &quot;not_source_code&quot;
+      }
+    ],
+    &quot;omitted&quot;: [
+      {
+        &quot;path&quot;: &quot;src/aspi/eval/analyze.py&quot;,
+        &quot;bytes&quot;: 82145,
+        &quot;sha256&quot;: &quot;c6c895a84c22779bd7c56b84a696d8608c49479851708b0b5ed21644ac193a6a&quot;,
+        &quot;characters&quot;: 81537,
+        &quot;line_count&quot;: 2093,
+        &quot;included&quot;: false,
+        &quot;reason&quot;: &quot;character_budget&quot;
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/eval/litellm_element.py&quot;,
+        &quot;bytes&quot;: 21496,
+        &quot;sha256&quot;: &quot;c74898e76ded89cde6ada10e90e88976b666283edd39c6ab6f4155664b1cd375&quot;,
+        &quot;characters&quot;: 21322,
+        &quot;line_count&quot;: 543,
+        &quot;included&quot;: false,
+        &quot;reason&quot;: &quot;character_budget&quot;
+      },
+      {
+        &quot;path&quot;: &quot;src/aspi/eval/metrics.py&quot;,
+        &quot;bytes&quot;: 50317,
+        &quot;sha256&quot;: &quot;85d3b59c2bfb8ce1c1d84ee51eb907743e14c333312c9cf3effc3a7bb72e0a97&quot;,
+        &quot;characters&quot;: 49782,
+        &quot;line_count&quot;: 1265,
+        &quot;included&quot;: false,
+        &quot;reason&quot;: &quot;character_budget&quot;
+      }
+    ],
+    &quot;coverage&quot;: {
+      &quot;complete&quot;: false,
+      &quot;inventory_complete&quot;: true,
+      &quot;scope&quot;: &quot;eligible UTF-8 source files only; excluded documents, datasets, tests, labels, credentials and dependencies are not audited&quot;,
+      &quot;reason&quot;: &quot;Source files omitted; this snapshot can support bounded positive findings but not whole-repository absence claims&quot;,
+      &quot;eligible_files&quot;: 32,
+      &quot;included_files&quot;: 29,
+      &quot;omitted_files&quot;: 3,
+      &quot;excluded_entries&quot;: 6,
+      &quot;characters&quot;: 311831,
+      &quot;max_characters&quot;: 320000
+    },
+    &quot;execution&quot;: &quot;none&quot;
+  },
+  &quot;effective_extraction_file&quot;: &quot;extraction.repaired.json&quot;,
+  &quot;schema_version&quot;: 4,
+  &quot;applicability&quot;: &quot;in_scope&quot;,
+  &quot;scope&quot;: &quot;One bounded static finding concerns pre-generated HR clarification payloads. It does not establish the same construction flow for exec_tool, clarif_tool, or clarif_ask_user, which use separately constructed attack wrappers.&quot;,
+  &quot;review_status&quot;: &quot;source_aware_model_reviewed_not_human_verified&quot;,
+  &quot;evidence_scope&quot;: &quot;listed_claims_paper_and_pinned_source&quot;,
+  &quot;notes&quot;: [
+    &quot;No code was executed; confirmed delivery denotes a statically bound conditional path.&quot;,
+    &quot;Dataset contents and historical request or result artifacts are excluded.&quot;,
+    &quot;Three eligible source files and external dependencies are unavailable; this finding cannot certify whole-repository absence or all-channel consistency.&quot;,
+    &quot;No numerical attack-success effect or behavioral significance follows from this construction finding.&quot;,
+    &quot;Delivery is statically established only when the generated dataset is selected, ask_user is reached, and HR is nonempty; historical requests and runs are unverified.&quot;,
+    &quot;Excluded datasets, external dependencies, and three omitted source files prevent whole-repository conclusions.&quot;,
+    &quot;The finding establishes no attack-success effect and does not extend to separately constructed tool-channel wrappers.&quot;,
+    &quot;The paper&#x27;s dynamic adversarial-response description differs from the named branch&#x27;s consumption of pre-generated responses.&quot;,
+    &quot;Final run starts from the raw paper URL and pinned GitHub repository, with no supplied proposal, curated records or gold labels.&quot;,
+    &quot;Development attempts are repeated work on this one paper, not additional benchmark papers or independent accuracy samples.&quot;,
+    &quot;Public view replaces verbatim quotation values with hashes and lengths; the exact quotes and full input snapshots remain in local run artifacts.&quot;
+  ],
+  &quot;unresolved_questions&quot;: [
+    &quot;Which dataset files, simulator settings, defenses, and model configurations were selected for the reported historical evaluations?&quot;,
+    &quot;Does the external AgentDojo attack dependency use task information internally? Its implementation is not supplied, so the wrapper branches require a separate audit.&quot;,
+    &quot;The paper describes dynamically generated adversarial replies aligned to the actual question, whereas the supplied clarif_user branch consumes pre-generated variants. What configuration or revision supports the paper&#x27;s dynamic adversarial procedure?&quot;
+  ],
+  &quot;verdict&quot;: &quot;inconsistent&quot;,
+  &quot;reason&quot;: &quot;confirmed_inconsistency_in_scope&quot;,
+  &quot;coverage_complete&quot;: false,
+  &quot;claim_result_counts&quot;: {
+    &quot;confirmed&quot;: 1
+  },
+  &quot;input_mode&quot;: &quot;paper_and_source&quot;,
+  &quot;input_binding&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+  &quot;prompt_sha256&quot;: &quot;04c3a27906b8373ce7acfc72fdd8fd34ae9547b8fb657fb0500ffabb82335d94&quot;,
+  &quot;duration_seconds&quot;: 101.767,
+  &quot;development_attempts&quot;: [
+    {
+      &quot;label&quot;: &quot;Initial source-aware extraction and review&quot;,
+      &quot;local_run&quot;: &quot;outputs/2026-11-19-aspi-paper-source-auto-v4&quot;,
+      &quot;status&quot;: &quot;completed&quot;,
+      &quot;verdict&quot;: &quot;insufficient_evidence&quot;,
+      &quot;reason&quot;: &quot;unresolved_checks&quot;,
+      &quot;calls&quot;: 2,
+      &quot;input_binding&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+      &quot;automatic_proposal_reused&quot;: false,
+      &quot;artifacts&quot;: {
+        &quot;request.json&quot;: &quot;e8f479008981f6424a33706afd942eea5346ee53379922eb8bb9122e5518716e&quot;,
+        &quot;report.json&quot;: &quot;2939db5b76c0005724733745dc129ef0ed92919d38e8fabd19de0dbec79ab075&quot;,
+        &quot;result.json&quot;: &quot;cf23d1d83a04ddcdd0749989c6ea43bb976fba619be5e5c6a54edfc9eb960a37&quot;,
+        &quot;extraction.json&quot;: &quot;48c4c4bb8dec484aca7fde43992449f0577b237d8c0ad891797dd6c9e5516b1b&quot;,
+        &quot;review.json&quot;: &quot;194982d500505a79e20375aa0fb9623607c32a3060f7b6a5bd64a86575726f25&quot;
+      },
+      &quot;inference&quot;: {
+        &quot;provider&quot;: &quot;codex&quot;,
+        &quot;authentication&quot;: &quot;chatgpt&quot;,
+        &quot;model&quot;: &quot;gpt-6.1-sol&quot;,
+        &quot;max_calls&quot;: 2,
+        &quot;calls&quot;: [
+          {
+            &quot;provider&quot;: &quot;codex&quot;,
+            &quot;authentication&quot;: &quot;chatgpt&quot;,
+            &quot;requested_model&quot;: &quot;gpt-6.1-sol&quot;,
+            &quot;actual_model&quot;: null,
+            &quot;actual_models&quot;: [],
+            &quot;usage&quot;: {
+              &quot;input_tokens&quot;: 128653,
+              &quot;cached_input_tokens&quot;: 0,
+              &quot;output_tokens&quot;: 2603,
+              &quot;reasoning_output_tokens&quot;: 84
+            },
+            &quot;request_sha256&quot;: &quot;b75442029574d171f095ca4d992305942c9cc1279b24671dedd746441bb5c0eb&quot;,
+            &quot;status&quot;: &quot;completed&quot;,
+            &quot;diagnostics&quot;: [],
+            &quot;execution&quot;: {
+              &quot;returncode&quot;: 0,
+              &quot;turn_completed&quot;: true,
+              &quot;fatal_error_count&quot;: 0,
+              &quot;error_notification_count&quot;: 0
+            }
+          },
+          {
+            &quot;provider&quot;: &quot;codex&quot;,
+            &quot;authentication&quot;: &quot;chatgpt&quot;,
+            &quot;requested_model&quot;: &quot;gpt-6.1-sol&quot;,
+            &quot;actual_model&quot;: null,
+            &quot;actual_models&quot;: [],
+            &quot;usage&quot;: {
+              &quot;input_tokens&quot;: 129927,
+              &quot;cached_input_tokens&quot;: 0,
+              &quot;output_tokens&quot;: 490,
+              &quot;reasoning_output_tokens&quot;: 23
+            },
+            &quot;request_sha256&quot;: &quot;c54805ba59869baffb889a09c5b1b73b94ca185454842c06fbbf9a27ed8290e1&quot;,
+            &quot;status&quot;: &quot;completed&quot;,
+            &quot;diagnostics&quot;: [],
+            &quot;execution&quot;: {
+              &quot;returncode&quot;: 0,
+              &quot;turn_completed&quot;: true,
+              &quot;fatal_error_count&quot;: 0,
+              &quot;error_notification_count&quot;: 0
+            }
+          }
+        ],
+        &quot;usage&quot;: {
+          &quot;input_tokens&quot;: 258580,
+          &quot;cached_input_tokens&quot;: 0,
+          &quot;output_tokens&quot;: 3093,
+          &quot;reasoning_output_tokens&quot;: 107
+        },
+        &quot;usage_reporting_complete&quot;: true,
+        &quot;preflight_failures&quot;: [],
+        &quot;account_usage_note&quot;: &quot;Uses the existing ChatGPT/Codex account&#x27;s access, limits and possible credits; not a guarantee of free usage. The wrapper does not retry or fall back. max_calls counts CLI invocations, not CLI-internal transport attempts. Usage totals sum only reported events; missing usage is not proof of zero use. Actual model remains null when the CLI events do not expose it.&quot;
+      }
+    },
+    {
+      &quot;label&quot;: &quot;Free-quote citation recovery rejected&quot;,
+      &quot;local_run&quot;: &quot;outputs/2026-11-19-aspi-paper-source-repaired-v4&quot;,
+      &quot;status&quot;: &quot;failed&quot;,
+      &quot;verdict&quot;: &quot;technical_failure&quot;,
+      &quot;reason&quot;: &quot;citation is ambiguous after whitespace/Unicode normalization&quot;,
+      &quot;calls&quot;: 1,
+      &quot;input_binding&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+      &quot;automatic_proposal_reused&quot;: true,
+      &quot;artifacts&quot;: {
+        &quot;request.json&quot;: &quot;e8f479008981f6424a33706afd942eea5346ee53379922eb8bb9122e5518716e&quot;,
+        &quot;citation_repair.response.json&quot;: &quot;eddbe830455d16843b7eeb1123b634175cfb667b5dcf1b8e2dd66966201852f5&quot;,
+        &quot;report.json&quot;: &quot;fce3901d8b1140af2170eae210ee8270f64ce7caddd9c3cb8650963aca69c951&quot;,
+        &quot;result.json&quot;: &quot;aa3085fc15a43588bdc0ade1edc66d45998d74c0c0c147e0f5a4c52a5892ea65&quot;,
+        &quot;citation_repair.request.json&quot;: &quot;2a058f33efcc28d0af8738fac62fb269531f609461e2fa4546badf141e0555e4&quot;,
+        &quot;extraction.json&quot;: &quot;48c4c4bb8dec484aca7fde43992449f0577b237d8c0ad891797dd6c9e5516b1b&quot;
+      },
+      &quot;inference&quot;: {
+        &quot;provider&quot;: &quot;codex&quot;,
+        &quot;authentication&quot;: &quot;chatgpt&quot;,
+        &quot;model&quot;: &quot;gpt-6.1-sol&quot;,
+        &quot;max_calls&quot;: 2,
+        &quot;calls&quot;: [
+          {
+            &quot;provider&quot;: &quot;codex&quot;,
+            &quot;authentication&quot;: &quot;chatgpt&quot;,
+            &quot;requested_model&quot;: &quot;gpt-6.1-sol&quot;,
+            &quot;actual_model&quot;: null,
+            &quot;actual_models&quot;: [],
+            &quot;usage&quot;: {
+              &quot;input_tokens&quot;: 16161,
+              &quot;cached_input_tokens&quot;: 0,
+              &quot;output_tokens&quot;: 375,
+              &quot;reasoning_output_tokens&quot;: 85
+            },
+            &quot;request_sha256&quot;: &quot;e756156af1b6b27fab3b3e4ba4ebabd653b21ed790411dab162b8e6e444b6948&quot;,
+            &quot;status&quot;: &quot;completed&quot;,
+            &quot;diagnostics&quot;: [],
+            &quot;execution&quot;: {
+              &quot;returncode&quot;: 0,
+              &quot;turn_completed&quot;: true,
+              &quot;fatal_error_count&quot;: 0,
+              &quot;error_notification_count&quot;: 0
+            }
+          }
+        ],
+        &quot;usage&quot;: {
+          &quot;input_tokens&quot;: 16161,
+          &quot;cached_input_tokens&quot;: 0,
+          &quot;output_tokens&quot;: 375,
+          &quot;reasoning_output_tokens&quot;: 85
+        },
+        &quot;usage_reporting_complete&quot;: true,
+        &quot;preflight_failures&quot;: [],
+        &quot;account_usage_note&quot;: &quot;Uses the existing ChatGPT/Codex account&#x27;s access, limits and possible credits; not a guarantee of free usage. The wrapper does not retry or fall back. max_calls counts CLI invocations, not CLI-internal transport attempts. Usage totals sum only reported events; missing usage is not proof of zero use. Actual model remains null when the CLI events do not expose it.&quot;
+      }
+    },
+    {
+      &quot;label&quot;: &quot;Candidate recovery before anchor-retention fix&quot;,
+      &quot;local_run&quot;: &quot;outputs/2026-11-19-aspi-paper-source-auto-final-v4&quot;,
+      &quot;status&quot;: &quot;completed&quot;,
+      &quot;verdict&quot;: &quot;insufficient_evidence&quot;,
+      &quot;reason&quot;: &quot;unresolved_checks&quot;,
+      &quot;calls&quot;: 2,
+      &quot;input_binding&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+      &quot;automatic_proposal_reused&quot;: true,
+      &quot;artifacts&quot;: {
+        &quot;request.json&quot;: &quot;e8f479008981f6424a33706afd942eea5346ee53379922eb8bb9122e5518716e&quot;,
+        &quot;citation_repair.response.json&quot;: &quot;b7e1bf0f4ec82d8c392e519073df554d30a5b7bc1566081dc76210e772d220e5&quot;,
+        &quot;report.json&quot;: &quot;c679665ea70497fafa63f8abdde1409a341eb9f48451983dfe740ffecc1e0e95&quot;,
+        &quot;result.json&quot;: &quot;46390e93a61e5650d0afe1d873b4e7615383f4bf631209f194bb6bdbdfed255e&quot;,
+        &quot;extraction.repaired.json&quot;: &quot;5675db4ccd7d8b7842870bb48a2528af516f125f241f163091581525c486a490&quot;,
+        &quot;citation_repair.request.json&quot;: &quot;0e01286521ecef722aed7542e7b3bc4567ff10ae8ff8b7e3903a2f827725d318&quot;,
+        &quot;extraction.json&quot;: &quot;48c4c4bb8dec484aca7fde43992449f0577b237d8c0ad891797dd6c9e5516b1b&quot;,
+        &quot;review.json&quot;: &quot;64b7bf155020d01c347acb8e5753a5212d4e2428d953ac0d1982cf0ad4ffb450&quot;
+      },
+      &quot;inference&quot;: {
+        &quot;provider&quot;: &quot;codex&quot;,
+        &quot;authentication&quot;: &quot;chatgpt&quot;,
+        &quot;model&quot;: &quot;gpt-6.1-sol&quot;,
+        &quot;max_calls&quot;: 2,
+        &quot;calls&quot;: [
+          {
+            &quot;provider&quot;: &quot;codex&quot;,
+            &quot;authentication&quot;: &quot;chatgpt&quot;,
+            &quot;requested_model&quot;: &quot;gpt-6.1-sol&quot;,
+            &quot;actual_model&quot;: null,
+            &quot;actual_models&quot;: [],
+            &quot;usage&quot;: {
+              &quot;input_tokens&quot;: 20079,
+              &quot;cached_input_tokens&quot;: 0,
+              &quot;output_tokens&quot;: 261,
+              &quot;reasoning_output_tokens&quot;: 126
+            },
+            &quot;request_sha256&quot;: &quot;2266e88098da77bac18ef415222561acaf770970215d097b604c1cf320b3a2a5&quot;,
+            &quot;status&quot;: &quot;completed&quot;,
+            &quot;diagnostics&quot;: [],
+            &quot;execution&quot;: {
+              &quot;returncode&quot;: 0,
+              &quot;turn_completed&quot;: true,
+              &quot;fatal_error_count&quot;: 0,
+              &quot;error_notification_count&quot;: 0
+            }
+          },
+          {
+            &quot;provider&quot;: &quot;codex&quot;,
+            &quot;authentication&quot;: &quot;chatgpt&quot;,
+            &quot;requested_model&quot;: &quot;gpt-6.1-sol&quot;,
+            &quot;actual_model&quot;: null,
+            &quot;actual_models&quot;: [],
+            &quot;usage&quot;: {
+              &quot;input_tokens&quot;: 130013,
+              &quot;cached_input_tokens&quot;: 0,
+              &quot;output_tokens&quot;: 485,
+              &quot;reasoning_output_tokens&quot;: 27
+            },
+            &quot;request_sha256&quot;: &quot;e2e6af45b05030bbe408e017f307ad0ed218752ca88a45a28de48ea0e012d51e&quot;,
+            &quot;status&quot;: &quot;completed&quot;,
+            &quot;diagnostics&quot;: [],
+            &quot;execution&quot;: {
+              &quot;returncode&quot;: 0,
+              &quot;turn_completed&quot;: true,
+              &quot;fatal_error_count&quot;: 0,
+              &quot;error_notification_count&quot;: 0
+            }
+          }
+        ],
+        &quot;usage&quot;: {
+          &quot;input_tokens&quot;: 150092,
+          &quot;cached_input_tokens&quot;: 0,
+          &quot;output_tokens&quot;: 746,
+          &quot;reasoning_output_tokens&quot;: 153
+        },
+        &quot;usage_reporting_complete&quot;: true,
+        &quot;preflight_failures&quot;: [],
+        &quot;account_usage_note&quot;: &quot;Uses the existing ChatGPT/Codex account&#x27;s access, limits and possible credits; not a guarantee of free usage. The wrapper does not retry or fall back. max_calls counts CLI invocations, not CLI-internal transport attempts. Usage totals sum only reported events; missing usage is not proof of zero use. Actual model remains null when the CLI events do not expose it.&quot;
+      }
+    },
+    {
+      &quot;label&quot;: &quot;Final fresh end-to-end run&quot;,
+      &quot;local_run&quot;: &quot;outputs/2026-11-19-aspi-paper-source-e2e-v4&quot;,
+      &quot;status&quot;: &quot;completed&quot;,
+      &quot;verdict&quot;: &quot;inconsistent&quot;,
+      &quot;reason&quot;: &quot;confirmed_inconsistency_in_scope&quot;,
+      &quot;calls&quot;: 3,
+      &quot;input_binding&quot;: &quot;a252d64d60a692b7faf0a7f3157eaf10d59cf3f3041dba5b6ca10385d47ccb3b&quot;,
+      &quot;automatic_proposal_reused&quot;: false,
+      &quot;artifacts&quot;: {
+        &quot;request.json&quot;: &quot;e8f479008981f6424a33706afd942eea5346ee53379922eb8bb9122e5518716e&quot;,
+        &quot;citation_repair.response.json&quot;: &quot;fb5dbd06de0db9518b5da6a6f54684eca7e9a4490a0d63221efe2711b3322668&quot;,
+        &quot;report.json&quot;: &quot;7f6d9c64467488b0352d2c0017d7660ad434808b00a1233d44c86566a9ff71c3&quot;,
+        &quot;result.json&quot;: &quot;09f9dec7a39a4f637a65a2f7812c9d124dfd224e78ab14505839083933f6837d&quot;,
+        &quot;extraction.repaired.json&quot;: &quot;4c7306569f7fc4c73ce3f0da0bb4107a21daf48e44ec1685a3d98e893efa7936&quot;,
+        &quot;citation_repair.request.json&quot;: &quot;959059a6ef7dd7e093abfe5224e986783091e5390aede1a2c87c9ba2ef0b8e79&quot;,
+        &quot;extraction.json&quot;: &quot;8f34ec499da1b235d4b0e2ca849b2657d96bec0cf4a72dba8ef5d17e2e845a89&quot;,
+        &quot;review.json&quot;: &quot;3324104009a951b4b5391823f300c46fd69519645bb7709b3868cc2e62d1b7d2&quot;
+      },
+      &quot;inference&quot;: {
+        &quot;provider&quot;: &quot;codex&quot;,
+        &quot;authentication&quot;: &quot;chatgpt&quot;,
+        &quot;model&quot;: &quot;gpt-6.1-sol&quot;,
+        &quot;max_calls&quot;: 3,
+        &quot;calls&quot;: [
+          {
+            &quot;provider&quot;: &quot;codex&quot;,
+            &quot;authentication&quot;: &quot;chatgpt&quot;,
+            &quot;requested_model&quot;: &quot;gpt-6.1-sol&quot;,
+            &quot;actual_model&quot;: null,
+            &quot;actual_models&quot;: [],
+            &quot;usage&quot;: {
+              &quot;input_tokens&quot;: 128653,
+              &quot;cached_input_tokens&quot;: 0,
+              &quot;output_tokens&quot;: 2885,
+              &quot;reasoning_output_tokens&quot;: 188
+            },
+            &quot;request_sha256&quot;: &quot;b75442029574d171f095ca4d992305942c9cc1279b24671dedd746441bb5c0eb&quot;,
+            &quot;status&quot;: &quot;completed&quot;,
+            &quot;diagnostics&quot;: [],
+            &quot;execution&quot;: {
+              &quot;returncode&quot;: 0,
+              &quot;turn_completed&quot;: true,
+              &quot;fatal_error_count&quot;: 0,
+              &quot;error_notification_count&quot;: 0
+            }
+          },
+          {
+            &quot;provider&quot;: &quot;codex&quot;,
+            &quot;authentication&quot;: &quot;chatgpt&quot;,
+            &quot;requested_model&quot;: &quot;gpt-6.1-sol&quot;,
+            &quot;actual_model&quot;: null,
+            &quot;actual_models&quot;: [],
+            &quot;usage&quot;: {
+              &quot;input_tokens&quot;: 16086,
+              &quot;cached_input_tokens&quot;: 0,
+              &quot;output_tokens&quot;: 100,
+              &quot;reasoning_output_tokens&quot;: 0
+            },
+            &quot;request_sha256&quot;: &quot;d81237fd76adbe4d3509702a9c4b379589bf636133dca73df7bf9919de5be8a3&quot;,
+            &quot;status&quot;: &quot;completed&quot;,
+            &quot;diagnostics&quot;: [],
+            &quot;execution&quot;: {
+              &quot;returncode&quot;: 0,
+              &quot;turn_completed&quot;: true,
+              &quot;fatal_error_count&quot;: 0,
+              &quot;error_notification_count&quot;: 0
+            }
+          },
+          {
+            &quot;provider&quot;: &quot;codex&quot;,
+            &quot;authentication&quot;: &quot;chatgpt&quot;,
+            &quot;requested_model&quot;: &quot;gpt-6.1-sol&quot;,
+            &quot;actual_model&quot;: null,
+            &quot;actual_models&quot;: [],
+            &quot;usage&quot;: {
+              &quot;input_tokens&quot;: 130143,
+              &quot;cached_input_tokens&quot;: 0,
+              &quot;output_tokens&quot;: 412,
+              &quot;reasoning_output_tokens&quot;: 25
+            },
+            &quot;request_sha256&quot;: &quot;dc1348ac42c6599caf7d285224b564c3052fd7de66d1d988b1effcf53069f1e5&quot;,
+            &quot;status&quot;: &quot;completed&quot;,
+            &quot;diagnostics&quot;: [],
+            &quot;execution&quot;: {
+              &quot;returncode&quot;: 0,
+              &quot;turn_completed&quot;: true,
+              &quot;fatal_error_count&quot;: 0,
+              &quot;error_notification_count&quot;: 0
+            }
+          }
+        ],
+        &quot;usage&quot;: {
+          &quot;input_tokens&quot;: 274882,
+          &quot;cached_input_tokens&quot;: 0,
+          &quot;output_tokens&quot;: 3397,
+          &quot;reasoning_output_tokens&quot;: 213
+        },
+        &quot;usage_reporting_complete&quot;: true,
+        &quot;preflight_failures&quot;: [],
+        &quot;account_usage_note&quot;: &quot;Uses the existing ChatGPT/Codex account&#x27;s access, limits and possible credits; not a guarantee of free usage. The wrapper does not retry or fall back. max_calls counts CLI invocations, not CLI-internal transport attempts. Usage totals sum only reported events; missing usage is not proof of zero use. Actual model remains null when the CLI events do not expose it.&quot;
+      }
+    }
+  ]
+}</pre></details></details></main></body></html>
