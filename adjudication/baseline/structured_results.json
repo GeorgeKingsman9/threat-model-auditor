@@ -1,0 +1,958 @@
+{
+  "paper_count": 11,
+  "verdict_counts": {
+    "insufficient_evidence": 3,
+    "inconsistent": 7,
+    "consistent_within_scope": 1
+  },
+  "papers": [
+    {
+      "id": "adaptools",
+      "title": "AdapTools",
+      "version": "EMNLP 2026 final",
+      "audit_scope": "Online black-box access to the held-out user's task, distinguished from offline strategy development.",
+      "verdict": "insufficient_evidence",
+      "has_confirmed_inconsistency": false,
+      "reason": "unresolved_checks",
+      "coverage_complete": false,
+      "required_checks": 1,
+      "resolved_checks": 0,
+      "confirmed_findings": [],
+      "unresolved_checks": [
+        "adaptools_final_black_box_online_task_access"
+      ],
+      "input_provenance_gaps": [],
+      "evidence": [
+        {
+          "id": "adaptools_final_black_box_online_task_access",
+          "source_group": "paper_text",
+          "description": "Check whether the final paper establishes a held-out black-box online input flow for the case-specific user task.",
+          "scope": {
+            "paper_version": "AdapTools EMNLP 2026 final §§4.1, 4.3 and 4.5",
+            "experiment_arm": "Third-party black-box online condition",
+            "artifact_revision": "EMNLP 2026 proceedings and archived implementation audit",
+            "configuration": "Held-out online task, separate from offline strategy generation and grey-box MCP access"
+          },
+          "target": {
+            "role": "third-party black-box adversary",
+            "phase": "held-out online prompt construction",
+            "source": "current user task",
+            "representation": "case-specific task details",
+            "operation": "receive as generation input"
+          },
+          "verdict": "insufficient_evidence",
+          "reason": "no_matching_observation",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "third-party black-box adversary",
+                "phase": "held-out online prompt construction",
+                "source": "current user task",
+                "representation": "case-specific task details",
+                "operation": "receive as generation input"
+              },
+              "permission": "deny",
+              "reference": "§4.1, https://aclanthology.org/2026.emnlp-main.2055.pdf#page=4"
+            }
+          ],
+          "matching_observations": [],
+          "other_observation_count": 0,
+          "note": "§4.3 and Fig. 2 disclose task-conditioned strategy generation and failure reasoning during library construction (https://aclanthology.org/2026.emnlp-main.2055.pdf#page=5). §4.5 describes the library as prebuilt offline and describes online context inference from MCP interactions (https://aclanthology.org/2026.emnlp-main.2055.pdf#page=6). Available evidence does not bind the strategy-generation inputs to the held-out black-box online condition. See papers/AdapTools/METHODOLOGY_COMPARISON.md:12–17."
+        }
+      ],
+      "expected": "insufficient_evidence",
+      "matches_gold": true
+    },
+    {
+      "id": "blind_spots",
+      "title": "Blind Spots in the Guard",
+      "version": "arXiv:2605.22001v1",
+      "audit_scope": "Exp. 1 document access compared with §2. §4.2 discloses the richer construction; source and archival evidence concern the pinned release.",
+      "verdict": "inconsistent",
+      "has_confirmed_inconsistency": true,
+      "reason": "confirmed_inconsistency_in_scope",
+      "coverage_complete": false,
+      "required_checks": 1,
+      "resolved_checks": 1,
+      "confirmed_findings": [
+        "blind_spots_exp1_document_access"
+      ],
+      "unresolved_checks": [],
+      "input_provenance_gaps": [],
+      "evidence": [
+        {
+          "id": "blind_spots_exp1_document_access",
+          "source_group": "archived",
+          "description": "Compare the target-document access implemented in the archived Exp1 generation condition with §2’s stated knowledge boundary.",
+          "scope": {
+            "paper_version": "Blind Spots in the Guard arXiv:2605.22001v1, §2 and §4.2",
+            "experiment_arm": "Exp1 FULL_CONTEXT generation path in the local public-source archive",
+            "artifact_revision": "Source archive revision 9a21b5a230cbcc92ec66987aa7814c188881108a",
+            "configuration": "Target-document field used with the archived corpus, compared specifically with the §2 boundary"
+          },
+          "target": {
+            "role": "attacker-side generator",
+            "phase": "content generation",
+            "source": "target document for the evaluated case",
+            "representation": "clean target document text",
+            "operation": "receive as generation input"
+          },
+          "verdict": "inconsistent",
+          "reason": "forbidden_flow_confirmed",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "attacker-side generator",
+                "phase": "content generation",
+                "source": "target document for the evaluated case",
+                "representation": "clean target document text",
+                "operation": "receive as generation input"
+              },
+              "permission": "deny",
+              "reference": "analysis/casebook_2026-11-05/BLIND_SPOTS_CASES_ZH.md:9–11"
+            }
+          ],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "attacker-side generator",
+                "phase": "content generation",
+                "source": "target document for the evaluated case",
+                "representation": "clean target document text",
+                "operation": "receive as generation input"
+              },
+              "status": "present",
+              "reference": "analysis/casebook_2026-11-05/BLIND_SPOTS_CASES_ZH.md:3–9; results/context_ablation_asr_full_llama31/RUN_PROVENANCE.md:3–14"
+            }
+          ],
+          "other_observation_count": 0,
+          "note": "Introduction and §4.2 independently disclose generation with the target document, so the mismatch concerns the §2 formulation. Logs for the original paper’s historical generation run remain unverified. This edge is document content: it says nothing about receipt of the separate user instruction."
+        }
+      ],
+      "expected": "inconsistent",
+      "matches_gold": true
+    },
+    {
+      "id": "aspi",
+      "title": "ASPI",
+      "version": "arXiv:2605.17324v1",
+      "audit_scope": "Stage 1 benchmark construction and Stage 2 direct-user construction relative to §3's external-adversary knowledge constraint. Direct user-message delivery is a stronger baseline.",
+      "verdict": "inconsistent",
+      "has_confirmed_inconsistency": true,
+      "reason": "confirmed_inconsistency_in_scope",
+      "coverage_complete": false,
+      "required_checks": 2,
+      "resolved_checks": 2,
+      "confirmed_findings": [
+        "aspi_released_stage2_partial_query"
+      ],
+      "unresolved_checks": [],
+      "input_provenance_gaps": [],
+      "evidence": [
+        {
+          "id": "aspi_stage1_designer_task",
+          "source_group": "archived",
+          "description": "Check the original task prompt used by the benchmark designer during Stage 1 dataset construction.",
+          "scope": {
+            "paper_version": "ASPI arXiv:2605.17324v1, §§4.1–4.2 and Appendix B.1",
+            "experiment_arm": "Released Stage 1 benchmark construction",
+            "artifact_revision": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+            "configuration": "Official dataset pipeline, original task to ambiguous task"
+          },
+          "target": {
+            "role": "benchmark designer",
+            "phase": "dataset construction",
+            "source": "original benchmark task",
+            "representation": "original task prompt",
+            "operation": "read to construct ambiguous task",
+            "query_form": "full_query"
+          },
+          "verdict": "consistent_within_scope",
+          "reason": "permitted_flow_confirmed",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "benchmark designer",
+                "phase": "dataset construction",
+                "source": "original benchmark task",
+                "representation": "original task prompt",
+                "operation": "read to construct ambiguous task",
+                "query_form": "full_query"
+              },
+              "permission": "allow",
+              "reference": "repository/Privileged-User-context-dependence-in-IPI/papers/ASPI/v2/THREAT_MODEL_REAUDIT_V2.md:8"
+            }
+          ],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "benchmark designer",
+                "phase": "dataset construction",
+                "source": "original benchmark task",
+                "representation": "original task prompt",
+                "operation": "read to construct ambiguous task",
+                "query_form": "full_query"
+              },
+              "status": "present",
+              "reference": "repository/Privileged-User-context-dependence-in-IPI/papers/ASPI/v3/THREAT_MODEL_FINDING_V3.md:7–9"
+            }
+          ],
+          "other_observation_count": 0,
+          "note": "The paper specifies the designer's use in Stage 1. Permission for the external attacker or Stage 2 is a separate question."
+        },
+        {
+          "id": "aspi_released_stage2_partial_query",
+          "source_group": "archived",
+          "description": "Compare the task-derived base prompt supplied to the released Stage 2 reply generator with the external attacker’s task access in §3.",
+          "scope": {
+            "paper_version": "ASPI arXiv:2605.17324v1, §3, §4.2, §5.1 and Appendix B",
+            "experiment_arm": "Released Stage 2 dataset authoring for the clarif_user direct-user baseline",
+            "artifact_revision": "Vendored ASPI upstream e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+            "configuration": "Official Stage 2 base-prompt input, assessed against the §3 external-adversary knowledge boundary"
+          },
+          "target": {
+            "role": "attacker-side reply generator",
+            "phase": "offline Stage 2 construction",
+            "source": "Stage 1 transformation of the original benchmark task",
+            "representation": "slot-deleted base prompt with retained task-specific wording",
+            "operation": "receive as generation input",
+            "query_form": "partial_query"
+          },
+          "verdict": "inconsistent",
+          "reason": "forbidden_flow_confirmed",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "attacker-side reply generator",
+                "phase": "offline Stage 2 construction",
+                "source": "Stage 1 transformation of the original benchmark task",
+                "representation": "slot-deleted base prompt with retained task-specific wording",
+                "operation": "receive as generation input",
+                "query_form": "partial_query"
+              },
+              "permission": "deny",
+              "reference": "repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi-paper-v1.html:494–500; repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi-paper-v1.html:533–544"
+            }
+          ],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "attacker-side reply generator",
+                "phase": "offline Stage 2 construction",
+                "source": "Stage 1 transformation of the original benchmark task",
+                "representation": "slot-deleted base prompt with retained task-specific wording",
+                "operation": "receive as generation input",
+                "query_form": "partial_query"
+              },
+              "status": "present",
+              "reference": "repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi/src/aspi/dataset/pipeline.py:125–139; repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi/src/aspi/prompts/dataset.py:89–99; repository/aspi-matched-context-pilot-v1/papers/ASPI/v3/THREAT_MODEL_FINDING_V3.md:7–12"
+            }
+          ],
+          "other_observation_count": 0,
+          "note": "The scoped mismatch is relative to §3’s external attacker. The paper describes direct user turns as a stronger baseline and describes its benchmark construction. This edge is the one-slot-deleted base prompt. Conclusions about the full original prompt, an actual observed clarification question, and the separate tool-return baseline each require their own edge."
+        }
+      ],
+      "expected": "inconsistent",
+      "matches_gold": true
+    },
+    {
+      "id": "muzzle",
+      "title": "MUZZLE",
+      "version": "USENIX Security 2026 final",
+      "audit_scope": "Operator-provided task in offline discovery and availability of the same case-specific task to a standard-privilege online attacker.",
+      "verdict": "insufficient_evidence",
+      "has_confirmed_inconsistency": false,
+      "reason": "unresolved_checks",
+      "coverage_complete": false,
+      "required_checks": 2,
+      "resolved_checks": 1,
+      "confirmed_findings": [],
+      "unresolved_checks": [
+        "muzzle_online_task_provenance"
+      ],
+      "input_provenance_gaps": [
+        {
+          "case_id": "muzzle_online_task_provenance",
+          "description": "The lab operator supplies the full task during offline discovery. The paper leaves open how a standard-privilege website user would obtain an equivalent task for a future online victim.",
+          "reference": "MUZZLE §2.3 (https://www.usenix.org/system/files/usenixsecurity26-syros.pdf#page=4) and §3.3 (https://www.usenix.org/system/files/usenixsecurity26-syros.pdf#page=6)"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "muzzle_offline_task_spec",
+          "source_group": "paper_text",
+          "description": "Check the disclosure of operator-provided benign task text in offline discovery.",
+          "scope": {
+            "paper_version": "MUZZLE USENIX Security 2026 final §§2.3, 3.1 and 3.3",
+            "experiment_arm": "Offline discovery for the configured benign task",
+            "artifact_revision": "USENIX Security 2026 proceedings, documented input",
+            "configuration": "Operator supplies the benign task in the task specification"
+          },
+          "target": {
+            "role": "offline discovery framework",
+            "phase": "operator task specification intake",
+            "source": "operator-provided benign task",
+            "representation": "benign task text",
+            "operation": "receive as discovery input",
+            "query_form": "full_query"
+          },
+          "verdict": "consistent_within_scope",
+          "reason": "permitted_flow_confirmed",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "offline discovery framework",
+                "phase": "operator task specification intake",
+                "source": "operator-provided benign task",
+                "representation": "benign task text",
+                "operation": "receive as discovery input",
+                "query_form": "full_query"
+              },
+              "permission": "allow",
+              "reference": "§3.1, https://www.usenix.org/system/files/usenixsecurity26-syros.pdf#page=5"
+            }
+          ],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "offline discovery framework",
+                "phase": "operator task specification intake",
+                "source": "operator-provided benign task",
+                "representation": "benign task text",
+                "operation": "receive as discovery input",
+                "query_form": "full_query"
+              },
+              "status": "present",
+              "reference": "§3.3, https://www.usenix.org/system/files/usenixsecurity26-syros.pdf#page=6"
+            }
+          ],
+          "other_observation_count": 0,
+          "note": "The paper discloses the operator-provided task for offline discovery. This scope is distinct from online observation."
+        },
+        {
+          "id": "muzzle_online_task_provenance",
+          "source_group": "paper_text",
+          "description": "Check whether the stated online website privileges establish access to an arbitrary future victim's exact task.",
+          "scope": {
+            "paper_version": "MUZZLE USENIX Security 2026 final §2.3",
+            "experiment_arm": "Online deployment under standard user-level website privileges",
+            "artifact_revision": "USENIX Security 2026 proceedings, online task provenance unestablished",
+            "configuration": "Separate future victim task, as distinct from the operator-specified lab task"
+          },
+          "target": {
+            "role": "standard-privilege online attacker",
+            "phase": "online attack execution",
+            "source": "future victim task",
+            "representation": "victim's exact task text",
+            "operation": "receive as request input",
+            "query_form": "full_query"
+          },
+          "verdict": "insufficient_evidence",
+          "reason": "policy_unspecified",
+          "matching_rules": [],
+          "matching_observations": [],
+          "other_observation_count": 0,
+          "note": "§2.3 states online website privileges without a specific entitlement to an arbitrary future task. The documented offline input is scoped to a task supplied by the lab operator.",
+          "input_provenance_gap": {
+            "description": "The lab operator supplies the full task during offline discovery. The paper leaves open how a standard-privilege website user would obtain an equivalent task for a future online victim.",
+            "reference": "MUZZLE §2.3 (https://www.usenix.org/system/files/usenixsecurity26-syros.pdf#page=4) and §3.3 (https://www.usenix.org/system/files/usenixsecurity26-syros.pdf#page=6)"
+          }
+        }
+      ],
+      "expected": "insufficient_evidence",
+      "matches_gold": true
+    },
+    {
+      "id": "fha",
+      "title": "Breaking MCP with Function Hijacking Attacks (FHA)",
+      "version": "arXiv:2604.20994v2",
+      "audit_scope": "The paper-described direct same-query condition relative to the stated user-prompt visibility constraint. Held-out-query generalization is a separate condition.",
+      "verdict": "inconsistent",
+      "has_confirmed_inconsistency": true,
+      "reason": "confirmed_inconsistency_in_scope",
+      "coverage_complete": false,
+      "required_checks": 1,
+      "resolved_checks": 1,
+      "confirmed_findings": [
+        "fha_direct_exact_query"
+      ],
+      "unresolved_checks": [],
+      "input_provenance_gaps": [],
+      "evidence": [
+        {
+          "id": "fha_direct_exact_query",
+          "source_group": "paper_text",
+          "description": "Check construction-side access to the exact evaluation query in the paper-described direct single-query FHA experiment.",
+          "scope": {
+            "paper_version": "Breaking MCP with Function Hijacking Attacks, arXiv:2604.20994v2, §§4 and 6.1, Appendix B.1",
+            "experiment_arm": "Direct single-query FHA",
+            "artifact_revision": "Fixed arXiv v2 text only",
+            "configuration": "Same benchmark query is used in the documented direct construction and its evaluation"
+          },
+          "target": {
+            "role": "attacker-side construction procedure",
+            "phase": "offline construction for direct evaluation",
+            "source": "benchmark evaluation case",
+            "representation": "exact evaluated user query",
+            "operation": "receive as construction input",
+            "query_form": "full_query"
+          },
+          "verdict": "inconsistent",
+          "reason": "forbidden_flow_confirmed",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "attacker-side construction procedure",
+                "phase": "offline construction for direct evaluation",
+                "source": "benchmark evaluation case",
+                "representation": "exact evaluated user query",
+                "operation": "receive as construction input",
+                "query_form": "full_query"
+              },
+              "permission": "deny",
+              "reference": "§4 Threat model and objectives, https://arxiv.org/html/2604.20994v2#S4"
+            }
+          ],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "attacker-side construction procedure",
+                "phase": "offline construction for direct evaluation",
+                "source": "benchmark evaluation case",
+                "representation": "exact evaluated user query",
+                "operation": "receive as construction input",
+                "query_form": "full_query"
+              },
+              "status": "present",
+              "reference": "§6.1 Direct FHAs and Appendix B.1 documented input, https://arxiv.org/html/2604.20994v2#S6.SS1 and https://arxiv.org/html/2604.20994v2#A2.SS1"
+            }
+          ],
+          "other_observation_count": 0,
+          "note": "Paper-text comparison to the no-user-prompt statement in §4 for the direct same-query arm. §7 reports a separate transfer evaluation from development queries to held-out formulations. This record establishes neither a code-level finding nor access to held-out or live queries."
+        }
+      ],
+      "expected": "inconsistent",
+      "matches_gold": true
+    },
+    {
+      "id": "agentcon",
+      "title": "AGENTCON",
+      "version": "ICLR 2026 OpenReview submission snapshot",
+      "audit_scope": "The paper-described construction on the supplied benchmark request relative to the marketplace adversary's future-request visibility assumption.",
+      "verdict": "inconsistent",
+      "has_confirmed_inconsistency": true,
+      "reason": "confirmed_inconsistency_in_scope",
+      "coverage_complete": false,
+      "required_checks": 1,
+      "resolved_checks": 1,
+      "confirmed_findings": [
+        "agentcon_construction_exact_query"
+      ],
+      "unresolved_checks": [],
+      "input_provenance_gaps": [
+        {
+          "case_id": "agentcon_construction_exact_query",
+          "description": "The source-request benchmark supplies the exact request during construction. The paper leaves open how a marketplace seller would obtain a specific future user request during deployment.",
+          "reference": "AGENTCON §3 (https://openreview.net/pdf/a7b8365a80d58906740ac477248926c6c6a43640.pdf#page=4) and §4.3 (https://openreview.net/pdf/a7b8365a80d58906740ac477248926c6c6a43640.pdf#page=6)"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "agentcon_construction_exact_query",
+          "source_group": "paper_text",
+          "description": "Check exact-query conditioning in the AGENTCON benchmark arm that constructs and evaluates on the source request.",
+          "scope": {
+            "paper_version": "AGENTCON, ICLR 2026 submission PDF, §§3, 4.3 and 5",
+            "experiment_arm": "Documented construction and evaluation on the original benchmark request",
+            "artifact_revision": "Archived OpenReview submission PDF only",
+            "configuration": "Simulated benchmark on the same original request, prior to the separately reported request-variation test"
+          },
+          "target": {
+            "role": "attacker-side construction procedure",
+            "phase": "offline construction for direct evaluation",
+            "source": "original benchmark evaluation request",
+            "representation": "exact evaluated user query",
+            "operation": "receive as construction input",
+            "query_form": "full_query"
+          },
+          "verdict": "inconsistent",
+          "reason": "forbidden_flow_confirmed",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "attacker-side construction procedure",
+                "phase": "offline construction for direct evaluation",
+                "source": "original benchmark evaluation request",
+                "representation": "exact evaluated user query",
+                "operation": "receive as construction input",
+                "query_form": "full_query"
+              },
+              "permission": "deny",
+              "reference": "§3 Attack Constraints (PDF p. 4), https://openreview.net/pdf/a7b8365a80d58906740ac477248926c6c6a43640.pdf#page=4"
+            }
+          ],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "attacker-side construction procedure",
+                "phase": "offline construction for direct evaluation",
+                "source": "original benchmark evaluation request",
+                "representation": "exact evaluated user query",
+                "operation": "receive as construction input",
+                "query_form": "full_query"
+              },
+              "status": "present",
+              "reference": "§4.3 Eq. 5 and §5 User-Request Variability (PDF pp. 6 and 9), https://openreview.net/pdf/a7b8365a80d58906740ac477248926c6c6a43640.pdf#page=6 and https://openreview.net/pdf/a7b8365a80d58906740ac477248926c6c6a43640.pdf#page=9"
+            }
+          ],
+          "other_observation_count": 0,
+          "note": "Paper-text comparison to the exact-request restriction in §3 for the source-request arm. The later variation test keeps the previously constructed image fixed for similar request variants. The published procedure uses simulated inputs, and this record establishes no access to a live request, live rendering, or production trace.",
+          "input_provenance_gap": {
+            "description": "The source-request benchmark supplies the exact request during construction. The paper leaves open how a marketplace seller would obtain a specific future user request during deployment.",
+            "reference": "AGENTCON §3 (https://openreview.net/pdf/a7b8365a80d58906740ac477248926c6c6a43640.pdf#page=4) and §4.3 (https://openreview.net/pdf/a7b8365a80d58906740ac477248926c6c6a43640.pdf#page=6)"
+          }
+        }
+      ],
+      "expected": "inconsistent",
+      "matches_gold": true
+    },
+    {
+      "id": "retrieval_barrier",
+      "title": "Overcoming the Retrieval Barrier",
+      "version": "USENIX Security 2026 final",
+      "audit_scope": "The explicit given-query entitlement of the documented retrieval benchmark. Acquisition of a future user query in deployment is outside this documented-input check.",
+      "verdict": "consistent_within_scope",
+      "has_confirmed_inconsistency": false,
+      "reason": "all_required_checks_consistent",
+      "coverage_complete": true,
+      "required_checks": 1,
+      "resolved_checks": 1,
+      "confirmed_findings": [],
+      "unresolved_checks": [],
+      "input_provenance_gaps": [
+        {
+          "case_id": "retrieval_barrier_declared_query",
+          "description": "The benchmark assumes the query is given. The query-conditioned result leaves open how an external actor obtains an exact future query in deployment.",
+          "reference": "Overcoming the Retrieval Barrier §2.1 (https://www.usenix.org/system/files/usenixsecurity26-chang-hongyan.pdf#page=4) and §5.2 (https://www.usenix.org/system/files/usenixsecurity26-chang-hongyan.pdf#page=12)"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "retrieval_barrier_declared_query",
+          "source_group": "paper_text",
+          "description": "Check the use of a supplied target query inside the paper's explicitly query-conditioned retrieval evaluation.",
+          "scope": {
+            "paper_version": "Overcoming the Retrieval Barrier, USENIX Security 2026 proceedings, §§2.1 and 4.1",
+            "experiment_arm": "Given-query retrieval benchmark",
+            "artifact_revision": "Fixed USENIX proceedings PDF only",
+            "configuration": "Selected dataset queries supplied as target inputs under the paper's retrieval procedure"
+          },
+          "target": {
+            "role": "attacker-side retrieval construction procedure",
+            "phase": "offline construction for retrieval evaluation",
+            "source": "benchmark-selected target query",
+            "representation": "exact selected query",
+            "operation": "receive as construction input",
+            "query_form": "full_query"
+          },
+          "verdict": "consistent_within_scope",
+          "reason": "permitted_flow_confirmed",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "attacker-side retrieval construction procedure",
+                "phase": "offline construction for retrieval evaluation",
+                "source": "benchmark-selected target query",
+                "representation": "exact selected query",
+                "operation": "receive as construction input",
+                "query_form": "full_query"
+              },
+              "permission": "allow",
+              "reference": "§2.1 Problem Definition 1 states that the query is given (proceedings p. 1569), https://www.usenix.org/system/files/usenixsecurity26-chang-hongyan.pdf#page=4"
+            }
+          ],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "attacker-side retrieval construction procedure",
+                "phase": "offline construction for retrieval evaluation",
+                "source": "benchmark-selected target query",
+                "representation": "exact selected query",
+                "operation": "receive as construction input",
+                "query_form": "full_query"
+              },
+              "status": "present",
+              "reference": "§4.1 benchmark sampling and reported per-target-query evaluation (proceedings pp. 1571–1572), https://www.usenix.org/system/files/usenixsecurity26-chang-hongyan.pdf#page=6"
+            }
+          ],
+          "other_observation_count": 0,
+          "note": "The documented black-box restrictions concern the external corpus and model parameters. §5.2 separately reports retrospective FAQ construction and possible agent-side rewrites.",
+          "input_provenance_gap": {
+            "description": "The benchmark assumes the query is given. The query-conditioned result leaves open how an external actor obtains an exact future query in deployment.",
+            "reference": "Overcoming the Retrieval Barrier §2.1 (https://www.usenix.org/system/files/usenixsecurity26-chang-hongyan.pdf#page=4) and §5.2 (https://www.usenix.org/system/files/usenixsecurity26-chang-hongyan.pdf#page=12)"
+          }
+        }
+      ],
+      "expected": "consistent_within_scope",
+      "matches_gold": true
+    },
+    {
+      "id": "liar",
+      "title": "Glue Pizza and Eat Rocks (LIAR)",
+      "version": "EMNLP 2024 final",
+      "audit_scope": "The paper-described same-benchmark condition using source knowledge-base documents in construction, assessed against §3.1's stated database-access boundary.",
+      "verdict": "inconsistent",
+      "has_confirmed_inconsistency": true,
+      "reason": "confirmed_inconsistency_in_scope",
+      "coverage_complete": false,
+      "required_checks": 1,
+      "resolved_checks": 1,
+      "confirmed_findings": [
+        "liar_same_benchmark_source_kb"
+      ],
+      "unresolved_checks": [],
+      "input_provenance_gaps": [],
+      "evidence": [
+        {
+          "id": "liar_same_benchmark_source_kb",
+          "source_group": "paper_text",
+          "description": "Compare the disclosed use of source corpus documents in NQ-to-NQ training with the general knowledge-base restriction in §3.1.",
+          "scope": {
+            "paper_version": "Glue pizza and eat rocks (LIAR), EMNLP 2024 proceedings, ACL Anthology 2024.emnlp-main.96",
+            "experiment_arm": "Table 1, Natural Questions as both source and target database",
+            "artifact_revision": "Final published paper. Implementation and historical run artifacts were outside this evidence review.",
+            "configuration": "Offline construction using the disclosed training subset of the same named benchmark corpus as evaluation"
+          },
+          "target": {
+            "role": "attacker-side training procedure",
+            "phase": "offline construction",
+            "source": "Natural Questions source knowledge-base training subset in the NQ-to-NQ condition",
+            "representation": "documents from the knowledge base",
+            "operation": "read as training input"
+          },
+          "verdict": "inconsistent",
+          "reason": "forbidden_flow_confirmed",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "attacker-side training procedure",
+                "phase": "offline construction",
+                "source": "Natural Questions source knowledge-base training subset in the NQ-to-NQ condition",
+                "representation": "documents from the knowledge base",
+                "operation": "read as training input"
+              },
+              "permission": "deny",
+              "reference": "https://aclanthology.org/2024.emnlp-main.96.pdf#page=3"
+            }
+          ],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "attacker-side training procedure",
+                "phase": "offline construction",
+                "source": "Natural Questions source knowledge-base training subset in the NQ-to-NQ condition",
+                "representation": "documents from the knowledge base",
+                "operation": "read as training input"
+              },
+              "status": "present",
+              "reference": "https://aclanthology.org/2024.emnlp-main.96.pdf#page=5 (§5.2) and https://aclanthology.org/2024.emnlp-main.96.pdf#page=7 (Table 1)"
+            }
+          ],
+          "other_observation_count": 0,
+          "note": "Paper-text evidence. The result records the difference between the general no-direct-access statement in §3.1 and the specific offline source-training entitlement disclosed in §5.2. Table 1 establishes the same benchmark name. Document-level overlap, a direct read of the live target index, and knowledge of future user queries remain separate unverified claims."
+        }
+      ],
+      "expected": "inconsistent",
+      "matches_gold": true
+    },
+    {
+      "id": "obliinjection",
+      "title": "ObliInjection",
+      "version": "arXiv:2512.09321v3",
+      "audit_scope": "Released HotpotQA optimizer access to the evaluation-matched question and historical provenance of the type-only Table XI generator.",
+      "verdict": "inconsistent",
+      "has_confirmed_inconsistency": true,
+      "reason": "confirmed_inconsistency_in_scope",
+      "coverage_complete": false,
+      "required_checks": 2,
+      "resolved_checks": 1,
+      "confirmed_findings": [
+        "obli_released_optimizer_full_target_query"
+      ],
+      "unresolved_checks": [
+        "obli_table_xi_historical_question"
+      ],
+      "input_provenance_gaps": [],
+      "evidence": [
+        {
+          "id": "obli_released_optimizer_full_target_query",
+          "source_group": "archived",
+          "description": "Check if the released HotpotQA optimizer uses the complete question used by evaluation for the same selected case.",
+          "scope": {
+            "paper_version": "ObliInjection arXiv:2512.09321v3, §§III-B, IV and V-A, Appendix Table XI",
+            "experiment_arm": "Released HotpotQA optimization and evaluation data flow",
+            "artifact_revision": "Public release b1f6a3f48c0cf121534374cbcef453832594867b",
+            "configuration": "Released HotpotQA JSON prepared by the shipped loader, with the same selected case for optimization and evaluation"
+          },
+          "target": {
+            "role": "attacker-side optimizer",
+            "phase": "optimization before evaluation",
+            "source": "selected target-question record in the released HotpotQA evaluation data",
+            "representation": "full evaluation-matched target question",
+            "operation": "read as optimization input",
+            "query_form": "full_query"
+          },
+          "verdict": "inconsistent",
+          "reason": "forbidden_flow_confirmed",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "attacker-side optimizer",
+                "phase": "optimization before evaluation",
+                "source": "selected target-question record in the released HotpotQA evaluation data",
+                "representation": "full evaluation-matched target question",
+                "operation": "read as optimization input",
+                "query_form": "full_query"
+              },
+              "permission": "deny",
+              "reference": "papers/ObliInjection/reproduction/pilot_15/obliinjection_paper.txt:209–214; papers/ObliInjection/reproduction/pilot_15/obliinjection_paper.txt:245–255; papers/ObliInjection/reproduction/pilot_15/obliinjection_paper.txt:655–665; papers/ObliInjection/reproduction/pilot_15/obliinjection_paper.txt:1164–1173"
+            }
+          ],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "attacker-side optimizer",
+                "phase": "optimization before evaluation",
+                "source": "selected target-question record in the released HotpotQA evaluation data",
+                "representation": "full evaluation-matched target question",
+                "operation": "read as optimization input",
+                "query_form": "full_query"
+              },
+              "status": "present",
+              "reference": "papers/ObliInjection/upstream/ObliInjection/configs/task_configs/hotpotqa_config.json:23–26; papers/ObliInjection/upstream/ObliInjection/obliinjection.py:33–47; papers/ObliInjection/audit/dataflow/dataflow.md:12–34; repository/obli-gpt4o-ac-transfer-20261031/papers/ObliInjection/reproduction/three_arm_pilot_15_v1/REPORT.md:47–53"
+            }
+          ],
+          "other_observation_count": 0,
+          "note": "This confirms full evaluation-matched question text in the released source path. The archived offline report separately verifies the official HotpotQA match after Unicode normalization and outer-whitespace removal. Historical Table XI generator inputs are assessed separately and remain unverified."
+        },
+        {
+          "id": "obli_table_xi_historical_question",
+          "source_group": "archived",
+          "description": "Determine whether the historical HotpotQA Table XI shadow generator received a verbatim test question as a generation input.",
+          "scope": {
+            "paper_version": "ObliInjection arXiv:2512.09321v3, Appendix Table XI",
+            "experiment_arm": "Historical metadata-conditioned HotpotQA shadow generation",
+            "artifact_revision": "Historical run revision unverified; public release b1f6a3f48c0cf121534374cbcef453832594867b inspected separately",
+            "configuration": "Paper-described question-type-only procedure; matching historical request and generator unavailable in the reviewed archive"
+          },
+          "target": {
+            "role": "shadow-data generator",
+            "phase": "historical metadata-conditioned construction",
+            "source": "original HotpotQA test item",
+            "representation": "verbatim test question",
+            "operation": "receive as generation input",
+            "query_form": "full_query"
+          },
+          "verdict": "insufficient_evidence",
+          "reason": "no_matching_observation",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "shadow-data generator",
+                "phase": "historical metadata-conditioned construction",
+                "source": "original HotpotQA test item",
+                "representation": "verbatim test question",
+                "operation": "receive as generation input",
+                "query_form": "full_query"
+              },
+              "permission": "deny",
+              "reference": "repository/obli-gpt4o-ac-transfer-20261031/papers/ObliInjection/reproduction/pilot_15/obliinjection_paper.txt:1164–1173"
+            }
+          ],
+          "matching_observations": [],
+          "other_observation_count": 0,
+          "note": "Scope is the question-type-only procedure described in Table XI. The report on the public optimizer and missing Table XI generator is papers/ObliInjection/audit/provenance/PROVENANCE.md:32–56. Neither establishes the historical run's inputs."
+        }
+      ],
+      "expected": "inconsistent",
+      "matches_gold": true
+    },
+    {
+      "id": "webtrap",
+      "title": "WebTrap",
+      "version": "arXiv:2605.08310v1",
+      "audit_scope": "Released file-browser ORIGINAL request boundary against §4.1. The local LIMITED_CONTEXT arm is a comparison control.",
+      "verdict": "inconsistent",
+      "has_confirmed_inconsistency": true,
+      "reason": "confirmed_inconsistency_in_scope",
+      "coverage_complete": false,
+      "required_checks": 1,
+      "resolved_checks": 1,
+      "confirmed_findings": [
+        "webtrap_original_internal_path"
+      ],
+      "unresolved_checks": [],
+      "input_provenance_gaps": [],
+      "evidence": [
+        {
+          "id": "webtrap_original_internal_path",
+          "source_group": "archived",
+          "description": "Determine whether the exact restricted-area relative path reached the final generator in the saved ORIGINAL requests.",
+          "scope": {
+            "paper_version": "WebTrap arXiv:2605.08310v1, §§4.1–4.2",
+            "experiment_arm": "PSAA file-browser ORIGINAL",
+            "artifact_revision": "Upstream f8255c83d4a569fc374198b67717fcbee17af1fb; archived paired Pro requests",
+            "configuration": "Saved final generation requests for case_0001 and case_0004"
+          },
+          "target": {
+            "role": "attacker-side generator",
+            "phase": "final content generation",
+            "source": "internal goal manifest",
+            "representation": "case-specific exact restricted-area relative path",
+            "operation": "receive as request input"
+          },
+          "verdict": "inconsistent",
+          "reason": "forbidden_flow_confirmed",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "attacker-side generator",
+                "phase": "final content generation",
+                "source": "internal goal manifest",
+                "representation": "case-specific exact restricted-area relative path",
+                "operation": "receive as request input"
+              },
+              "permission": "deny",
+              "reference": "papers/WebTrap/replication/THREAT_MODEL_CODE_ALIGNMENT.md:7–11"
+            }
+          ],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "attacker-side generator",
+                "phase": "final content generation",
+                "source": "internal goal manifest",
+                "representation": "case-specific exact restricted-area relative path",
+                "operation": "receive as request input"
+              },
+              "status": "present",
+              "reference": "papers/WebTrap/replication/THREAT_MODEL_CODE_ALIGNMENT.md:53–71; papers/WebTrap/replication/CONTEXT_EFFECT_ASSESSMENT.md:3–11"
+            }
+          ],
+          "other_observation_count": 0,
+          "note": "Evidence concerns the specified public revision and saved requests. Author-run configuration and effect on success rate are separate unverified claims."
+        }
+      ],
+      "expected": "inconsistent",
+      "matches_gold": true
+    },
+    {
+      "id": "icoa",
+      "title": "ICoA",
+      "version": "EMNLP 2026 final",
+      "audit_scope": "Construction-time identity provenance and the paper's prohibition on direct system-prompt reads in the AgentDojo setup.",
+      "verdict": "insufficient_evidence",
+      "has_confirmed_inconsistency": false,
+      "reason": "unresolved_checks",
+      "coverage_complete": false,
+      "required_checks": 2,
+      "resolved_checks": 0,
+      "confirmed_findings": [],
+      "unresolved_checks": [
+        "icoa_direct_system_read",
+        "icoa_benchmark_identity_source"
+      ],
+      "input_provenance_gaps": [
+        {
+          "case_id": "icoa_benchmark_identity_source",
+          "description": "The benchmark uses a matching identity constant. The paper leaves open how an attacker obtains that identity under the stated access constraints.",
+          "reference": "ICoA §2 (https://aclanthology.org/2026.emnlp-main.2035.pdf#page=3) and §4.1 (https://aclanthology.org/2026.emnlp-main.2035.pdf#page=5)"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "icoa_direct_system_read",
+          "source_group": "paper_text",
+          "description": "Check for a direct read of the system prompt by the ICoA content constructor.",
+          "scope": {
+            "paper_version": "ICoA, EMNLP 2026 proceedings, ACL Anthology 2026.emnlp-main.2035",
+            "experiment_arm": "AgentDojo 0.1.34 benchmark identity framing",
+            "artifact_revision": "Author repository commit e333be8e1c319be3deb6942692aaed8e640a3954",
+            "configuration": "Static source and configuration for the released AgentDojo benchmark setup"
+          },
+          "target": {
+            "role": "attacker-side content constructor",
+            "phase": "content construction",
+            "source": "victim system prompt",
+            "representation": "system prompt content",
+            "operation": "read directly"
+          },
+          "verdict": "insufficient_evidence",
+          "reason": "no_matching_observation",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "attacker-side content constructor",
+                "phase": "content construction",
+                "source": "victim system prompt",
+                "representation": "system prompt content",
+                "operation": "read directly"
+              },
+              "permission": "deny",
+              "reference": "https://aclanthology.org/2026.emnlp-main.2035.pdf#page=3"
+            }
+          ],
+          "matching_observations": [],
+          "other_observation_count": 0,
+          "note": "Published threat model and pinned static source. The §4.1 identity requirement and the code constant establish identity matching from a separate source. They provide no direct-read observation for the system-prompt edge. See https://aclanthology.org/2026.emnlp-main.2035.pdf#page=5 and https://github.com/yslmoment/ICoA/blob/e333be8e1c319be3deb6942692aaed8e640a3954/src/agentdojo/attacks/icoa.py#L41-L49."
+        },
+        {
+          "id": "icoa_benchmark_identity_source",
+          "source_group": "paper_text",
+          "description": "Determine whether the stated threat model covers the fixed benchmark identity used by the released implementation.",
+          "scope": {
+            "paper_version": "ICoA, EMNLP 2026 proceedings, ACL Anthology 2026.emnlp-main.2035",
+            "experiment_arm": "AgentDojo 0.1.34 benchmark identity framing",
+            "artifact_revision": "Author repository commit e333be8e1c319be3deb6942692aaed8e640a3954",
+            "configuration": "Static source and configuration for the released AgentDojo benchmark setup"
+          },
+          "target": {
+            "role": "attacker-side content constructor",
+            "phase": "content construction",
+            "source": "fixed benchmark code constant",
+            "representation": "benchmark user identity matching the victim system prompt",
+            "operation": "use to format content"
+          },
+          "verdict": "insufficient_evidence",
+          "reason": "policy_unspecified",
+          "matching_rules": [],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "attacker-side content constructor",
+                "phase": "content construction",
+                "source": "fixed benchmark code constant",
+                "representation": "benchmark user identity matching the victim system prompt",
+                "operation": "use to format content"
+              },
+              "status": "present",
+              "reference": "https://github.com/yslmoment/ICoA/blob/e333be8e1c319be3deb6942692aaed8e640a3954/src/agentdojo/attacks/icoa.py#L41-L49 and https://github.com/yslmoment/ICoA/blob/e333be8e1c319be3deb6942692aaed8e640a3954/src/agentdojo/data/system_messages.yaml#L3"
+            }
+          ],
+          "other_observation_count": 0,
+          "note": "Published method and pinned static source. §2 restricts system-prompt access and leaves the rules for knowing the same identity through other means unspecified. The two pinned code/configuration constants have the same value.",
+          "input_provenance_gap": {
+            "description": "The benchmark uses a matching identity constant. The paper leaves open how an attacker obtains that identity under the stated access constraints.",
+            "reference": "ICoA §2 (https://aclanthology.org/2026.emnlp-main.2035.pdf#page=3) and §4.1 (https://aclanthology.org/2026.emnlp-main.2035.pdf#page=5)"
+          }
+        }
+      ],
+      "expected": "insufficient_evidence",
+      "matches_gold": true
+    }
+  ],
+  "comparison": {
+    "matched": 11,
+    "total": 11
+  }
+}

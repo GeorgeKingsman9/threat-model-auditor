@@ -1,6 +1,6 @@
 **TeX、既有说明与审核算法的逐篇裁定**
 
-本表以 2026 年 11 月 19 日的独立复核为准。原 11 篇的旧结构化结果为 7 项确认、1 项范围内一致、3 项证据不足。复核后，其中 4 项保留限定的不一致发现，ASPI、FHA、LIAR 的旧确认需要收窄。连同新增的 4 个域内控制，目前 registry 有 15 篇、25 条具体怀疑，分为 4 项限定发现、5 项限定怀疑被排除、6 项证据不足。这些数字描述已列明的审核范围。[旧结果](../paper_pilot_results.json#L2) · [当前案例](../adjudication/reviewed_cases.json#L1) · [当前范围与标签](../adjudication/reviewed_papers.json#L1) · [复核标签](../adjudication/reviewed_gold.json#L1)
+本表以 2026 年 11 月 19 日的独立复核为准。原 11 篇的旧结构化结果为 7 项确认、1 项范围内一致、3 项证据不足。复核后，其中 4 项保留限定的不一致发现，ASPI、FHA、LIAR 的旧确认需要收窄。连同新增的 4 个域内控制，目前 registry 有 15 篇、25 条具体怀疑，分为 4 项限定发现、5 项限定怀疑被排除、6 项证据不足。这些数字描述已列明的审核范围。[旧结果](../adjudication/baseline/structured_results.json#L2) · [当前案例](../adjudication/reviewed_cases.json#L1) · [当前范围与标签](../adjudication/reviewed_papers.json#L1) · [复核标签](../adjudication/reviewed_gold.json#L1)
 
 TeX 指 389 行的论文草稿。新附件指 158 行的既有判断说明，两者都是待核对材料。下表的“确认”仅指特定主体、阶段、实验臂和信息实例上的发现。“范围内一致”表示表中列出的怀疑已有具体反证。证据不足保留未解决的权限适用或交付来源问题。TeX (user-provided-tex[sha256=7bf0e622b12efb0df51867444c318132d8f226108b259e6060350e234073b67d]:121) · 新附件 (user-provided-classification[sha256=6bcd416a830f7be28d13098e53b04a243d0b1a4de6feaad20b7aea9538280ed4]:1)
 
