@@ -1,0 +1,187 @@
+[
+  {
+    "id": "adaptools_final_black_box_online_task_access",
+    "source_group": "paper_text",
+    "description": "Check whether the final paper establishes a held-out black-box online input flow for the case-specific user task.",
+    "scope": {
+      "paper_version": "AdapTools EMNLP 2026 final §§4.1, 4.3 and 4.5",
+      "experiment_arm": "Third-party black-box online condition",
+      "artifact_revision": "EMNLP 2026 proceedings and archived implementation audit",
+      "configuration": "Held-out online task, separate from offline strategy generation and grey-box MCP access"
+    },
+    "target": {
+      "role": "third-party black-box adversary",
+      "phase": "held-out online prompt construction",
+      "source": "current user task",
+      "representation": "case-specific task details",
+      "operation": "receive as generation input"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "third-party black-box adversary",
+          "phase": "held-out online prompt construction",
+          "source": "current user task",
+          "representation": "case-specific task details",
+          "operation": "receive as generation input"
+        },
+        "permission": "deny",
+        "reference": "§4.1, https://aclanthology.org/2026.emnlp-main.2055.pdf#page=4"
+      }
+    ],
+    "observations": [],
+    "note": "§4.3 and Fig. 2 disclose task-conditioned strategy generation and failure reasoning during library construction (https://aclanthology.org/2026.emnlp-main.2055.pdf#page=5). §4.5 describes the library as prebuilt offline and describes online context inference from MCP interactions (https://aclanthology.org/2026.emnlp-main.2055.pdf#page=6). Available evidence does not bind the strategy-generation inputs to the held-out black-box online condition. See papers/AdapTools/METHODOLOGY_COMPARISON.md:12–17."
+  },
+  {
+    "id": "fha_direct_exact_query",
+    "source_group": "paper_text",
+    "description": "Check construction-side access to the exact evaluation query in the paper-described direct single-query FHA experiment.",
+    "scope": {
+      "paper_version": "Breaking MCP with Function Hijacking Attacks, arXiv:2604.20994v2, §§4 and 6.1, Appendix B.1",
+      "experiment_arm": "Direct single-query FHA",
+      "artifact_revision": "Fixed arXiv v2 text only",
+      "configuration": "Same benchmark query is used in the documented direct construction and its evaluation"
+    },
+    "target": {
+      "role": "attacker-side construction procedure",
+      "phase": "offline construction for direct evaluation",
+      "source": "benchmark evaluation case",
+      "representation": "exact evaluated user query",
+      "operation": "receive as construction input",
+      "query_form": "full_query"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "attacker-side construction procedure",
+          "phase": "offline construction for direct evaluation",
+          "source": "benchmark evaluation case",
+          "representation": "exact evaluated user query",
+          "operation": "receive as construction input",
+          "query_form": "full_query"
+        },
+        "permission": "deny",
+        "reference": "§4 Threat model and objectives, https://arxiv.org/html/2604.20994v2#S4"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "attacker-side construction procedure",
+          "phase": "offline construction for direct evaluation",
+          "source": "benchmark evaluation case",
+          "representation": "exact evaluated user query",
+          "operation": "receive as construction input",
+          "query_form": "full_query"
+        },
+        "status": "present",
+        "reference": "§6.1 Direct FHAs and Appendix B.1 documented input, https://arxiv.org/html/2604.20994v2#S6.SS1 and https://arxiv.org/html/2604.20994v2#A2.SS1"
+      }
+    ],
+    "note": "Paper-text comparison to the no-user-prompt statement in §4 for the direct same-query arm. §7 reports a separate transfer evaluation from development queries to held-out formulations. This record establishes neither a code-level finding nor access to held-out or live queries."
+  },
+  {
+    "id": "agentcon_construction_exact_query",
+    "source_group": "paper_text",
+    "description": "Check exact-query conditioning in the AGENTCON benchmark arm that constructs and evaluates on the source request.",
+    "scope": {
+      "paper_version": "AGENTCON, ICLR 2026 submission PDF, §§3, 4.3 and 5",
+      "experiment_arm": "Documented construction and evaluation on the original benchmark request",
+      "artifact_revision": "Archived OpenReview submission PDF only",
+      "configuration": "Simulated benchmark on the same original request, prior to the separately reported request-variation test"
+    },
+    "target": {
+      "role": "attacker-side construction procedure",
+      "phase": "offline construction for direct evaluation",
+      "source": "original benchmark evaluation request",
+      "representation": "exact evaluated user query",
+      "operation": "receive as construction input",
+      "query_form": "full_query"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "attacker-side construction procedure",
+          "phase": "offline construction for direct evaluation",
+          "source": "original benchmark evaluation request",
+          "representation": "exact evaluated user query",
+          "operation": "receive as construction input",
+          "query_form": "full_query"
+        },
+        "permission": "deny",
+        "reference": "§3 Attack Constraints (PDF p. 4), https://openreview.net/pdf/a7b8365a80d58906740ac477248926c6c6a43640.pdf#page=4"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "attacker-side construction procedure",
+          "phase": "offline construction for direct evaluation",
+          "source": "original benchmark evaluation request",
+          "representation": "exact evaluated user query",
+          "operation": "receive as construction input",
+          "query_form": "full_query"
+        },
+        "status": "present",
+        "reference": "§4.3 Eq. 5 and §5 User-Request Variability (PDF pp. 6 and 9), https://openreview.net/pdf/a7b8365a80d58906740ac477248926c6c6a43640.pdf#page=6 and https://openreview.net/pdf/a7b8365a80d58906740ac477248926c6c6a43640.pdf#page=9"
+      }
+    ],
+    "input_provenance_gap": {
+      "description": "The source-request benchmark supplies the exact request during construction. The paper leaves open how a marketplace seller would obtain a specific future user request during deployment.",
+      "reference": "AGENTCON §3 (https://openreview.net/pdf/a7b8365a80d58906740ac477248926c6c6a43640.pdf#page=4) and §4.3 (https://openreview.net/pdf/a7b8365a80d58906740ac477248926c6c6a43640.pdf#page=6)"
+    },
+    "note": "Paper-text comparison to the exact-request restriction in §3 for the source-request arm. The later variation test keeps the previously constructed image fixed for similar request variants. The published procedure uses simulated inputs, and this record establishes no access to a live request, live rendering, or production trace."
+  },
+  {
+    "id": "retrieval_barrier_declared_query",
+    "source_group": "paper_text",
+    "description": "Check the use of a supplied target query inside the paper's explicitly query-conditioned retrieval evaluation.",
+    "scope": {
+      "paper_version": "Overcoming the Retrieval Barrier, USENIX Security 2026 proceedings, §§2.1 and 4.1",
+      "experiment_arm": "Given-query retrieval benchmark",
+      "artifact_revision": "Fixed USENIX proceedings PDF only",
+      "configuration": "Selected dataset queries supplied as target inputs under the paper's retrieval procedure"
+    },
+    "target": {
+      "role": "attacker-side retrieval construction procedure",
+      "phase": "offline construction for retrieval evaluation",
+      "source": "benchmark-selected target query",
+      "representation": "exact selected query",
+      "operation": "receive as construction input",
+      "query_form": "full_query"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "attacker-side retrieval construction procedure",
+          "phase": "offline construction for retrieval evaluation",
+          "source": "benchmark-selected target query",
+          "representation": "exact selected query",
+          "operation": "receive as construction input",
+          "query_form": "full_query"
+        },
+        "permission": "allow",
+        "reference": "§2.1 Problem Definition 1 states that the query is given (proceedings p. 1569), https://www.usenix.org/system/files/usenixsecurity26-chang-hongyan.pdf#page=4"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "attacker-side retrieval construction procedure",
+          "phase": "offline construction for retrieval evaluation",
+          "source": "benchmark-selected target query",
+          "representation": "exact selected query",
+          "operation": "receive as construction input",
+          "query_form": "full_query"
+        },
+        "status": "present",
+        "reference": "§4.1 benchmark sampling and reported per-target-query evaluation (proceedings pp. 1571–1572), https://www.usenix.org/system/files/usenixsecurity26-chang-hongyan.pdf#page=6"
+      }
+    ],
+    "input_provenance_gap": {
+      "description": "The benchmark assumes the query is given. The query-conditioned result leaves open how an external actor obtains an exact future query in deployment.",
+      "reference": "Overcoming the Retrieval Barrier §2.1 (https://www.usenix.org/system/files/usenixsecurity26-chang-hongyan.pdf#page=4) and §5.2 (https://www.usenix.org/system/files/usenixsecurity26-chang-hongyan.pdf#page=12)"
+    },
+    "note": "The documented black-box restrictions concern the external corpus and model parameters. §5.2 separately reports retrospective FAQ construction and possible agent-side rewrites."
+  }
+]

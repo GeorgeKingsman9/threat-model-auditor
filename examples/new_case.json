@@ -1,0 +1,24 @@
+[
+  {
+    "id": "my_paper_query_access",
+    "description": "Template only: replace placeholders with a real paper's evidence.",
+    "source_group": "paper_text",
+    "scope": {
+      "paper_version": "TODO: exact paper version and sections",
+      "experiment_arm": "TODO: selected experiment condition",
+      "artifact_revision": "TODO: exact code revision or document snapshot",
+      "configuration": "TODO: relevant entry point and options"
+    },
+    "target": {
+      "role": "online attacker",
+      "phase": "attack construction",
+      "source": "victim user query",
+      "representation": "raw query text",
+      "operation": "construct candidate payload",
+      "query_form": "full_query"
+    },
+    "rules": [],
+    "observations": [],
+    "note": "Unfilled template; it cannot support a real paper finding."
+  }
+]

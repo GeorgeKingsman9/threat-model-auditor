@@ -1,0 +1,116 @@
+[
+  {
+    "id": "adaptools",
+    "title": "AdapTools",
+    "version": "EMNLP 2026 final",
+    "audit_scope": "Online black-box access to the held-out user's task, distinguished from offline strategy development.",
+    "required_checks": [
+      "adaptools_final_black_box_online_task_access"
+    ],
+    "coverage_complete": false
+  },
+  {
+    "id": "blind_spots",
+    "title": "Blind Spots in the Guard",
+    "version": "arXiv:2605.22001v1",
+    "audit_scope": "Exp. 1 document access compared with §2. §4.2 discloses the richer construction; source and archival evidence concern the pinned release.",
+    "required_checks": [
+      "blind_spots_exp1_document_access"
+    ],
+    "coverage_complete": false
+  },
+  {
+    "id": "aspi",
+    "title": "ASPI",
+    "version": "arXiv:2605.17324v1",
+    "audit_scope": "Stage 1 benchmark construction and Stage 2 direct-user construction relative to §3's external-adversary knowledge constraint. Direct user-message delivery is a stronger baseline.",
+    "required_checks": [
+      "aspi_stage1_designer_task",
+      "aspi_released_stage2_partial_query"
+    ],
+    "coverage_complete": false
+  },
+  {
+    "id": "muzzle",
+    "title": "MUZZLE",
+    "version": "USENIX Security 2026 final",
+    "audit_scope": "Operator-provided task in offline discovery and availability of the same case-specific task to a standard-privilege online attacker.",
+    "required_checks": [
+      "muzzle_offline_task_spec",
+      "muzzle_online_task_provenance"
+    ],
+    "coverage_complete": false
+  },
+  {
+    "id": "fha",
+    "title": "Breaking MCP with Function Hijacking Attacks (FHA)",
+    "version": "arXiv:2604.20994v2",
+    "audit_scope": "The paper-described direct same-query condition relative to the stated user-prompt visibility constraint. Held-out-query generalization is a separate condition.",
+    "required_checks": [
+      "fha_direct_exact_query"
+    ],
+    "coverage_complete": false
+  },
+  {
+    "id": "agentcon",
+    "title": "AGENTCON",
+    "version": "ICLR 2026 OpenReview submission snapshot",
+    "audit_scope": "The paper-described construction on the supplied benchmark request relative to the marketplace adversary's future-request visibility assumption.",
+    "required_checks": [
+      "agentcon_construction_exact_query"
+    ],
+    "coverage_complete": false
+  },
+  {
+    "id": "retrieval_barrier",
+    "title": "Overcoming the Retrieval Barrier",
+    "version": "USENIX Security 2026 final",
+    "audit_scope": "The explicit given-query entitlement of the documented retrieval benchmark. Acquisition of a future user query in deployment is outside this documented-input check.",
+    "required_checks": [
+      "retrieval_barrier_declared_query"
+    ],
+    "coverage_complete": true
+  },
+  {
+    "id": "liar",
+    "title": "Glue Pizza and Eat Rocks (LIAR)",
+    "version": "EMNLP 2024 final",
+    "audit_scope": "The paper-described same-benchmark condition using source knowledge-base documents in construction, assessed against §3.1's stated database-access boundary.",
+    "required_checks": [
+      "liar_same_benchmark_source_kb"
+    ],
+    "coverage_complete": false
+  },
+  {
+    "id": "obliinjection",
+    "title": "ObliInjection",
+    "version": "arXiv:2512.09321v3",
+    "audit_scope": "Released HotpotQA optimizer access to the evaluation-matched question and historical provenance of the type-only Table XI generator.",
+    "required_checks": [
+      "obli_released_optimizer_full_target_query",
+      "obli_table_xi_historical_question"
+    ],
+    "coverage_complete": false
+  },
+  {
+    "id": "webtrap",
+    "title": "WebTrap",
+    "version": "arXiv:2605.08310v1",
+    "audit_scope": "Released file-browser ORIGINAL request boundary against §4.1. The local LIMITED_CONTEXT arm is a comparison control.",
+    "required_checks": [
+      "webtrap_original_internal_path"
+    ],
+    "coverage_complete": false
+  },
+  {
+    "id": "icoa",
+    "title": "ICoA",
+    "version": "EMNLP 2026 final",
+    "audit_scope": "Construction-time identity provenance and the paper's prohibition on direct system-prompt reads in the AgentDojo setup.",
+    "required_checks": [
+      "icoa_direct_system_read",
+      "icoa_benchmark_identity_source"
+    ],
+    "coverage_complete": false
+  }
+]

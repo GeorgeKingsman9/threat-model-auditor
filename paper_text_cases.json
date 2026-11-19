@@ -1,0 +1,117 @@
+[
+  {
+    "id": "liar_same_benchmark_source_kb",
+    "source_group": "paper_text",
+    "description": "Compare the disclosed use of source corpus documents in NQ-to-NQ training with the general knowledge-base restriction in §3.1.",
+    "scope": {
+      "paper_version": "Glue pizza and eat rocks (LIAR), EMNLP 2024 proceedings, ACL Anthology 2024.emnlp-main.96",
+      "experiment_arm": "Table 1, Natural Questions as both source and target database",
+      "artifact_revision": "Final published paper. Implementation and historical run artifacts were outside this evidence review.",
+      "configuration": "Offline construction using the disclosed training subset of the same named benchmark corpus as evaluation"
+    },
+    "target": {
+      "role": "attacker-side training procedure",
+      "phase": "offline construction",
+      "source": "Natural Questions source knowledge-base training subset in the NQ-to-NQ condition",
+      "representation": "documents from the knowledge base",
+      "operation": "read as training input"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "attacker-side training procedure",
+          "phase": "offline construction",
+          "source": "Natural Questions source knowledge-base training subset in the NQ-to-NQ condition",
+          "representation": "documents from the knowledge base",
+          "operation": "read as training input"
+        },
+        "permission": "deny",
+        "reference": "https://aclanthology.org/2024.emnlp-main.96.pdf#page=3"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "attacker-side training procedure",
+          "phase": "offline construction",
+          "source": "Natural Questions source knowledge-base training subset in the NQ-to-NQ condition",
+          "representation": "documents from the knowledge base",
+          "operation": "read as training input"
+        },
+        "status": "present",
+        "reference": "https://aclanthology.org/2024.emnlp-main.96.pdf#page=5 (§5.2) and https://aclanthology.org/2024.emnlp-main.96.pdf#page=7 (Table 1)"
+      }
+    ],
+    "note": "Paper-text evidence. The result records the difference between the general no-direct-access statement in §3.1 and the specific offline source-training entitlement disclosed in §5.2. Table 1 establishes the same benchmark name. Document-level overlap, a direct read of the live target index, and knowledge of future user queries remain separate unverified claims."
+  },
+  {
+    "id": "icoa_benchmark_identity_source",
+    "source_group": "paper_text",
+    "description": "Determine whether the stated threat model covers the fixed benchmark identity used by the released implementation.",
+    "scope": {
+      "paper_version": "ICoA, EMNLP 2026 proceedings, ACL Anthology 2026.emnlp-main.2035",
+      "experiment_arm": "AgentDojo 0.1.34 benchmark identity framing",
+      "artifact_revision": "Author repository commit e333be8e1c319be3deb6942692aaed8e640a3954",
+      "configuration": "Static source and configuration for the released AgentDojo benchmark setup"
+    },
+    "target": {
+      "role": "attacker-side content constructor",
+      "phase": "content construction",
+      "source": "fixed benchmark code constant",
+      "representation": "benchmark user identity matching the victim system prompt",
+      "operation": "use to format content"
+    },
+    "rules": [],
+    "observations": [
+      {
+        "edge": {
+          "role": "attacker-side content constructor",
+          "phase": "content construction",
+          "source": "fixed benchmark code constant",
+          "representation": "benchmark user identity matching the victim system prompt",
+          "operation": "use to format content"
+        },
+        "status": "present",
+        "reference": "https://github.com/yslmoment/ICoA/blob/e333be8e1c319be3deb6942692aaed8e640a3954/src/agentdojo/attacks/icoa.py#L41-L49 and https://github.com/yslmoment/ICoA/blob/e333be8e1c319be3deb6942692aaed8e640a3954/src/agentdojo/data/system_messages.yaml#L3"
+      }
+    ],
+    "input_provenance_gap": {
+      "description": "The benchmark uses a matching identity constant. The paper leaves open how an attacker obtains that identity under the stated access constraints.",
+      "reference": "ICoA §2 (https://aclanthology.org/2026.emnlp-main.2035.pdf#page=3) and §4.1 (https://aclanthology.org/2026.emnlp-main.2035.pdf#page=5)"
+    },
+    "note": "Published method and pinned static source. §2 restricts system-prompt access and leaves the rules for knowing the same identity through other means unspecified. The two pinned code/configuration constants have the same value."
+  },
+  {
+    "id": "icoa_direct_system_read",
+    "source_group": "paper_text",
+    "description": "Check for a direct read of the system prompt by the ICoA content constructor.",
+    "scope": {
+      "paper_version": "ICoA, EMNLP 2026 proceedings, ACL Anthology 2026.emnlp-main.2035",
+      "experiment_arm": "AgentDojo 0.1.34 benchmark identity framing",
+      "artifact_revision": "Author repository commit e333be8e1c319be3deb6942692aaed8e640a3954",
+      "configuration": "Static source and configuration for the released AgentDojo benchmark setup"
+    },
+    "target": {
+      "role": "attacker-side content constructor",
+      "phase": "content construction",
+      "source": "victim system prompt",
+      "representation": "system prompt content",
+      "operation": "read directly"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "attacker-side content constructor",
+          "phase": "content construction",
+          "source": "victim system prompt",
+          "representation": "system prompt content",
+          "operation": "read directly"
+        },
+        "permission": "deny",
+        "reference": "https://aclanthology.org/2026.emnlp-main.2035.pdf#page=3"
+      }
+    ],
+    "observations": [],
+    "note": "Published threat model and pinned static source. The §4.1 identity requirement and the code constant establish identity matching from a separate source. They provide no direct-read observation for the system-prompt edge. See https://aclanthology.org/2026.emnlp-main.2035.pdf#page=5 and https://github.com/yslmoment/ICoA/blob/e333be8e1c319be3deb6942692aaed8e640a3954/src/agentdojo/attacks/icoa.py#L41-L49."
+  }
+]

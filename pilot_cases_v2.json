@@ -1,0 +1,542 @@
+[
+  {
+    "id": "webtrap_original_internal_path",
+    "source_group": "archived",
+    "description": "Determine whether the exact restricted-area relative path reached the final generator in the saved ORIGINAL requests.",
+    "scope": {
+      "paper_version": "WebTrap arXiv:2605.08310v1, §§4.1–4.2",
+      "experiment_arm": "PSAA file-browser ORIGINAL",
+      "artifact_revision": "Upstream f8255c83d4a569fc374198b67717fcbee17af1fb; archived paired Pro requests",
+      "configuration": "Saved final generation requests for case_0001 and case_0004"
+    },
+    "target": {
+      "role": "attacker-side generator",
+      "phase": "final content generation",
+      "source": "internal goal manifest",
+      "representation": "case-specific exact restricted-area relative path",
+      "operation": "receive as request input"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "attacker-side generator",
+          "phase": "final content generation",
+          "source": "internal goal manifest",
+          "representation": "case-specific exact restricted-area relative path",
+          "operation": "receive as request input"
+        },
+        "permission": "deny",
+        "reference": "papers/WebTrap/replication/THREAT_MODEL_CODE_ALIGNMENT.md:7–11"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "attacker-side generator",
+          "phase": "final content generation",
+          "source": "internal goal manifest",
+          "representation": "case-specific exact restricted-area relative path",
+          "operation": "receive as request input"
+        },
+        "status": "present",
+        "reference": "papers/WebTrap/replication/THREAT_MODEL_CODE_ALIGNMENT.md:53–71; papers/WebTrap/replication/CONTEXT_EFFECT_ASSESSMENT.md:3–11"
+      }
+    ],
+    "note": "Evidence concerns the specified public revision and saved requests. Author-run configuration and effect on success rate are separate unverified claims."
+  },
+  {
+    "id": "webtrap_limited_internal_path",
+    "source_group": "archived",
+    "description": "Check the same exact path input in the saved requests for the local LIMITED_CONTEXT comparison arm.",
+    "scope": {
+      "paper_version": "WebTrap arXiv:2605.08310v1, §§4.1–4.2",
+      "experiment_arm": "PSAA file-browser LIMITED_CONTEXT (local comparison)",
+      "artifact_revision": "Archived paired Pro requests, upstream comparison base f8255c83d4a569fc374198b67717fcbee17af1fb",
+      "configuration": "Saved final generation requests for case_0001 and case_0004"
+    },
+    "target": {
+      "role": "attacker-side generator",
+      "phase": "final content generation",
+      "source": "internal goal manifest",
+      "representation": "case-specific exact restricted-area relative path",
+      "operation": "receive as request input"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "attacker-side generator",
+          "phase": "final content generation",
+          "source": "internal goal manifest",
+          "representation": "case-specific exact restricted-area relative path",
+          "operation": "receive as request input"
+        },
+        "permission": "deny",
+        "reference": "papers/WebTrap/replication/THREAT_MODEL_CODE_ALIGNMENT.md:7–11"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "attacker-side generator",
+          "phase": "final content generation",
+          "source": "internal goal manifest",
+          "representation": "case-specific exact restricted-area relative path",
+          "operation": "receive as request input"
+        },
+        "status": "absent",
+        "reference": "papers/WebTrap/replication/THREAT_MODEL_CODE_ALIGNMENT.md:63–70; papers/WebTrap/replication/CONTEXT_EFFECT_ASSESSMENT.md:3–7"
+      }
+    ],
+    "note": "The saved final requests establish absence of the selected path input in these two cases. Generic template vocabulary remains in the comparison arm."
+  },
+  {
+    "id": "aspi_stage1_designer_task",
+    "source_group": "archived",
+    "description": "Check the original task prompt used by the benchmark designer during Stage 1 dataset construction.",
+    "scope": {
+      "paper_version": "ASPI arXiv:2605.17324v1, §§4.1–4.2 and Appendix B.1",
+      "experiment_arm": "Released Stage 1 benchmark construction",
+      "artifact_revision": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+      "configuration": "Official dataset pipeline, original task to ambiguous task"
+    },
+    "target": {
+      "role": "benchmark designer",
+      "phase": "dataset construction",
+      "source": "original benchmark task",
+      "representation": "original task prompt",
+      "operation": "read to construct ambiguous task",
+      "query_form": "full_query"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "benchmark designer",
+          "phase": "dataset construction",
+          "source": "original benchmark task",
+          "representation": "original task prompt",
+          "operation": "read to construct ambiguous task",
+          "query_form": "full_query"
+        },
+        "permission": "allow",
+        "reference": "repository/Privileged-User-context-dependence-in-IPI/papers/ASPI/v2/THREAT_MODEL_REAUDIT_V2.md:8"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "benchmark designer",
+          "phase": "dataset construction",
+          "source": "original benchmark task",
+          "representation": "original task prompt",
+          "operation": "read to construct ambiguous task",
+          "query_form": "full_query"
+        },
+        "status": "present",
+        "reference": "repository/Privileged-User-context-dependence-in-IPI/papers/ASPI/v3/THREAT_MODEL_FINDING_V3.md:7–9"
+      }
+    ],
+    "note": "The paper specifies the designer's use in Stage 1. Permission for the external attacker or Stage 2 is a separate question."
+  },
+  {
+    "id": "obli_table_xi_historical_question",
+    "source_group": "archived",
+    "description": "Determine whether the historical HotpotQA Table XI shadow generator received a verbatim test question as a generation input.",
+    "scope": {
+      "paper_version": "ObliInjection arXiv:2512.09321v3, Appendix Table XI",
+      "experiment_arm": "Historical metadata-conditioned HotpotQA shadow generation",
+      "artifact_revision": "Historical run revision unverified; public release b1f6a3f48c0cf121534374cbcef453832594867b inspected separately",
+      "configuration": "Paper-described question-type-only procedure; matching historical request and generator unavailable in the reviewed archive"
+    },
+    "target": {
+      "role": "shadow-data generator",
+      "phase": "historical metadata-conditioned construction",
+      "source": "original HotpotQA test item",
+      "representation": "verbatim test question",
+      "operation": "receive as generation input",
+      "query_form": "full_query"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "shadow-data generator",
+          "phase": "historical metadata-conditioned construction",
+          "source": "original HotpotQA test item",
+          "representation": "verbatim test question",
+          "operation": "receive as generation input",
+          "query_form": "full_query"
+        },
+        "permission": "deny",
+        "reference": "repository/obli-gpt4o-ac-transfer-20261031/papers/ObliInjection/reproduction/pilot_15/obliinjection_paper.txt:1164–1173"
+      }
+    ],
+    "observations": [],
+    "note": "Scope is the question-type-only procedure described in Table XI. The report on the public optimizer and missing Table XI generator is papers/ObliInjection/audit/provenance/PROVENANCE.md:32–56. Neither establishes the historical run's inputs."
+  },
+  {
+    "id": "synthetic_scorer_is_separate",
+    "source_group": "synthetic",
+    "description": "A synthetic benchmark records a scorer's rubric access, with the participant transcript missing.",
+    "scope": {
+      "paper_version": "Synthetic fixture v1",
+      "experiment_arm": "Blind submission",
+      "artifact_revision": "Synthetic test fixture v1",
+      "configuration": "Only the scoring record is available"
+    },
+    "target": {
+      "role": "participant",
+      "phase": "submission",
+      "source": "private scoring file",
+      "representation": "full rubric",
+      "operation": "read"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "participant",
+          "phase": "submission",
+          "source": "private scoring file",
+          "representation": "full rubric",
+          "operation": "read"
+        },
+        "permission": "deny",
+        "reference": "Synthetic blind-submission policy"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "scorer",
+          "phase": "evaluation",
+          "source": "private scoring file",
+          "representation": "full rubric",
+          "operation": "read"
+        },
+        "status": "present",
+        "reference": "Synthetic scorer record"
+      }
+    ]
+  },
+  {
+    "id": "synthetic_conflicting_permissions",
+    "source_group": "synthetic",
+    "description": "Two synthetic policy clauses directly disagree about the same observed read in the same arm.",
+    "scope": {
+      "paper_version": "Synthetic fixture v1",
+      "experiment_arm": "Document review",
+      "artifact_revision": "Synthetic test fixture v1",
+      "configuration": "Both clauses apply and no precedence is specified"
+    },
+    "target": {
+      "role": "participant",
+      "phase": "review",
+      "source": "sample brief",
+      "representation": "full text",
+      "operation": "read"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "participant",
+          "phase": "review",
+          "source": "sample brief",
+          "representation": "full text",
+          "operation": "read"
+        },
+        "permission": "allow",
+        "reference": "Synthetic policy clause 1"
+      },
+      {
+        "edge": {
+          "role": "participant",
+          "phase": "review",
+          "source": "sample brief",
+          "representation": "full text",
+          "operation": "read"
+        },
+        "permission": "deny",
+        "reference": "Synthetic policy clause 2"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "participant",
+          "phase": "review",
+          "source": "sample brief",
+          "representation": "full text",
+          "operation": "read"
+        },
+        "status": "present",
+        "reference": "Synthetic review record"
+      }
+    ]
+  },
+  {
+    "id": "aspi_released_stage2_partial_query",
+    "source_group": "archived",
+    "description": "Compare the task-derived base prompt supplied to the released Stage 2 reply generator with the external attacker’s task access in §3.",
+    "scope": {
+      "paper_version": "ASPI arXiv:2605.17324v1, §3, §4.2, §5.1 and Appendix B",
+      "experiment_arm": "Released Stage 2 dataset authoring for the clarif_user direct-user baseline",
+      "artifact_revision": "Vendored ASPI upstream e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+      "configuration": "Official Stage 2 base-prompt input, assessed against the §3 external-adversary knowledge boundary"
+    },
+    "target": {
+      "role": "attacker-side reply generator",
+      "phase": "offline Stage 2 construction",
+      "source": "Stage 1 transformation of the original benchmark task",
+      "representation": "slot-deleted base prompt with retained task-specific wording",
+      "operation": "receive as generation input",
+      "query_form": "partial_query"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "attacker-side reply generator",
+          "phase": "offline Stage 2 construction",
+          "source": "Stage 1 transformation of the original benchmark task",
+          "representation": "slot-deleted base prompt with retained task-specific wording",
+          "operation": "receive as generation input",
+          "query_form": "partial_query"
+        },
+        "permission": "deny",
+        "reference": "repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi-paper-v1.html:494–500; repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi-paper-v1.html:533–544"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "attacker-side reply generator",
+          "phase": "offline Stage 2 construction",
+          "source": "Stage 1 transformation of the original benchmark task",
+          "representation": "slot-deleted base prompt with retained task-specific wording",
+          "operation": "receive as generation input",
+          "query_form": "partial_query"
+        },
+        "status": "present",
+        "reference": "repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi/src/aspi/dataset/pipeline.py:125–139; repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi/src/aspi/prompts/dataset.py:89–99; repository/aspi-matched-context-pilot-v1/papers/ASPI/v3/THREAT_MODEL_FINDING_V3.md:7–12"
+      }
+    ],
+    "note": "The scoped mismatch is relative to §3’s external attacker. The paper describes direct user turns as a stronger baseline and describes its benchmark construction. This edge is the one-slot-deleted base prompt. Conclusions about the full original prompt, an actual observed clarification question, and the separate tool-return baseline each require their own edge."
+  },
+  {
+    "id": "obli_released_optimizer_full_target_query",
+    "source_group": "archived",
+    "description": "Check if the released HotpotQA optimizer uses the complete question used by evaluation for the same selected case.",
+    "scope": {
+      "paper_version": "ObliInjection arXiv:2512.09321v3, §§III-B, IV and V-A, Appendix Table XI",
+      "experiment_arm": "Released HotpotQA optimization and evaluation data flow",
+      "artifact_revision": "Public release b1f6a3f48c0cf121534374cbcef453832594867b",
+      "configuration": "Released HotpotQA JSON prepared by the shipped loader, with the same selected case for optimization and evaluation"
+    },
+    "target": {
+      "role": "attacker-side optimizer",
+      "phase": "optimization before evaluation",
+      "source": "selected target-question record in the released HotpotQA evaluation data",
+      "representation": "full evaluation-matched target question",
+      "operation": "read as optimization input",
+      "query_form": "full_query"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "attacker-side optimizer",
+          "phase": "optimization before evaluation",
+          "source": "selected target-question record in the released HotpotQA evaluation data",
+          "representation": "full evaluation-matched target question",
+          "operation": "read as optimization input",
+          "query_form": "full_query"
+        },
+        "permission": "deny",
+        "reference": "papers/ObliInjection/reproduction/pilot_15/obliinjection_paper.txt:209–214; papers/ObliInjection/reproduction/pilot_15/obliinjection_paper.txt:245–255; papers/ObliInjection/reproduction/pilot_15/obliinjection_paper.txt:655–665; papers/ObliInjection/reproduction/pilot_15/obliinjection_paper.txt:1164–1173"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "attacker-side optimizer",
+          "phase": "optimization before evaluation",
+          "source": "selected target-question record in the released HotpotQA evaluation data",
+          "representation": "full evaluation-matched target question",
+          "operation": "read as optimization input",
+          "query_form": "full_query"
+        },
+        "status": "present",
+        "reference": "papers/ObliInjection/upstream/ObliInjection/configs/task_configs/hotpotqa_config.json:23–26; papers/ObliInjection/upstream/ObliInjection/obliinjection.py:33–47; papers/ObliInjection/audit/dataflow/dataflow.md:12–34; repository/obli-gpt4o-ac-transfer-20261031/papers/ObliInjection/reproduction/three_arm_pilot_15_v1/REPORT.md:47–53"
+      }
+    ],
+    "note": "This confirms full evaluation-matched question text in the released source path. The archived offline report separately verifies the official HotpotQA match after Unicode normalization and outer-whitespace removal. Historical Table XI generator inputs are assessed separately and remain unverified."
+  },
+  {
+    "id": "blind_spots_exp1_document_access",
+    "source_group": "archived",
+    "description": "Compare the target-document access implemented in the archived Exp1 generation condition with §2’s stated knowledge boundary.",
+    "scope": {
+      "paper_version": "Blind Spots in the Guard arXiv:2605.22001v1, §2 and §4.2",
+      "experiment_arm": "Exp1 FULL_CONTEXT generation path in the local public-source archive",
+      "artifact_revision": "Source archive revision 9a21b5a230cbcc92ec66987aa7814c188881108a",
+      "configuration": "Target-document field used with the archived corpus, compared specifically with the §2 boundary"
+    },
+    "target": {
+      "role": "attacker-side generator",
+      "phase": "content generation",
+      "source": "target document for the evaluated case",
+      "representation": "clean target document text",
+      "operation": "receive as generation input"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "attacker-side generator",
+          "phase": "content generation",
+          "source": "target document for the evaluated case",
+          "representation": "clean target document text",
+          "operation": "receive as generation input"
+        },
+        "permission": "deny",
+        "reference": "analysis/casebook_2026-11-05/BLIND_SPOTS_CASES_ZH.md:9–11"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "attacker-side generator",
+          "phase": "content generation",
+          "source": "target document for the evaluated case",
+          "representation": "clean target document text",
+          "operation": "receive as generation input"
+        },
+        "status": "present",
+        "reference": "analysis/casebook_2026-11-05/BLIND_SPOTS_CASES_ZH.md:3–9; results/context_ablation_asr_full_llama31/RUN_PROVENANCE.md:3–14"
+      }
+    ],
+    "note": "Introduction and §4.2 independently disclose generation with the target document, so the mismatch concerns the §2 formulation. Logs for the original paper’s historical generation run remain unverified. This edge is document content: it says nothing about receipt of the separate user instruction."
+  },
+  {
+    "id": "adaptools_black_box_online_task_access",
+    "source_group": "archived",
+    "description": "Assess whether the black-box online implementation obtained private task details for a held-out run.",
+    "scope": {
+      "paper_version": "AdapTools arXiv:2602.20720v1, §§5.1, 5.3 and 5.5",
+      "experiment_arm": "Black-box online deployment only",
+      "artifact_revision": "No verifiable implementation revision for this arm identified in the archived review",
+      "configuration": "Held-out online condition, separate from grey-box visibility and offline development"
+    },
+    "target": {
+      "role": "black-box external attacker",
+      "phase": "online attack realization",
+      "source": "held-out agent run",
+      "representation": "private case-specific task details",
+      "operation": "receive as generation input"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "black-box external attacker",
+          "phase": "online attack realization",
+          "source": "held-out agent run",
+          "representation": "private case-specific task details",
+          "operation": "receive as generation input"
+        },
+        "permission": "deny",
+        "reference": "papers/AdapTools/METHODOLOGY_COMPARISON.md:5–7"
+      }
+    ],
+    "observations": [],
+    "note": "The archived review could not bind development-stage inputs described by the paper to the online black-box implementation. See papers/AdapTools/REPRODUCTION_STATUS.md:7–10."
+  },
+  {
+    "id": "synthetic_partial_observation_full_claim",
+    "source_group": "synthetic",
+    "description": "The policy denies access to the full query. The saved record shows receipt only of a partial representation.",
+    "scope": {
+      "paper_version": "Synthetic fixture v2",
+      "experiment_arm": "Blind submission",
+      "artifact_revision": "Synthetic test fixture v2",
+      "configuration": "Only the partial-form record is available"
+    },
+    "target": {
+      "role": "participant",
+      "phase": "submission",
+      "source": "sample benchmark item",
+      "representation": "case-specific query",
+      "operation": "read",
+      "query_form": "full_query"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "participant",
+          "phase": "submission",
+          "source": "sample benchmark item",
+          "representation": "case-specific query",
+          "operation": "read",
+          "query_form": "full_query"
+        },
+        "permission": "deny",
+        "reference": "Synthetic complete-query policy"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "participant",
+          "phase": "submission",
+          "source": "sample benchmark item",
+          "representation": "case-specific query",
+          "operation": "read",
+          "query_form": "partial_query"
+        },
+        "status": "present",
+        "reference": "Synthetic partial-query record"
+      }
+    ]
+  },
+  {
+    "id": "synthetic_full_policy_only_partial_claim",
+    "source_group": "synthetic",
+    "description": "The policy covers the full query. The claim and the saved record concern the partial query.",
+    "scope": {
+      "paper_version": "Synthetic fixture v2",
+      "experiment_arm": "Blind submission",
+      "artifact_revision": "Synthetic test fixture v2",
+      "configuration": "The policy is silent about the partial form"
+    },
+    "target": {
+      "role": "participant",
+      "phase": "submission",
+      "source": "sample benchmark item",
+      "representation": "case-specific query",
+      "operation": "read",
+      "query_form": "partial_query"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "participant",
+          "phase": "submission",
+          "source": "sample benchmark item",
+          "representation": "case-specific query",
+          "operation": "read",
+          "query_form": "full_query"
+        },
+        "permission": "deny",
+        "reference": "Synthetic complete-query policy"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "participant",
+          "phase": "submission",
+          "source": "sample benchmark item",
+          "representation": "case-specific query",
+          "operation": "read",
+          "query_form": "partial_query"
+        },
+        "status": "present",
+        "reference": "Synthetic partial-query record"
+      }
+    ]
+  }
+]

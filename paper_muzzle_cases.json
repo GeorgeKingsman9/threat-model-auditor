@@ -1,0 +1,76 @@
+[
+  {
+    "id": "muzzle_offline_task_spec",
+    "source_group": "paper_text",
+    "description": "Check the disclosure of operator-provided benign task text in offline discovery.",
+    "scope": {
+      "paper_version": "MUZZLE USENIX Security 2026 final §§2.3, 3.1 and 3.3",
+      "experiment_arm": "Offline discovery for the configured benign task",
+      "artifact_revision": "USENIX Security 2026 proceedings, documented input",
+      "configuration": "Operator supplies the benign task in the task specification"
+    },
+    "target": {
+      "role": "offline discovery framework",
+      "phase": "operator task specification intake",
+      "source": "operator-provided benign task",
+      "representation": "benign task text",
+      "operation": "receive as discovery input",
+      "query_form": "full_query"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "offline discovery framework",
+          "phase": "operator task specification intake",
+          "source": "operator-provided benign task",
+          "representation": "benign task text",
+          "operation": "receive as discovery input",
+          "query_form": "full_query"
+        },
+        "permission": "allow",
+        "reference": "§3.1, https://www.usenix.org/system/files/usenixsecurity26-syros.pdf#page=5"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "offline discovery framework",
+          "phase": "operator task specification intake",
+          "source": "operator-provided benign task",
+          "representation": "benign task text",
+          "operation": "receive as discovery input",
+          "query_form": "full_query"
+        },
+        "status": "present",
+        "reference": "§3.3, https://www.usenix.org/system/files/usenixsecurity26-syros.pdf#page=6"
+      }
+    ],
+    "note": "The paper discloses the operator-provided task for offline discovery. This scope is distinct from online observation."
+  },
+  {
+    "id": "muzzle_online_task_provenance",
+    "source_group": "paper_text",
+    "description": "Check whether the stated online website privileges establish access to an arbitrary future victim's exact task.",
+    "scope": {
+      "paper_version": "MUZZLE USENIX Security 2026 final §2.3",
+      "experiment_arm": "Online deployment under standard user-level website privileges",
+      "artifact_revision": "USENIX Security 2026 proceedings, online task provenance unestablished",
+      "configuration": "Separate future victim task, as distinct from the operator-specified lab task"
+    },
+    "target": {
+      "role": "standard-privilege online attacker",
+      "phase": "online attack execution",
+      "source": "future victim task",
+      "representation": "victim's exact task text",
+      "operation": "receive as request input",
+      "query_form": "full_query"
+    },
+    "rules": [],
+    "observations": [],
+    "input_provenance_gap": {
+      "description": "The lab operator supplies the full task during offline discovery. The paper leaves open how a standard-privilege website user would obtain an equivalent task for a future online victim.",
+      "reference": "MUZZLE §2.3 (https://www.usenix.org/system/files/usenixsecurity26-syros.pdf#page=4) and §3.3 (https://www.usenix.org/system/files/usenixsecurity26-syros.pdf#page=6)"
+    },
+    "note": "§2.3 states online website privileges without a specific entitlement to an arbitrary future task. The documented offline input is scoped to a task supplied by the lab operator."
+  }
+]

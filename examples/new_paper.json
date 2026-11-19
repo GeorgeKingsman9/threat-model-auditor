@@ -1,0 +1,10 @@
+[
+  {
+    "id": "my_paper",
+    "title": "Unfilled paper template",
+    "version": "TODO: exact paper version",
+    "audit_scope": "TODO: limited question to be checked, not the whole paper",
+    "required_checks": ["my_paper_query_access"],
+    "coverage_complete": false
+  }
+]
