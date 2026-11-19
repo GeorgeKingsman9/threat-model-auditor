@@ -16,7 +16,7 @@ REVIEWED_VERDICTS = {
     "agentcon": "inconsistent",
     "obliinjection": "inconsistent",
     "webtrap": "inconsistent",
-    "aspi": "insufficient_evidence",
+    "aspi": "inconsistent",
     "adaptools": "insufficient_evidence",
     "muzzle": "insufficient_evidence",
     "liar": "insufficient_evidence",
@@ -122,7 +122,7 @@ class CommandLineTests(unittest.TestCase):
 
     def test_one_paper_one_verdict_and_uncertainty_preserved(self):
         for paper_id, confirmed, verdict in (
-            ("aspi", False, "insufficient_evidence"),
+            ("aspi", True, "inconsistent"),
             ("muzzle", False, "insufficient_evidence"),
         ):
             with self.subTest(paper=paper_id):
@@ -263,9 +263,9 @@ class CommandLineTests(unittest.TestCase):
         report = self.get_report("evaluate", "all")
         self.assertEqual(report["comparison"], {"matched": 15, "total": 15})
         self.assertEqual(report["verdict_counts"], {
-            "inconsistent": 4,
+            "inconsistent": 5,
             "consistent_within_scope": 5,
-            "insufficient_evidence": 6,
+            "insufficient_evidence": 5,
         })
         self.assertEqual(
             {row["id"]: row["verdict"] for row in report["papers"]},

@@ -80,14 +80,14 @@
     "schema_version": 3,
     "id": "aspi_released_stage2_partial_query",
     "source_group": "archived",
-    "claim": "The released offline Stage 2 task-conditioned reply construction violates its applicable knowledge budget, conditional on §3's external-adversary restriction governing the stronger clarif_user baseline.",
+    "claim": "The released Stage 2 malicious-reply constructor uses task-derived partial-query information for the evaluated pair beyond the common specific-task knowledge restriction stated in §3; the finding is limited to the released clarif_user construction branch.",
     "issue_type": "information_boundary",
     "description": "Compare the task-derived base prompt supplied to the released Stage 2 reply generator with the external attacker’s task access in §3.",
     "scope": {
       "paper_version": "ASPI arXiv:2605.17324v1, §3, §4.2, §5.1 and Appendix B",
       "experiment_arm": "Released Stage 2 dataset authoring for the clarif_user direct-user baseline",
       "artifact_revision": "Vendored ASPI upstream e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
-      "configuration": "Offline Stage 2 partial-task input in the disclosed clarif_user direct-user baseline; applicability of the §3 external-adversary knowledge restriction is unresolved"
+      "configuration": "Frozen Stage 2 partial-task generation -> stored operator reply -> clarif_user role:user continuation, compared with the nominal common §3 knowledge restriction. The stronger-baseline qualification changes the delivery channel and does not explicitly authorize specific-task knowledge. Official clarif_ask_user/W and historical author runs are outside this finding."
     },
     "target": {
       "role": "attacker-side reply generator",
@@ -97,7 +97,20 @@
       "operation": "receive as generation input",
       "query_form": "partial_query"
     },
-    "rules": [],
+    "rules": [
+      {
+        "edge": {
+          "role": "attacker-side reply generator",
+          "phase": "offline Stage 2 construction",
+          "source": "Stage 1 transformation of the original benchmark task",
+          "representation": "slot-deleted base prompt with retained task-specific wording",
+          "operation": "receive as generation input",
+          "query_form": "partial_query"
+        },
+        "permission": "deny",
+        "reference": "https://arxiv.org/html/2605.17324v1#S3; https://arxiv.org/html/2605.17324v1#S4.SS3; repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi-paper-v1.html:494–500; repository/aspi-matched-context-pilot-v1/papers/ASPI/v2/THREAT_MODEL_REAUDIT_V2.md:7–16,29"
+      }
+    ],
     "observations": [
       {
         "edge": {
@@ -112,14 +125,14 @@
         "reference": "repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi/src/aspi/dataset/pipeline.py:125–139; repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi/src/aspi/prompts/dataset.py:165–173; repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi/src/aspi/eval/runner.py:1575–1585,1797–1812"
       }
     ],
-    "note": "Task-conditioned partial-query input is confirmed. A mismatch relative to a strict external-adversary budget remains a conditional comparison. The published direct-user baseline and offline construction role require an applicability decision before assigning that external deny rule to this edge. The stronger-baseline disclosure does not itself grant every task field. The actual-question and tool-return branches have separate scope.",
+    "note": "This is a scoped construction mismatch relative to the stated §3 knowledge budget. Task-aware benchmark design in Stage 1 remains allowed. Stage 2 authors a malicious reply using task-derived fields; public disclosure of that use and a stronger user-message delivery channel do not themselves grant task knowledge. The observed field is a slot-deleted base prompt (partial_query), not a demonstrated delivery of the untouched original prompt. The fixed clarif_ask_user branch uses an independent W and cannot inherit this finding. Behavioral efficacy is separate.",
     "assessment": {
       "information_level": "partial_query",
       "policy_application": {
-        "status": "uncertain",
+        "status": "applicable",
         "policy_kind": "attacker_knowledge_constraint",
-        "reference": "repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi-paper-v1.html:494–500,1196–1200,1263–1310; analysis/threat_model_auditor/adjudication/construction_sources.md:25",
-        "reason": "Section 3 limits an external adversary and explicitly includes direct-user turns as a stronger baseline. Appendix B discloses offline task-aware construction. Whether the same external knowledge restriction governs this construction role and stronger baseline is unresolved, so no unconditional deny is normalized onto the edge."
+        "reference": "https://arxiv.org/html/2605.17324v1#S3; https://arxiv.org/html/2605.17324v1#S4.SS3; repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi-paper-v1.html:494–500; repository/aspi-matched-context-pilot-v1/papers/ASPI/v2/THREAT_MODEL_REAUDIT_V2.md:7–16,29",
+        "reason": "Section 3 states a common specific-task knowledge restriction and then enumerates tool, clarification-relay and stronger direct-user delivery channels. It does not state a task-knowledge exception for direct-user turns. We apply that nominal common knowledge budget to the released malicious-reply authoring for clarif_user; this is a textual scope interpretation supported by §4.3, not a claim about unknown historical executions. Earlier uncertainty was inferred from channel strength without an explicit knowledge authorization."
       },
       "delivery": {
         "status": "confirmed",
@@ -130,14 +143,14 @@
       },
       "refutation": {
         "basis": "none",
-        "reference": "repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi-paper-v1.html:494–500; analysis/threat_model_auditor/adjudication/construction_sources.md:33",
-        "reason": "Confirmed task-conditioned authoring remains. Neither the role ambiguity nor the stronger-baseline disclosure supplies an explicit permission that definitively refutes every reading of the claim."
+        "reference": "https://arxiv.org/html/2605.17324v1#S3; https://arxiv.org/html/2605.17324v1#S4.SS3; repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi-paper-v1.html:494–500; repository/aspi-matched-context-pilot-v1/papers/ASPI/v2/THREAT_MODEL_REAUDIT_V2.md:7–16,29",
+        "reason": "The stronger-baseline phrase identifies delivery-channel strength; it is not an explicit permission for the Stage 2 constructor to receive the evaluated pair's task fields. No scoped refutation of this construction mismatch is established."
       }
     },
     "behavioral_impact": {
       "status": "inconclusive",
-      "reference": "repository/aspi-matched-context-pilot-v1/papers/ASPI/v3/CONTROLLED_ABLATION_REPORT.md:7–25",
-      "description": "The archived nine-pair matched pilot shows no FULL-context ASR advantage and has limited precision. This effect result does not determine policy applicability or negate the confirmed partial-task input."
+      "reference": "analysis/casebook_2026-11-05/ASPI_evidence.md:45–54; repository/aspi-matched-context-pilot-v1/papers/ASPI/matched_context_resume_v1/PILOT_FINAL_REPORT.md:5–14,25–34",
+      "description": "The archived matched continuation has 14 valid NO_ORACLE pairs (FULL 10/14, AUTH 8/14, McNemar p=.625) and 15 ANSWER_NORMALIZED pairs (8/15 in both arms). These source-derived research adaptations do not establish a significant general ASR advantage or reproduce all official channels. Neither this uncertainty nor a zero observed effect cancels the scoped construction input finding."
     }
   },
   {

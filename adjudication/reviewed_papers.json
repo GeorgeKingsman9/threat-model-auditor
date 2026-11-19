@@ -24,7 +24,7 @@
     "id": "aspi",
     "title": "ASPI",
     "version": "arXiv:2605.17324v1",
-    "audit_scope": "Stage 1 original-task access and released offline Stage 2 partial-task input used for clarif_user at the frozen revision. The external §3 restriction's applicability to the stronger direct-user baseline remains unresolved. Other channels and historical dynamic generation have separate scope.",
+    "audit_scope": "Stage 1 permitted designer access and the released offline Stage 2 partial-task input used to author clarif_user replies at frozen commit e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d. The latter is compared with the nominal common §3 task-knowledge restriction; stronger direct-user delivery is not an explicit task-knowledge authorization. Official clarif_ask_user/W, other channels, historical dynamic generation and ASR inflation are outside the confirmed finding.",
     "required_checks": [
       "aspi_stage1_designer_task",
       "aspi_released_stage2_partial_query"

@@ -1,6 +1,6 @@
 **TeX、既有说明与审核算法的逐篇裁定**
 
-本表以 2026 年 11 月 19 日的独立复核为准。原 11 篇的旧结构化结果为 7 项确认、1 项范围内一致、3 项证据不足。复核后，其中 4 项保留限定的不一致发现，ASPI、FHA、LIAR 的旧确认需要收窄。连同新增的 4 个域内控制，目前 registry 有 15 篇、25 条具体怀疑，分为 4 项限定发现、5 项限定怀疑被排除、6 项证据不足。这些数字描述已列明的审核范围。[旧结果](../adjudication/baseline/structured_results.json#L2) · [当前案例](../adjudication/reviewed_cases.json#L1) · [当前范围与标签](../adjudication/reviewed_papers.json#L1) · [复核标签](../adjudication/reviewed_gold.json#L1)
+本表包含 2026 年 11 月 19 日对 ASPI 适用范围的纠正。原 11 篇的旧结构化结果为 7 项确认、1 项范围内一致、3 项证据不足。当前保留 5 项限定的不一致发现，FHA、LIAR 的旧确认仍需收窄，原 11 篇分布为 5／1／5。连同新增的 4 个域内控制，目前 registry 有 15 篇、25 条具体怀疑，分为 5 项限定发现、5 项限定怀疑被排除、5 项证据不足。此前 4／5／6 是 ASPI 纠正前的快照。这些数字描述已列明的审核范围。[旧结果](../adjudication/baseline/structured_results.json#L2) · [当前案例](../adjudication/reviewed_cases.json#L1) · [当前范围与标签](../adjudication/reviewed_papers.json#L1) · [复核标签](../adjudication/reviewed_gold.json#L1)
 
 TeX 指 389 行的论文草稿。新附件指 158 行的既有判断说明，两者都是待核对材料。下表的“确认”仅指特定主体、阶段、实验臂和信息实例上的发现。“范围内一致”表示表中列出的怀疑已有具体反证。证据不足保留未解决的权限适用或交付来源问题。TeX (user-provided-tex[sha256=7bf0e622b12efb0df51867444c318132d8f226108b259e6060350e234073b67d]:121) · 新附件 (user-provided-classification[sha256=6bcd416a830f7be28d13098e53b04a243d0b1a4de6feaad20b7aea9538280ed4]:1)
 
@@ -10,7 +10,7 @@ TeX 指 389 行的论文草稿。新附件指 158 行的既有判断说明，两
 |---|---|---|---|---|---|
 | **AdapTools** | TeX 129–135 行将具体任务与失败推理输入直接视为超出黑盒能力。新附件 100 行保留为候选。 | 证据不足 | **证据不足**。最终版 §4.1 区分黑盒与灰盒，§4.3 描述离线策略开发，§4.5 描述预建库与线上推断。尚未将开发输入绑定到受限的 held-out 黑盒线上构造。 | TeX 混合了角色和阶段。旧算法的限定结论可以保留。 | registry 已保留线上来源未知。TeX 应更新最终版节号，明确离线输入与在线输入，撤下确定性的违规措辞。[最终版](https://aclanthology.org/2026.emnlp-main.2055.pdf#page=4) · [当前案例](../adjudication/reviewed_cases.json#L507) |
 | **Blind Spots** | TeX 152–158 行比较 §2 的未知正文假设与 §4.2 的目标正文输入。新附件 103、129 行因行为证据限制将其列为候选。 | 确认 | **保留限定发现**。固定归档 Exp. 1 确实把对应正文送入生成器，§2 的限制适用于该信息。§4.2 公开披露丰富输入，构成可核对的内部表述差异。 | 新附件把效果证据的强弱带入信息流判定。TeX 另述最高 ACS 筛选，但发布 Exp. 1 逐个评估返回的变体。 | registry 已保留正文流入。TeX 将候选筛选写成论文所述方法，并说明发布实现差别。行为影响继续单独报告。[原文 §2／§4.2](https://arxiv.org/html/2605.22001v1#S2) · 源代码 (private-research-archive/experiments/exp1_static_vs_camouflage_single.py:196) |
-| **ASPI** | TeX 175–181 行认为任务派生字段与 §3 的外部对手限制冲突，并额外引用 C.1 模拟器。新附件 99、111 行有条件保留 construction mismatch。 | 确认 | **证据不足**。离线 Stage 2 的部分任务提示输入已确认。论文将 direct-user 消息列为更强基线，发布代码把这组回复用于 `clarif_user`。将外部对手的限制直接赋给该构造角色和基线，仍需权限适用论证。 | 旧输入把一般外部对手的 `deny` 直接贴到离线构造边，V2 规则未检查适用性。TeX 的 C.1 描述也不能替代发布 runner 的实际分支。 | 已保留 `partial_query` 和真实交付，将适用性设为 uncertain。TeX 应保留条件性比较，并分清良性模拟器、离线 Stage 2 和工具返回分支。[§3](https://arxiv.org/html/2605.17324v1#S3) · 固定分支 (private-research-archive/repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi/src/aspi/eval/runner.py:1575) |
+| **ASPI** | TeX 175–181 行认为任务派生字段与 §3 的外部对手限制冲突，并额外引用 C.1 模拟器。新附件 99、111 行保留 construction mismatch。 | 确认 | **保留限定构造发现**。§3 的更强基线放宽 direct-user 投递，没有授权具体任务知识。固定 Stage 2 将部分任务提示用于构造 `clarif_user` 回复，因此该条任务知识限制仍适用。 | 我们此前把“更强投递通道”推成“可能有更强任务知识”并降为 uncertain，超出了原文。信息流始终是 confirmed 的 `partial_query`。 | 已恢复该构造边的适用性与限定不一致标签。TeX 的 Stage 2 主论点可保留，C.1 动态模拟器仍应与发布实际分支区分，不推广到官方 `clarif_ask_user` W 或历史 ASR。[§3](https://arxiv.org/html/2605.17324v1#S3) · 固定分支 (private-research-archive/repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi/src/aspi/eval/runner.py:1575) |
 | **MUZZLE** | TeX 198–204 行指出 operator 提供精确任务，未来线上攻击者的获取方式未说明。新附件 75–91 行已收窄为发现到部署的来源缺口。 | 证据不足 | **证据不足**。论文明确披露本地发现阶段的任务和遥测输入，足以排除“这项离线输入本身违规”的怀疑。另一个未来 victim 任务如何取得，仍未建立。 | TeX 的确定性标题强于正文。新附件收窄方向成立，未来来源未知仍不能直接称为已确认违规。 | registry 已拆成离线授权与线上获取两条。TeX 改为来源／迁移范围问题，保留未解决路径。[最终版 §2.3／§3](https://www.usenix.org/system/files/usenixsecurity26-syros.pdf#page=4) · [当前两条](../adjudication/reviewed_cases.json#L564) |
 | **FHA** | TeX 221–228 行将 direct 同查询构造列为确认，并把 universal 作为另一种设置。新附件未另列。 | 确认 | **证据不足**。同查询参与构造已确认，但论文明确将 §6 single-payload 实验列为初始诊断。其预算不能直接等同可部署攻击。§7 固定查询多 payload 鲁棒性也另有范围，不能自动继承诊断例外。 | 旧 TeX 与旧标注遗漏了论文自己的 diagnostic 限定。自动文档审查提出该限定后，独立原文复核修正了人工预期。 | 已撤下 direct 的无条件确认，另列 fixed-query 鲁棒性怀疑。TeX 应补诊断范围与训练／held-out 区分，保留构造依赖事实。[诊断限定 p6–7](https://arxiv.org/pdf/2604.20994v2#page=6) · [独立追加复核](../adjudication/policy_sources.md#L106) |
 | **AGENTCON** | TeX 244–251 行指出构造依赖请求与其获取来源缺口。 | 确认 | **保留限定发现**。固定提交版 §3 排除精确请求和中间输出，§4.1 将攻击置于该约束下。§4.3 的原请求构造依赖请求条件化计划与损失，后续固定图像在不同请求上测试属于另一条件。 | 旧标签方向可保留，但接收者和表示需要更精确。证据支持优化过程依赖计划／损失，尚未证明原始 query 被交给独立生成 LLM 或未来部署请求已被获取。 | registry 已改为原请求基准中的构造优化。TeX 应明确这一限定。机器读取当前受 OpenReview 挑战页阻挡，不能把索引原文的人审发现写成此次 PDF 自动成功。[固定原文 §3／§4.3](https://openreview.net/pdf/a7b8365a80d58906740ac477248926c6c6a43640.pdf#page=4) · [当前案例](../adjudication/reviewed_cases.json#L758) |
@@ -19,6 +19,12 @@ TeX 指 389 行的论文草稿。新附件指 158 行的既有判断说明，两
 | **ObliInjection** | TeX 316–324 行限定发布版 HotpotQA 优化器读取原问题。新附件 102 行却称尚未完成行为执行，并引用未公开 Table XI 生成器。 | 确认 | **保留发布实现发现**。固定 config／driver 把同一评估题目的全文送入优化，区别于题型驱动替代问题的描述。作者历史 Table XI 输入仍未知。 | 新附件混合了发布优化器、历史生成器与效果完成度，且“未执行行为”已过时。TeX 的主要源码论点可保留。 | registry 保留发布版确认及历史未知。TeX 澄清 UQ 是每题对应的冻结 C donor 问题，效果限定为当前联合优化。下文另列完成状态。源码数据流 (private-research-archive/papers/ObliInjection/audit/dataflow/dataflow.md:10) · [当前两条](../adjudication/reviewed_cases.json#L219) |
 | **WebTrap** | TeX 339–345 行指出内部目标路径进入发布生成器，并保留历史版本与 ASR 膨胀未知的限定。新附件 101、127 行因实验问题保留候选。 | 确认 | **保留限定发现**。固定 file-browser PSAA 代码与存档请求证明选定后台内部定位字段进入生成输入。原目标文本和可见入口是分别允许的信息。 | 新附件将行为过程的不完整带入构造证据状态。TeX 的字段结论与当前限定判定相符。 | registry 保留 ORIGINAL 和 LIMITED 控制，只审核该字段。继续保留历史运行与效果未知。[原文边界](https://arxiv.org/html/2605.08310v1#S4.SS1) · 已存字段与请求审计 (private-research-archive/papers/WebTrap/replication/THREAT_MODEL_CODE_ALIGNMENT.md:37) |
 | **ICoA** | TeX 361–367 行已明确身份来源未说明，并承认未证明直接读取系统提示。 | 证据不足 | **证据不足**。固定实现使用与系统提示相同的身份常量，值相等尚未建立被禁止的读取来源。论文也未明确禁止通过其他途径知道身份。 | 核心限定已一致。确定性的示例标题仍应收窄。“继承”若指代码继承，宜改为使用相同固定身份。 | registry 保留系统读取与常量来源两条，不把值相等变成 source 相同。[最终版 §2／§4.1](https://aclanthology.org/2026.emnlp-main.2035.pdf#page=3) · [固定源码](https://github.com/yslmoment/ICoA/blob/e333be8e1c319be3deb6942692aaed8e640a3954/src/agentdojo/attacks/icoa.py#L41-L49) |
+
+**ASPI 适用范围的纠正**
+
+此前降级的依据是我们推断披露的更强 direct-user 基线可能同时放宽任务知识。重新核对 §3 后，原文只说明投递通道更强，没有给该基线具体任务访问权。固定代码则把部分任务提示送入 Stage 2 注入回复构造，再由 `clarif_user` 使用该回复。一般知识限制与这条具体构造链能够对齐，恢复限定的 construction mismatch。Stage 1 的基准设计许可仍分别处理，官方 `clarif_ask_user` 的 W 分支和作者历史 ASR 也各有范围。[§3](https://arxiv.org/html/2605.17324v1#S3) · [当前案例](../adjudication/reviewed_cases.json#L81)
+
+这次纠正发生在审定输入的权限解释，通用 V3 判定门继续使用相同规则。18 篇 PDF 自动结果中 ASPI 仍是证据不足，四个域内控制的自动结果也保持原记录。本次没有新增模型对 ASPI 的自动确认。[纠正后的源证据规则回归](results/2026-11-19-aspi-scope-correction/source-regression/report.md)
 
 **FHA 对人工预期的纠正**
 
@@ -45,9 +51,9 @@ Attention Is All You Need、ResNet、Adam 是另外三个域外输入，输出 `
 
 **算法已修与仍有限制的部分**
 
-V2 在人工输入同形 `deny` 与 `present` 时确认不一致。ASPI、FHA、LIAR 暴露了这种输入前提可能出错。V3 增加权限适用、信息层次、实际交付证据及实例关系，并要求怀疑的排除有具体反证。它还区分攻击者知识限制与受害者安全目标，避免将攻击成功直接写成作者违反知识预算。行为效果作为独立元数据。[V3 规则](../scope_review.py#L1)
+V2 在人工输入同形 `deny` 与 `present` 时确认不一致。FHA、LIAR 暴露了旧输入前提的范围问题，ASPI 则暴露了我们后来推断知识例外时的过度解释。V3 要求权限适用、信息层次、实际交付证据及实例关系，并要求怀疑的排除有具体反证。它还区分攻击者知识限制与受害者安全目标，避免将攻击成功直接写成作者违反知识预算。行为效果作为独立元数据。[V3 规则](../scope_review.py#L1)
 
-这些门槛检查结构与引用绑定，原文语义仍可能由人工或模型误读。registry 的标签一致回放只能验证规则是否处理了已给的规范化证据。它不测量从陌生论文端到端发现问题的准确率。`outputs/2026-11-19-reviewed-regression-v3/report.json` 目前仍是 FHA 改判前的 5／5／5 快照，须在引用时注明旧版本。旧回放快照 (historical local run: outputs/2026-11-19-reviewed-regression-v3/report.json)
+这些门槛检查结构与引用绑定，原文语义仍可能由人工或模型误读。registry 的标签一致回放只能验证规则是否处理了已给的规范化证据，不能当作从陌生论文端到端发现问题的准确率。ASPI 修正后的当前分布为 5／5／5，最新源证据回归另存。此前 4／5／6 的重审记录，以及更早 FHA 改判前同为 5／5／5 的记录，均保留各自版本和逐篇标签，不能仅凭总数相同当成同一次结果。[最新源证据回归](results/2026-11-19-aspi-scope-correction/source-regression/report.md)
 
 **自动 PDF 测试的阶段性状态**
 

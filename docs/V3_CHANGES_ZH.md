@@ -2,6 +2,7 @@
 
 这次改动来自实际误报与原始资料裁定，不以匹配旧 TeX 或旧标签为目标。
 旧 V2 记录和结果保留，`--legacy` 可回放。新默认审核集是 15 篇、25 个明确列出的怀疑。
+ASPI 范围解释纠正后，原 11 篇为 5 项确认、1 项范围内一致、5 项证据不足，当前 15 篇分布为 5／5／5。此前 4／5／6 的审定记录保留为历史快照。
 
 ## 1. 先判断“禁止的是什么”
 
@@ -24,9 +25,11 @@ verdict, reason = assessment["verdict"], assessment["reason"]
 
 ## 2. 禁令必须适用于当前角色、阶段和实验条件
 
-ASPI 的 Stage 2 输入确有任务信息，但 §3 外部对手预算是否约束披露的强基线需要说明。
+ASPI 的 Stage 2 已确认读取部分任务提示，并将构造的回复用于 `clarif_user`。§3 所述更强基线放宽 direct-user 投递，没有给出任务知识授权。我们此前将其推成可能的知识例外并降为 uncertain，解释过度。现据 §3 与固定构造链恢复适用的任务知识限制及限定 construction mismatch。Stage 1 的设计许可、官方 `clarif_ask_user` W 和历史效果分别保留范围。
 FHA 的旧 single-payload 案例有明确诊断实验限定，不能直接当可部署攻击预算违例。
 LIAR 明确授权 source-training 子集；同名 NQ 不能证明目标文档或索引被读取。
+
+ASPI 的本次改动是审定输入纠错，通用 V3 gate 沿用原规则。18 篇 PDF 自动测试的 ASPI 记录仍为证据不足，四篇域内控制也未重算。[纠正后的源证据回归](results/2026-11-19-aspi-scope-correction/source-regression/report.md)
 
 ```python
 # V3 不根据论文名判断；任何论文都使用同一组字段。

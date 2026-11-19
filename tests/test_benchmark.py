@@ -213,7 +213,7 @@ class BenchmarkIntegrationTests(unittest.TestCase):
         ]), 0)
         rows = json.loads((output / "report.json").read_text())["papers"]
         self.assertEqual([row["id"] for row in rows], ["aspi", "attention"])
-        self.assertEqual(rows[0]["verdict"], "insufficient_evidence")
+        self.assertEqual(rows[0]["verdict"], "inconsistent")
         self.assertEqual(rows[0]["validation_modes"], ["scope_review_v3"])
         self.assertEqual(rows[1]["verdict"], "not_run")
 

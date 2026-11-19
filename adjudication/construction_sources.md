@@ -81,3 +81,29 @@ TeX 第 339–345 行认为发布 file-browser 生成器从后台安全清单取
 同时保留建设阶段差异和行为影响的独立结论。ASR 不显著、样本少、未完成归档，分别限制对应的效果或过程主张。行为条件不应被添加为已经适用的禁止信息流判定的必需条件。TeX 的全局显著降幅假说仍需多个有识别力的实验支持，现有四篇的材料给出的是不同范围的发现。
 
 本报告只新增本文件。核对涉及读取文字、源码、固定状态与文件哈希，未运行研究仓库的模型、优化器或受害者实验。
+
+## 2026-11-19 ASPI 复核：纠正 Stage 2 权限适用输入
+
+**优先级与范围。** 本小节优先于前文将 ASPI Stage 2 默认列为 `insufficient_evidence` 的推荐。重新核对后，建议对**固定发布版 Stage 2 的任务条件化恶意回复构造，相对于 §3 声明的共同外部攻击者知识预算**记录限定的 `information_boundary / inconsistent`。此前把直接用户通道的 stronger baseline 扩张解释为任务知识豁免，依据不足；本次纠正的是审定输入中的权限适用解释。它不认定整篇全部实验违规，不把该构造等同于官方外部 `clarif_ask_user` 分支，也不声称已重建作者历史 API 请求。
+
+**固定来源。** 论文为 [arXiv:2605.17324v1](https://arxiv.org/html/2605.17324v1)，本地 `repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi-paper-v1.html` SHA-256 为 `7631424de4df623aef8de518d847b2afb9f09bc44fe5e54260c96bdce98d95f1`。作者代码固定在 [`e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d`](https://github.com/scaleapi/aspi/tree/e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d)。本次重新计算论文及 `dataset/pipeline.py`、`prompts/dataset.py`、`eval/runner.py`、`eval/simulator.py` 的 SHA-256，均匹配 `repository/aspi-matched-context-pilot-v1/papers/ASPI/research/upstream_manifest.json`。
+
+**论文明确写了什么，我们如何解释。** 冻结 HTML 第 496 行的 §3 排除具体用户任务知识；第 498 行把直接用户消息列作更强 baseline。后一句明确区分投递能力，没有明确增加任务可见性。§4.3 第 551、554 行将条件变化限定为交互状态和投递通道；§5.1 第 574、577 行继续把 `clarif_user` 放在共同实验族中。Appendix B.1 第 1270–1274、1300–1310 行描述恶意回复生成及其任务派生输入。因此，我们的范围解释是：**更强的投递通道不自动放宽知识预算**；不能仅凭 baseline 一词排除 §3 对这一恶意回复构造的适用。Stage 1 的合法任务设计访问仍与此分开。这里对共同预算适用性的裁定是我们结合这些段落作出的解释，不冒称作者另有一句逐字授予或撤销 `clarif_user` 任务知识的条款。 [§3](https://arxiv.org/html/2605.17324v1#S3) · [§4.3](https://arxiv.org/html/2605.17324v1#S4.SS3) · [§5.1](https://arxiv.org/html/2605.17324v1#S5.SS1) · [Appendix B.1](https://arxiv.org/html/2605.17324v1#A2.SS1)
+
+**固定输入到实际分支的链。** 下表行号均属于上述固定 commit；本地镜像根目录为 `repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi/`。
+
+| 环节 | 直接证据与定位 | 可以成立的结论 |
+|---|---|---|
+| 任务对象 | `src/aspi/dataset/pipeline.py:429–435,473–485` | 同一 task pair 的 Stage 1 输出被交给带相同攻击目标的 Stage 2；不是与评估无关的另一训练实例。 |
+| 接收边界 | `src/aspi/dataset/pipeline.py:97–103,125–139` | 四个任务派生值实际渲染为 Stage 2 的 user message，并与 system message 一起交给生成模型；不只是字段存于数据文件。 |
+| 信息形式 | `src/aspi/prompts/dataset.py:63–66,165–173` | `base_prompt` 是删去一个槽位的任务文本，应记为 `partial_query`；缺失值、预期问题和良性答案是另外的任务派生输入。 |
+| 实验臂绑定 | `src/aspi/eval/runner.py:1575–1585,1797–1812` | 数据集的 Stage 2 operator 回复被取出并交给 `clarif_user` 的续接函数。 |
+| 投递形态 | `src/aspi/eval/runner.py:1015–1032,1058–1061` | 回复作为后续 `role:user` 消息出现；这确认了更强用户投递通道，不能自行证明任务知识已获授权。 |
+
+[Stage 2 请求](https://github.com/scaleapi/aspi/blob/e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d/src/aspi/dataset/pipeline.py#L125-L139) · [模板字段](https://github.com/scaleapi/aspi/blob/e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d/src/aspi/prompts/dataset.py#L165-L173) · [发布版分支](https://github.com/scaleapi/aspi/blob/e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d/src/aspi/eval/runner.py#L1797-L1812)
+
+这条链支持 `policy_application=applicable`、`delivery=confirmed`、`evidence_kind=static_bound_path`、`task_relation=same_evaluated_instance`，但 representation 必须保持为任务派生的部分查询。它没有显示 `original_prompt` 原文全文被直接传给 `call_stage2`，也没有证明系统提示、全部私有轨迹或在线未来请求进入该边界。Appendix A 第 1166–1186 行给出的可观察共享澄清场景，可能使实际问题暴露部分任务事实；它不是对完整 base prompt、离线预期问题或正确答案的统一授权。本次不把这种条件可见性改写为所有任务信息均可用。
+
+**官方 `clarif_ask_user` 的 W 不继承此结论。** `runner.py:1569–1573` 单独取得 W；`:1718–1750` 调用的是良性回答模拟器；`:1764–1777` 把该回答与 W 放进工具返回。它没有使用上述 Stage 2 operator 回复。因此，限定的 `clarif_user` 构造发现不能自动升级成官方 W 的同类越界；把 Stage 2 FULL/AUTH 回复改投工具返回，是本地研究扩展。Appendix C.1 第 1504、1532 行的动态攻击生成叙述，与此发布实现需另行对照；不能用那段文字替代固定 runner 的真实调用链。 [W 的独立来源](https://github.com/scaleapi/aspi/blob/e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d/src/aspi/eval/runner.py#L1569-L1573) · [工具返回分支](https://github.com/scaleapi/aspi/blob/e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d/src/aspi/eval/runner.py#L1764-L1777)
+
+**既有审计与行为效应。** 旧 `research/THREAT_MODEL_AUDIT.md:9,12,28`、`v2/THREAT_MODEL_REAUDIT_V2.md:9,14–16,29` 和 `v3/THREAT_MODEL_FINDING_V3.md:9–12` 已分别确认 Stage 2 字段流并限制对外部 W 分支的推广；它们没有提供明确知识豁免。本次只是回到冻结原文和源路径纠正后续过宽的豁免解释。FULL/AUTH 的行为显著性、答案正确性及合法效用均需独立报告：小样本或不显著结果不消除构造边界事实，反之构造差异也不证明 ASR 被抬高。本次没有重跑生成、受害者、评分或任何新攻击实验；审定输入及新的规则回放另行保存，旧实验记录保持原样。

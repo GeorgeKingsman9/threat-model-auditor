@@ -12,7 +12,7 @@
 | --- | --- | --- | --- | --- |
 | AdapTools | 证据不足 | 证据不足 | 证据不足 | — |
 | Blind Spots in the Guard | 确认不一致 | 确认不一致 | 确认不一致 | — |
-| ASPI | 确认不一致 | 证据不足 | 证据不足 | — |
+| ASPI | 确认不一致 | 确认不一致（限定 Stage 2 构造） | 证据不足 | — |
 | MUZZLE | 证据不足 | 证据不足 | 证据不足 | — |
 | Breaking MCP with Function Hijacking Attacks (FHA) | 确认不一致 | 证据不足 | 证据不足 | — |
 | AGENTCON | 确认不一致 | 确认不一致 | 技术失败 | — |
@@ -31,7 +31,8 @@
 
 ## 谁的判断需要改
 
-- **TeX 与旧规范化记录均需收窄：ASPI、FHA、LIAR。** 分别涉及已披露强基线的权限适用性、明确的诊断配置、明确的 source-training 授权。原 11 篇从 7／1／3 改为 4 篇确认不一致、1 篇给定范围内一致、6 篇证据不足。没有抹去已确认的构造输入。
+- **ASPI 此前降为证据不足的解释需要纠正。** 我们将更强的 direct-user 投递基线推成了可能放宽任务知识的例外。§3 没有给出这种知识授权，固定 Stage 2 又确实取得部分任务提示并构造供 `clarif_user` 使用的回复，因此恢复限定的 construction mismatch。该发现不推广到官方 `clarif_ask_user` 的 W 分支，也不证明历史 ASR 膨胀。[§3](https://arxiv.org/html/2605.17324v1#S3)
+- **TeX 与旧规范化记录仍需收窄：FHA、LIAR。** 分别涉及明确的诊断配置与 source-training 授权。当前原 11 篇为 5 篇确认不一致、1 篇给定范围内一致、5 篇证据不足。包含四个新增域内控制的 15 篇为 5／5／5。此前 4／5／6 的记录保留为 ASPI 修正前的快照。
 - **算法真实误报：Trojan Hippo。** V2 将受害者“未经同意不应发送”的安全目标与攻击成功示例拼成 `deny + present`，错误升级为论文威胁模型矛盾。V3 的政策类型门与输入边界门阻止了这一推论。
 - **新附件也有过强或过时说法。** Trojan 的训练 mutator 实际可看到训练 user request；不能说只看到主题。Obli 的正式回答存档已经完成，远端归档/CAS 收尾未闭合与“没有做行为执行”不同。构造信息流与行为效应分别裁定，不能用 p 值不显著抹去输入差异。
 - **没有用模型反对旧标签就自动认定模型错。** FHA 是模型提示人工补查后修正旧判断的具体例子。AGENTCON 的同请求计划／优化损失与直接把原 query 发给生成 LLM 也分开表述。
@@ -43,7 +44,7 @@
 - 同一 4 篇在 V3 独立重测：4 篇均为证据不足，未再确认该误报。**这不等于 4 个已认证 true negative，也不支持“FPR=0”的普遍性结论。**
 - 18 篇文档主测试：17 篇完成，AGENTCON 来源阻挡单列失败；最终 1 篇确认不一致（Blind Spots）、13 篇证据不足、3 篇域外不适用、1 篇技术失败。
 - 修复 PDF 两栏引文定位后，用相同 PDF 字节哈希、相同原主文本、固定模型输出做零模型调用回放，恢复 Blind Spots 引文并将 Adam 的引用定位失败按证据不足/可核验主题处理，而不是伪造运行结果。
-- 原始资料重审集合为 15 篇、25 个有限怀疑，当前规则回放 15／15 与分离保存的裁定标签一致。它是开发集回归，不是端到端检测准确率。
+- 原始资料重审集合为 15 篇、25 个有限怀疑。ASPI 修正后的标签分布为 5／5／5，最新规则回放另存到 ASPI 范围纠正目录。此前 15／15 的标签一致记录属于当时的开发集回归，不能当端到端检测准确率。本次纠正来自原文与固定构造链的重新审定，没有新增模型对 ASPI 的自动确认。
 
 ## 完整过程与机器可读结果
 
@@ -51,8 +52,9 @@
 - [V2 域内误报测试](results/2026-11-19-source-review/negative-baseline/report.md)
 - [V3 域内控制独立重测](results/2026-11-19-source-review/negative-final/report.md)
 - [18 篇自动审计最终回放](results/2026-11-19-source-review/automatic-final/report.md)
-- [15 篇源证据规则回归](results/2026-11-19-source-review/source-regression/report.md)
-- [所有并列字段及步骤 JSON](results/2026-11-19-source-review/comparison/report.json)
+- [ASPI 修正后的 15 篇源证据规则回归](results/2026-11-19-aspi-scope-correction/source-regression/report.md)
+- [ASPI 修正前的源证据回归快照](results/2026-11-19-source-review/source-regression/report.md)
+- [修正前的并列字段及步骤 JSON，保留当时的 ASPI 标签](results/2026-11-19-source-review/comparison/report.json)
 - [代码修正与中文注释](V3_CHANGES_ZH.md)
 
 ## 环境与重现

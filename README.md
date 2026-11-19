@@ -1,6 +1,6 @@
 # Threat Model Auditor
 
-**当前版本已完成一次源证据重审和真实误报测试。** 原 11 篇的严格范围判定从旧 7／1／3 改为 4 篇确认不一致、1 篇范围内一致、6 篇证据不足；四个新增域内控制另有有限范围反证。
+**当前版本已完成源证据重审、ASPI 范围解释纠正和真实误报测试。** 原 11 篇的严格范围判定从旧 7／1／3 改为 5 篇确认不一致、1 篇范围内一致、5 篇证据不足；四个新增域内控制另有有限范围反证。ASPI 的发现限定于发布 Stage 2 为 `clarif_user` 构造回复时使用部分任务信息，未推广到官方 `clarif_ask_user` 分支或历史 ASR。
 18 篇 PDF 测试保留所有状态，四篇曾被怀疑误报的工作已实际重测。
 结果、错因和代码改动见 [全部重审结果](docs/SOURCE_REVIEW_RESULTS_ZH.md)、[逐篇 TeX 对照](docs/TEX_ALGORITHM_COMPARISON_ZH.md)、[V3 中文注释](docs/V3_CHANGES_ZH.md)。
 
@@ -88,7 +88,7 @@ python3 -B -m unittest discover -s tests -v
 
 ```text
 paper   confirmed_inconsistency   status
-aspi    no                        证据不足
+aspi    yes                       有已确认的不一致
 muzzle  no                        证据不足
 ```
 

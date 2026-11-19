@@ -26,9 +26,9 @@
       "title": "ASPI",
       "source": "https://arxiv.org/pdf/2605.17324v1",
       "cohort": "curated_ipi",
-      "expected": "insufficient_evidence",
+      "expected": "inconsistent",
       "expected_basis": "source_adjudicated_listed_suspicions",
-      "comparison_note": "Reference applies only to the listed source-adjudicated suspicions. Machine PDF-only claims may differ; inspect claim-level semantics before scoring errors.",
+      "comparison_note": "Source-adjudicated finding is limited to frozen Stage 2 task-derived inputs used for clarif_user under the nominal §3 knowledge budget. Official clarif_ask_user/W and historical runs are not certified; PDF-only input omits this source binding. Reference-label agreement is not detection accuracy.",
       "reference_expected": "inconsistent"
     },
     {

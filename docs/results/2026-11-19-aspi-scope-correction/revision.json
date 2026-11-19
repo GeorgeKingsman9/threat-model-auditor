@@ -1,0 +1,49 @@
+{
+  "correction": "ASPI Stage 2 clarif_user construction scope; stronger delivery channel is not an explicit grant of task knowledge",
+  "previous_commit": "157014485f2956bf6ff9d4814f55b63d17696079",
+  "previous_source_result": "docs/results/2026-11-19-source-review/source-regression/report.json",
+  "current_source_result": "docs/results/2026-11-19-aspi-scope-correction/source-regression/report.json",
+  "fresh_inference_calls": 0,
+  "new_attack_trials": 0,
+  "generic_decision_gate_modified": false,
+  "original_eleven_counts": {
+    "inconsistent": 5,
+    "consistent_within_scope": 1,
+    "insufficient_evidence": 5
+  },
+  "reviewed_fifteen_counts": {
+    "inconsistent": 5,
+    "consistent_within_scope": 5,
+    "insufficient_evidence": 5
+  },
+  "inputs": {
+    "adjudication/construction_cases_v3.json": {
+      "previous_sha256": "524212b127e02e3f850c36b7c6e30f6a7c00675d1d254a7d498fe92631026496",
+      "current_sha256": "343f4e04cedb2996c106e50a7be92dc1caa505b277a972447bdc780f7b7e26e8"
+    },
+    "adjudication/construction_papers_v3.json": {
+      "previous_sha256": "b4410019790ae0cfcf73adfd641dc74bb2e39b07637a396a2fb93d05694f71b4",
+      "current_sha256": "5be7834731882d58a827051e36ebaa4c76a9737048feed66528d4b4b6860947a"
+    },
+    "adjudication/reviewed_cases.json": {
+      "previous_sha256": "7a2a21f1e38c412e0e477727bccdaa80b71efdc76cd6d27d62ae54fdade045ec",
+      "current_sha256": "6d25ade857994c9e6f53ae878cb54ebf10c154aa8a522946ee590422adb97398"
+    },
+    "adjudication/reviewed_papers.json": {
+      "previous_sha256": "f4e8f3c6e324e17392e12a7b75800c532f776c3c26ab46977129d0b8e5a2156e",
+      "current_sha256": "8f53a218f457081c09893bfcb544d02a6f1e7295397d1cd76ef3777dd24408cb"
+    },
+    "adjudication/reviewed_gold.json": {
+      "previous_sha256": "0ab1311c9b86e9f26cc2433bbba3f0d978a6c7bd4f6507718d4455b0eb7b5c03",
+      "current_sha256": "947aabc1fcb44b84288b6cb9799760925d9ca5832553c9c3420afea3fd9c2ccb"
+    },
+    "benchmarks/reviewed_papers.json": {
+      "previous_sha256": "4ad5d76fe69cc511a636598ee2a6ac55277ede57d20a9fbba2ae14f4060afeca",
+      "current_sha256": "7325bea61a27bc7d6c73a89bab46d85a0388bab801b5c77c3e828790b10133ce"
+    }
+  },
+  "preserved_automatic_results": {
+    "docs/results/2026-11-19-source-review/automatic-final/report.json": "d72cf0a1eb2c87004861b6b599c0aa57cc85098f4e647773af8f0bbd65171275",
+    "docs/results/2026-11-19-source-review/negative-final/report.json": "fa973983122b7deff2b51897a65befc94886dc37d12f4614c6519d2916eef198"
+  }
+}
