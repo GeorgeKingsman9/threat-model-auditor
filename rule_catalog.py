@@ -347,6 +347,7 @@ def markdown():
     groups = counts["business_by_group"]
     lines = [
         "# 判定规则与源码证据验收说明书", "",
+        "讲解或快速理解先看 [核心判定简版](RULES_SUMMARY_ZH.md)：三个关键判断和一个独立的效果问题。以下保留完整工程规则供实现回查。", "",
         f"当前核心业务判定有 **{counts['business_rules']} 条**：基础边判定 {groups['base']} 条、V3 范围与反证新增 {groups['scope']} 条、论文汇总 {groups['paper']} 条。论文加源码路径另外有 **{counts['source_validation_rules']} 条证据验收规则（SRC）**。还有 **{counts['extraction_v3_gate_groups']} 项自动抽取 V3 验收/分流条件（X）**与 **{counts['structural_validation_groups']} 组结构校验（V）**。这些数量分别统计，不把状态值、模型步骤或测试数加进核心规则数。", "",
         "本说明由 `rule_catalog.py` 的 `catalog()` 生成。它描述现有程序，自己不作裁定、不调用模型，也不读取 gold。可用 `python rule_catalog.py` 导出 JSON，用 `python rule_catalog.py --format markdown` 重建本文件。", "",
         "## 计数和执行顺序", "",
