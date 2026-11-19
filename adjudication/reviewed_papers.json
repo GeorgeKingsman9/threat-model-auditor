@@ -1,0 +1,171 @@
+[
+  {
+    "id": "adaptools",
+    "title": "AdapTools",
+    "version": "EMNLP 2026 final",
+    "audit_scope": "Held-out online black-box task delivery; offline strategy development and grey-box MCP access are distinct.",
+    "required_checks": [
+      "adaptools_final_black_box_online_task_access"
+    ],
+    "coverage_complete": false,
+    "schema_version": 3
+  },
+  {
+    "id": "blind_spots",
+    "title": "Blind Spots in the Guard",
+    "version": "arXiv:2605.22001v1",
+    "audit_scope": "Only the evaluated-case clean_context input to the archived Exp. 1 generator at revision 9a21b5a230cbcc92ec66987aa7814c188881108a, assessed against §2. Candidate selection, all other channels and author historical run provenance are outside this finite input check.",
+    "required_checks": [
+      "blind_spots_exp1_document_access"
+    ],
+    "coverage_complete": true
+  },
+  {
+    "id": "aspi",
+    "title": "ASPI",
+    "version": "arXiv:2605.17324v1",
+    "audit_scope": "Stage 1 original-task access and released offline Stage 2 partial-task input used for clarif_user at the frozen revision. The external §3 restriction's applicability to the stronger direct-user baseline remains unresolved. Other channels and historical dynamic generation have separate scope.",
+    "required_checks": [
+      "aspi_stage1_designer_task",
+      "aspi_released_stage2_partial_query"
+    ],
+    "coverage_complete": false
+  },
+  {
+    "id": "muzzle",
+    "title": "MUZZLE",
+    "version": "USENIX Security 2026 final",
+    "audit_scope": "Specific offline operator-task entitlement and unresolved acquisition of a separate future online victim task.",
+    "required_checks": [
+      "muzzle_offline_task_spec",
+      "muzzle_online_task_provenance"
+    ],
+    "coverage_complete": false,
+    "schema_version": 3
+  },
+  {
+    "id": "fha",
+    "title": "Breaking MCP with Function Hijacking Attacks (FHA)",
+    "version": "arXiv:2604.20994v2",
+    "audit_scope": "The disclosed §6 single-payload diagnostic and the separate §7 fixed-query multi-payload configuration; neither is equated with held-out or live user-query access.",
+    "required_checks": [
+      "fha_direct_exact_query",
+      "fha_fixed_query_robustness"
+    ],
+    "coverage_complete": false,
+    "schema_version": 3
+  },
+  {
+    "id": "agentcon",
+    "title": "AGENTCON",
+    "version": "ICLR 2026 hash-identified OpenReview submission snapshot",
+    "audit_scope": "Paper-described original same-request benchmark optimization using a request-conditioned intermediate plan/loss under §3. Literal query delivery to an auxiliary LLM, future target acquisition and live deployment are not established.",
+    "required_checks": [
+      "agentcon_same_request_conditioned_optimization"
+    ],
+    "coverage_complete": false,
+    "schema_version": 3
+  },
+  {
+    "id": "retrieval_barrier",
+    "title": "Overcoming the Retrieval Barrier",
+    "version": "USENIX Security 2026 final",
+    "audit_scope": "Only the explicitly given-query retrieval benchmark: assess the allegation that using its supplied query violates its black-box restrictions. Future-query deployment acquisition is a separate metadata gap.",
+    "required_checks": [
+      "retrieval_barrier_declared_query"
+    ],
+    "coverage_complete": true,
+    "schema_version": 3
+  },
+  {
+    "id": "liar",
+    "title": "Glue Pizza and Eat Rocks (LIAR)",
+    "version": "EMNLP 2024 final",
+    "audit_scope": "Specific source-training grant, alleged direct target-database access and unresolved document identity/overlap. Same benchmark names do not establish target-object reads.",
+    "required_checks": [
+      "liar_same_benchmark_source_kb",
+      "liar_target_kb_direct_access",
+      "liar_source_target_document_overlap"
+    ],
+    "coverage_complete": false,
+    "schema_version": 3
+  },
+  {
+    "id": "obliinjection",
+    "title": "ObliInjection",
+    "version": "arXiv:2512.09321v3",
+    "audit_scope": "The complete evaluation-matched HotpotQA question delivered to the released optimizer at revision b1f6a3f48c0cf121534374cbcef453832594867b, plus the separate and unverified original Table XI generator-input claim. No behavioral-impact condition determines either information-boundary verdict.",
+    "required_checks": [
+      "obli_released_optimizer_full_target_query",
+      "obli_table_xi_historical_question"
+    ],
+    "coverage_complete": false
+  },
+  {
+    "id": "webtrap",
+    "title": "WebTrap",
+    "version": "arXiv:2605.08310v1",
+    "audit_scope": "Only the selected internal target-relative-path field in the saved final generator requests for case_0001 and case_0004 under ORIGINAL and the local LIMITED_CONTEXT control, with source base f8255c83d4a569fc374198b67717fcbee17af1fb. Other information channels, other cases, historical author runs and behavioral effects are outside this finite input check.",
+    "required_checks": [
+      "webtrap_original_internal_path",
+      "webtrap_limited_internal_path"
+    ],
+    "coverage_complete": true
+  },
+  {
+    "id": "icoa",
+    "title": "ICoA",
+    "version": "EMNLP 2026 final and cited fixed author commit e333be8e1c319be3deb6942692aaed8e640a3954",
+    "audit_scope": "Direct system-prompt read versus use of a matching separately sourced benchmark identity constant; source-specific permission remains unresolved.",
+    "required_checks": [
+      "icoa_direct_system_read",
+      "icoa_benchmark_identity_source"
+    ],
+    "coverage_complete": false,
+    "schema_version": 3
+  },
+  {
+    "id": "trojan_hippo",
+    "title": "Trojan Hippo",
+    "version": "arXiv:2605.01970v1; released source ebeb739dada097e06b125faa70e82e064482b64b",
+    "audit_scope": "Two bounded suspicions only: permitted tax-topic conditioning in the explicit-memory offline seed helper, and alleged held-out-query feedback in the fixed propagation boundary of the single released train_0/test_0 tax/rag/none/01 pair. Explicitly does not claim that the training mutator sees only topic labels; its concrete training-query input is acknowledged. No global claim about all tests, configurations or historical executions.",
+    "required_checks": [
+      "trojan_hippo_explicit_topic_seed",
+      "trojan_hippo_tax_rag_transfer_pair"
+    ],
+    "coverage_complete": true
+  },
+  {
+    "id": "topicattack",
+    "title": "TopicAttack",
+    "version": "EMNLP 2025 final; released source 2aced58ad6f3587c8ba064b5e5cad74a29ef41de",
+    "audit_scope": "Two specific allegations at the default released chatbot construction boundary: that explicitly allowed benign-document conditioning is prohibited, and that the independent original user-instruction field enters that generation request. Includes the selected wrapper and empty default system prompt. Excludes custom templates, agent/defense branches, natural-language inference from permitted content, and unobserved historical executions.",
+    "required_checks": [
+      "topicattack_default_chatbot_benign_document",
+      "topicattack_default_chatbot_user_instruction_excluded"
+    ],
+    "coverage_complete": true
+  },
+  {
+    "id": "agentdojo",
+    "title": "AgentDojo",
+    "version": "NeurIPS 2024 final; arXiv:2406.13352v3 body cross-check",
+    "audit_scope": "Control only: whether the reported task-content/utility phenomenon alone proves prohibited private-query delivery. The phenomenon and attachment numbers are not independently verified, and no whole-paper negative claim is made.",
+    "required_checks": [
+      "agentdojo_utility_only_information_inference"
+    ],
+    "coverage_complete": true,
+    "schema_version": 3
+  },
+  {
+    "id": "asb",
+    "title": "Agent Security Bench (ASB)",
+    "version": "ICLR 2025 final",
+    "audit_scope": "Control only: whether the reported forced-tool/ASR phenomenon alone proves prohibited private-query delivery. Neither the defect nor attachment numbers are independently verified; no whole-paper negative claim is made.",
+    "required_checks": [
+      "asb_forced_tool_only_information_inference"
+    ],
+    "coverage_complete": true,
+    "schema_version": 3
+  }
+]

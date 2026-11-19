@@ -1,0 +1,1704 @@
+{
+  "run_type": "frozen_v2_false_positive_controls",
+  "created_at": "2026-11-19T09:46:57.946232+00:00",
+  "summary": {
+    "paper_count": 4,
+    "statuses": {
+      "completed": 4
+    },
+    "verdicts": {
+      "inconsistent": 1,
+      "insufficient_evidence": 3
+    }
+  },
+  "papers": [
+    {
+      "id": "trojan_hippo",
+      "title": "Trojan Hippo: Weaponizing Agent Memory for Data Exfiltration",
+      "source": "https://arxiv.org/pdf/2605.01970v1",
+      "status": "completed",
+      "has_confirmed_inconsistency": true,
+      "stages": [
+        {
+          "stage": "ingestion",
+          "status": "completed",
+          "segments": 22,
+          "characters": 214103,
+          "coverage": {
+            "complete": true,
+            "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+          },
+          "source_links": [
+            "https://github.com/debesheedas/troja",
+            "https://doi.org/10.12688/f1000research.169927.1",
+            "https://www.an",
+            "https://claude.com/import-memory",
+            "https://doi.org/10.48550/arxiv.2504.14064",
+            "https://doi.org/10.48550/arxiv.2407.12784",
+            "https://doi.org/10",
+            "https://doi.org/10.48550/arxiv.2406.13352",
+            "https://doi.org/10.1145/3716628",
+            "https://doi.org/10.1016/j.icte.2025.12.001",
+            "https://arstechnica.com/security",
+            "https://openai.com/index/scaling-ai-for-",
+            "https://get.mem.ai/",
+            "https://blog.google/products/gemini/google-gemini-update-august-2024/",
+            "https://notebooklm.google/",
+            "https://deepmind.google/mode",
+            "https://doi.org/10.48550/arxiv.2504.19956",
+            "https://deepmind.google/models/project-astra/",
+            "https://openai.com/blog/memory-and-new-controls-for-chatgpt",
+            "https://help.openai.com/en/articles/8983136-what-",
+            "https://developers.openai.com/api/docs/models/gpt-5",
+            "https://developers.openai.com/api/docs/models/gpt-",
+            "https://chatgpt.com/",
+            "https://open",
+            "https://unit42.paloalton",
+            "https://www.sciencedirect.com/science/article/abs/pii/S0167739X250",
+            "https://doi.org/10.1016/j.future.2025.107994",
+            "https://www.sciencedirect",
+            "https://reference.langchain.co",
+            "https://www.personal.ai/",
+            "https://doi.org/10.4",
+            "https://doi.org/10.48550/arxiv.2511.15759",
+            "https://embracethere",
+            "https://embracethe",
+            "https://www.ovid.com/journals/prin/fulltext/10.1037/pri0000292",
+            "https://github.com/algorithmicsuperintelligence/openevolve",
+            "https://www.zendesk.com/newsroom/press-",
+            "https://doi.org/10.48550/arxiv.2506.23844",
+            "https://doi.org/",
+            "https://doi.org/10.48550/arx"
+          ],
+          "sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce"
+        },
+        {
+          "stage": "extraction",
+          "status": "completed",
+          "applicability": "in_scope",
+          "flow_count": 6
+        },
+        {
+          "stage": "semantic_review",
+          "status": "completed",
+          "applicability": "in_scope"
+        },
+        {
+          "stage": "citation_validation_and_decision",
+          "status": "completed",
+          "verdict": "inconsistent",
+          "reason": "confirmed_inconsistency_in_scope"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "trojan_hippo_flow_1",
+          "source_group": "paper_text",
+          "description": "The threat model permits configuration knowledge while withholding model weights; actual delivery of this knowledge is not shown.",
+          "scope": {
+            "paper_version": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+            "experiment_arm": "The online adversary controls inbound content and knows agent configuration, but cannot inspect internal state. Offline adaptive optimization receives richer critic feedback. Baseline and IFC defense arms have distinct outbound boundaries.",
+            "artifact_revision": "supplied document only; no execution artifact",
+            "configuration": "document-only model extraction with exact citation checks"
+          },
+          "target": {
+            "role": "online attacker",
+            "phase": "attack preparation",
+            "source": "agent configuration",
+            "representation": "system prompt, memory backend, and tool interface",
+            "operation": "know configuration for attack construction"
+          },
+          "verdict": "insufficient_evidence",
+          "reason": "no_matching_observation",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "online attacker",
+                "phase": "attack preparation",
+                "source": "agent configuration",
+                "representation": "system prompt, memory backend, and tool interface",
+                "operation": "know configuration for attack construction"
+              },
+              "permission": "allow",
+              "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 903, \"segment_id\": \"p4\", \"start\": 868}"
+            }
+          ],
+          "matching_observations": [],
+          "other_observation_count": 0,
+          "citation_errors": [],
+          "locators": {
+            "declaration": {
+              "segment_id": "p4",
+              "start": 868,
+              "end": 903,
+              "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce"
+            }
+          },
+          "semantic_review": {
+            "index": 0,
+            "supported": true,
+            "reason": "p4 explicitly assumes attacker knowledge of the system prompt, memory backend, and tool interface, excluding weights. Actual delivery remains unspecified."
+          }
+        },
+        {
+          "id": "trojan_hippo_flow_2",
+          "source_group": "paper_text",
+          "description": "The stated online boundary excludes internal feedback; successful exfiltration remains an explicitly available feedback channel.",
+          "scope": {
+            "paper_version": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+            "experiment_arm": "The online adversary controls inbound content and knows agent configuration, but cannot inspect internal state. Offline adaptive optimization receives richer critic feedback. Baseline and IFC defense arms have distinct outbound boundaries.",
+            "artifact_revision": "supplied document only; no execution artifact",
+            "configuration": "document-only model extraction with exact citation checks"
+          },
+          "target": {
+            "role": "online attacker",
+            "phase": "injection feedback",
+            "source": "agent internal state",
+            "representation": "confirmation of injection processing or memory storage",
+            "operation": "observe internal processing feedback"
+          },
+          "verdict": "consistent_within_scope",
+          "reason": "absence_confirmed_at_boundary",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "online attacker",
+                "phase": "injection feedback",
+                "source": "agent internal state",
+                "representation": "confirmation of injection processing or memory storage",
+                "operation": "observe internal processing feedback"
+              },
+              "permission": "deny",
+              "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 2257, \"segment_id\": \"p4\", \"start\": 2228}"
+            }
+          ],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "online attacker",
+                "phase": "injection feedback",
+                "source": "agent internal state",
+                "representation": "confirmation of injection processing or memory storage",
+                "operation": "observe internal processing feedback"
+              },
+              "status": "absent",
+              "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 2372, \"segment_id\": \"p4\", \"start\": 2348}"
+            }
+          ],
+          "other_observation_count": 0,
+          "citation_errors": [],
+          "locators": {
+            "declaration": {
+              "segment_id": "p4",
+              "start": 2228,
+              "end": 2257,
+              "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce"
+            },
+            "implementation": {
+              "segment_id": "p4",
+              "start": 2348,
+              "end": 2372,
+              "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce"
+            }
+          },
+          "semantic_review": {
+            "index": 1,
+            "supported": true,
+            "reason": "p4 expressly states that the online attacker receives no processing or memory-storage confirmation; completed exfiltration is the sole feedback channel."
+          }
+        },
+        {
+          "id": "trojan_hippo_flow_3",
+          "source_group": "paper_text",
+          "description": "The described optimization procedure receives richer feedback than the online adversary. This is a potential threat-model alignment issue, not proof that online attackers receive internal state.",
+          "scope": {
+            "paper_version": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+            "experiment_arm": "The online adversary controls inbound content and knows agent configuration, but cannot inspect internal state. Offline adaptive optimization receives richer critic feedback. Baseline and IFC defense arms have distinct outbound boundaries.",
+            "artifact_revision": "supplied document only; no execution artifact",
+            "configuration": "document-only model extraction with exact citation checks"
+          },
+          "target": {
+            "role": "offline adaptive attack optimizer",
+            "phase": "training candidate refinement",
+            "source": "LLM critic",
+            "representation": "numeric score and failure/improvement feedback",
+            "operation": "receive feedback to refine attack candidates"
+          },
+          "verdict": "insufficient_evidence",
+          "reason": "policy_unspecified",
+          "matching_rules": [],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "offline adaptive attack optimizer",
+                "phase": "training candidate refinement",
+                "source": "LLM critic",
+                "representation": "numeric score and failure/improvement feedback",
+                "operation": "receive feedback to refine attack candidates"
+              },
+              "status": "present",
+              "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 123, \"segment_id\": \"p6\", \"start\": 98}"
+            }
+          ],
+          "other_observation_count": 0,
+          "citation_errors": [],
+          "locators": {
+            "implementation": {
+              "segment_id": "p6",
+              "start": 98,
+              "end": 123,
+              "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce"
+            }
+          },
+          "semantic_review": {
+            "index": 2,
+            "supported": true,
+            "reason": "p5–p6 describe offline candidate evaluation using a 1–10 critic score and failure/improvement feedback. No separate permission boundary is specified for this optimizer."
+          }
+        },
+        {
+          "id": "trojan_hippo_flow_4",
+          "source_group": "paper_text",
+          "description": "The explicit backend promotes stored information into privileged context. This procedure does not establish that every backend uses the same prompt placement.",
+          "scope": {
+            "paper_version": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+            "experiment_arm": "The online adversary controls inbound content and knows agent configuration, but cannot inspect internal state. Offline adaptive optimization receives richer critic feedback. Baseline and IFC defense arms have distinct outbound boundaries.",
+            "artifact_revision": "supplied document only; no execution artifact",
+            "configuration": "document-only model extraction with exact citation checks"
+          },
+          "target": {
+            "role": "target agent",
+            "phase": "future-session explicit-memory retrieval",
+            "source": "explicit memory list",
+            "representation": "list of memories in the system prompt",
+            "operation": "inject stored memories into privileged context"
+          },
+          "verdict": "insufficient_evidence",
+          "reason": "policy_unspecified",
+          "matching_rules": [],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "target agent",
+                "phase": "future-session explicit-memory retrieval",
+                "source": "explicit memory list",
+                "representation": "list of memories in the system prompt",
+                "operation": "inject stored memories into privileged context"
+              },
+              "status": "present",
+              "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 7389, \"segment_id\": \"p6\", \"start\": 7358}"
+            }
+          ],
+          "other_observation_count": 0,
+          "citation_errors": [],
+          "locators": {
+            "implementation": {
+              "segment_id": "p6",
+              "start": 7358,
+              "end": 7389,
+              "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce"
+            }
+          },
+          "semantic_review": {
+            "index": 3,
+            "supported": true,
+            "reason": "p6 explicitly states that the explicit-memory backend injects its full memory list into the system prompt at each turn."
+          }
+        },
+        {
+          "id": "trojan_hippo_flow_5",
+          "source_group": "paper_text",
+          "description": "The stated security property prohibits unconsented transmission. The supplied Mem0/no-defense illustrative trace shows the later finance query copied into a successful send_email call.",
+          "scope": {
+            "paper_version": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+            "experiment_arm": "The online adversary controls inbound content and knows agent configuration, but cannot inspect internal state. Offline adaptive optimization receives richer critic feedback. Baseline and IFC defense arms have distinct outbound boundaries.",
+            "artifact_revision": "supplied document only; no execution artifact",
+            "configuration": "document-only model extraction with exact citation checks"
+          },
+          "target": {
+            "role": "target agent",
+            "phase": "baseline delayed activation",
+            "source": "sensitive user message",
+            "representation": "full query in outbound email body",
+            "operation": "transmit to attacker without user consent",
+            "query_form": "full_query"
+          },
+          "verdict": "inconsistent",
+          "reason": "forbidden_flow_confirmed",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "target agent",
+                "phase": "baseline delayed activation",
+                "source": "sensitive user message",
+                "representation": "full query in outbound email body",
+                "operation": "transmit to attacker without user consent",
+                "query_form": "full_query"
+              },
+              "permission": "deny",
+              "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 181, \"segment_id\": \"p5\", \"start\": 155}"
+            }
+          ],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "target agent",
+                "phase": "baseline delayed activation",
+                "source": "sensitive user message",
+                "representation": "full query in outbound email body",
+                "operation": "transmit to attacker without user consent",
+                "query_form": "full_query"
+              },
+              "status": "present",
+              "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 2426, \"segment_id\": \"p22\", \"start\": 2402}"
+            }
+          ],
+          "other_observation_count": 0,
+          "citation_errors": [],
+          "locators": {
+            "declaration": {
+              "segment_id": "p5",
+              "start": 155,
+              "end": 181,
+              "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce"
+            },
+            "implementation": {
+              "segment_id": "p22",
+              "start": 2402,
+              "end": 2426,
+              "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce"
+            }
+          },
+          "semantic_review": {
+            "index": 4,
+            "supported": true,
+            "reason": "p5 prohibits transmission without consent. p22 identifies the Mem0/no-defense trace and shows the entire later finance query copied into a successful send_email call without user authorization."
+          }
+        },
+        {
+          "id": "trojan_hippo_flow_6",
+          "source_group": "paper_text",
+          "description": "The paper describes harness enforcement blocking outbound calls after inbox access or retrieval of tainted memory. This boundary belongs to the IFC arm.",
+          "scope": {
+            "paper_version": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+            "experiment_arm": "The online adversary controls inbound content and knows agent configuration, but cannot inspect internal state. Offline adaptive optimization receives richer critic feedback. Baseline and IFC defense arms have distinct outbound boundaries.",
+            "artifact_revision": "supplied document only; no execution artifact",
+            "configuration": "document-only model extraction with exact citation checks"
+          },
+          "target": {
+            "role": "target agent under IFC defense",
+            "phase": "tainted-session outbound execution",
+            "source": "tainted session",
+            "representation": "outbound tool call",
+            "operation": "execute an outbound send"
+          },
+          "verdict": "consistent_within_scope",
+          "reason": "absence_confirmed_at_boundary",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "target agent under IFC defense",
+                "phase": "tainted-session outbound execution",
+                "source": "tainted session",
+                "representation": "outbound tool call",
+                "operation": "execute an outbound send"
+              },
+              "permission": "deny",
+              "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 5355, \"segment_id\": \"p8\", \"start\": 5324}"
+            }
+          ],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "target agent under IFC defense",
+                "phase": "tainted-session outbound execution",
+                "source": "tainted session",
+                "representation": "outbound tool call",
+                "operation": "execute an outbound send"
+              },
+              "status": "absent",
+              "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 6450, \"segment_id\": \"p8\", \"start\": 6425}"
+            }
+          ],
+          "other_observation_count": 0,
+          "citation_errors": [],
+          "locators": {
+            "declaration": {
+              "segment_id": "p8",
+              "start": 5324,
+              "end": 5355,
+              "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce"
+            },
+            "implementation": {
+              "segment_id": "p8",
+              "start": 6425,
+              "end": 6450,
+              "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce"
+            }
+          },
+          "semantic_review": {
+            "index": 5,
+            "supported": true,
+            "reason": "p8 describes harness blocking of outbound calls in tainted IFC sessions; p15 formalizes this rule, and p9–p10 report zero ASR for that defense arm."
+          }
+        }
+      ],
+      "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+      "applicability": "in_scope",
+      "scope": "The online adversary controls inbound content and knows agent configuration, but cannot inspect internal state. Offline adaptive optimization receives richer critic feedback. Baseline and IFC defense arms have distinct outbound boundaries.",
+      "review_status": "model_reviewed_not_human_verified",
+      "notes": [
+        "No source code or independently inspectable run artifacts were supplied; implementation observations are paper-text claims and an illustrative trace.",
+        "The critic’s exact inputs and access to internal execution details are unspecified.",
+        "User-prompt-only and no-untrusted-write report residual ASR despite stated indexing barriers; supplied evidence does not identify the active bypass path.",
+        "Table 1 reverses the T/U meaning used in the IFC prose and formal proof, creating a textual labeling inconsistency.",
+        "These bounded findings do not establish consistency of the entire implementation.",
+        "Implementation and absence findings rely on paper descriptions and reported results, without independently inspectable execution artifacts.",
+        "p22 is an illustrative trace and does not establish behavior for every run or backend.",
+        "Table 1 reverses the IFC T/U labels used in the prose and formal proof.",
+        "The critic’s exact inputs and access to internal execution details are unspecified.",
+        "Frozen V2 extraction/decision pipeline. Source classifications were not supplied to the model."
+      ],
+      "verdict": "inconsistent",
+      "reason": "confirmed_inconsistency_in_scope",
+      "input_mode": "document_only",
+      "prompt_sha256": "bf81c8354772b44e724d75c05b1b326c45dec53dcd34903939f40b49d535b3b2",
+      "duration_seconds": 61.906,
+      "attempts": [
+        {
+          "status": "failed",
+          "error": "document exceeds the configured model input limit; not silently truncated",
+          "max_input_chars": 180000
+        },
+        {
+          "status": "completed",
+          "max_input_chars": 300000,
+          "verdict": "inconsistent"
+        }
+      ]
+    },
+    {
+      "id": "topicattack",
+      "title": "TopicAttack: privileged-context dependence",
+      "source": "https://aclanthology.org/2025.emnlp-main.372.pdf",
+      "status": "completed",
+      "has_confirmed_inconsistency": false,
+      "stages": [
+        {
+          "stage": "ingestion",
+          "status": "completed",
+          "segments": 19,
+          "characters": 99756,
+          "coverage": {
+            "complete": true,
+            "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+          },
+          "source_links": [
+            "https://github.com/",
+            "https://copilot.microsoft.com/",
+            "https://www.perplexity.ai/",
+            "https://learnprompting",
+            "https://dropbox.tech/machine-learning/",
+            "https://simonwillison.net/"
+          ],
+          "sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7"
+        },
+        {
+          "stage": "extraction",
+          "status": "completed",
+          "applicability": "in_scope",
+          "flow_count": 6
+        },
+        {
+          "stage": "semantic_review",
+          "status": "completed",
+          "applicability": "in_scope"
+        },
+        {
+          "stage": "citation_validation_and_decision",
+          "status": "completed",
+          "verdict": "insufficient_evidence",
+          "reason": "unresolved_checks"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "topicattack_flow_1",
+          "source_group": "paper_text",
+          "description": "The methodology explicitly states this boundary. Absence is a paper-text assertion, not independently verified execution evidence; partial-query access is not resolved.",
+          "scope": {
+            "paper_version": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+            "experiment_arm": "TopicAttack constructs injected dialogue from benign external content and an attacker instruction. Its stated attacker lacks the original user instruction and system internals. Gradient-based comparisons and evaluator analyses receive separate treatment.",
+            "artifact_revision": "supplied document only; no execution artifact",
+            "configuration": "document-only model extraction with exact citation checks"
+          },
+          "target": {
+            "role": "TopicAttack attacker",
+            "phase": "payload construction",
+            "source": "original user instruction",
+            "representation": "exact instruction text",
+            "operation": "access for constructing the transition",
+            "query_form": "full_query"
+          },
+          "verdict": "insufficient_evidence",
+          "reason": "policy_unspecified",
+          "matching_rules": [],
+          "matching_observations": [],
+          "other_observation_count": 0,
+          "citation_errors": [
+            "declaration: citation is not an exact substring of the specified segment",
+            "implementation: citation is not an exact substring of the specified segment"
+          ],
+          "locators": {},
+          "semantic_review": {
+            "index": 0,
+            "supported": true,
+            "reason": "p4 explicitly states that the original user instruction is inaccessible during transition construction. This supports paper-asserted absence of full instruction text, with no independent execution verification."
+          }
+        },
+        {
+          "id": "topicattack_flow_2",
+          "source_group": "paper_text",
+          "description": "The threat model permits knowledge of benign content, and the supplied construction prompt uses that content as the transition's starting topic.",
+          "scope": {
+            "paper_version": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+            "experiment_arm": "TopicAttack constructs injected dialogue from benign external content and an attacker instruction. Its stated attacker lacks the original user instruction and system internals. Gradient-based comparisons and evaluator analyses receive separate treatment.",
+            "artifact_revision": "supplied document only; no execution artifact",
+            "configuration": "document-only model extraction with exact citation checks"
+          },
+          "target": {
+            "role": "TopicAttack attacker",
+            "phase": "payload construction",
+            "source": "benign external content",
+            "representation": "data text supplied to the auxiliary model",
+            "operation": "read to generate topical transitions"
+          },
+          "verdict": "consistent_within_scope",
+          "reason": "permitted_flow_confirmed",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "TopicAttack attacker",
+                "phase": "payload construction",
+                "source": "benign external content",
+                "representation": "data text supplied to the auxiliary model",
+                "operation": "read to generate topical transitions"
+              },
+              "permission": "allow",
+              "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 707, \"segment_id\": \"p4\", \"start\": 675}"
+            }
+          ],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "TopicAttack attacker",
+                "phase": "payload construction",
+                "source": "benign external content",
+                "representation": "data text supplied to the auxiliary model",
+                "operation": "read to generate topical transitions"
+              },
+              "status": "present",
+              "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 503, \"segment_id\": \"p13\", \"start\": 468}"
+            }
+          ],
+          "other_observation_count": 0,
+          "citation_errors": [],
+          "locators": {
+            "declaration": {
+              "segment_id": "p4",
+              "start": 675,
+              "end": 707,
+              "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7"
+            },
+            "implementation": {
+              "segment_id": "p13",
+              "start": 468,
+              "end": 503,
+              "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7"
+            }
+          },
+          "semantic_review": {
+            "index": 1,
+            "supported": true,
+            "reason": "p4 permits attacker knowledge of benign content and uses it to construct transitions; p13 supplies that content through the auxiliary-model prompt's {data} field."
+          }
+        },
+        {
+          "id": "topicattack_flow_3",
+          "source_group": "paper_text",
+          "description": "The threat model explicitly restricts system-prompt access and modification. Supplied text does not independently verify enforcement.",
+          "scope": {
+            "paper_version": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+            "experiment_arm": "TopicAttack constructs injected dialogue from benign external content and an attacker instruction. Its stated attacker lacks the original user instruction and system internals. Gradient-based comparisons and evaluator analyses receive separate treatment.",
+            "artifact_revision": "supplied document only; no execution artifact",
+            "configuration": "document-only model extraction with exact citation checks"
+          },
+          "target": {
+            "role": "TopicAttack attacker",
+            "phase": "attack",
+            "source": "application system prompt",
+            "representation": "system instruction text",
+            "operation": "access or modify"
+          },
+          "verdict": "insufficient_evidence",
+          "reason": "no_matching_observation",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "TopicAttack attacker",
+                "phase": "attack",
+                "source": "application system prompt",
+                "representation": "system instruction text",
+                "operation": "access or modify"
+              },
+              "permission": "deny",
+              "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 5549, \"segment_id\": \"p3\", \"start\": 5501}"
+            }
+          ],
+          "matching_observations": [],
+          "other_observation_count": 0,
+          "citation_errors": [],
+          "locators": {
+            "declaration": {
+              "segment_id": "p3",
+              "start": 5501,
+              "end": 5549,
+              "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7"
+            }
+          },
+          "semantic_review": {
+            "index": 2,
+            "supported": true,
+            "reason": "p3 explicitly prohibits attacker access to or modification of the system prompt. The unspecified observation appropriately avoids claiming verified enforcement."
+          }
+        },
+        {
+          "id": "topicattack_flow_4",
+          "source_group": "paper_text",
+          "description": "The paper describes implementing GCG and AutoDAN despite its preceding no-gradient attacker assumption. This is a separate comparison arm, not evidence that TopicAttack uses gradients.",
+          "scope": {
+            "paper_version": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+            "experiment_arm": "TopicAttack constructs injected dialogue from benign external content and an attacker instruction. Its stated attacker lacks the original user instruction and system internals. Gradient-based comparisons and evaluator analyses receive separate treatment.",
+            "artifact_revision": "supplied document only; no execution artifact",
+            "configuration": "document-only model extraction with exact citation checks"
+          },
+          "target": {
+            "role": "gradient-based baseline attacker",
+            "phase": "comparison-arm optimization",
+            "source": "victim model",
+            "representation": "gradients",
+            "operation": "access to optimize attack prompts"
+          },
+          "verdict": "insufficient_evidence",
+          "reason": "policy_unspecified",
+          "matching_rules": [],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "gradient-based baseline attacker",
+                "phase": "comparison-arm optimization",
+                "source": "victim model",
+                "representation": "gradients",
+                "operation": "access to optimize attack prompts"
+              },
+              "status": "present",
+              "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 4743, \"segment_id\": \"p7\", \"start\": 4704}"
+            }
+          ],
+          "other_observation_count": 0,
+          "citation_errors": [],
+          "locators": {
+            "implementation": {
+              "segment_id": "p7",
+              "start": 4704,
+              "end": 4743,
+              "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7"
+            }
+          },
+          "semantic_review": {
+            "index": 3,
+            "supported": true,
+            "reason": "p7 explicitly reports implementing gradient-based GCG and AutoDAN comparisons, separately from the no-gradient threat model; p9 reports their results. This supports the described comparison arm at paper-report level."
+          }
+        },
+        {
+          "id": "topicattack_flow_5",
+          "source_group": "paper_text",
+          "description": "Evaluator analysis accesses attention associated with both instructions. This does not establish attacker access to the original instruction or model internals.",
+          "scope": {
+            "paper_version": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+            "experiment_arm": "TopicAttack constructs injected dialogue from benign external content and an attacker instruction. Its stated attacker lacks the original user instruction and system internals. Gradient-based comparisons and evaluator analyses receive separate treatment.",
+            "artifact_revision": "supplied document only; no execution artifact",
+            "configuration": "document-only model extraction with exact citation checks"
+          },
+          "target": {
+            "role": "evaluator",
+            "phase": "post-attack analysis",
+            "source": "victim processing of original and injected instructions",
+            "representation": "instruction-specific attention scores",
+            "operation": "compute and compare attention"
+          },
+          "verdict": "insufficient_evidence",
+          "reason": "policy_unspecified",
+          "matching_rules": [],
+          "matching_observations": [],
+          "other_observation_count": 0,
+          "citation_errors": [
+            "implementation: citation is not an exact substring of the specified segment"
+          ],
+          "locators": {},
+          "semantic_review": {
+            "index": 4,
+            "supported": true,
+            "reason": "p8 explicitly reports computing attention scores on original and injected instructions for analysis. This supports evaluator access to those scores, without establishing attacker access."
+          }
+        },
+        {
+          "id": "topicattack_flow_6",
+          "source_group": "paper_text",
+          "description": "The defense procedure uses the original instruction to prepare victim input. This defender-side control does not show that the attacker receives it.",
+          "scope": {
+            "paper_version": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+            "experiment_arm": "TopicAttack constructs injected dialogue from benign external content and an attacker instruction. Its stated attacker lacks the original user instruction and system internals. Gradient-based comparisons and evaluator analyses receive separate treatment.",
+            "artifact_revision": "supplied document only; no execution artifact",
+            "configuration": "document-only model extraction with exact citation checks"
+          },
+          "target": {
+            "role": "defender",
+            "phase": "Sandwich defense input preparation",
+            "source": "original user instruction",
+            "representation": "restated instruction text",
+            "operation": "append to the end of content",
+            "query_form": "full_query"
+          },
+          "verdict": "insufficient_evidence",
+          "reason": "policy_unspecified",
+          "matching_rules": [],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "defender",
+                "phase": "Sandwich defense input preparation",
+                "source": "original user instruction",
+                "representation": "restated instruction text",
+                "operation": "append to the end of content",
+                "query_form": "full_query"
+              },
+              "status": "present",
+              "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 5451, \"segment_id\": \"p12\", \"start\": 5410}"
+            }
+          ],
+          "other_observation_count": 0,
+          "citation_errors": [],
+          "locators": {
+            "implementation": {
+              "segment_id": "p12",
+              "start": 5410,
+              "end": 5451,
+              "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7"
+            }
+          },
+          "semantic_review": {
+            "index": 5,
+            "supported": true,
+            "reason": "p12 describes appending the original instruction's restatement for Sandwich defense; p16 illustrates repeating the complete question. This supports defender-side use during input preparation."
+          }
+        }
+      ],
+      "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+      "applicability": "in_scope",
+      "scope": "TopicAttack constructs injected dialogue from benign external content and an attacker instruction. Its stated attacker lacks the original user instruction and system internals. Gradient-based comparisons and evaluator analyses receive separate treatment.",
+      "review_status": "model_reviewed_not_human_verified",
+      "notes": [
+        "No source code or run artifacts were supplied; observations reflect paper descriptions and examples.",
+        "Partial-query access and actual enforcement of attacker access boundaries remain unresolved.",
+        "The supplied text cannot establish consistency of the entire implementation.",
+        "Evidence consists of paper descriptions, prompts, examples, and reported results; no supplied execution artifacts independently verify historical access or enforcement.",
+        "The full-query absence assertion does not independently resolve access to partial or derived query information.",
+        "Unspecified permissions do not establish either authorization or prohibition for comparison, evaluation, or defense roles.",
+        "Frozen V2 extraction/decision pipeline. Source classifications were not supplied to the model."
+      ],
+      "verdict": "insufficient_evidence",
+      "reason": "unresolved_checks",
+      "input_mode": "document_only",
+      "prompt_sha256": "bf81c8354772b44e724d75c05b1b326c45dec53dcd34903939f40b49d535b3b2",
+      "duration_seconds": 59.534
+    },
+    {
+      "id": "agentdojo",
+      "title": "AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents",
+      "source": "https://papers.neurips.cc/paper_files/paper/2024/file/97091a5177d8dc64b1da8bf3e1f6fb54-Paper-Datasets_and_Benchmarks_Track.pdf",
+      "status": "completed",
+      "has_confirmed_inconsistency": false,
+      "stages": [
+        {
+          "stage": "ingestion",
+          "status": "completed",
+          "segments": 26,
+          "characters": 91997,
+          "coverage": {
+            "complete": true,
+            "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+          },
+          "source_links": [
+            "https://agentdojo.spylab.ai",
+            "https://github.com/ethz-spylab/agentdojo",
+            "https://www-cdn.anthropic",
+            "https://docs.anthropic.com/en/docs/tool-use",
+            "https://cohere.com/command",
+            "https://x.com/goodside/status/1569128808308957185",
+            "https://cookbook.openai.com/examples/",
+            "https://www.youtube.com/watch?v=",
+            "https://lakeraai.github.io/chainguard/",
+            "https://github.com/tiangolo/fastapi",
+            "https://simonwillison",
+            "https://simonwillison.net/2023/Apr/25/dual-llm-pattern/",
+            "https://drive.google.com/file/d/16nhDqSTRVac_GbcC3-9WMjVaJZfmcwLO/",
+            "https://chatgpt.com/share/"
+          ],
+          "sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913"
+        },
+        {
+          "stage": "extraction",
+          "status": "completed",
+          "applicability": "in_scope",
+          "flow_count": 6
+        },
+        {
+          "stage": "semantic_review",
+          "status": "completed",
+          "applicability": "in_scope"
+        },
+        {
+          "stage": "citation_validation_and_decision",
+          "status": "completed",
+          "verdict": "insufficient_evidence",
+          "reason": "unresolved_checks"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "agentdojo_flow_1",
+          "source_group": "paper_text",
+          "description": "The framework explicitly supports task-aware placement using ground-truth calls. This is benchmark-assisted attack construction, not evidence that an external attacker independently discovers those calls.",
+          "scope": {
+            "paper_version": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+            "experiment_arm": "The supplied text describes task-aware injection placement, attacker knowledge ablations, online tool-output injections, privileged user-prompt reuse in defenses, and state-based evaluation. These are distinct experimental roles and arms.",
+            "artifact_revision": "supplied document only; no execution artifact",
+            "configuration": "document-only model extraction with exact citation checks"
+          },
+          "target": {
+            "role": "attack construction helper",
+            "phase": "task-specific injection placement",
+            "source": "user-task ground truth",
+            "representation": "required tool-call sequence and corresponding placeholders",
+            "operation": "identify injection locations reached by task-solving tools"
+          },
+          "verdict": "consistent_within_scope",
+          "reason": "permitted_flow_confirmed",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "attack construction helper",
+                "phase": "task-specific injection placement",
+                "source": "user-task ground truth",
+                "representation": "required tool-call sequence and corresponding placeholders",
+                "operation": "identify injection locations reached by task-solving tools"
+              },
+              "permission": "allow",
+              "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 2612, \"segment_id\": \"p4\", \"start\": 2580}"
+            }
+          ],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "attack construction helper",
+                "phase": "task-specific injection placement",
+                "source": "user-task ground truth",
+                "representation": "required tool-call sequence and corresponding placeholders",
+                "operation": "identify injection locations reached by task-solving tools"
+              },
+              "status": "present",
+              "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 1731, \"segment_id\": \"p16\", \"start\": 1697}"
+            }
+          ],
+          "other_observation_count": 0,
+          "citation_errors": [],
+          "locators": {
+            "declaration": {
+              "segment_id": "p4",
+              "start": 2580,
+              "end": 2612,
+              "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913"
+            },
+            "implementation": {
+              "segment_id": "p16",
+              "start": 1697,
+              "end": 1731,
+              "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913"
+            }
+          },
+          "semantic_review": {
+            "index": 0,
+            "supported": true,
+            "reason": "p4 explicitly exposes task ground-truth calls for injection placement; p16 describes the helper returning placeholders in those calls’ outputs. This supports the construction-helper capability."
+          }
+        },
+        {
+          "id": "agentdojo_flow_2",
+          "source_group": "paper_text",
+          "description": "The described baseline uses identity information, while ablations separately test correct and incorrect names. This does not establish access to the full user query.",
+          "scope": {
+            "paper_version": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+            "experiment_arm": "The supplied text describes task-aware injection placement, attacker knowledge ablations, online tool-output injections, privileged user-prompt reuse in defenses, and state-based evaluation. These are distinct experimental roles and arms.",
+            "artifact_revision": "supplied document only; no execution artifact",
+            "configuration": "document-only model extraction with exact citation checks"
+          },
+          "target": {
+            "role": "attacker",
+            "phase": "attack construction and knowledge ablations",
+            "source": "victim user and model identities",
+            "representation": "names substituted into attack text",
+            "operation": "personalize injected instructions"
+          },
+          "verdict": "consistent_within_scope",
+          "reason": "permitted_flow_confirmed",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "attacker",
+                "phase": "attack construction and knowledge ablations",
+                "source": "victim user and model identities",
+                "representation": "names substituted into attack text",
+                "operation": "personalize injected instructions"
+              },
+              "permission": "allow",
+              "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 2655, \"segment_id\": \"p6\", \"start\": 2620}"
+            }
+          ],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "attacker",
+                "phase": "attack construction and knowledge ablations",
+                "source": "victim user and model identities",
+                "representation": "names substituted into attack text",
+                "operation": "personalize injected instructions"
+              },
+              "status": "present",
+              "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 2606, \"segment_id\": \"p8\", \"start\": 2579}"
+            }
+          ],
+          "other_observation_count": 0,
+          "citation_errors": [],
+          "locators": {
+            "declaration": {
+              "segment_id": "p6",
+              "start": 2620,
+              "end": 2655,
+              "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913"
+            },
+            "implementation": {
+              "segment_id": "p8",
+              "start": 2579,
+              "end": 2606,
+              "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913"
+            }
+          },
+          "semantic_review": {
+            "index": 1,
+            "supported": true,
+            "reason": "p6 permits assumed identity knowledge; p8 reports identity-based attacks and knowledge ablations, while p19 specifies name substitution into attack text."
+          }
+        },
+        {
+          "id": "agentdojo_flow_3",
+          "source_group": "paper_text",
+          "description": "The attack interface permits placeholder text replacement; the Slack experiments describe active web-page injections. Control is over designated content, not necessarily entire tool responses.",
+          "scope": {
+            "paper_version": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+            "experiment_arm": "The supplied text describes task-aware injection placement, attacker knowledge ablations, online tool-output injections, privileged user-prompt reuse in defenses, and state-based evaluation. These are distinct experimental roles and arms.",
+            "artifact_revision": "supplied document only; no execution artifact",
+            "configuration": "document-only model extraction with exact citation checks"
+          },
+          "target": {
+            "role": "online attacker",
+            "phase": "agent execution",
+            "source": "attacker-controlled environment placeholders",
+            "representation": "injected text in web-page tool outputs",
+            "operation": "deliver malicious instructions to the victim agent"
+          },
+          "verdict": "consistent_within_scope",
+          "reason": "permitted_flow_confirmed",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "online attacker",
+                "phase": "agent execution",
+                "source": "attacker-controlled environment placeholders",
+                "representation": "injected text in web-page tool outputs",
+                "operation": "deliver malicious instructions to the victim agent"
+              },
+              "permission": "allow",
+              "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 2365, \"segment_id\": \"p6\", \"start\": 2340}"
+            }
+          ],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "online attacker",
+                "phase": "agent execution",
+                "source": "attacker-controlled environment placeholders",
+                "representation": "injected text in web-page tool outputs",
+                "operation": "deliver malicious instructions to the victim agent"
+              },
+              "status": "present",
+              "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 4174, \"segment_id\": \"p7\", \"start\": 4135}"
+            }
+          ],
+          "other_observation_count": 0,
+          "citation_errors": [],
+          "locators": {
+            "declaration": {
+              "segment_id": "p6",
+              "start": 2340,
+              "end": 2365,
+              "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913"
+            },
+            "implementation": {
+              "segment_id": "p7",
+              "start": 4135,
+              "end": 4174,
+              "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913"
+            }
+          },
+          "semantic_review": {
+            "index": 2,
+            "supported": true,
+            "reason": "p6 permits injection text for designated placeholders; p7 reports web-page injections in Slack experiments. This supports delivery through controlled tool-result content."
+          }
+        },
+        {
+          "id": "agentdojo_flow_4",
+          "source_group": "paper_text",
+          "description": "This defense explicitly reuses the user prompt after function calls. Its privileged-context access belongs to the defender arm and does not imply attacker access.",
+          "scope": {
+            "paper_version": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+            "experiment_arm": "The supplied text describes task-aware injection placement, attacker knowledge ablations, online tool-output injections, privileged user-prompt reuse in defenses, and state-based evaluation. These are distinct experimental roles and arms.",
+            "artifact_revision": "supplied document only; no execution artifact",
+            "configuration": "document-only model extraction with exact citation checks"
+          },
+          "target": {
+            "role": "defender in prompt-sandwiching arm",
+            "phase": "after each tool call",
+            "source": "original user instructions",
+            "representation": "repeated user prompt in agent context",
+            "operation": "reinsert the task instructions",
+            "query_form": "full_query"
+          },
+          "verdict": "insufficient_evidence",
+          "reason": "policy_unspecified",
+          "matching_rules": [],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "defender in prompt-sandwiching arm",
+                "phase": "after each tool call",
+                "source": "original user instructions",
+                "representation": "repeated user prompt in agent context",
+                "operation": "reinsert the task instructions",
+                "query_form": "full_query"
+              },
+              "status": "present",
+              "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 4356, \"segment_id\": \"p8\", \"start\": 4327}"
+            }
+          ],
+          "other_observation_count": 0,
+          "citation_errors": [],
+          "locators": {
+            "implementation": {
+              "segment_id": "p8",
+              "start": 4327,
+              "end": 4356,
+              "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913"
+            }
+          },
+          "semantic_review": {
+            "index": 3,
+            "supported": true,
+            "reason": "p8 explicitly describes repeating user instructions after each function call, and p9 discusses this evaluated defense. Full-prompt reuse is assigned to the defender arm."
+          }
+        },
+        {
+          "id": "agentdojo_flow_5",
+          "source_group": "paper_text",
+          "description": "The described procedure establishes a temporal boundary: initial tool selection precedes untrusted-data exposure. This observation is supported by paper text, not runtime verification.",
+          "scope": {
+            "paper_version": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+            "experiment_arm": "The supplied text describes task-aware injection placement, attacker knowledge ablations, online tool-output injections, privileged user-prompt reuse in defenses, and state-based evaluation. These are distinct experimental roles and arms.",
+            "artifact_revision": "supplied document only; no execution artifact",
+            "configuration": "document-only model extraction with exact citation checks"
+          },
+          "target": {
+            "role": "defender in tool-filter arm",
+            "phase": "initial tool selection",
+            "source": "untrusted tool data",
+            "representation": "tool-result content",
+            "operation": "observe content before choosing the permitted tool set"
+          },
+          "verdict": "consistent_within_scope",
+          "reason": "absence_confirmed_at_boundary",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "defender in tool-filter arm",
+                "phase": "initial tool selection",
+                "source": "untrusted tool data",
+                "representation": "tool-result content",
+                "operation": "observe content before choosing the permitted tool set"
+              },
+              "permission": "deny",
+              "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 1545, \"segment_id\": \"p9\", \"start\": 1510}"
+            }
+          ],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "defender in tool-filter arm",
+                "phase": "initial tool selection",
+                "source": "untrusted tool data",
+                "representation": "tool-result content",
+                "operation": "observe content before choosing the permitted tool set"
+              },
+              "status": "absent",
+              "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 1545, \"segment_id\": \"p9\", \"start\": 1510}"
+            }
+          ],
+          "other_observation_count": 0,
+          "citation_errors": [],
+          "locators": {
+            "declaration": {
+              "segment_id": "p9",
+              "start": 1510,
+              "end": 1545,
+              "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913"
+            },
+            "implementation": {
+              "segment_id": "p9",
+              "start": 1510,
+              "end": 1545,
+              "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913"
+            }
+          },
+          "semantic_review": {
+            "index": 4,
+            "supported": true,
+            "reason": "p8–p9 explicitly place initial tool selection before any untrusted-data observation. This supports the stated temporal exclusion within the described tool-filter procedure."
+          }
+        },
+        {
+          "id": "agentdojo_flow_6",
+          "source_group": "paper_text",
+          "description": "The evaluator uses model output and environment mutations. This evaluator access is separate from information available to attack construction or the online attacker.",
+          "scope": {
+            "paper_version": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+            "experiment_arm": "The supplied text describes task-aware injection placement, attacker knowledge ablations, online tool-output injections, privileged user-prompt reuse in defenses, and state-based evaluation. These are distinct experimental roles and arms.",
+            "artifact_revision": "supplied document only; no execution artifact",
+            "configuration": "document-only model extraction with exact citation checks"
+          },
+          "target": {
+            "role": "utility evaluator",
+            "phase": "post-execution scoring",
+            "source": "model output and environment state",
+            "representation": "output text and before/after state",
+            "operation": "deterministically check task completion"
+          },
+          "verdict": "insufficient_evidence",
+          "reason": "policy_unspecified",
+          "matching_rules": [],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "utility evaluator",
+                "phase": "post-execution scoring",
+                "source": "model output and environment state",
+                "representation": "output text and before/after state",
+                "operation": "deterministically check task completion"
+              },
+              "status": "present",
+              "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 3024, \"segment_id\": \"p4\", \"start\": 2995}"
+            }
+          ],
+          "other_observation_count": 0,
+          "citation_errors": [],
+          "locators": {
+            "implementation": {
+              "segment_id": "p4",
+              "start": 2995,
+              "end": 3024,
+              "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913"
+            }
+          },
+          "semantic_review": {
+            "index": 5,
+            "supported": true,
+            "reason": "p4 explicitly defines deterministic utility evaluation using model output and environment state before and after execution, matching the evaluator role and scoring phase."
+          }
+        }
+      ],
+      "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+      "applicability": "in_scope",
+      "scope": "The supplied text describes task-aware injection placement, attacker knowledge ablations, online tool-output injections, privileged user-prompt reuse in defenses, and state-based evaluation. These are distinct experimental roles and arms.",
+      "review_status": "model_reviewed_not_human_verified",
+      "notes": [
+        "The supplied material contains paper text and illustrative code snippets, but no complete implementation or run artifacts for verification.",
+        "Full-query or partial-query access by the online attacker is not established; no prohibition on either is inferred.",
+        "Task-aware ground-truth access and identity knowledge are explicit experimental capabilities, but their availability to realistic external attackers is not established.",
+        "The extracted evidence does not establish consistency of the entire implementation.",
+        "Support concerns documented procedures and reported experiments; supplied snippets do not independently verify historical execution.",
+        "p22 references released conversations and code, but their contents are not supplied here.",
+        "Online attacker access to full or partial user queries is neither established nor prohibited by the supplied evidence.",
+        "Frozen V2 extraction/decision pipeline. Source classifications were not supplied to the model."
+      ],
+      "verdict": "insufficient_evidence",
+      "reason": "unresolved_checks",
+      "input_mode": "document_only",
+      "prompt_sha256": "bf81c8354772b44e724d75c05b1b326c45dec53dcd34903939f40b49d535b3b2",
+      "duration_seconds": 59.932
+    },
+    {
+      "id": "asb",
+      "title": "ASB privileged-context dependence audit",
+      "source": "https://proceedings.iclr.cc/paper_files/paper/2025/file/5750f91d8fb9d5c02bd8ad2c3b44456b-Paper-Conference.pdf",
+      "status": "completed",
+      "has_confirmed_inconsistency": false,
+      "stages": [
+        {
+          "stage": "ingestion",
+          "status": "completed",
+          "segments": 36,
+          "characters": 187606,
+          "coverage": {
+            "complete": true,
+            "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+          },
+          "source_links": [
+            "https://arxiv.org/abs/",
+            "https://artificialanalysis.ai/",
+            "https://www.anthropic.com/news/",
+            "https://arxiv.org/abs/2211.14719",
+            "https://www",
+            "https://rapidapi.com/hub",
+            "https://www.alignmentforum.org/posts/pNcFYZnPdXyL2RfgA/",
+            "https://aclanthology.org/2024",
+            "https://aclanthology.org/2025.coling-main.37/",
+            "https://arxiv.org/abs/2307",
+            "https://learnprompting.org/docs/",
+            "https://learnprompting.org/docs/prompt_",
+            "https://www.usenix.org/conference/usenixsecurity24/",
+            "https://arxiv.org/abs/2311.10813",
+            "https://arxiv.org/abs/2403.16971",
+            "https://chatgpt.com/gpts",
+            "https://openai.com/index/",
+            "https://owasp.org/www-",
+            "https://arxiv.org/abs/2305.15334",
+            "https://arxiv",
+            "https://openreview.net/forum?id=dHng2O0Jjr",
+            "https://research.nccgroup.com/2022/",
+            "https://arxiv.org/abs/2409.07429",
+            "https://simonwillison.net/",
+            "https://simonwillison",
+            "https://arxiv.org/abs/2406.14598",
+            "https://arxiv.org/abs/2502.14662",
+            "https://arxiv.org/abs/2402",
+            "https://aclanthology.org/2024.findings-acl.624",
+            "https://openreview.net/forum?id=8FgdMHbW27",
+            "https://python.langchain.com/docs/integrations/vectorstores/",
+            "https://platform.openai.com/docs/api-reference/chat/create",
+            "https://github.com/agiresearch/ASB/blob/main/aios/llm_core/llm_",
+            "https://github.com/agiresearch/ASB/blob/main/pyopenagi/agents/react_",
+            "https://github.com/agiresearch/ASB/blob/main/data/all_normal_tools",
+            "https://github.com/agiresearch/ASB/blob/main/data/all_attack_tools",
+            "https://github.com/agiresearch/ASB/blob/main/pyopenagi/tools/"
+          ],
+          "sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9"
+        },
+        {
+          "stage": "extraction",
+          "status": "completed",
+          "applicability": "in_scope",
+          "flow_count": 6
+        },
+        {
+          "stage": "semantic_review",
+          "status": "completed",
+          "applicability": "in_scope"
+        },
+        {
+          "stage": "citation_validation_and_decision",
+          "status": "completed",
+          "verdict": "insufficient_evidence",
+          "reason": "unresolved_checks"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "asb_flow_1",
+          "source_group": "paper_text",
+          "description": "The IPI definition permits observation injection; the paper's example describes this operation after the first tool call.",
+          "scope": {
+            "paper_version": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+            "experiment_arm": "ASB evaluates IPI alongside separate DPI, memory-poisoning, PoT-backdoor, and mixed attack arms. Its threat model permits substantial attacker control; these permissions should not be attributed solely to the IPI arm.",
+            "artifact_revision": "supplied document only; no execution artifact",
+            "configuration": "document-only model extraction with exact citation checks"
+          },
+          "target": {
+            "role": "online IPI attacker",
+            "phase": "task execution",
+            "source": "tool response",
+            "representation": "observation text",
+            "operation": "append malicious instructions"
+          },
+          "verdict": "consistent_within_scope",
+          "reason": "permitted_flow_confirmed",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "online IPI attacker",
+                "phase": "task execution",
+                "source": "tool response",
+                "representation": "observation text",
+                "operation": "append malicious instructions"
+              },
+              "permission": "allow",
+              "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 4453, \"segment_id\": \"p5\", \"start\": 4435}"
+            }
+          ],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "online IPI attacker",
+                "phase": "task execution",
+                "source": "tool response",
+                "representation": "observation text",
+                "operation": "append malicious instructions"
+              },
+              "status": "present",
+              "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 2402, \"segment_id\": \"p17\", \"start\": 2374}"
+            }
+          ],
+          "other_observation_count": 0,
+          "citation_errors": [],
+          "locators": {
+            "declaration": {
+              "segment_id": "p5",
+              "start": 4435,
+              "end": 4453,
+              "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9"
+            },
+            "implementation": {
+              "segment_id": "p17",
+              "start": 2374,
+              "end": 2402,
+              "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9"
+            }
+          },
+          "semantic_review": {
+            "index": 0,
+            "supported": true,
+            "reason": "p5 permits appending instructions to execution observations; p17 shows instructions appended to the first tool response in the IPI example."
+          }
+        },
+        {
+          "id": "asb_flow_2",
+          "source_group": "paper_text",
+          "description": "The IPI example includes an attack tool in the available toolkit. A potential textual mismatch remains: p26 says the execution toolset was T = T t, whereas the attack definitions add T e.",
+          "scope": {
+            "paper_version": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+            "experiment_arm": "ASB evaluates IPI alongside separate DPI, memory-poisoning, PoT-backdoor, and mixed attack arms. Its threat model permits substantial attacker control; these permissions should not be attributed solely to the IPI arm.",
+            "artifact_revision": "supplied document only; no execution artifact",
+            "configuration": "document-only model extraction with exact citation checks"
+          },
+          "target": {
+            "role": "attacker",
+            "phase": "agent toolkit setup",
+            "source": "attacker-controlled tools",
+            "representation": "toolkit entries",
+            "operation": "add attack tools to available tools"
+          },
+          "verdict": "insufficient_evidence",
+          "reason": "policy_unspecified",
+          "matching_rules": [],
+          "matching_observations": [],
+          "other_observation_count": 0,
+          "citation_errors": [
+            "declaration: citation is not an exact substring of the specified segment",
+            "implementation: citation is ambiguous within the segment; supply a unique substring"
+          ],
+          "locators": {},
+          "semantic_review": {
+            "index": 1,
+            "supported": true,
+            "reason": "p4 permits adding attack tools, and p17 lists Data Export in the IPI agent's available toolkit. This supports the example, despite the conflicting toolset statement in p26."
+          }
+        },
+        {
+          "id": "asb_flow_3",
+          "source_group": "paper_text",
+          "description": "System-prompt modification is explicitly permitted and illustrated for the PoT arm, independently of ordinary IPI.",
+          "scope": {
+            "paper_version": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+            "experiment_arm": "ASB evaluates IPI alongside separate DPI, memory-poisoning, PoT-backdoor, and mixed attack arms. Its threat model permits substantial attacker control; these permissions should not be attributed solely to the IPI arm.",
+            "artifact_revision": "supplied document only; no execution artifact",
+            "configuration": "document-only model extraction with exact citation checks"
+          },
+          "target": {
+            "role": "PoT backdoor attacker",
+            "phase": "agent deployment",
+            "source": "system prompt",
+            "representation": "backdoored plan demonstrations",
+            "operation": "insert poisoned demonstrations"
+          },
+          "verdict": "insufficient_evidence",
+          "reason": "no_matching_observation",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "PoT backdoor attacker",
+                "phase": "agent deployment",
+                "source": "system prompt",
+                "representation": "backdoored plan demonstrations",
+                "operation": "insert poisoned demonstrations"
+              },
+              "permission": "allow",
+              "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 2203, \"segment_id\": \"p4\", \"start\": 2179}"
+            }
+          ],
+          "matching_observations": [],
+          "other_observation_count": 0,
+          "citation_errors": [
+            "implementation: citation is not an exact substring of the specified segment"
+          ],
+          "locators": {
+            "declaration": {
+              "segment_id": "p4",
+              "start": 2179,
+              "end": 2203,
+              "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9"
+            }
+          },
+          "semantic_review": {
+            "index": 2,
+            "supported": true,
+            "reason": "p4 permits system-prompt insertion; p17–p18 describe and display backdoored plan demonstrations inserted into the PoT agent's system prompt."
+          }
+        },
+        {
+          "id": "asb_flow_4",
+          "source_group": "paper_text",
+          "description": "The backdoor threat model grants user-prompt access and manipulation; the example describes trigger insertion. This does not establish query access for every IPI attacker.",
+          "scope": {
+            "paper_version": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+            "experiment_arm": "ASB evaluates IPI alongside separate DPI, memory-poisoning, PoT-backdoor, and mixed attack arms. Its threat model permits substantial attacker control; these permissions should not be attributed solely to the IPI arm.",
+            "artifact_revision": "supplied document only; no execution artifact",
+            "configuration": "document-only model extraction with exact citation checks"
+          },
+          "target": {
+            "role": "PoT backdoor attacker",
+            "phase": "query preparation",
+            "source": "user prompt",
+            "representation": "query text",
+            "operation": "access and append a trigger",
+            "query_form": "full_query"
+          },
+          "verdict": "insufficient_evidence",
+          "reason": "no_matching_observation",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "PoT backdoor attacker",
+                "phase": "query preparation",
+                "source": "user prompt",
+                "representation": "query text",
+                "operation": "access and append a trigger",
+                "query_form": "full_query"
+              },
+              "permission": "allow",
+              "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 2936, \"segment_id\": \"p4\", \"start\": 2909}"
+            }
+          ],
+          "matching_observations": [],
+          "other_observation_count": 0,
+          "citation_errors": [
+            "implementation: citation is not an exact substring of the specified segment"
+          ],
+          "locators": {
+            "declaration": {
+              "segment_id": "p4",
+              "start": 2909,
+              "end": 2936,
+              "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9"
+            }
+          },
+          "semantic_review": {
+            "index": 3,
+            "supported": true,
+            "reason": "p4 explicitly grants the backdoor attacker user-prompt access and manipulation; p17–p18 show a complete user instruction with an appended trigger."
+          }
+        },
+        {
+          "id": "asb_flow_5",
+          "source_group": "paper_text",
+          "description": "The framework permits DPI or IPI to poison memory through saved history. The reported construction procedure specifically uses DPI with GPT4o-mini; it does not confirm IPI-based poisoning was used.",
+          "scope": {
+            "paper_version": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+            "experiment_arm": "ASB evaluates IPI alongside separate DPI, memory-poisoning, PoT-backdoor, and mixed attack arms. Its threat model permits substantial attacker control; these permissions should not be attributed solely to the IPI arm.",
+            "artifact_revision": "supplied document only; no execution artifact",
+            "configuration": "document-only model extraction with exact citation checks"
+          },
+          "target": {
+            "role": "memory-poisoning attacker",
+            "phase": "poisoning before later retrieval",
+            "source": "agent execution history",
+            "representation": "poisoned plans stored in memory",
+            "operation": "poison memory indirectly through prompt injection"
+          },
+          "verdict": "consistent_within_scope",
+          "reason": "permitted_flow_confirmed",
+          "matching_rules": [
+            {
+              "edge": {
+                "role": "memory-poisoning attacker",
+                "phase": "poisoning before later retrieval",
+                "source": "agent execution history",
+                "representation": "poisoned plans stored in memory",
+                "operation": "poison memory indirectly through prompt injection"
+              },
+              "permission": "allow",
+              "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 1988, \"segment_id\": \"p6\", \"start\": 1954}"
+            }
+          ],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "memory-poisoning attacker",
+                "phase": "poisoning before later retrieval",
+                "source": "agent execution history",
+                "representation": "poisoned plans stored in memory",
+                "operation": "poison memory indirectly through prompt injection"
+              },
+              "status": "present",
+              "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 1386, \"segment_id\": \"p26\", \"start\": 1346}"
+            }
+          ],
+          "other_observation_count": 0,
+          "citation_errors": [],
+          "locators": {
+            "declaration": {
+              "segment_id": "p6",
+              "start": 1954,
+              "end": 1988,
+              "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9"
+            },
+            "implementation": {
+              "segment_id": "p26",
+              "start": 1346,
+              "end": 1386,
+              "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9"
+            }
+          },
+          "semantic_review": {
+            "index": 4,
+            "supported": true,
+            "reason": "p6 permits indirect memory poisoning through DPI or IPI and saved execution history. p26 reports DPI-based construction with GPT4o-mini, supporting the broadly stated prompt-injection operation, but not IPI-based construction specifically."
+          }
+        },
+        {
+          "id": "asb_flow_6",
+          "source_group": "paper_text",
+          "description": "The trigger-generation prompt supplies task texts to GPT-4o. This is offline construction evidence, not evidence that an online IPI attacker receives test queries.",
+          "scope": {
+            "paper_version": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+            "experiment_arm": "ASB evaluates IPI alongside separate DPI, memory-poisoning, PoT-backdoor, and mixed attack arms. Its threat model permits substantial attacker control; these permissions should not be attributed solely to the IPI arm.",
+            "artifact_revision": "supplied document only; no execution artifact",
+            "configuration": "document-only model extraction with exact citation checks"
+          },
+          "target": {
+            "role": "offline attack constructor",
+            "phase": "PoT trigger generation",
+            "source": "demonstrative tasks",
+            "representation": "task query texts supplied to GPT-4o",
+            "operation": "generate a phrase trigger conditioned on tasks",
+            "query_form": "full_query"
+          },
+          "verdict": "insufficient_evidence",
+          "reason": "policy_unspecified",
+          "matching_rules": [],
+          "matching_observations": [
+            {
+              "edge": {
+                "role": "offline attack constructor",
+                "phase": "PoT trigger generation",
+                "source": "demonstrative tasks",
+                "representation": "task query texts supplied to GPT-4o",
+                "operation": "generate a phrase trigger conditioned on tasks",
+                "query_form": "full_query"
+              },
+              "status": "present",
+              "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 776, \"segment_id\": \"p28\", \"start\": 761}"
+            }
+          ],
+          "other_observation_count": 0,
+          "citation_errors": [],
+          "locators": {
+            "implementation": {
+              "segment_id": "p28",
+              "start": 761,
+              "end": 776,
+              "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9"
+            }
+          },
+          "semantic_review": {
+            "index": 5,
+            "supported": true,
+            "reason": "p7 describes GPT-4o phrase-trigger generation, and p28 supplies task query texts in its generation prompt. This supports offline construction access; no separate access permission is declared."
+          }
+        }
+      ],
+      "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+      "applicability": "in_scope",
+      "scope": "ASB evaluates IPI alongside separate DPI, memory-poisoning, PoT-backdoor, and mixed attack arms. Its threat model permits substantial attacker control; these permissions should not be attributed solely to the IPI arm.",
+      "review_status": "model_reviewed_not_human_verified",
+      "notes": [
+        "No source code or run artifacts were supplied; observations reflect paper descriptions and examples only.",
+        "The toolkit statement T = T t in p26 is not reconciled with attack-tool additions in the formal definitions and examples.",
+        "Memory databases and embedders are described as black boxes; indirect poisoning does not establish access to their internal structures.",
+        "PoT testing tasks are described as distinct from demonstration tasks; offline task access does not establish access to held-out queries.",
+        "The supplied text cannot establish implementation-wide consistency or resolve all arm-specific access boundaries.",
+        "Evidence consists of paper descriptions and examples, without supplied source code or execution artifacts.",
+        "p26's T = T t statement conflicts with attack-tool additions in definitions and examples.",
+        "Reported memory-poisoning construction uses DPI; IPI-based construction is not established.",
+        "Offline demonstration-task access does not establish online IPI attacker access to held-out queries.",
+        "Tool calls are simulated, as specified in p25 and p29.",
+        "Frozen V2 extraction/decision pipeline. Source classifications were not supplied to the model."
+      ],
+      "verdict": "insufficient_evidence",
+      "reason": "unresolved_checks",
+      "input_mode": "document_only",
+      "prompt_sha256": "bf81c8354772b44e724d75c05b1b326c45dec53dcd34903939f40b49d535b3b2",
+      "duration_seconds": 73.432,
+      "attempts": [
+        {
+          "status": "failed",
+          "error": "document exceeds the configured model input limit; not silently truncated",
+          "max_input_chars": 180000
+        },
+        {
+          "status": "completed",
+          "max_input_chars": 300000,
+          "verdict": "insufficient_evidence"
+        }
+      ]
+    }
+  ]
+}

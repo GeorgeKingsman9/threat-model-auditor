@@ -18,6 +18,8 @@ import re
 import shutil
 import subprocess
 import tempfile
+import threading
+import urllib.request
 
 
 USAGE_FIELDS = ("input_tokens", "cached_input_tokens", "output_tokens", "reasoning_output_tokens")
@@ -41,12 +43,22 @@ def clean_environment():
         "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "AWS_SESSION_TOKEN",
         "AZURE_OPENAI_ENDPOINT", "GOOGLE_APPLICATION_CREDENTIALS",
     }
-    return {
+    env = {
         name: value for name, value in os.environ.items()
         if name.upper() not in excluded
         and not name.upper().startswith(("OPENAI_", "ANTHROPIC_", "AZURE_OPENAI_"))
         and "API_KEY" not in name.upper() and "APIKEY" not in name.upper()
     }
+    # Python reads the existing macOS system proxy automatically; the native CLI
+    # does not necessarily do so. Apply those same settings to this child only.
+    # Explicit environment routing wins; no OS or global Codex config is edited.
+    proxies = urllib.request.getproxies()
+    for scheme in ("http", "https"):
+        if not any(env.get(name) for name in (scheme.upper() + "_PROXY", scheme + "_proxy")):
+            value = proxies.get(scheme)
+            if value:
+                env[scheme.upper() + "_PROXY"] = value
+    return env
 
 
 def is_tool_event(value):
@@ -136,6 +148,7 @@ class CodexClient:
         self.provider, self.model = "codex", model
         self.max_calls, self.timeout = max_calls, timeout
         self.calls = []
+        self._call_lock = threading.Lock()
         self.preflight_failures = []
 
     def _require_chatgpt_login(self, executable, env, cwd):
@@ -204,7 +217,10 @@ class CodexClient:
                 "actual_model": None, "actual_models": [], "usage": {},
                 "request_sha256": request_hash, "status": "dispatched",
             }
-            self.calls.append(entry)
+            with self._call_lock:
+                if len(self.calls) >= self.max_calls:
+                    raise ValueError("Codex CLI call limit reached; no inference started")
+                self.calls.append(entry)
             try:
                 result = subprocess.run(
                     command, input=prompt, env=env, cwd=work,

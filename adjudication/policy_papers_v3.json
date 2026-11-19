@@ -1,0 +1,106 @@
+[
+  {
+    "id": "adaptools",
+    "title": "AdapTools",
+    "version": "EMNLP 2026 final",
+    "audit_scope": "Held-out online black-box task delivery; offline strategy development and grey-box MCP access are distinct.",
+    "required_checks": [
+      "adaptools_final_black_box_online_task_access"
+    ],
+    "coverage_complete": false,
+    "schema_version": 3
+  },
+  {
+    "id": "muzzle",
+    "title": "MUZZLE",
+    "version": "USENIX Security 2026 final",
+    "audit_scope": "Specific offline operator-task entitlement and unresolved acquisition of a separate future online victim task.",
+    "required_checks": [
+      "muzzle_offline_task_spec",
+      "muzzle_online_task_provenance"
+    ],
+    "coverage_complete": false,
+    "schema_version": 3
+  },
+  {
+    "id": "fha",
+    "title": "Breaking MCP with Function Hijacking Attacks (FHA)",
+    "version": "arXiv:2604.20994v2",
+    "audit_scope": "The disclosed §6 single-payload diagnostic and the separate §7 fixed-query multi-payload configuration; neither is equated with held-out or live user-query access.",
+    "required_checks": [
+      "fha_direct_exact_query",
+      "fha_fixed_query_robustness"
+    ],
+    "coverage_complete": false,
+    "schema_version": 3
+  },
+  {
+    "id": "agentcon",
+    "title": "AGENTCON",
+    "version": "ICLR 2026 hash-identified OpenReview submission snapshot",
+    "audit_scope": "Paper-described original same-request benchmark optimization using a request-conditioned intermediate plan/loss under §3. Literal query delivery to an auxiliary LLM, future target acquisition and live deployment are not established.",
+    "required_checks": [
+      "agentcon_same_request_conditioned_optimization"
+    ],
+    "coverage_complete": false,
+    "schema_version": 3
+  },
+  {
+    "id": "retrieval_barrier",
+    "title": "Overcoming the Retrieval Barrier",
+    "version": "USENIX Security 2026 final",
+    "audit_scope": "Only the explicitly given-query retrieval benchmark: assess the allegation that using its supplied query violates its black-box restrictions. Future-query deployment acquisition is a separate metadata gap.",
+    "required_checks": [
+      "retrieval_barrier_declared_query"
+    ],
+    "coverage_complete": true,
+    "schema_version": 3
+  },
+  {
+    "id": "liar",
+    "title": "Glue Pizza and Eat Rocks (LIAR)",
+    "version": "EMNLP 2024 final",
+    "audit_scope": "Specific source-training grant, alleged direct target-database access and unresolved document identity/overlap. Same benchmark names do not establish target-object reads.",
+    "required_checks": [
+      "liar_same_benchmark_source_kb",
+      "liar_target_kb_direct_access",
+      "liar_source_target_document_overlap"
+    ],
+    "coverage_complete": false,
+    "schema_version": 3
+  },
+  {
+    "id": "icoa",
+    "title": "ICoA",
+    "version": "EMNLP 2026 final and cited fixed author commit e333be8e1c319be3deb6942692aaed8e640a3954",
+    "audit_scope": "Direct system-prompt read versus use of a matching separately sourced benchmark identity constant; source-specific permission remains unresolved.",
+    "required_checks": [
+      "icoa_direct_system_read",
+      "icoa_benchmark_identity_source"
+    ],
+    "coverage_complete": false,
+    "schema_version": 3
+  },
+  {
+    "id": "agentdojo",
+    "title": "AgentDojo",
+    "version": "NeurIPS 2024 final; arXiv:2406.13352v3 body cross-check",
+    "audit_scope": "Control only: whether the reported task-content/utility phenomenon alone proves prohibited private-query delivery. The phenomenon and attachment numbers are not independently verified, and no whole-paper negative claim is made.",
+    "required_checks": [
+      "agentdojo_utility_only_information_inference"
+    ],
+    "coverage_complete": true,
+    "schema_version": 3
+  },
+  {
+    "id": "asb",
+    "title": "Agent Security Bench (ASB)",
+    "version": "ICLR 2025 final",
+    "audit_scope": "Control only: whether the reported forced-tool/ASR phenomenon alone proves prohibited private-query delivery. Neither the defect nor attachment numbers are independently verified; no whole-paper negative claim is made.",
+    "required_checks": [
+      "asb_forced_tool_only_information_inference"
+    ],
+    "coverage_complete": true,
+    "schema_version": 3
+  }
+]

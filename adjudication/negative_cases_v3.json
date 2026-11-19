@@ -1,0 +1,267 @@
+[
+  {
+    "schema_version": 3,
+    "id": "topicattack_default_chatbot_benign_document",
+    "description": "Check the original suspicion that document-conditioned TopicAttack generation itself violates the no-user-instruction knowledge boundary.",
+    "source_group": "archived",
+    "scope": {
+      "paper_version": "TopicAttack, EMNLP 2025 final, Section 3 and Section 4.2",
+      "experiment_arm": "Released default chatbot attack construction using attack_prompt_transfer.txt",
+      "artifact_revision": "LukeChen-go/topicattack 2aced58ad6f3587c8ba064b5e5cad74a29ef41de; construct_attack.py SHA256 eb95d5377e066d51e2d8a710e0beb803bd596ff0342cc8ec963da2e473244732",
+      "configuration": "Static source boundary only: default GPTChatbot, default empty chatbot_system.txt, default transition template. Independent user-instruction access is a separate required claim; no historical runtime assertions."
+    },
+    "target": {
+      "role": "auxiliary attack-generation LLM",
+      "phase": "default chatbot payload construction",
+      "source": "attacker-visible benign document input field",
+      "representation": "benign document text",
+      "operation": "condition transition-generation request"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "auxiliary attack-generation LLM",
+          "phase": "default chatbot payload construction",
+          "source": "attacker-visible benign document input field",
+          "representation": "benign document text",
+          "operation": "condition transition-generation request"
+        },
+        "permission": "allow",
+        "reference": "https://aclanthology.org/2025.emnlp-main.372.pdf#page=4 (Section 3, Attackers Knowledge, continued from PDF page 3)"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "auxiliary attack-generation LLM",
+          "phase": "default chatbot payload construction",
+          "source": "attacker-visible benign document input field",
+          "representation": "benign document text",
+          "operation": "condition transition-generation request"
+        },
+        "status": "present",
+        "reference": "https://github.com/LukeChen-go/topicattack/blob/2aced58ad6f3587c8ba064b5e5cad74a29ef41de/construct_attack.py#L7-L15; https://github.com/LukeChen-go/topicattack/blob/2aced58ad6f3587c8ba064b5e5cad74a29ef41de/prompts/attack_prompt_transfer.txt"
+      }
+    ],
+    "claim": "The default chatbot attack-generation request violates the declared knowledge boundary merely by including the benign document text.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "document_content",
+      "policy_application": {
+        "status": "applicable",
+        "reference": "https://aclanthology.org/2025.emnlp-main.372.pdf#page=4 (Section 3, Attackers Knowledge, continued from PDF page 3)",
+        "reason": "Section 3 expressly permits the attacker to know the benign content being injected. This rule applies to document content, not to the separate original user-instruction field.",
+        "policy_kind": "attacker_knowledge_constraint"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "static_bound_path",
+        "task_relation": "same_evaluated_instance",
+        "reference": "https://github.com/LukeChen-go/topicattack/blob/2aced58ad6f3587c8ba064b5e5cad74a29ef41de/construct_attack.py#L7-L15; https://github.com/LukeChen-go/topicattack/blob/2aced58ad6f3587c8ba064b5e5cad74a29ef41de/prompts/attack_prompt_transfer.txt",
+        "reason": "construct_attack.py formats d_item[input] into the default transition template and passes the rendered message to model.respond. This is a bound source-level input path, not merely a dataset field existing and not a saved model request."
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reference": "https://aclanthology.org/2025.emnlp-main.372.pdf#page=4 (Section 3, Attackers Knowledge, continued from PDF page 3)",
+        "reason": "The named suspicion mistakes explicitly permitted document visibility for prohibited access to the original user instruction. Permission refutes this specific access claim, without asserting global paper consistency."
+      }
+    }
+  },
+  {
+    "schema_version": 3,
+    "id": "topicattack_default_chatbot_user_instruction_excluded",
+    "description": "Check whether the original user-instruction field is independently delivered in the default chatbot construction messages.",
+    "source_group": "archived",
+    "scope": {
+      "paper_version": "TopicAttack, EMNLP 2025 final, Section 3 and Section 4.2",
+      "experiment_arm": "Released default chatbot generation request, including its wrapper and empty system prompt",
+      "artifact_revision": "LukeChen-go/topicattack 2aced58ad6f3587c8ba064b5e5cad74a29ef41de; chatbot.py SHA256 21fd3e1323bc7279cad32ccf36bd0b88f69c0c50baeb9fae5f918f201dcbf0e4; default chatbot_system.txt empty SHA256 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "configuration": "Full direct request-construction boundary only. construct_attack.py reads the default template and passes a rendered string; GPTChatbot.respond constructs messages from that string plus the empty default system prompt. No custom template/system, natural-language inference, other generator, or historical-run claim."
+    },
+    "target": {
+      "role": "auxiliary attack-generation LLM",
+      "phase": "default chatbot payload construction",
+      "source": "independent original user instruction field",
+      "representation": "original user instruction text",
+      "operation": "condition transition-generation request",
+      "query_form": "full_query"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "auxiliary attack-generation LLM",
+          "phase": "default chatbot payload construction",
+          "source": "independent original user instruction field",
+          "representation": "original user instruction text",
+          "operation": "condition transition-generation request",
+          "query_form": "full_query"
+        },
+        "permission": "deny",
+        "reference": "https://aclanthology.org/2025.emnlp-main.372.pdf#page=4 (Section 3, Attackers Knowledge, continued from PDF page 3)"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "auxiliary attack-generation LLM",
+          "phase": "default chatbot payload construction",
+          "source": "independent original user instruction field",
+          "representation": "original user instruction text",
+          "operation": "condition transition-generation request",
+          "query_form": "full_query"
+        },
+        "status": "absent",
+        "reference": "https://github.com/LukeChen-go/topicattack/blob/2aced58ad6f3587c8ba064b5e5cad74a29ef41de/construct_attack.py#L7-L15; https://github.com/LukeChen-go/topicattack/blob/2aced58ad6f3587c8ba064b5e5cad74a29ef41de/chatbot.py#L63-L91; https://github.com/LukeChen-go/topicattack/blob/2aced58ad6f3587c8ba064b5e5cad74a29ef41de/prompts/chatbot_system.txt; https://github.com/LukeChen-go/topicattack/blob/2aced58ad6f3587c8ba064b5e5cad74a29ef41de/prompts/attack_prompt_transfer.txt"
+      }
+    ],
+    "claim": "The released default chatbot constructor sends d_item[instruction] as an independent input to the auxiliary attack-generation LLM.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "status": "applicable",
+        "reference": "https://aclanthology.org/2025.emnlp-main.372.pdf#page=4 (Section 3, Attackers Knowledge, continued from PDF page 3)",
+        "reason": "The no-original-user-input restriction applies to the attack-generation LLM in this declared construction setting. The separate allowed benign-document input is not reclassified as a query.",
+        "policy_kind": "attacker_knowledge_constraint"
+      },
+      "delivery": {
+        "status": "excluded",
+        "evidence_kind": "static_bound_path",
+        "task_relation": "same_evaluated_instance",
+        "reference": "https://github.com/LukeChen-go/topicattack/blob/2aced58ad6f3587c8ba064b5e5cad74a29ef41de/construct_attack.py#L7-L15; https://github.com/LukeChen-go/topicattack/blob/2aced58ad6f3587c8ba064b5e5cad74a29ef41de/chatbot.py#L63-L91; https://github.com/LukeChen-go/topicattack/blob/2aced58ad6f3587c8ba064b5e5cad74a29ef41de/prompts/chatbot_system.txt; https://github.com/LukeChen-go/topicattack/blob/2aced58ad6f3587c8ba064b5e5cad74a29ef41de/prompts/attack_prompt_transfer.txt",
+        "reason": "Positive request-boundary proof: the constructor renders only input, attacker injection, attacker target topic and fixed turn count; the selected template contains those slots; GPTChatbot.respond sends only the supplied rendered string and the empty default system string. No instruction-field slot or conversation-history append exists on this selected direct path. The enclosing dataset object may still store instruction for evaluation. This does not exclude inference of task facts from allowed content."
+      },
+      "refutation": {
+        "basis": "excluded_delivery",
+        "reference": "https://github.com/LukeChen-go/topicattack/blob/2aced58ad6f3587c8ba064b5e5cad74a29ef41de/construct_attack.py#L7-L15; https://github.com/LukeChen-go/topicattack/blob/2aced58ad6f3587c8ba064b5e5cad74a29ef41de/chatbot.py#L63-L91; https://github.com/LukeChen-go/topicattack/blob/2aced58ad6f3587c8ba064b5e5cad74a29ef41de/prompts/chatbot_system.txt; https://github.com/LukeChen-go/topicattack/blob/2aced58ad6f3587c8ba064b5e5cad74a29ef41de/prompts/attack_prompt_transfer.txt",
+        "reason": "The alleged independent instruction-field delivery is excluded by the complete selected message-construction path, not by a repository-wide failed text search. The conclusion is limited to this default direct request."
+      }
+    }
+  },
+  {
+    "schema_version": 3,
+    "id": "trojan_hippo_explicit_topic_seed",
+    "description": "Check the suspicion that choosing a sensitive topic for an explicit-memory training seed is itself forbidden exact-future-task access.",
+    "source_group": "archived",
+    "scope": {
+      "paper_version": "Trojan Hippo, arXiv:2605.01970v1, Sections 3.1 and 4.1",
+      "experiment_arm": "Topic-conditioned explicit-memory seed construction during adaptive training",
+      "artifact_revision": "debesheedas/trojan-hippo-benchmark ebeb739dada097e06b125faa70e82e064482b64b; openevolve_optimizer.py SHA256 698a3aa055cf052deadb77b03910768a7a6a7771d8fc590101f9f8aefa999290",
+      "configuration": "Static explicit-memory branch with nonempty attack_goal and tax in its description. Only topic selection is judged here. The separate source path that passes a concrete training user_message to the mutator is acknowledged and is not relabelled topic-only."
+    },
+    "target": {
+      "role": "offline explicit-memory seed builder",
+      "phase": "adaptive training seed construction",
+      "source": "configured attack goal topic",
+      "representation": "sensitive topic category",
+      "operation": "condition seed-email topic"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "offline explicit-memory seed builder",
+          "phase": "adaptive training seed construction",
+          "source": "configured attack goal topic",
+          "representation": "sensitive topic category",
+          "operation": "condition seed-email topic"
+        },
+        "permission": "allow",
+        "reference": "https://arxiv.org/html/2605.01970v1#S4.SS1 (Section 4.1, topic-specific training and held-out evaluation)"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "offline explicit-memory seed builder",
+          "phase": "adaptive training seed construction",
+          "source": "configured attack goal topic",
+          "representation": "sensitive topic category",
+          "operation": "condition seed-email topic"
+        },
+        "status": "present",
+        "reference": "https://github.com/debesheedas/trojan-hippo-benchmark/blob/ebeb739dada097e06b125faa70e82e064482b64b/src/benchmark/adaptive_attacks/openevolve_optimizer.py#L606-L622; https://github.com/debesheedas/trojan-hippo-benchmark/blob/ebeb739dada097e06b125faa70e82e064482b64b/src/benchmark/adaptive_attacks/openevolve_optimizer.py#L1168-L1189"
+      }
+    ],
+    "claim": "The explicit-memory offline seed builder violates the declared boundary merely by conditioning a seed on the configured tax topic.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "task_category",
+      "policy_application": {
+        "status": "applicable",
+        "reference": "https://arxiv.org/html/2605.01970v1#S4.SS1 (Section 4.1, topic-specific training and held-out evaluation)",
+        "reason": "Section 4.1 explicitly defines attack generation for a selected topic, backend and defense. That positive topic-conditioned procedure applies to this offline seed branch. No permission for arbitrary exact future test queries is inferred.",
+        "policy_kind": "attacker_knowledge_constraint"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "static_bound_path",
+        "task_relation": "topic_only",
+        "reference": "https://github.com/debesheedas/trojan-hippo-benchmark/blob/ebeb739dada097e06b125faa70e82e064482b64b/src/benchmark/adaptive_attacks/openevolve_optimizer.py#L606-L622; https://github.com/debesheedas/trojan-hippo-benchmark/blob/ebeb739dada097e06b125faa70e82e064482b64b/src/benchmark/adaptive_attacks/openevolve_optimizer.py#L1168-L1189",
+        "reason": "The explicit-memory branch invokes _build_explicit_seed_emails; this helper derives a topic phrase from attack_goal.description and inserts that category into seed templates. This source-level path confirms the category input for the named operation, not the absence of concrete training queries elsewhere."
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reference": "https://arxiv.org/html/2605.01970v1#S4.SS1 (Section 4.1, topic-specific training and held-out evaluation)",
+        "reason": "The named allegation treats the documented topic condition as prohibited user-query access. The paper explicitly authorizes this topic-conditioned attack-generation procedure, refuting that narrow allegation."
+      }
+    }
+  },
+  {
+    "schema_version": 3,
+    "id": "trojan_hippo_tax_rag_transfer_pair",
+    "description": "Check a single fixed released train_0 to test_0 tax/rag/none pair rather than all Trojan Hippo historical executions.",
+    "source_group": "archived",
+    "scope": {
+      "paper_version": "Trojan Hippo, arXiv:2605.01970v1, Section 4.1 train/test separation",
+      "experiment_arm": "One released tax/rag/none train_0 and test_0 01.json pair plus the fixed-payload propagation step",
+      "artifact_revision": "debesheedas/trojan-hippo-benchmark ebeb739dada097e06b125faa70e82e064482b64b; train-file SHA256 251810fae0cd0407e0f84600283fd17370483d8d27dc3c8ee55de5f76444593c; test-file SHA256 3a6593de0187682ebafe796ad0967a7e5791a9abfd226033458cec30234ee169",
+      "configuration": "Static one-pair transfer boundary only, no --adaptive test execution. Released step-4 query hashes differ: train dbf1d4b57701d08b056ec9e04fc0f63553715fd0d1887b04560648707ebcad1a; test 48c231234016a5cd642cc347f5f710aca6187dd89ca1769a4f644c89cbd0e480. Attack-email objects have identical sorted-key JSON SHA256 6d762ce840cd455e8027b47d06a26fff010eb07e8f671b97a5efd1bdde302740. This does not establish absence of test-query leakage in all branches or historical runs."
+    },
+    "target": {
+      "role": "attack-payload mutator",
+      "phase": "fixed-payload transfer for one released train/test pair",
+      "source": "held-out test_0 tax/rag/none/01 step-4 query",
+      "representation": "held-out test trigger query text",
+      "operation": "condition payload regeneration during propagation",
+      "query_form": "full_query"
+    },
+    "rules": [],
+    "observations": [
+      {
+        "edge": {
+          "role": "attack-payload mutator",
+          "phase": "fixed-payload transfer for one released train/test pair",
+          "source": "held-out test_0 tax/rag/none/01 step-4 query",
+          "representation": "held-out test trigger query text",
+          "operation": "condition payload regeneration during propagation",
+          "query_form": "full_query"
+        },
+        "status": "absent",
+        "reference": "https://github.com/debesheedas/trojan-hippo-benchmark/blob/ebeb739dada097e06b125faa70e82e064482b64b/scripts/propagate_train_attack_to_test_cases.py#L434-L466; https://github.com/debesheedas/trojan-hippo-benchmark/blob/ebeb739dada097e06b125faa70e82e064482b64b/scripts/propagate_train_attack_to_test_cases.py#L74-L88; https://github.com/debesheedas/trojan-hippo-benchmark/blob/ebeb739dada097e06b125faa70e82e064482b64b/data/benchmark/attack_bench/train_0/tax/rag/none/01.json; https://github.com/debesheedas/trojan-hippo-benchmark/blob/ebeb739dada097e06b125faa70e82e064482b64b/data/benchmark/attack_bench/test_0/tax/rag/none/01.json"
+      }
+    ],
+    "claim": "The fixed propagation step for the released train_0/tax/rag/none/01.json to test_0/tax/rag/none/01.json pair feeds the held-out test trigger query back into attack-payload mutation.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "status": "not_applicable",
+        "reference": "https://arxiv.org/html/2605.01970v1#S4.SS1 (Section 4.1, topic-specific training and held-out evaluation); https://github.com/debesheedas/trojan-hippo-benchmark/blob/ebeb739dada097e06b125faa70e82e064482b64b/README.md#L127-L132",
+        "reason": "No prohibition is invented from the inability to modify user queries. The suspected transfer of a training-query input to this distinct test instance is refuted at the selected propagation boundary; the training mutator and held-out transfer are different phases and instances.",
+        "policy_kind": "attacker_knowledge_constraint"
+      },
+      "delivery": {
+        "status": "excluded",
+        "evidence_kind": "static_bound_path",
+        "task_relation": "different_instance",
+        "reference": "https://github.com/debesheedas/trojan-hippo-benchmark/blob/ebeb739dada097e06b125faa70e82e064482b64b/scripts/propagate_train_attack_to_test_cases.py#L434-L466; https://github.com/debesheedas/trojan-hippo-benchmark/blob/ebeb739dada097e06b125faa70e82e064482b64b/scripts/propagate_train_attack_to_test_cases.py#L74-L88; https://github.com/debesheedas/trojan-hippo-benchmark/blob/ebeb739dada097e06b125faa70e82e064482b64b/data/benchmark/attack_bench/train_0/tax/rag/none/01.json; https://github.com/debesheedas/trojan-hippo-benchmark/blob/ebeb739dada097e06b125faa70e82e064482b64b/data/benchmark/attack_bench/test_0/tax/rag/none/01.json",
+        "reason": "Positive boundary evidence: propagation chooses an existing attack using training caches and grouping metadata, then replaces only insert_attack_email.attack_email; it makes no mutator request with the test trigger. The selected released pair has a different train and test trigger query and the same attack-email object. The exact training user_message path elsewhere therefore is not evidence of delivery of this test query."
+      },
+      "refutation": {
+        "basis": "different_instance",
+        "reference": "https://github.com/debesheedas/trojan-hippo-benchmark/blob/ebeb739dada097e06b125faa70e82e064482b64b/scripts/propagate_train_attack_to_test_cases.py#L434-L466; https://github.com/debesheedas/trojan-hippo-benchmark/blob/ebeb739dada097e06b125faa70e82e064482b64b/scripts/propagate_train_attack_to_test_cases.py#L74-L88; https://github.com/debesheedas/trojan-hippo-benchmark/blob/ebeb739dada097e06b125faa70e82e064482b64b/data/benchmark/attack_bench/train_0/tax/rag/none/01.json; https://github.com/debesheedas/trojan-hippo-benchmark/blob/ebeb739dada097e06b125faa70e82e064482b64b/data/benchmark/attack_bench/test_0/tax/rag/none/01.json",
+        "reason": "The cited concrete training query and the named held-out query are distinct instances, and the selected transfer operation excludes the claimed regeneration input. This refutes only this one-pair propagation allegation, not future-query acquisition across the paper."
+      }
+    }
+  }
+]

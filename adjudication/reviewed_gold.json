@@ -1,0 +1,17 @@
+{
+  "adaptools": "insufficient_evidence",
+  "blind_spots": "inconsistent",
+  "aspi": "insufficient_evidence",
+  "muzzle": "insufficient_evidence",
+  "fha": "insufficient_evidence",
+  "agentcon": "inconsistent",
+  "retrieval_barrier": "consistent_within_scope",
+  "liar": "insufficient_evidence",
+  "obliinjection": "inconsistent",
+  "webtrap": "inconsistent",
+  "icoa": "insufficient_evidence",
+  "trojan_hippo": "consistent_within_scope",
+  "topicattack": "consistent_within_scope",
+  "agentdojo": "consistent_within_scope",
+  "asb": "consistent_within_scope"
+}

@@ -1,0 +1,24 @@
+[
+  {
+    "id": "topicattack",
+    "title": "TopicAttack",
+    "version": "EMNLP 2025 final; released source 2aced58ad6f3587c8ba064b5e5cad74a29ef41de",
+    "audit_scope": "Two specific allegations at the default released chatbot construction boundary: that explicitly allowed benign-document conditioning is prohibited, and that the independent original user-instruction field enters that generation request. Includes the selected wrapper and empty default system prompt. Excludes custom templates, agent/defense branches, natural-language inference from permitted content, and unobserved historical executions.",
+    "required_checks": [
+      "topicattack_default_chatbot_benign_document",
+      "topicattack_default_chatbot_user_instruction_excluded"
+    ],
+    "coverage_complete": true
+  },
+  {
+    "id": "trojan_hippo",
+    "title": "Trojan Hippo",
+    "version": "arXiv:2605.01970v1; released source ebeb739dada097e06b125faa70e82e064482b64b",
+    "audit_scope": "Two bounded suspicions only: permitted tax-topic conditioning in the explicit-memory offline seed helper, and alleged held-out-query feedback in the fixed propagation boundary of the single released train_0/test_0 tax/rag/none/01 pair. Explicitly does not claim that the training mutator sees only topic labels; its concrete training-query input is acknowledged. No global claim about all tests, configurations or historical executions.",
+    "required_checks": [
+      "trojan_hippo_explicit_topic_seed",
+      "trojan_hippo_tax_rag_transfer_pair"
+    ],
+    "coverage_complete": true
+  }
+]

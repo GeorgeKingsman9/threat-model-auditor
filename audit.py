@@ -15,6 +15,9 @@ CASE_FILES = (
     "paper_text_cases.json",
     "paper_text_cases_more.json",
 )
+REVIEWED_CASE_FILES = ("adjudication/reviewed_cases.json",)
+REVIEWED_PAPERS_FILE = "adjudication/reviewed_papers.json"
+REVIEWED_GOLD_FILE = "adjudication/reviewed_gold.json"
 LABELS = {
     "inconsistent": "有已确认的不一致",
     "consistent_within_scope": "审计范围内一致",
@@ -30,8 +33,10 @@ def load_inputs(args):
     # 自定义输入必须同时给声明/证据文件和论文清单，避免混入内置数据。
     if bool(args.cases) != bool(args.papers):
         raise ValueError("--cases and --papers must be supplied together")
-    paths = args.cases or [ROOT / name for name in CASE_FILES]
-    papers = read_json(args.papers or ROOT / "paper_pilot.json")
+    bundled_cases = CASE_FILES if args.legacy else REVIEWED_CASE_FILES
+    bundled_papers = "paper_pilot.json" if args.legacy else REVIEWED_PAPERS_FILE
+    paths = args.cases or [ROOT / name for name in bundled_cases]
+    papers = read_json(args.papers or ROOT / bundled_papers)
     if not isinstance(papers, list) or not papers:
         raise ValueError("papers must be a nonempty JSON array")
     ids = [paper["id"] for paper in papers]
@@ -76,6 +81,7 @@ def compact_report(report, details):
     fields = (
         "id", "title", "version", "audit_scope", "has_confirmed_inconsistency",
         "verdict", "reason", "coverage_complete", "expected", "matches_gold",
+        "claim_result_counts", "validation_modes",
     )
     return {
         **report,
@@ -104,6 +110,7 @@ def make_parser():
     subparsers = parser.add_subparsers(dest="command", required=True)
     listing = subparsers.add_parser("list", help="List the bundled paper IDs")
     listing.add_argument("--json", action="store_true", help="Print the paper catalog as JSON")
+    listing.add_argument("--legacy", action="store_true", help="Use the legacy V2 paper catalog")
     for command in ("audit", "evaluate"):
         sub = subparsers.add_parser(
             command,
@@ -112,6 +119,7 @@ def make_parser():
         sub.add_argument("paper_ids", nargs="+", metavar="PAPER", help="One or more IDs, or all")
         sub.add_argument("--cases", nargs="+", type=Path, help="Custom normalized case JSON files")
         sub.add_argument("--papers", type=Path, help="Custom paper catalog JSON")
+        sub.add_argument("--legacy", action="store_true", help="Use the bundled legacy V2 inputs")
         sub.add_argument("--json", action="store_true", help="Print JSON instead of a table")
         sub.add_argument("--details", action="store_true", help="Include evidence in JSON output")
         sub.add_argument("--output", type=Path, help="Also save the report as JSON; refuse overwrite")
@@ -125,7 +133,8 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:
         if args.command == "list":
-            papers = read_json(ROOT / "paper_pilot.json")
+            catalog = "paper_pilot.json" if args.legacy else REVIEWED_PAPERS_FILE
+            papers = read_json(ROOT / catalog)
             if args.json:
                 print(json.dumps(papers, ensure_ascii=False, indent=2))
             else:
@@ -148,7 +157,8 @@ def main(argv=None):
         if args.command == "evaluate":
             if args.cases and args.gold is None:
                 raise ValueError("custom evaluation requires an explicit --gold file")
-            all_gold = read_json(args.gold or ROOT / "paper_pilot_gold.json")
+            bundled_gold = "paper_pilot_gold.json" if args.legacy else REVIEWED_GOLD_FILE
+            all_gold = read_json(args.gold or ROOT / bundled_gold)
             if not isinstance(all_gold, dict) or set(all_gold) != {p["id"] for p in papers}:
                 raise ValueError("gold must contain exactly the IDs in the paper catalog")
             gold = {paper["id"]: all_gold[paper["id"]] for paper in selected}

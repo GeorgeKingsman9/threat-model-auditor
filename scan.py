@@ -10,7 +10,7 @@ import sys
 import time
 
 from documents import load_document
-from extraction import (EXTRACTION_SCHEMA, REVIEW_SCHEMA, EXTRACT_PROMPT, REVIEW_PROMPT,
+from extraction_v3 import (EXTRACTION_SCHEMA, REVIEW_SCHEMA, EXTRACT_PROMPT, REVIEW_PROMPT,
                         decide_extraction, prompt_hash, validate_shape)
 from providers import ModelClient
 from reports import write_reports
@@ -36,6 +36,12 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
     stage = "ingestion"
     started = time.monotonic()
     try:
+        # V2 outputs remain replayable as historical evidence; live inference
+        # always requests V3 and may not silently fall back to the old contract.
+        if extraction is not None and extraction.get("schema_version", 2) == 2:
+            import extraction as engine
+        else:
+            import extraction_v3 as engine
         if isinstance(prepared, (str, Path)):
             prepared = json.loads(Path(prepared).read_text(encoding="utf-8"))
         document = dict(prepared) if prepared is not None else load_document(source)
@@ -63,7 +69,7 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
         if len(document["text"]) > max_input_chars:
             raise ValueError("document exceeds the configured model input limit; not silently truncated")
         save_json(output_dir / "request.json", {
-            "prompt_sha256": prompt_hash(), "input_sha256": document["sha256"],
+            "prompt_sha256": engine.prompt_hash(), "input_sha256": document["sha256"],
             "max_input_chars": max_input_chars, "evidence_scope": "supplied_document_only",
             "engine": type(client).__name__ if client else "no_model_or_replay",
         })
@@ -72,13 +78,17 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
             row["stages"].append({"stage": "extraction", "status": "not_run"})
         else:
             stage = "extraction"
-            content = {"source_type": document["media_type"], "segments": document["segments"]}
+            # Use a logical reading-order view for model input when the PDF
+            # reader can supply one. Keep both source views for exact locators.
+            model_segments = [{"id": part["id"], "text": part.get("reading_order_text", part["text"])}
+                              for part in document["segments"]]
+            content = {"source_type": document["media_type"], "segments": model_segments}
             if extraction is None:
                 if client is None:
                     raise ValueError("choose an inference engine, or supply extraction and review JSON for replay")
-                extraction = client.generate(EXTRACT_PROMPT, content, EXTRACTION_SCHEMA)
+                extraction = client.generate(engine.EXTRACT_PROMPT, content, engine.EXTRACTION_SCHEMA)
             save_json(output_dir / "extraction.json", extraction)
-            validate_shape(extraction, EXTRACTION_SCHEMA)
+            validate_shape(extraction, engine.EXTRACTION_SCHEMA)
             row["title"] = extraction["title"]
             row["stages"].append({"stage": stage, "status": "completed",
                                   "applicability": extraction["applicability"],
@@ -87,14 +97,14 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
             if review is None:
                 if client is None:
                     raise ValueError("replay requires a separate review JSON")
-                review = client.generate(REVIEW_PROMPT, {**content, "proposal": extraction}, REVIEW_SCHEMA)
+                review = client.generate(engine.REVIEW_PROMPT, {**content, "proposal": extraction}, engine.REVIEW_SCHEMA)
             save_json(output_dir / "review.json", review)
-            validate_shape(review, REVIEW_SCHEMA)
+            validate_shape(review, engine.REVIEW_SCHEMA)
             row["stages"].append({"stage": stage, "status": "completed",
                                   "applicability": review["applicability"]})
             stage = "citation_validation_and_decision"
-            row.update(decide_extraction(extraction, review, document, paper_id))
-            row.update(status="completed", input_mode="document_only", prompt_sha256=prompt_hash())
+            row.update(engine.decide_extraction(extraction, review, document, paper_id))
+            row.update(status="completed", input_mode="document_only", prompt_sha256=engine.prompt_hash())
             row["stages"].append({"stage": stage, "status": "completed",
                                   "verdict": row["verdict"], "reason": row["reason"]})
     except (OSError, ValueError, KeyError, TypeError, AttributeError) as error:
@@ -138,6 +148,8 @@ def main(argv=None):
     parser.add_argument("source", help="Local PDF/HTML/TXT path or HTTP(S) paper URL")
     parser.add_argument("--output", type=Path, required=True, help="New output directory")
     parser.add_argument("--prepare-only", action="store_true", help="Read document without model calls")
+    parser.add_argument("--max-input-chars", type=int, default=180000,
+                        help="Explicit text limit; oversized inputs fail without truncation")
     parser.add_argument("--extraction", type=Path, help="Replay a stored extraction JSON")
     parser.add_argument("--review", type=Path, help="Replay a stored semantic-review JSON")
     add_engine_arguments(parser)
@@ -151,7 +163,7 @@ def main(argv=None):
         extraction = json.loads(args.extraction.read_text()) if args.extraction else None
         review = json.loads(args.review.read_text()) if args.review else None
         row = scan_source(args.source, args.output, client, args.prepare_only,
-                          extraction=extraction, review=review)
+                          extraction=extraction, review=review, max_input_chars=args.max_input_chars)
         report = make_report([row], "document_preparation" if args.prepare_only else "document_audit")
         if client:
             report["inference"] = client.ledger()

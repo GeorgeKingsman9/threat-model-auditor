@@ -1,0 +1,181 @@
+{
+  "description": "15 independently source-adjudicated, explicitly scoped cases plus 3 out-of-domain controls. These labels cover the documented reviewed suspicions, not every possible paper claim. PDF-only input may omit code/archive evidence; reference-label agreement is not detection accuracy.",
+  "papers": [
+    {
+      "id": "adaptools",
+      "title": "AdapTools",
+      "source": "https://aclanthology.org/2026.emnlp-main.2055.pdf",
+      "cohort": "curated_ipi",
+      "expected": "insufficient_evidence",
+      "expected_basis": "source_adjudicated_listed_suspicions",
+      "comparison_note": "Reference applies only to the listed source-adjudicated suspicions. Machine PDF-only claims may differ; inspect claim-level semantics before scoring errors.",
+      "reference_expected": "insufficient_evidence"
+    },
+    {
+      "id": "blind_spots",
+      "title": "Blind Spots in the Guard",
+      "source": "https://arxiv.org/pdf/2605.22001v1",
+      "cohort": "curated_ipi",
+      "expected": "inconsistent",
+      "expected_basis": "source_adjudicated_listed_suspicions",
+      "comparison_note": "Reference applies only to the listed source-adjudicated suspicions. Machine PDF-only claims may differ; inspect claim-level semantics before scoring errors.",
+      "reference_expected": "inconsistent"
+    },
+    {
+      "id": "aspi",
+      "title": "ASPI",
+      "source": "https://arxiv.org/pdf/2605.17324v1",
+      "cohort": "curated_ipi",
+      "expected": "insufficient_evidence",
+      "expected_basis": "source_adjudicated_listed_suspicions",
+      "comparison_note": "Reference applies only to the listed source-adjudicated suspicions. Machine PDF-only claims may differ; inspect claim-level semantics before scoring errors.",
+      "reference_expected": "inconsistent"
+    },
+    {
+      "id": "muzzle",
+      "title": "MUZZLE",
+      "source": "https://www.usenix.org/system/files/usenixsecurity26-syros.pdf",
+      "cohort": "curated_ipi",
+      "expected": "insufficient_evidence",
+      "expected_basis": "source_adjudicated_listed_suspicions",
+      "comparison_note": "Reference applies only to the listed source-adjudicated suspicions. Machine PDF-only claims may differ; inspect claim-level semantics before scoring errors.",
+      "reference_expected": "insufficient_evidence"
+    },
+    {
+      "id": "fha",
+      "title": "Breaking MCP with Function Hijacking Attacks (FHA)",
+      "source": "https://arxiv.org/pdf/2604.20994v2",
+      "cohort": "curated_ipi",
+      "expected": "insufficient_evidence",
+      "expected_basis": "source_adjudicated_listed_suspicions",
+      "comparison_note": "Reference applies only to the listed source-adjudicated suspicions. Machine PDF-only claims may differ; inspect claim-level semantics before scoring errors.",
+      "reference_expected": "inconsistent"
+    },
+    {
+      "id": "agentcon",
+      "title": "AGENTCON",
+      "source": "https://openreview.net/pdf?id=AMIb7RWnBI",
+      "cohort": "curated_ipi",
+      "expected": "inconsistent",
+      "expected_basis": "source_adjudicated_listed_suspicions",
+      "comparison_note": "Reference applies only to the listed source-adjudicated suspicions. Machine PDF-only claims may differ; inspect claim-level semantics before scoring errors.",
+      "reference_expected": "inconsistent"
+    },
+    {
+      "id": "retrieval_barrier",
+      "title": "Overcoming the Retrieval Barrier",
+      "source": "https://www.usenix.org/system/files/usenixsecurity26-chang-hongyan.pdf",
+      "cohort": "curated_ipi",
+      "expected": "consistent_within_scope",
+      "expected_basis": "source_adjudicated_listed_suspicions",
+      "comparison_note": "Reference applies only to the listed source-adjudicated suspicions. Machine PDF-only claims may differ; inspect claim-level semantics before scoring errors.",
+      "reference_expected": "consistent_within_scope"
+    },
+    {
+      "id": "liar",
+      "title": "Glue Pizza and Eat Rocks (LIAR)",
+      "source": "https://aclanthology.org/2024.emnlp-main.96.pdf",
+      "cohort": "curated_ipi",
+      "expected": "insufficient_evidence",
+      "expected_basis": "source_adjudicated_listed_suspicions",
+      "comparison_note": "Reference applies only to the listed source-adjudicated suspicions. Machine PDF-only claims may differ; inspect claim-level semantics before scoring errors.",
+      "reference_expected": "inconsistent"
+    },
+    {
+      "id": "obliinjection",
+      "title": "ObliInjection",
+      "source": "https://arxiv.org/pdf/2512.09321v3",
+      "cohort": "curated_ipi",
+      "expected": "inconsistent",
+      "expected_basis": "source_adjudicated_listed_suspicions",
+      "comparison_note": "Reference applies only to the listed source-adjudicated suspicions. Machine PDF-only claims may differ; inspect claim-level semantics before scoring errors.",
+      "reference_expected": "inconsistent"
+    },
+    {
+      "id": "webtrap",
+      "title": "WebTrap",
+      "source": "https://arxiv.org/pdf/2605.08310v1",
+      "cohort": "curated_ipi",
+      "expected": "inconsistent",
+      "expected_basis": "source_adjudicated_listed_suspicions",
+      "comparison_note": "Reference applies only to the listed source-adjudicated suspicions. Machine PDF-only claims may differ; inspect claim-level semantics before scoring errors.",
+      "reference_expected": "inconsistent"
+    },
+    {
+      "id": "icoa",
+      "title": "ICoA",
+      "source": "https://aclanthology.org/2026.emnlp-main.2035.pdf",
+      "cohort": "curated_ipi",
+      "expected": "insufficient_evidence",
+      "expected_basis": "source_adjudicated_listed_suspicions",
+      "comparison_note": "Reference applies only to the listed source-adjudicated suspicions. Machine PDF-only claims may differ; inspect claim-level semantics before scoring errors.",
+      "reference_expected": "insufficient_evidence"
+    },
+    {
+      "id": "attention",
+      "title": "Attention Is All You Need",
+      "source": "https://papers.nips.cc/paper_files/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf",
+      "cohort": "out_of_domain",
+      "expected": "not_applicable",
+      "expected_basis": "domain_selection",
+      "comparison_note": "Reference applies only to the listed source-adjudicated suspicions. Machine PDF-only claims may differ; inspect claim-level semantics before scoring errors.",
+      "reference_expected": "not_applicable"
+    },
+    {
+      "id": "resnet",
+      "title": "Deep Residual Learning for Image Recognition",
+      "source": "https://arxiv.org/pdf/1512.03385v1",
+      "cohort": "out_of_domain",
+      "expected": "not_applicable",
+      "expected_basis": "domain_selection",
+      "comparison_note": "Reference applies only to the listed source-adjudicated suspicions. Machine PDF-only claims may differ; inspect claim-level semantics before scoring errors.",
+      "reference_expected": "not_applicable"
+    },
+    {
+      "id": "adam",
+      "title": "Adam: A Method for Stochastic Optimization",
+      "source": "https://arxiv.org/pdf/1412.6980v1",
+      "cohort": "out_of_domain",
+      "expected": "not_applicable",
+      "expected_basis": "domain_selection",
+      "comparison_note": "Reference applies only to the listed source-adjudicated suspicions. Machine PDF-only claims may differ; inspect claim-level semantics before scoring errors.",
+      "reference_expected": "not_applicable"
+    },
+    {
+      "id": "trojan_hippo",
+      "title": "Trojan Hippo",
+      "source": "https://arxiv.org/pdf/2605.01970v1",
+      "cohort": "previously_suspected_control",
+      "expected": "consistent_within_scope",
+      "expected_basis": "source_adjudicated_listed_suspicions",
+      "comparison_note": "Reference applies only to the listed source-adjudicated suspicions. Machine PDF-only claims may differ; inspect claim-level semantics before scoring errors."
+    },
+    {
+      "id": "topicattack",
+      "title": "TopicAttack",
+      "source": "https://aclanthology.org/2025.emnlp-main.372.pdf",
+      "cohort": "previously_suspected_control",
+      "expected": "consistent_within_scope",
+      "expected_basis": "source_adjudicated_listed_suspicions",
+      "comparison_note": "Reference applies only to the listed source-adjudicated suspicions. Machine PDF-only claims may differ; inspect claim-level semantics before scoring errors."
+    },
+    {
+      "id": "agentdojo",
+      "title": "AgentDojo",
+      "source": "https://papers.neurips.cc/paper_files/paper/2024/file/97091a5177d8dc64b1da8bf3e1f6fb54-Paper-Datasets_and_Benchmarks_Track.pdf",
+      "cohort": "previously_suspected_control",
+      "expected": "consistent_within_scope",
+      "expected_basis": "source_adjudicated_listed_suspicions",
+      "comparison_note": "Reference applies only to the listed source-adjudicated suspicions. Machine PDF-only claims may differ; inspect claim-level semantics before scoring errors."
+    },
+    {
+      "id": "asb",
+      "title": "Agent Security Benchmark",
+      "source": "https://proceedings.iclr.cc/paper_files/paper/2025/file/5750f91d8fb9d5c02bd8ad2c3b44456b-Paper-Conference.pdf",
+      "cohort": "previously_suspected_control",
+      "expected": "consistent_within_scope",
+      "expected_basis": "source_adjudicated_listed_suspicions",
+      "comparison_note": "Reference applies only to the listed source-adjudicated suspicions. Machine PDF-only claims may differ; inspect claim-level semantics before scoring errors."
+    }
+  ]
+}

@@ -10,6 +10,23 @@ import unittest
 
 
 ROOT = Path(__file__).resolve().parents[1]
+REVIEWED_VERDICTS = {
+    "blind_spots": "inconsistent",
+    "fha": "insufficient_evidence",
+    "agentcon": "inconsistent",
+    "obliinjection": "inconsistent",
+    "webtrap": "inconsistent",
+    "aspi": "insufficient_evidence",
+    "adaptools": "insufficient_evidence",
+    "muzzle": "insufficient_evidence",
+    "liar": "insufficient_evidence",
+    "icoa": "insufficient_evidence",
+    "retrieval_barrier": "consistent_within_scope",
+    "trojan_hippo": "consistent_within_scope",
+    "topicattack": "consistent_within_scope",
+    "agentdojo": "consistent_within_scope",
+    "asb": "consistent_within_scope",
+}
 
 
 class CommandLineTests(unittest.TestCase):
@@ -90,14 +107,22 @@ class CommandLineTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         papers = json.loads(result.stdout)
         ids = [paper["id"] for paper in papers]
-        self.assertEqual(len(ids), 11)
+        self.assertEqual(set(ids), set(REVIEWED_VERDICTS))
         self.assertEqual(len(ids), len(set(ids)))
         self.assertIn("aspi", ids)
         self.assertIn("muzzle", ids)
 
+    def test_legacy_list_uses_the_previous_catalog(self):
+        result = self.run_cli("list", "--legacy", "--json")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        ids = [paper["id"] for paper in json.loads(result.stdout)]
+        self.assertEqual(len(ids), 11)
+        self.assertEqual(len(ids), len(set(ids)))
+        self.assertNotIn("trojan_hippo", ids)
+
     def test_one_paper_one_verdict_and_uncertainty_preserved(self):
         for paper_id, confirmed, verdict in (
-            ("aspi", True, "inconsistent"),
+            ("aspi", False, "insufficient_evidence"),
             ("muzzle", False, "insufficient_evidence"),
         ):
             with self.subTest(paper=paper_id):
@@ -108,18 +133,48 @@ class CommandLineTests(unittest.TestCase):
                 self.assertEqual(row["id"], paper_id)
                 self.assertIs(row["has_confirmed_inconsistency"], confirmed)
                 self.assertEqual(row["verdict"], verdict)
+                self.assertTrue(row["claim_result_counts"])
+                self.assertEqual(row["validation_modes"], ["scope_review_v3"])
                 self.assertNotIn("evidence", row)
                 self.assertNotIn("expected", row)
                 self.assertNotIn("comparison", report)
+
+    def test_legacy_audit_preserves_its_original_aspi_finding(self):
+        report = self.get_report("audit", "--legacy", "aspi")
+        row = report["papers"][0]
+        self.assertEqual(row["verdict"], "inconsistent")
+        self.assertIs(row["has_confirmed_inconsistency"], True)
+        self.assertEqual(row["validation_modes"], ["legacy_v2"])
+        self.assertNotIn("comparison", report)
 
     def test_default_output_is_one_row_per_paper(self):
         result = self.run_cli("audit", "all")
         self.assertEqual(result.returncode, 0, result.stderr)
         lines = result.stdout.splitlines()
         self.assertEqual(lines[0], "paper\tconfirmed_inconsistency\tstatus")
-        self.assertEqual(len(lines[1:]), 11)
+        self.assertEqual(len(lines[1:]), 15)
         ids = [line.split("\t")[0] for line in lines[1:]]
         self.assertEqual(len(ids), len(set(ids)))
+
+    def test_legacy_output_keeps_one_row_for_each_previous_paper(self):
+        result = self.run_cli("audit", "all", "--legacy")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        lines = result.stdout.splitlines()
+        self.assertEqual(lines[0], "paper\tconfirmed_inconsistency\tstatus")
+        self.assertEqual(len(lines[1:]), 11)
+
+    def test_new_paper_ids_and_hyphenated_alias_are_available(self):
+        report = self.get_report("audit", "trojan-hippo", "topicattack", "agentdojo", "asb")
+        self.assertEqual(report["paper_count"], 4)
+        self.assertEqual(
+            [row["id"] for row in report["papers"]],
+            ["trojan_hippo", "topicattack", "agentdojo", "asb"],
+        )
+        for row in report["papers"]:
+            self.assertEqual(row["verdict"], "consistent_within_scope")
+            self.assertIs(row["has_confirmed_inconsistency"], False)
+            self.assertTrue(row["claim_result_counts"])
+            self.assertEqual(row["validation_modes"], ["scope_review_v3"])
 
     def test_details_keep_evidence_under_the_same_paper(self):
         report = self.get_report("audit", "aspi", "--details")
@@ -206,6 +261,22 @@ class CommandLineTests(unittest.TestCase):
 
     def test_bundled_evaluation_matches_the_curated_regression_labels(self):
         report = self.get_report("evaluate", "all")
+        self.assertEqual(report["comparison"], {"matched": 15, "total": 15})
+        self.assertEqual(report["verdict_counts"], {
+            "inconsistent": 4,
+            "consistent_within_scope": 5,
+            "insufficient_evidence": 6,
+        })
+        self.assertEqual(
+            {row["id"]: row["verdict"] for row in report["papers"]},
+            REVIEWED_VERDICTS,
+        )
+        for row in report["papers"]:
+            self.assertEqual(row["validation_modes"], ["scope_review_v3"])
+            self.assertTrue(row["claim_result_counts"])
+
+    def test_legacy_evaluation_matches_the_original_regression_labels(self):
+        report = self.get_report("evaluate", "all", "--legacy")
         self.assertEqual(report["comparison"], {"matched": 11, "total": 11})
         self.assertEqual(report["verdict_counts"], {
             "inconsistent": 7,

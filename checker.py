@@ -5,6 +5,8 @@ import json
 from collections import Counter
 from pathlib import Path
 
+from scope_review import assess_claim
+
 
 EDGE_FIELDS = ("role", "phase", "source", "representation", "operation")
 QUERY_FORMS = {"full_query", "partial_query"}
@@ -83,10 +85,11 @@ def audit_case(case):
     observations = matching_records(
         case["observations"], target, "status", OBSERVATION_STATES
     )
-    verdict, reason = decide(
-        {rule["permission"] for rule in rules},
-        {observation["status"] for observation in observations},
-    )
+    permissions = {rule["permission"] for rule in rules}
+    states = {observation["status"] for observation in observations}
+    verdict, reason = decide(permissions, states)
+    assessment = assess_claim(case, verdict, reason, permissions, states)
+    verdict, reason = assessment["verdict"], assessment["reason"]
     result = {
         "id": case_id,
         "source_group": source_group,
@@ -98,9 +101,12 @@ def audit_case(case):
         "matching_rules": rules,
         "matching_observations": observations,
         "other_observation_count": len(case["observations"]) - len(observations),
+        **assessment,
     }
     if "note" in case:
         result["note"] = case["note"]
+    if "behavioral_impact" in case:
+        result["behavioral_impact"] = case["behavioral_impact"]
     if "input_provenance_gap" in case:
         gap = case["input_provenance_gap"]
         result["input_provenance_gap"] = {
@@ -194,6 +200,12 @@ def summarize_paper(paper, rows_by_id):
         "resolved_checks": len(checks) - len(unresolved),
         "confirmed_findings": findings,
         "unresolved_checks": unresolved,
+        "claim_result_counts": dict(Counter(row["claim_result"] for row in examined)),
+        "validation_modes": sorted({row["validation_mode"] for row in examined}),
+        "behavioral_impact": [
+            {"case_id": row["id"], **row["behavioral_impact"]}
+            for row in examined if isinstance(row.get("behavioral_impact"), dict)
+        ],
         "input_provenance_gaps": [
             {"case_id": row["id"], **row["input_provenance_gap"]}
             for row in examined if "input_provenance_gap" in row

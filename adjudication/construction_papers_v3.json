@@ -1,0 +1,45 @@
+[
+  {
+    "id": "aspi",
+    "title": "ASPI",
+    "version": "arXiv:2605.17324v1",
+    "audit_scope": "Stage 1 original-task access and released offline Stage 2 partial-task input used for clarif_user at the frozen revision. The external §3 restriction's applicability to the stronger direct-user baseline remains unresolved. Other channels and historical dynamic generation have separate scope.",
+    "required_checks": [
+      "aspi_stage1_designer_task",
+      "aspi_released_stage2_partial_query"
+    ],
+    "coverage_complete": false
+  },
+  {
+    "id": "blind_spots",
+    "title": "Blind Spots in the Guard",
+    "version": "arXiv:2605.22001v1",
+    "audit_scope": "Only the evaluated-case clean_context input to the archived Exp. 1 generator at revision 9a21b5a230cbcc92ec66987aa7814c188881108a, assessed against §2. Candidate selection, all other channels and author historical run provenance are outside this finite input check.",
+    "required_checks": [
+      "blind_spots_exp1_document_access"
+    ],
+    "coverage_complete": true
+  },
+  {
+    "id": "obliinjection",
+    "title": "ObliInjection",
+    "version": "arXiv:2512.09321v3",
+    "audit_scope": "The complete evaluation-matched HotpotQA question delivered to the released optimizer at revision b1f6a3f48c0cf121534374cbcef453832594867b, plus the separate and unverified original Table XI generator-input claim. No behavioral-impact condition determines either information-boundary verdict.",
+    "required_checks": [
+      "obli_released_optimizer_full_target_query",
+      "obli_table_xi_historical_question"
+    ],
+    "coverage_complete": false
+  },
+  {
+    "id": "webtrap",
+    "title": "WebTrap",
+    "version": "arXiv:2605.08310v1",
+    "audit_scope": "Only the selected internal target-relative-path field in the saved final generator requests for case_0001 and case_0004 under ORIGINAL and the local LIMITED_CONTEXT control, with source base f8255c83d4a569fc374198b67717fcbee17af1fb. Other information channels, other cases, historical author runs and behavioral effects are outside this finite input check.",
+    "required_checks": [
+      "webtrap_original_internal_path",
+      "webtrap_limited_internal_path"
+    ],
+    "coverage_complete": true
+  }
+]

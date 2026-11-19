@@ -201,12 +201,17 @@ class _PaperHTML(HTMLParser):
         return "\n".join(line for line in lines if line).strip()
 
 
-def _pdf_pages(data: bytes) -> list[str]:
+def _pdftotext_pages(data: bytes, *, layout: bool) -> list[str] | None:
+    """Return one Poppler extraction, or None when it is unavailable."""
     try:
         with tempfile.TemporaryDirectory(prefix="paper-text-") as directory:
             output = Path(directory) / "extracted.txt"
+            command = ["pdftotext"]
+            if layout:
+                command.append("-layout")
+            command.extend(["-enc", "UTF-8", "-", str(output)])
             result = subprocess.run(
-                ["pdftotext", "-layout", "-enc", "UTF-8", "-", str(output)],
+                command,
                 input=data, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE,
                 timeout=TIMEOUT_SECONDS, check=False,
             )
@@ -226,7 +231,10 @@ def _pdf_pages(data: bytes) -> list[str]:
         raise DocumentError("PDF text extraction timed out") from error
     except OSError as error:
         raise DocumentError("Could not run PDF text extraction") from error
+    return None
 
+
+def _pypdf_pages(data: bytes) -> list[str]:
     try:
         pypdf = importlib.import_module("pypdf")
     except ImportError as error:
@@ -239,6 +247,47 @@ def _pdf_pages(data: bytes) -> list[str]:
     if sum(len(page.encode("utf-8")) for page in pages) > MAX_BYTES:
         raise DocumentError("Extracted text exceeds the 20 MiB size limit")
     return pages
+
+
+def _pdf_pages(data: bytes) -> list[str]:
+    """Preserve the original layout-first extraction for existing callers."""
+    pages = _pdftotext_pages(data, layout=True)
+    return pages if pages is not None else _pypdf_pages(data)
+
+
+def pdf_text_views(data: bytes) -> list[dict[str, str]]:
+    """Extract page-aligned layout and reading-order views from the same bytes.
+
+    With both Poppler views available, ``text`` is its default reading order
+    and ``layout_text`` preserves the original layout extraction. Otherwise
+    only the original page text is returned. Alternate extraction failures
+    and page-count differences leave that original view intact.
+    """
+    pages = _pdftotext_pages(data, layout=True)
+    if pages is None:
+        return [
+            {"id": f"p{index}", "text": text}
+            for index, text in enumerate(_pypdf_pages(data), 1)
+        ]
+    original = [
+        {"id": f"p{index}", "text": text}
+        for index, text in enumerate(pages, 1)
+    ]
+    try:
+        reading_pages = _pdftotext_pages(data, layout=False)
+    except DocumentError:
+        return original
+    if reading_pages is None or len(reading_pages) != len(pages):
+        return original
+    return [
+        {
+            "id": f"p{index}",
+            "text": reading,
+            "layout_text": layout,
+            "source_extraction_version": "pdftotext-reading-order-v1",
+        }
+        for index, (layout, reading) in enumerate(zip(pages, reading_pages), 1)
+    ]
 
 
 def _decode_text(data: bytes) -> tuple[str, bool]:
@@ -373,10 +422,17 @@ def load_document(source: str) -> dict:
             links.append(label)
 
     if media_type == "application/pdf":
-        pages = _pdf_pages(data)
+        views = pdf_text_views(data)
+        segments = []
+        for view in views:
+            segment = {"id": view["id"], "text": view.get("layout_text", view["text"])}
+            if "layout_text" in view:
+                segment["reading_order_text"] = view["text"]
+                segment["source_extraction_version"] = view["source_extraction_version"]
+            segments.append(segment)
+        pages = [segment["text"] for segment in segments]
         if not pages or not any(page.strip() for page in pages):
             raise DocumentError("PDF has no extractable text; OCR is not provided")
-        segments = [{"id": f"p{index}", "text": text} for index, text in enumerate(pages, 1)]
         complete = all(page.strip() for page in pages)
         reason = "Text extracted from every PDF page; OCR and visual content are not inspected" if complete else "Some PDF pages have no extractable text; OCR is not provided"
         text = "\n\n".join(pages)

@@ -26,12 +26,15 @@ class FakeClient:
         self.calls.append(copy.deepcopy({"system": system, "content": content, "schema": schema}))
         if len(self.calls) % 2:
             return {
+                "schema_version": 3,
                 "title": "Title from supplied document", "applicability": "in_scope",
                 "applicability_reason": "The supplied fixture is an IPI paper.",
                 "applicability_citation": {"segment_id": "s1", "quote": "indirect prompt injection"},
-                "scope_summary": "Supplied document only", "flows": [], "limitations": ["Fixture, not a real model"],
+                "scope_summary": "Supplied document only", "flows": [], "unresolved_questions": [],
+                "limitations": ["Fixture, not a real model"],
             }
         return {
+            "schema_version": 3, "scope_review_complete": False,
             "applicability": "in_scope", "applicability_supported": True,
             "flow_reviews": [], "limitations": ["Fixture semantic review"],
         }
@@ -77,7 +80,7 @@ class BenchmarkIntegrationTests(unittest.TestCase):
     def test_regression_retains_all_fourteen_papers_and_three_unrun_controls(self):
         output = self.directory / "regression"
         with patch.object(benchmark, "get_client", side_effect=AssertionError("Regression selects no model")):
-            self.assertEqual(self.run_main(["--mode", "regression", "--output", output]), 0)
+            self.assertEqual(self.run_main(["--mode", "regression", "--legacy", "--output", output]), 0)
         report = json.loads((output / "report.json").read_text())
         rows = report["papers"]
         manifest = json.loads((ROOT / "benchmarks" / "papers.json").read_text())["papers"]
@@ -210,7 +213,8 @@ class BenchmarkIntegrationTests(unittest.TestCase):
         ]), 0)
         rows = json.loads((output / "report.json").read_text())["papers"]
         self.assertEqual([row["id"] for row in rows], ["aspi", "attention"])
-        self.assertEqual(rows[0]["verdict"], "inconsistent")
+        self.assertEqual(rows[0]["verdict"], "insufficient_evidence")
+        self.assertEqual(rows[0]["validation_modes"], ["scope_review_v3"])
         self.assertEqual(rows[1]["verdict"], "not_run")
 
     def test_output_directory_cannot_be_overwritten(self):

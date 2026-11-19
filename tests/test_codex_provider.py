@@ -21,7 +21,24 @@ class CodexProviderTests(unittest.TestCase):
         self.lookup = patch("codex_provider.shutil.which", return_value="/test/bin/codex")
         self.lookup.start()
         self.addCleanup(self.lookup.stop)
+        self.proxy_lookup = patch("codex_provider.urllib.request.getproxies", return_value={})
+        self.proxy_mock = self.proxy_lookup.start()
+        self.addCleanup(self.proxy_lookup.stop)
         self.commands = []
+
+    def test_existing_system_proxy_is_used_by_child_without_global_changes(self):
+        self.proxy_mock.return_value = {"https": "http://127.0.0.1:1234", "http": "http://127.0.0.1:1234"}
+        with patch.dict(os.environ, {"PATH": "/test/bin"}, clear=True):
+            child = clean_environment()
+            self.assertEqual(child["HTTPS_PROXY"], "http://127.0.0.1:1234")
+            self.assertNotIn("HTTPS_PROXY", os.environ)
+
+    def test_explicit_proxy_environment_takes_precedence(self):
+        self.proxy_mock.return_value = {"https": "http://system.invalid:1234"}
+        with patch.dict(os.environ, {"https_proxy": "http://explicit.invalid:1234"}, clear=True):
+            child = clean_environment()
+            self.assertEqual(child["https_proxy"], "http://explicit.invalid:1234")
+            self.assertNotIn("HTTPS_PROXY", child)
 
     def fake_run(self, command, **kwargs):
         self.commands.append((command, kwargs))

@@ -1,0 +1,9 @@
+{
+  "checker.py": "d5b4c7470cef46b0233c7b5d35e09edcd3e28069efb6f6e4872be386722f13f1",
+  "extraction.py": "31142bffbf3a8e9974d063a8ab589609b7e556bfd8d666e96605d57c74e164d1",
+  "paper_pilot.json": "9b9b573ad98d4d475ad3496bccbc63801108cc6d7614563b8d79a29309bdd90a",
+  "pilot_cases_v2.json": "dabd823a081bc4f46c71605a995b32b5017c027386b690a6608e17a6469ed0d6",
+  "paper_muzzle_cases.json": "425653abc247925ff0989954ed54ea3f02e21aef7130ca2e3c6d583df942652f",
+  "paper_text_cases.json": "6ae0750a9fd9363bdaa685f010972b8ac2d7ecd3558d5a5bf93efa155852d62b",
+  "paper_text_cases_more.json": "48ffc4cd02137b5816db70f2498e23aedb032e78a81d1564b8a0ce3215895861"
+}

@@ -1,0 +1,14280 @@
+# 论文审计：测试过程与结果
+
+运行类型：fixed\_model\_outputs\_citation\_and\_decision\_replay  
+生成时间：2026\-11\-19T09:43:44\.951205\+00:00  
+论文记录：18
+
+主表每篇论文一行。“未确认”表示本次记录没有确认发现，需结合运行状态和审计范围阅读。运行错误、待运行与证据不足分别显示。
+
+## 本次运行汇总
+
+```json
+{
+  "paper_count": 18,
+  "statuses": {
+    "completed": 17,
+    "failed": 1
+  },
+  "verdicts": {
+    "insufficient_evidence": 13,
+    "inconsistent": 1,
+    "technical_failure": 1,
+    "not_applicable": 3
+  }
+}
+```
+
+## 论文结果
+
+| 论文 ID | 论文 | 运行 / 判定 | 已确认不一致 | 标签对照 | 来源 |
+| --- | --- | --- | --- | --- | --- |
+| adaptools | AdapTools information\-budget audit | 证据不足 | 未确认 | 未评分；预期：未记录状态 | https://aclanthology\.org/2026\.emnlp\-main\.2055\.pdf |
+| blind\_spots | Attacker context access exceeds the stated document\-knowledge budget | 有已确认的不一致 | 有 | 未评分；预期：未记录状态 | https://arxiv\.org/pdf/2605\.22001v1 |
+| aspi | ASPI attacker\-information budget audit | 证据不足 | 未确认 | 未评分；预期：未记录状态 | https://arxiv\.org/pdf/2605\.17324v1 |
+| muzzle | MUZZLE information\-budget audit | 证据不足 | 未确认 | 未评分；预期：未记录状态 | https://www\.usenix\.org/system/files/usenixsecurity26\-syros\.pdf |
+| fha | FHA query access: construction inputs versus deployment restrictions | 证据不足 | 未确认 | 未评分；预期：未记录状态 | https://arxiv\.org/pdf/2604\.20994v2 |
+| agentcon | agentcon | 运行失败 | 未给出 | 未评分；预期：未记录状态 | https://openreview\.net/pdf?id=AMIb7RWnBI |
+| retrieval\_barrier | Information\-budget audit of Overcoming the Retrieval Barrier | 证据不足 | 未确认 | 未评分；预期：未记录状态 | https://www\.usenix\.org/system/files/usenixsecurity26\-chang\-hongyan\.pdf |
+| liar | LIAR: source\-training permissions and unresolved query\-conditioned construction | 证据不足 | 未确认 | 未评分；预期：未记录状态 | https://aclanthology\.org/2024\.emnlp\-main\.96\.pdf |
+| obliinjection | ObliInjection information\-budget audit | 证据不足 | 未确认 | 未评分；预期：未记录状态 | https://arxiv\.org/pdf/2512\.09321v3 |
+| webtrap | WebTrap information\-budget audit | 证据不足 | 未确认 | 未评分；预期：未记录状态 | https://arxiv\.org/pdf/2605\.08310v1 |
+| icoa | ICoA information\-budget audit | 证据不足 | 未确认 | 未评分；预期：未记录状态 | https://aclanthology\.org/2026\.emnlp\-main\.2035\.pdf |
+| attention | Attention Is All You Need | 不适用（非 IPI 论文） | 未确认 | 未评分；预期：未记录状态 | https://papers\.nips\.cc/paper\_files/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa\-Paper\.pdf |
+| resnet | Deep Residual Learning for Image Recognition | 不适用（非 IPI 论文） | 未确认 | 未评分；预期：未记录状态 | https://arxiv\.org/pdf/1512\.03385v1 |
+| adam | Adam: A Method for Stochastic Optimization | 不适用（非 IPI 论文） | 未确认 | 未评分；预期：未记录状态 | https://arxiv\.org/pdf/1412\.6980v1 |
+| trojan\_hippo | Trojan Hippo information\-budget audit | 证据不足 | 未确认 | 未评分；预期：未记录状态 | https://arxiv\.org/pdf/2605\.01970v1 |
+| topicattack | TopicAttack information\-budget audit | 证据不足 | 未确认 | 未评分；预期：未记录状态 | https://aclanthology\.org/2025\.emnlp\-main\.372\.pdf |
+| agentdojo | AgentDojo information\-budget audit | 证据不足 | 未确认 | 未评分；预期：未记录状态 | https://papers\.neurips\.cc/paper\_files/paper/2024/file/97091a5177d8dc64b1da8bf3e1f6fb54\-Paper\-Datasets\_and\_Benchmarks\_Track\.pdf |
+| asb | ASB information\-budget audit | 证据不足 | 未确认 | 未评分；预期：未记录状态 | https://proceedings\.iclr\.cc/paper\_files/paper/2025/file/5750f91d8fb9d5c02bd8ad2c3b44456b\-Paper\-Conference\.pdf |
+
+## 逐篇测试过程
+
+### 1. AdapTools information\-budget audit
+
+论文 ID：adaptools  
+运行 / 判定：证据不足
+
+#### 测试过程
+
+| 步骤 | 状态 | 记录 |
+| --- | --- | --- |
+| ingestion | 已完成 | \{"stage": "ingestion", "status": "completed", "segments": 22, "characters": 117911, "coverage": \{"complete": true, "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"\}, "source\_links": \[\], "sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05"\} |
+| extraction | 已完成 | \{"stage": "extraction", "status": "completed", "applicability": "in\_scope", "flow\_count": 5\} |
+| semantic\_review | 已完成 | \{"stage": "semantic\_review", "status": "completed", "applicability": "in\_scope"\} |
+| citation\_validation\_and\_decision | 已完成 | \{"stage": "citation\_validation\_and\_decision", "status": "completed", "verdict": "insufficient\_evidence", "reason": "unresolved\_checks"\} |
+| decision\_replay | 已完成 | \{"stage": "decision\_replay", "status": "completed", "inference\_calls": 0, "same\_pdf\_bytes": true, "same\_primary\_model\_input": true, "additional\_reading\_order\_view": true, "previous\_verdict": "insufficient\_evidence", "verdict": "insufficient\_evidence"\} |
+
+#### 证据
+
+```json
+[
+  {
+    "id": "adaptools_claim_1",
+    "source_group": "paper_text",
+    "description": "A concrete task-to-generator boundary is described, but a threat-model violation depends on the construction arm and instance.",
+    "scope": {
+      "paper_version": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+      "experiment_arm": "Paper-text evidence establishes task-conditioned prompt generation and reasoning-trace feedback during strategy construction. Their applicability to restricted deployment attackers remains unresolved. Runtime access to the latest tool invocation is explicitly permitted for grey-box attackers.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "Attack Prompt Generator",
+      "phase": "adaptive strategy construction",
+      "source": "user task of the attacked construction instance",
+      "representation": "user task combined with a retrieved strategy",
+      "operation": "synthesize an attack prompt",
+      "query_form": "full_query"
+    },
+    "verdict": "insufficient_evidence",
+    "reason": "policy_scope_not_established",
+    "matching_rules": [],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "Attack Prompt Generator",
+          "phase": "adaptive strategy construction",
+          "source": "user task of the attacked construction instance",
+          "representation": "user task combined with a retrieved strategy",
+          "operation": "synthesize an attack prompt",
+          "query_form": "full_query"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 1987, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 1898, \"text_view\": \"reading_order\", \"text_view_sha256\": \"8489df97bf3738f62cc39b27c0918910d0bad77607815a781cbd74a7b1ee2ac6\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Task-conditioned generation: the construction generator receives the user task, potentially exceeding deployment attacker knowledge.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "uncertain",
+        "reason": "The exclusion concerns third-party black-box attackers. The supplied text does not establish that offline strategy construction is subject to that same budget.",
+        "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 2176, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2133, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c4db9f8b979b3addb32d2c70be0db3c32352c28801cb0676f034fb9bd5f4b6d4\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "training_instance",
+        "reason": "The construction procedure explicitly supplies the task to the generator; it does not establish delivery of an unseen evaluation task.",
+        "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 1987, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 1898, \"text_view\": \"reading_order\", \"text_view_sha256\": \"8489df97bf3738f62cc39b27c0918910d0bad77607815a781cbd74a7b1ee2ac6\"}"
+      },
+      "refutation": {
+        "basis": "none",
+        "reason": "Neither an applicable construction permission nor prohibited evaluation-instance delivery is established.",
+        "reference": ""
+      }
+    },
+    "claim_result": "unresolved",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p4",
+        "start": 2133,
+        "end": 2176,
+        "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "c4db9f8b979b3addb32d2c70be0db3c32352c28801cb0676f034fb9bd5f4b6d4"
+      },
+      "delivery": {
+        "segment_id": "p5",
+        "start": 1898,
+        "end": 1987,
+        "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "8489df97bf3738f62cc39b27c0918910d0bad77607815a781cbd74a7b1ee2ac6"
+      },
+      "implementation": {
+        "segment_id": "p5",
+        "start": 1898,
+        "end": 1987,
+        "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "8489df97bf3738f62cc39b27c0918910d0bad77607815a781cbd74a7b1ee2ac6"
+      }
+    },
+    "semantic_review": {
+      "index": 0,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "uncertain",
+      "delivery": "confirmed",
+      "refutation": "none",
+      "reason": "p5 explicitly delivers user-task text to the construction generator. Whether p4's deployment restriction governs this construction arm remains unresolved; unseen evaluation-query delivery is not established."
+    }
+  },
+  {
+    "id": "adaptools_claim_2",
+    "source_group": "paper_text",
+    "description": "The flow is established during construction, without evidence that target commercial-agent reasoning is used for online adaptation.",
+    "scope": {
+      "paper_version": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+      "experiment_arm": "Paper-text evidence establishes task-conditioned prompt generation and reasoning-trace feedback during strategy construction. Their applicability to restricted deployment attackers remains unresolved. Runtime access to the latest tool invocation is explicitly permitted for grey-box attackers.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "failure Analyzer",
+      "phase": "offline strategy refinement",
+      "source": "victim reasoning from failed construction attacks",
+      "representation": "Chain-of-Thought traces",
+      "operation": "diagnose failures and derive optimization strategies"
+    },
+    "verdict": "insufficient_evidence",
+    "reason": "policy_scope_not_established",
+    "matching_rules": [],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "failure Analyzer",
+          "phase": "offline strategy refinement",
+          "source": "victim reasoning from failed construction attacks",
+          "representation": "Chain-of-Thought traces",
+          "operation": "diagnose failures and derive optimization strategies"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 2701, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 2608, \"text_view\": \"reading_order\", \"text_view_sha256\": \"8489df97bf3738f62cc39b27c0918910d0bad77607815a781cbd74a7b1ee2ac6\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Reasoning-feedback access: failed-attack reasoning reaches the attacker-side Analyzer during strategy construction.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "runtime_trace",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "uncertain",
+        "reason": "The exclusion applies to black-box third-party attackers; its extension to source-model construction and externally returned reasoning is unclear.",
+        "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 2131, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2015, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c4db9f8b979b3addb32d2c70be0db3c32352c28801cb0676f034fb9bd5f4b6d4\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "training_instance",
+        "reason": "Both the procedure and Analyzer template describe reasoning as an attacker-side input.",
+        "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 1678, \"match\": \"normalized_exact\", \"segment_id\": \"p22\", \"start\": 1562, \"text_view\": \"reading_order\", \"text_view_sha256\": \"d66e4c3fc9cb7b7daff8c57a4ceea65ab5f5ba3f4eac95a8a87fbce9df471a77\"}"
+      },
+      "refutation": {
+        "basis": "none",
+        "reason": "Source-model feedback is documented, but no specific permission resolves its relationship to the deployment restriction.",
+        "reference": ""
+      }
+    },
+    "claim_result": "unresolved",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p4",
+        "start": 2015,
+        "end": 2131,
+        "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "c4db9f8b979b3addb32d2c70be0db3c32352c28801cb0676f034fb9bd5f4b6d4"
+      },
+      "delivery": {
+        "segment_id": "p22",
+        "start": 1562,
+        "end": 1678,
+        "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "d66e4c3fc9cb7b7daff8c57a4ceea65ab5f5ba3f4eac95a8a87fbce9df471a77"
+      },
+      "implementation": {
+        "segment_id": "p5",
+        "start": 2608,
+        "end": 2701,
+        "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "8489df97bf3738f62cc39b27c0918910d0bad77607815a781cbd74a7b1ee2ac6"
+      }
+    },
+    "semantic_review": {
+      "index": 1,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "uncertain",
+      "delivery": "confirmed",
+      "refutation": "none",
+      "reason": "p5 and p22 establish reasoning delivery to the construction Analyzer; p11 identifies local Qwen as the strategy source. Neither applicability of the deployment budget nor commercial-agent feedback during execution is established."
+    }
+  },
+  {
+    "id": "adaptools_claim_3",
+    "source_group": "paper_text",
+    "description": "The template establishes a trace-input boundary, not delivery of a full user query or complete private trajectory.",
+    "scope": {
+      "paper_version": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+      "experiment_arm": "Paper-text evidence establishes task-conditioned prompt generation and reasoning-trace feedback during strategy construction. Their applicability to restricted deployment attackers remains unresolved. Runtime access to the latest tool invocation is explicitly permitted for grey-box attackers.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "raw attack prompt generator",
+      "phase": "attack prompt optimization; deployment use unresolved",
+      "source": "agent execution trace",
+      "representation": "agent_trajectory with an injection placeholder",
+      "operation": "generate a replacement payload"
+    },
+    "verdict": "insufficient_evidence",
+    "reason": "policy_scope_not_established",
+    "matching_rules": [],
+    "matching_observations": [],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Execution-trace breadth: the raw generation template may expose more trajectory context than an MCP controller can observe.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "runtime_trace",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "uncertain",
+        "reason": "The grey-box budget is partial trajectory visibility. The template does not specify trace fields or establish that its input exceeds server-visible information.",
+        "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 2003, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 1916, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c4db9f8b979b3addb32d2c70be0db3c32352c28801cb0676f034fb9bd5f4b6d4\"}"
+      },
+      "delivery": {
+        "status": "unresolved",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "unknown",
+        "reason": "The paper supplies a trace-input template, without a bound request or runtime record identifying the delivered fields and experimental instance.",
+        "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 425, \"match\": \"normalized_exact\", \"segment_id\": \"p21\", \"start\": 335, \"text_view\": \"reading_order\", \"text_view_sha256\": \"aec0ca7975e48f08aef3697565a93954abe1eb95ca17549218291f680cb24902\"}"
+      },
+      "refutation": {
+        "basis": "none",
+        "reason": "Trace truncation or exclusion of private fields is not demonstrated.",
+        "reference": ""
+      }
+    },
+    "claim_result": "unresolved",
+    "citation_errors": [
+      "semantic_review_disagrees_with_proposed_assessment"
+    ],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p4",
+        "start": 1916,
+        "end": 2003,
+        "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "c4db9f8b979b3addb32d2c70be0db3c32352c28801cb0676f034fb9bd5f4b6d4"
+      },
+      "delivery": {
+        "segment_id": "p21",
+        "start": 335,
+        "end": 425,
+        "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "aec0ca7975e48f08aef3697565a93954abe1eb95ca17549218291f680cb24902"
+      },
+      "implementation": {
+        "segment_id": "p21",
+        "start": 1354,
+        "end": 1438,
+        "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "aec0ca7975e48f08aef3697565a93954abe1eb95ca17549218291f680cb24902"
+      }
+    },
+    "semantic_review": {
+      "index": 2,
+      "supported": false,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "uncertain",
+      "delivery": "unresolved",
+      "refutation": "none",
+      "reason": "p21 specifies a trace-input template but supplies no populated input establishing actual receipt or excess private fields. p13 places it in optimization experiments, leaving evaluated deployment use unresolved."
+    }
+  },
+  {
+    "id": "adaptools_claim_4",
+    "source_group": "paper_text",
+    "description": "Predicting task context from an allowed tool observation does not itself establish access to private task text.",
+    "scope": {
+      "paper_version": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+      "experiment_arm": "Paper-text evidence establishes task-conditioned prompt generation and reasoning-trace feedback during strategy construction. Their applicability to restricted deployment attackers remains unresolved. Runtime access to the latest tool invocation is explicitly permitted for grey-box attackers.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "grey-box MCP controller",
+      "phase": "runtime tool selection",
+      "source": "most recent agent tool invocation",
+      "representation": "current tool identity",
+      "operation": "predict a benign successor using a transition matrix"
+    },
+    "verdict": "consistent_within_scope",
+    "reason": "claim_refuted_explicit_permission",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "grey-box MCP controller",
+          "phase": "runtime tool selection",
+          "source": "most recent agent tool invocation",
+          "representation": "current tool identity",
+          "operation": "predict a benign successor using a transition matrix"
+        },
+        "permission": "allow",
+        "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 2003, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 1916, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c4db9f8b979b3addb32d2c70be0db3c32352c28801cb0676f034fb9bd5f4b6d4\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "grey-box MCP controller",
+          "phase": "runtime tool selection",
+          "source": "most recent agent tool invocation",
+          "representation": "current tool identity",
+          "operation": "predict a benign successor using a transition matrix"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 3070, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 2962, \"text_view\": \"reading_order\", \"text_view_sha256\": \"81e9796819b548a2067c762eefbb37eb77a442881189827973a6755c1733538d\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Permitted control: latest-tool visibility supports grey-box successor prediction.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "runtime_trace",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "The permission and procedure concern the same grey-box actor and runtime information object.",
+        "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 1841, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 1732, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c4db9f8b979b3addb32d2c70be0db3c32352c28801cb0676f034fb9bd5f4b6d4\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The realization procedure uses observed tool context for runtime target selection.",
+        "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 1992, \"match\": \"normalized_exact\", \"segment_id\": \"p7\", \"start\": 1905, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f7c8969357bc61ee6bfe70ead0ee0f0c5db82ba5aab33623784d448c544d0cf7\"}"
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reason": "Latest-tool access is specifically allowed for the grey-box arm.",
+        "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 2003, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 1916, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c4db9f8b979b3addb32d2c70be0db3c32352c28801cb0676f034fb9bd5f4b6d4\"}"
+      }
+    },
+    "claim_result": "refuted",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p4",
+        "start": 1732,
+        "end": 1841,
+        "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "c4db9f8b979b3addb32d2c70be0db3c32352c28801cb0676f034fb9bd5f4b6d4"
+      },
+      "delivery": {
+        "segment_id": "p7",
+        "start": 1905,
+        "end": 1992,
+        "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "f7c8969357bc61ee6bfe70ead0ee0f0c5db82ba5aab33623784d448c544d0cf7"
+      },
+      "refutation": {
+        "segment_id": "p4",
+        "start": 1916,
+        "end": 2003,
+        "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "c4db9f8b979b3addb32d2c70be0db3c32352c28801cb0676f034fb9bd5f4b6d4"
+      },
+      "declaration": {
+        "segment_id": "p4",
+        "start": 1916,
+        "end": 2003,
+        "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "c4db9f8b979b3addb32d2c70be0db3c32352c28801cb0676f034fb9bd5f4b6d4"
+      },
+      "implementation": {
+        "segment_id": "p6",
+        "start": 2962,
+        "end": 3070,
+        "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "81e9796819b548a2067c762eefbb37eb77a442881189827973a6755c1733538d"
+      }
+    },
+    "semantic_review": {
+      "index": 3,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "confirmed",
+      "refutation": "explicit_permission",
+      "reason": "p4 specifically permits latest-tool visibility for the grey-box actor; p6–p7 use that observation for successor prediction. This affirmatively permits the listed flow without establishing private-query access."
+    }
+  },
+  {
+    "id": "adaptools_claim_5",
+    "source_group": "paper_text",
+    "description": "This is a provenance question about aggregate training information, not evidence that evaluation queries reach the payload generator.",
+    "scope": {
+      "paper_version": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+      "experiment_arm": "Paper-text evidence establishes task-conditioned prompt generation and reasoning-trace feedback during strategy construction. Their applicability to restricted deployment attackers remains unresolved. Runtime access to the latest tool invocation is explicitly permitted for grey-box attackers.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "offline transition-matrix builder",
+      "phase": "source trajectory modeling",
+      "source": "benign AgentAlign trajectories",
+      "representation": "aggregate tool-transition counts",
+      "operation": "estimate a reusable transition matrix"
+    },
+    "verdict": "insufficient_evidence",
+    "reason": "policy_is_not_attacker_knowledge_constraint",
+    "matching_rules": [],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "offline transition-matrix builder",
+          "phase": "source trajectory modeling",
+          "source": "benign AgentAlign trajectories",
+          "representation": "aggregate tool-transition counts",
+          "operation": "estimate a reusable transition matrix"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 2701, \"match\": \"normalized_exact\", \"segment_id\": \"p9\", \"start\": 2643, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f70b6931a8a4a5df77a06ec8669f3e329634d2170467923f263e90a01599cc89\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Transition-matrix provenance: source trajectories may overlap evaluated AgentAlign instances.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "runtime_trace",
+      "policy_application": {
+        "policy_kind": "unspecified",
+        "status": "uncertain",
+        "reason": "No explicit split restriction or source-training permission is supplied. A shared benchmark name does not establish instance overlap.",
+        "reference": ""
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "unknown",
+        "reason": "Aggregate source information reaches runtime selection through the matrix; its relationship to evaluated instances is unspecified.",
+        "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 1992, \"match\": \"normalized_exact\", \"segment_id\": \"p7\", \"start\": 1905, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f7c8969357bc61ee6bfe70ead0ee0f0c5db82ba5aab33623784d448c544d0cf7\"}"
+      },
+      "refutation": {
+        "basis": "none",
+        "reason": "Neither overlap nor distinct source and evaluation instances is proven.",
+        "reference": ""
+      }
+    },
+    "claim_result": "unresolved",
+    "citation_errors": [],
+    "locators": {
+      "delivery": {
+        "segment_id": "p7",
+        "start": 1905,
+        "end": 1992,
+        "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "f7c8969357bc61ee6bfe70ead0ee0f0c5db82ba5aab33623784d448c544d0cf7"
+      },
+      "implementation": {
+        "segment_id": "p9",
+        "start": 2643,
+        "end": 2701,
+        "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "f70b6931a8a4a5df77a06ec8669f3e329634d2170467923f263e90a01599cc89"
+      }
+    },
+    "semantic_review": {
+      "index": 4,
+      "supported": true,
+      "policy_kind": "unspecified",
+      "policy_application": "uncertain",
+      "delivery": "confirmed",
+      "refutation": "none",
+      "reason": "p9 establishes benign AgentAlign trajectories as matrix sources, and p7 establishes runtime matrix use. No applicable split contract or identical evaluation records are established; shared corpus naming proves no overlap."
+    }
+  }
+]
+```
+
+#### 备注
+
+```json
+[
+  "Evidence consists solely of supplied paper text and printed templates; no static code, saved requests, or independently bound runtime inputs were supplied.",
+  "Attack success and defense failures do not independently establish information-budget violations.",
+  "Construction-budget applicability, populated trace fields, deployment use, and instance provenance remain unresolved, so the listed suspicions are not fully resolved.",
+  "The held-out compaction split in p12 does not establish separation across all construction and evaluation stages.",
+  "Construction information flows do not establish their causal contribution to reported attack success; victim security failures are not attacker-knowledge violations."
+]
+```
+
+#### 完整论文记录 JSON
+
+```json
+{
+  "id": "adaptools",
+  "title": "AdapTools information-budget audit",
+  "source": "https://aclanthology.org/2026.emnlp-main.2055.pdf",
+  "status": "completed",
+  "has_confirmed_inconsistency": false,
+  "stages": [
+    {
+      "stage": "ingestion",
+      "status": "completed",
+      "segments": 22,
+      "characters": 117911,
+      "coverage": {
+        "complete": true,
+        "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+      },
+      "source_links": [],
+      "sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05"
+    },
+    {
+      "stage": "extraction",
+      "status": "completed",
+      "applicability": "in_scope",
+      "flow_count": 5
+    },
+    {
+      "stage": "semantic_review",
+      "status": "completed",
+      "applicability": "in_scope"
+    },
+    {
+      "stage": "citation_validation_and_decision",
+      "status": "completed",
+      "verdict": "insufficient_evidence",
+      "reason": "unresolved_checks"
+    },
+    {
+      "stage": "decision_replay",
+      "status": "completed",
+      "inference_calls": 0,
+      "same_pdf_bytes": true,
+      "same_primary_model_input": true,
+      "additional_reading_order_view": true,
+      "previous_verdict": "insufficient_evidence",
+      "verdict": "insufficient_evidence"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "adaptools_claim_1",
+      "source_group": "paper_text",
+      "description": "A concrete task-to-generator boundary is described, but a threat-model violation depends on the construction arm and instance.",
+      "scope": {
+        "paper_version": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+        "experiment_arm": "Paper-text evidence establishes task-conditioned prompt generation and reasoning-trace feedback during strategy construction. Their applicability to restricted deployment attackers remains unresolved. Runtime access to the latest tool invocation is explicitly permitted for grey-box attackers.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "Attack Prompt Generator",
+        "phase": "adaptive strategy construction",
+        "source": "user task of the attacked construction instance",
+        "representation": "user task combined with a retrieved strategy",
+        "operation": "synthesize an attack prompt",
+        "query_form": "full_query"
+      },
+      "verdict": "insufficient_evidence",
+      "reason": "policy_scope_not_established",
+      "matching_rules": [],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "Attack Prompt Generator",
+            "phase": "adaptive strategy construction",
+            "source": "user task of the attacked construction instance",
+            "representation": "user task combined with a retrieved strategy",
+            "operation": "synthesize an attack prompt",
+            "query_form": "full_query"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 1987, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 1898, \"text_view\": \"reading_order\", \"text_view_sha256\": \"8489df97bf3738f62cc39b27c0918910d0bad77607815a781cbd74a7b1ee2ac6\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Task-conditioned generation: the construction generator receives the user task, potentially exceeding deployment attacker knowledge.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "exact_query",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "uncertain",
+          "reason": "The exclusion concerns third-party black-box attackers. The supplied text does not establish that offline strategy construction is subject to that same budget.",
+          "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 2176, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2133, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c4db9f8b979b3addb32d2c70be0db3c32352c28801cb0676f034fb9bd5f4b6d4\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "training_instance",
+          "reason": "The construction procedure explicitly supplies the task to the generator; it does not establish delivery of an unseen evaluation task.",
+          "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 1987, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 1898, \"text_view\": \"reading_order\", \"text_view_sha256\": \"8489df97bf3738f62cc39b27c0918910d0bad77607815a781cbd74a7b1ee2ac6\"}"
+        },
+        "refutation": {
+          "basis": "none",
+          "reason": "Neither an applicable construction permission nor prohibited evaluation-instance delivery is established.",
+          "reference": ""
+        }
+      },
+      "claim_result": "unresolved",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p4",
+          "start": 2133,
+          "end": 2176,
+          "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "c4db9f8b979b3addb32d2c70be0db3c32352c28801cb0676f034fb9bd5f4b6d4"
+        },
+        "delivery": {
+          "segment_id": "p5",
+          "start": 1898,
+          "end": 1987,
+          "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "8489df97bf3738f62cc39b27c0918910d0bad77607815a781cbd74a7b1ee2ac6"
+        },
+        "implementation": {
+          "segment_id": "p5",
+          "start": 1898,
+          "end": 1987,
+          "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "8489df97bf3738f62cc39b27c0918910d0bad77607815a781cbd74a7b1ee2ac6"
+        }
+      },
+      "semantic_review": {
+        "index": 0,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "uncertain",
+        "delivery": "confirmed",
+        "refutation": "none",
+        "reason": "p5 explicitly delivers user-task text to the construction generator. Whether p4's deployment restriction governs this construction arm remains unresolved; unseen evaluation-query delivery is not established."
+      }
+    },
+    {
+      "id": "adaptools_claim_2",
+      "source_group": "paper_text",
+      "description": "The flow is established during construction, without evidence that target commercial-agent reasoning is used for online adaptation.",
+      "scope": {
+        "paper_version": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+        "experiment_arm": "Paper-text evidence establishes task-conditioned prompt generation and reasoning-trace feedback during strategy construction. Their applicability to restricted deployment attackers remains unresolved. Runtime access to the latest tool invocation is explicitly permitted for grey-box attackers.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "failure Analyzer",
+        "phase": "offline strategy refinement",
+        "source": "victim reasoning from failed construction attacks",
+        "representation": "Chain-of-Thought traces",
+        "operation": "diagnose failures and derive optimization strategies"
+      },
+      "verdict": "insufficient_evidence",
+      "reason": "policy_scope_not_established",
+      "matching_rules": [],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "failure Analyzer",
+            "phase": "offline strategy refinement",
+            "source": "victim reasoning from failed construction attacks",
+            "representation": "Chain-of-Thought traces",
+            "operation": "diagnose failures and derive optimization strategies"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 2701, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 2608, \"text_view\": \"reading_order\", \"text_view_sha256\": \"8489df97bf3738f62cc39b27c0918910d0bad77607815a781cbd74a7b1ee2ac6\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Reasoning-feedback access: failed-attack reasoning reaches the attacker-side Analyzer during strategy construction.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "runtime_trace",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "uncertain",
+          "reason": "The exclusion applies to black-box third-party attackers; its extension to source-model construction and externally returned reasoning is unclear.",
+          "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 2131, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2015, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c4db9f8b979b3addb32d2c70be0db3c32352c28801cb0676f034fb9bd5f4b6d4\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "training_instance",
+          "reason": "Both the procedure and Analyzer template describe reasoning as an attacker-side input.",
+          "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 1678, \"match\": \"normalized_exact\", \"segment_id\": \"p22\", \"start\": 1562, \"text_view\": \"reading_order\", \"text_view_sha256\": \"d66e4c3fc9cb7b7daff8c57a4ceea65ab5f5ba3f4eac95a8a87fbce9df471a77\"}"
+        },
+        "refutation": {
+          "basis": "none",
+          "reason": "Source-model feedback is documented, but no specific permission resolves its relationship to the deployment restriction.",
+          "reference": ""
+        }
+      },
+      "claim_result": "unresolved",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p4",
+          "start": 2015,
+          "end": 2131,
+          "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "c4db9f8b979b3addb32d2c70be0db3c32352c28801cb0676f034fb9bd5f4b6d4"
+        },
+        "delivery": {
+          "segment_id": "p22",
+          "start": 1562,
+          "end": 1678,
+          "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "d66e4c3fc9cb7b7daff8c57a4ceea65ab5f5ba3f4eac95a8a87fbce9df471a77"
+        },
+        "implementation": {
+          "segment_id": "p5",
+          "start": 2608,
+          "end": 2701,
+          "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "8489df97bf3738f62cc39b27c0918910d0bad77607815a781cbd74a7b1ee2ac6"
+        }
+      },
+      "semantic_review": {
+        "index": 1,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "uncertain",
+        "delivery": "confirmed",
+        "refutation": "none",
+        "reason": "p5 and p22 establish reasoning delivery to the construction Analyzer; p11 identifies local Qwen as the strategy source. Neither applicability of the deployment budget nor commercial-agent feedback during execution is established."
+      }
+    },
+    {
+      "id": "adaptools_claim_3",
+      "source_group": "paper_text",
+      "description": "The template establishes a trace-input boundary, not delivery of a full user query or complete private trajectory.",
+      "scope": {
+        "paper_version": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+        "experiment_arm": "Paper-text evidence establishes task-conditioned prompt generation and reasoning-trace feedback during strategy construction. Their applicability to restricted deployment attackers remains unresolved. Runtime access to the latest tool invocation is explicitly permitted for grey-box attackers.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "raw attack prompt generator",
+        "phase": "attack prompt optimization; deployment use unresolved",
+        "source": "agent execution trace",
+        "representation": "agent_trajectory with an injection placeholder",
+        "operation": "generate a replacement payload"
+      },
+      "verdict": "insufficient_evidence",
+      "reason": "policy_scope_not_established",
+      "matching_rules": [],
+      "matching_observations": [],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Execution-trace breadth: the raw generation template may expose more trajectory context than an MCP controller can observe.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "runtime_trace",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "uncertain",
+          "reason": "The grey-box budget is partial trajectory visibility. The template does not specify trace fields or establish that its input exceeds server-visible information.",
+          "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 2003, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 1916, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c4db9f8b979b3addb32d2c70be0db3c32352c28801cb0676f034fb9bd5f4b6d4\"}"
+        },
+        "delivery": {
+          "status": "unresolved",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "unknown",
+          "reason": "The paper supplies a trace-input template, without a bound request or runtime record identifying the delivered fields and experimental instance.",
+          "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 425, \"match\": \"normalized_exact\", \"segment_id\": \"p21\", \"start\": 335, \"text_view\": \"reading_order\", \"text_view_sha256\": \"aec0ca7975e48f08aef3697565a93954abe1eb95ca17549218291f680cb24902\"}"
+        },
+        "refutation": {
+          "basis": "none",
+          "reason": "Trace truncation or exclusion of private fields is not demonstrated.",
+          "reference": ""
+        }
+      },
+      "claim_result": "unresolved",
+      "citation_errors": [
+        "semantic_review_disagrees_with_proposed_assessment"
+      ],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p4",
+          "start": 1916,
+          "end": 2003,
+          "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "c4db9f8b979b3addb32d2c70be0db3c32352c28801cb0676f034fb9bd5f4b6d4"
+        },
+        "delivery": {
+          "segment_id": "p21",
+          "start": 335,
+          "end": 425,
+          "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "aec0ca7975e48f08aef3697565a93954abe1eb95ca17549218291f680cb24902"
+        },
+        "implementation": {
+          "segment_id": "p21",
+          "start": 1354,
+          "end": 1438,
+          "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "aec0ca7975e48f08aef3697565a93954abe1eb95ca17549218291f680cb24902"
+        }
+      },
+      "semantic_review": {
+        "index": 2,
+        "supported": false,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "uncertain",
+        "delivery": "unresolved",
+        "refutation": "none",
+        "reason": "p21 specifies a trace-input template but supplies no populated input establishing actual receipt or excess private fields. p13 places it in optimization experiments, leaving evaluated deployment use unresolved."
+      }
+    },
+    {
+      "id": "adaptools_claim_4",
+      "source_group": "paper_text",
+      "description": "Predicting task context from an allowed tool observation does not itself establish access to private task text.",
+      "scope": {
+        "paper_version": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+        "experiment_arm": "Paper-text evidence establishes task-conditioned prompt generation and reasoning-trace feedback during strategy construction. Their applicability to restricted deployment attackers remains unresolved. Runtime access to the latest tool invocation is explicitly permitted for grey-box attackers.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "grey-box MCP controller",
+        "phase": "runtime tool selection",
+        "source": "most recent agent tool invocation",
+        "representation": "current tool identity",
+        "operation": "predict a benign successor using a transition matrix"
+      },
+      "verdict": "consistent_within_scope",
+      "reason": "claim_refuted_explicit_permission",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "grey-box MCP controller",
+            "phase": "runtime tool selection",
+            "source": "most recent agent tool invocation",
+            "representation": "current tool identity",
+            "operation": "predict a benign successor using a transition matrix"
+          },
+          "permission": "allow",
+          "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 2003, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 1916, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c4db9f8b979b3addb32d2c70be0db3c32352c28801cb0676f034fb9bd5f4b6d4\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "grey-box MCP controller",
+            "phase": "runtime tool selection",
+            "source": "most recent agent tool invocation",
+            "representation": "current tool identity",
+            "operation": "predict a benign successor using a transition matrix"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 3070, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 2962, \"text_view\": \"reading_order\", \"text_view_sha256\": \"81e9796819b548a2067c762eefbb37eb77a442881189827973a6755c1733538d\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Permitted control: latest-tool visibility supports grey-box successor prediction.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "runtime_trace",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "The permission and procedure concern the same grey-box actor and runtime information object.",
+          "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 1841, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 1732, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c4db9f8b979b3addb32d2c70be0db3c32352c28801cb0676f034fb9bd5f4b6d4\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The realization procedure uses observed tool context for runtime target selection.",
+          "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 1992, \"match\": \"normalized_exact\", \"segment_id\": \"p7\", \"start\": 1905, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f7c8969357bc61ee6bfe70ead0ee0f0c5db82ba5aab33623784d448c544d0cf7\"}"
+        },
+        "refutation": {
+          "basis": "explicit_permission",
+          "reason": "Latest-tool access is specifically allowed for the grey-box arm.",
+          "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 2003, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 1916, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c4db9f8b979b3addb32d2c70be0db3c32352c28801cb0676f034fb9bd5f4b6d4\"}"
+        }
+      },
+      "claim_result": "refuted",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p4",
+          "start": 1732,
+          "end": 1841,
+          "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "c4db9f8b979b3addb32d2c70be0db3c32352c28801cb0676f034fb9bd5f4b6d4"
+        },
+        "delivery": {
+          "segment_id": "p7",
+          "start": 1905,
+          "end": 1992,
+          "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "f7c8969357bc61ee6bfe70ead0ee0f0c5db82ba5aab33623784d448c544d0cf7"
+        },
+        "refutation": {
+          "segment_id": "p4",
+          "start": 1916,
+          "end": 2003,
+          "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "c4db9f8b979b3addb32d2c70be0db3c32352c28801cb0676f034fb9bd5f4b6d4"
+        },
+        "declaration": {
+          "segment_id": "p4",
+          "start": 1916,
+          "end": 2003,
+          "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "c4db9f8b979b3addb32d2c70be0db3c32352c28801cb0676f034fb9bd5f4b6d4"
+        },
+        "implementation": {
+          "segment_id": "p6",
+          "start": 2962,
+          "end": 3070,
+          "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "81e9796819b548a2067c762eefbb37eb77a442881189827973a6755c1733538d"
+        }
+      },
+      "semantic_review": {
+        "index": 3,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "confirmed",
+        "refutation": "explicit_permission",
+        "reason": "p4 specifically permits latest-tool visibility for the grey-box actor; p6–p7 use that observation for successor prediction. This affirmatively permits the listed flow without establishing private-query access."
+      }
+    },
+    {
+      "id": "adaptools_claim_5",
+      "source_group": "paper_text",
+      "description": "This is a provenance question about aggregate training information, not evidence that evaluation queries reach the payload generator.",
+      "scope": {
+        "paper_version": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+        "experiment_arm": "Paper-text evidence establishes task-conditioned prompt generation and reasoning-trace feedback during strategy construction. Their applicability to restricted deployment attackers remains unresolved. Runtime access to the latest tool invocation is explicitly permitted for grey-box attackers.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "offline transition-matrix builder",
+        "phase": "source trajectory modeling",
+        "source": "benign AgentAlign trajectories",
+        "representation": "aggregate tool-transition counts",
+        "operation": "estimate a reusable transition matrix"
+      },
+      "verdict": "insufficient_evidence",
+      "reason": "policy_is_not_attacker_knowledge_constraint",
+      "matching_rules": [],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "offline transition-matrix builder",
+            "phase": "source trajectory modeling",
+            "source": "benign AgentAlign trajectories",
+            "representation": "aggregate tool-transition counts",
+            "operation": "estimate a reusable transition matrix"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 2701, \"match\": \"normalized_exact\", \"segment_id\": \"p9\", \"start\": 2643, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f70b6931a8a4a5df77a06ec8669f3e329634d2170467923f263e90a01599cc89\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Transition-matrix provenance: source trajectories may overlap evaluated AgentAlign instances.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "runtime_trace",
+        "policy_application": {
+          "policy_kind": "unspecified",
+          "status": "uncertain",
+          "reason": "No explicit split restriction or source-training permission is supplied. A shared benchmark name does not establish instance overlap.",
+          "reference": ""
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "unknown",
+          "reason": "Aggregate source information reaches runtime selection through the matrix; its relationship to evaluated instances is unspecified.",
+          "reference": "{\"document_sha256\": \"b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05\", \"end\": 1992, \"match\": \"normalized_exact\", \"segment_id\": \"p7\", \"start\": 1905, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f7c8969357bc61ee6bfe70ead0ee0f0c5db82ba5aab33623784d448c544d0cf7\"}"
+        },
+        "refutation": {
+          "basis": "none",
+          "reason": "Neither overlap nor distinct source and evaluation instances is proven.",
+          "reference": ""
+        }
+      },
+      "claim_result": "unresolved",
+      "citation_errors": [],
+      "locators": {
+        "delivery": {
+          "segment_id": "p7",
+          "start": 1905,
+          "end": 1992,
+          "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "f7c8969357bc61ee6bfe70ead0ee0f0c5db82ba5aab33623784d448c544d0cf7"
+        },
+        "implementation": {
+          "segment_id": "p9",
+          "start": 2643,
+          "end": 2701,
+          "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "f70b6931a8a4a5df77a06ec8669f3e329634d2170467923f263e90a01599cc89"
+        }
+      },
+      "semantic_review": {
+        "index": 4,
+        "supported": true,
+        "policy_kind": "unspecified",
+        "policy_application": "uncertain",
+        "delivery": "confirmed",
+        "refutation": "none",
+        "reason": "p9 establishes benign AgentAlign trajectories as matrix sources, and p7 establishes runtime matrix use. No applicable split contract or identical evaluation records are established; shared corpus naming proves no overlap."
+      }
+    }
+  ],
+  "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+  "schema_version": 3,
+  "applicability": "in_scope",
+  "scope": "Paper-text evidence establishes task-conditioned prompt generation and reasoning-trace feedback during strategy construction. Their applicability to restricted deployment attackers remains unresolved. Runtime access to the latest tool invocation is explicitly permitted for grey-box attackers.",
+  "review_status": "model_reviewed_not_human_verified",
+  "evidence_scope": "listed_claims_document_only",
+  "notes": [
+    "Evidence consists solely of supplied paper text and printed templates; no static code, saved requests, or independently bound runtime inputs were supplied.",
+    "Attack success and defense failures do not independently establish information-budget violations.",
+    "Construction-budget applicability, populated trace fields, deployment use, and instance provenance remain unresolved, so the listed suspicions are not fully resolved.",
+    "The held-out compaction split in p12 does not establish separation across all construction and evaluation stages.",
+    "Construction information flows do not establish their causal contribution to reported attack success; victim security failures are not attacker-knowledge violations."
+  ],
+  "unresolved_questions": [
+    "Which construction and evaluation arms receive user-task text, and are their task instances distinct?",
+    "Does the black-box task/internal-state exclusion govern offline source-model strategy construction?",
+    "Which fields populate agent_trajectory, and is that template used during evaluated deployment?",
+    "Are commercial-agent reasoning traces used for refinement, or only source Qwen reasoning?",
+    "What instance splits separate transition-matrix estimation, strategy construction, compaction tuning, and final evaluation?"
+  ],
+  "verdict": "insufficient_evidence",
+  "reason": "unresolved_checks",
+  "coverage_complete": false,
+  "claim_result_counts": {
+    "unresolved": 4,
+    "refuted": 1
+  },
+  "input_mode": "document_only",
+  "prompt_sha256": "dd80afd03660a2128242d06873b82a37c4c1ac043952e83a8a380e71835af55e",
+  "duration_seconds": 85.206,
+  "cohort": "curated_ipi",
+  "expected": null,
+  "expected_basis": "pending_independent_adjudication",
+  "comparison_note": "Historical targets are withheld while sources and scope are independently adjudicated.",
+  "matches_gold": null,
+  "previous_verdict": "insufficient_evidence",
+  "model_output_hashes": {
+    "extraction.json": "939f38f2d00f7b42b27f01dfc32bf8b45102c8874201e7fc5f1b49ffe5ebb6f2",
+    "review.json": "611ddae4e7d24eb6f7ed7edc03a65a3a2f83fafa4be7e6f9d01d2e562c747373"
+  }
+}
+```
+
+### 2. Attacker context access exceeds the stated document\-knowledge budget
+
+论文 ID：blind\_spots  
+运行 / 判定：有已确认的不一致
+
+#### 测试过程
+
+| 步骤 | 状态 | 记录 |
+| --- | --- | --- |
+| ingestion | 已完成 | \{"stage": "ingestion", "status": "completed", "segments": 8, "characters": 45116, "coverage": \{"complete": true, "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"\}, "source\_links": \[\], "sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455"\} |
+| extraction | 已完成 | \{"stage": "extraction", "status": "completed", "applicability": "in\_scope", "flow\_count": 3\} |
+| semantic\_review | 已完成 | \{"stage": "semantic\_review", "status": "completed", "applicability": "in\_scope"\} |
+| citation\_validation\_and\_decision | 已完成 | \{"stage": "citation\_validation\_and\_decision", "status": "completed", "verdict": "insufficient\_evidence", "reason": "unresolved\_checks"\} |
+| decision\_replay | 已完成 | \{"stage": "decision\_replay", "status": "completed", "inference\_calls": 0, "same\_pdf\_bytes": true, "same\_primary\_model\_input": true, "additional\_reading\_order\_view": true, "previous\_verdict": "insufficient\_evidence", "verdict": "inconsistent"\} |
+
+#### 证据
+
+```json
+[
+  {
+    "id": "blind_spots_claim_1",
+    "source_group": "paper_text",
+    "description": "The stated construction crosses the document-knowledge boundary. The general description of an adversary with document read access creates conflicting framing rather than resolving the explicit exclusion.",
+    "scope": {
+      "paper_version": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+      "experiment_arm": "Paper-text audit of camouflage payload construction. The clearest inconsistency concerns access to the evaluated clean document; access to the specific task instruction remains unresolved.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "attacker LLM",
+      "phase": "payload construction",
+      "source": "target task's clean context document",
+      "representation": "document text supplied as generation context",
+      "operation": "generate domain-camouflaged payloads; select variants using context embeddings"
+    },
+    "verdict": "inconsistent",
+    "reason": "scoped_forbidden_delivery_confirmed",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "attacker LLM",
+          "phase": "payload construction",
+          "source": "target task's clean context document",
+          "representation": "document text supplied as generation context",
+          "operation": "generate domain-camouflaged payloads; select variants using context embeddings"
+        },
+        "permission": "deny",
+        "reference": "{\"document_sha256\": \"0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455\", \"end\": 1928, \"match\": \"normalized_exact\", \"segment_id\": \"p2\", \"start\": 1840, \"text_view\": \"reading_order\", \"text_view_sha256\": \"575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "attacker LLM",
+          "phase": "payload construction",
+          "source": "target task's clean context document",
+          "representation": "document text supplied as generation context",
+          "operation": "generate domain-camouflaged payloads; select variants using context embeddings"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455\", \"end\": 2353, \"match\": \"normalized_exact\", \"segment_id\": \"p3\", \"start\": 2257, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2b11566656f12ba121c0a3e5b6eb5d5a4f9a88075178a93b0c0d6fa748bb5079\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Clean-document access during camouflage construction",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "document_content",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "The restriction describes the attacker in this setting, and the method explicitly identifies the generation recipient as an attacker LLM. No separate stronger construction arm is specified.",
+        "reference": "{\"document_sha256\": \"0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455\", \"end\": 1798, \"match\": \"normalized_exact\", \"segment_id\": \"p2\", \"start\": 1741, \"text_view\": \"reading_order\", \"text_view_sha256\": \"575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The construction procedure supplies the task's clean context to the generator and also uses it for variant scoring.",
+        "reference": "{\"document_sha256\": \"0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455\", \"end\": 2630, \"match\": \"normalized_exact\", \"segment_id\": \"p3\", \"start\": 2542, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2b11566656f12ba121c0a3e5b6eb5d5a4f9a88075178a93b0c0d6fa748bb5079\"}"
+      },
+      "refutation": {
+        "basis": "none",
+        "reason": "Document-read access is described elsewhere, but no explicit exception reconciles it with the exact-clean-document exclusion.",
+        "reference": ""
+      }
+    },
+    "claim_result": "confirmed",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p2",
+        "start": 1741,
+        "end": 1798,
+        "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771"
+      },
+      "delivery": {
+        "segment_id": "p3",
+        "start": 2542,
+        "end": 2630,
+        "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "2b11566656f12ba121c0a3e5b6eb5d5a4f9a88075178a93b0c0d6fa748bb5079"
+      },
+      "declaration": {
+        "segment_id": "p2",
+        "start": 1840,
+        "end": 1928,
+        "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771"
+      },
+      "implementation": {
+        "segment_id": "p3",
+        "start": 2257,
+        "end": 2353,
+        "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "2b11566656f12ba121c0a3e5b6eb5d5a4f9a88075178a93b0c0d6fa748bb5079"
+      }
+    },
+    "semantic_review": {
+      "index": 0,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "confirmed",
+      "refutation": "none",
+      "reason": "p2 excludes the exact clean document; p3 supplies the task's clean context to the attacker LLM and uses context embeddings for selection. p1's general read-access framing supplies no explicit exception. This establishes a construction mismatch in the described procedure, not its causal behavioral impact."
+    }
+  },
+  {
+    "id": "blind_spots_claim_2",
+    "source_group": "paper_text",
+    "description": "The paper establishes clean-document delivery, but does not establish raw task-instruction delivery. The broad context wording warrants clarification.",
+    "scope": {
+      "paper_version": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+      "experiment_arm": "Paper-text audit of camouflage payload construction. The clearest inconsistency concerns access to the evaluated clean document; access to the specific task instruction remains unresolved.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "attacker LLM",
+      "phase": "payload construction",
+      "source": "target task's natural-language instruction",
+      "representation": "potential component of full task context",
+      "operation": "condition payload generation",
+      "query_form": "full_query"
+    },
+    "verdict": "insufficient_evidence",
+    "reason": "delivery_to_input_boundary_not_established",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "attacker LLM",
+          "phase": "payload construction",
+          "source": "target task's natural-language instruction",
+          "representation": "potential component of full task context",
+          "operation": "condition payload generation",
+          "query_form": "full_query"
+        },
+        "permission": "deny",
+        "reference": "{\"document_sha256\": \"0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455\", \"end\": 1877, \"match\": \"normalized_exact\", \"segment_id\": \"p2\", \"start\": 1840, \"text_view\": \"reading_order\", \"text_view_sha256\": \"575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "attacker LLM",
+          "phase": "payload construction",
+          "source": "target task's natural-language instruction",
+          "representation": "potential component of full task context",
+          "operation": "condition payload generation",
+          "query_form": "full_query"
+        },
+        "status": "possible",
+        "reference": "{\"document_sha256\": \"0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455\", \"end\": 290, \"match\": \"normalized_exact\", \"segment_id\": \"p2\", \"start\": 239, \"text_view\": \"reading_order\", \"text_view_sha256\": \"575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Possible specific-task-instruction access through full task context",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "The exclusion applies to the construction attacker and the target task instruction if that instruction is delivered.",
+        "reference": "{\"document_sha256\": \"0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455\", \"end\": 1877, \"match\": \"normalized_exact\", \"segment_id\": \"p2\", \"start\": 1840, \"text_view\": \"reading_order\", \"text_view_sha256\": \"575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771\"}"
+      },
+      "delivery": {
+        "status": "unresolved",
+        "evidence_kind": "possible_path",
+        "task_relation": "same_evaluated_instance",
+        "reason": "Full task context could include the instruction, but the detailed generator description names only clean context and malicious goal.",
+        "reference": "{\"document_sha256\": \"0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455\", \"end\": 290, \"match\": \"normalized_exact\", \"segment_id\": \"p2\", \"start\": 239, \"text_view\": \"reading_order\", \"text_view_sha256\": \"575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771\"}"
+      },
+      "refutation": {
+        "basis": "none",
+        "reason": "The narrower input description does not affirmatively exclude the instruction.",
+        "reference": ""
+      }
+    },
+    "claim_result": "unresolved",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p2",
+        "start": 1840,
+        "end": 1877,
+        "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771"
+      },
+      "delivery": {
+        "segment_id": "p2",
+        "start": 239,
+        "end": 290,
+        "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771"
+      },
+      "declaration": {
+        "segment_id": "p2",
+        "start": 1840,
+        "end": 1877,
+        "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771"
+      },
+      "implementation": {
+        "segment_id": "p2",
+        "start": 239,
+        "end": 290,
+        "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771"
+      }
+    },
+    "semantic_review": {
+      "index": 1,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "unresolved",
+      "refutation": "none",
+      "reason": "p2 excludes the specific instruction but mentions full task context. p3 explicitly supplies clean context and malicious goal without establishing instruction delivery or exclusion. The proposed uncertainty is supported; a confirmed raw-query mismatch is not."
+    }
+  },
+  {
+    "id": "blind_spots_claim_3",
+    "source_group": "paper_text",
+    "description": "Domain adaptation alone is consistent with the stated budget. The concern is the more specific document information used to achieve it.",
+    "scope": {
+      "paper_version": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+      "experiment_arm": "Paper-text audit of camouflage payload construction. The clearest inconsistency concerns access to the evaluated clean document; access to the specific task instruction remains unresolved.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "attacker LLM",
+      "phase": "payload construction",
+      "source": "task's professional domain",
+      "representation": "domain vocabulary and register",
+      "operation": "generate domain-appropriate payloads"
+    },
+    "verdict": "insufficient_evidence",
+    "reason": "refutation_not_supported_by_scoped_evidence",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "attacker LLM",
+          "phase": "payload construction",
+          "source": "task's professional domain",
+          "representation": "domain vocabulary and register",
+          "operation": "generate domain-appropriate payloads"
+        },
+        "permission": "allow",
+        "reference": "{\"document_sha256\": \"0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455\", \"end\": 1798, \"match\": \"normalized_exact\", \"segment_id\": \"p2\", \"start\": 1741, \"text_view\": \"reading_order\", \"text_view_sha256\": \"575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771\"}"
+      }
+    ],
+    "matching_observations": [],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Permitted control: general-domain knowledge for camouflage",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "task_category",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "The threat model expressly permits domain knowledge for this attacker.",
+        "reference": "{\"document_sha256\": \"0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455\", \"end\": 1798, \"match\": \"normalized_exact\", \"segment_id\": \"p2\", \"start\": 1741, \"text_view\": \"reading_order\", \"text_view_sha256\": \"575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The generator receives domain information through the provided context.",
+        "reference": "{\"document_sha256\": \"0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455\", \"end\": 2630, \"match\": \"normalized_exact\", \"segment_id\": \"p3\", \"start\": 2536, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2b11566656f12ba121c0a3e5b6eb5d5a4f9a88075178a93b0c0d6fa748bb5079\"}"
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reason": "Domain knowledge itself is authorized; this permission does not extend to the exact clean document.",
+        "reference": "{\"document_sha256\": \"0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455\", \"end\": 1798, \"match\": \"normalized_exact\", \"segment_id\": \"p2\", \"start\": 1741, \"text_view\": \"reading_order\", \"text_view_sha256\": \"575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771\"}"
+      }
+    },
+    "claim_result": "unresolved",
+    "citation_errors": [
+      "implementation: citation is absent after whitespace/Unicode normalization"
+    ],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p2",
+        "start": 1741,
+        "end": 1798,
+        "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771"
+      },
+      "delivery": {
+        "segment_id": "p3",
+        "start": 2536,
+        "end": 2630,
+        "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "2b11566656f12ba121c0a3e5b6eb5d5a4f9a88075178a93b0c0d6fa748bb5079"
+      },
+      "refutation": {
+        "segment_id": "p2",
+        "start": 1741,
+        "end": 1798,
+        "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771"
+      },
+      "declaration": {
+        "segment_id": "p2",
+        "start": 1741,
+        "end": 1798,
+        "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771"
+      }
+    },
+    "semantic_review": {
+      "index": 2,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "confirmed",
+      "refutation": "explicit_permission",
+      "reason": "p3 delivers domain vocabulary and register through construction context. p2 expressly permits general-domain knowledge, refuting a mismatch at that information level without permitting exact-document access."
+    }
+  }
+]
+```
+
+#### 备注
+
+```json
+[
+  "Only supplied paper text was available; no code, saved requests, or runtime traces establish actual execution.",
+  "The paper states that original generated payload texts were not persisted in trial logs and that Llama Guard 3 used proxy camouflage payloads.",
+  "Specific-task-instruction delivery remains unanswered, so review of the listed suspicions is incomplete.",
+  "Evidence establishes the paper-described construction inputs; no supplied execution traces verify actual requests or isolate their causal effect.",
+  "p7 states that original generated payloads were not persisted and Llama Guard 3 used proxy camouflage payloads."
+]
+```
+
+#### 完整论文记录 JSON
+
+```json
+{
+  "id": "blind_spots",
+  "title": "Attacker context access exceeds the stated document-knowledge budget",
+  "source": "https://arxiv.org/pdf/2605.22001v1",
+  "status": "completed",
+  "has_confirmed_inconsistency": true,
+  "stages": [
+    {
+      "stage": "ingestion",
+      "status": "completed",
+      "segments": 8,
+      "characters": 45116,
+      "coverage": {
+        "complete": true,
+        "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+      },
+      "source_links": [],
+      "sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455"
+    },
+    {
+      "stage": "extraction",
+      "status": "completed",
+      "applicability": "in_scope",
+      "flow_count": 3
+    },
+    {
+      "stage": "semantic_review",
+      "status": "completed",
+      "applicability": "in_scope"
+    },
+    {
+      "stage": "citation_validation_and_decision",
+      "status": "completed",
+      "verdict": "insufficient_evidence",
+      "reason": "unresolved_checks"
+    },
+    {
+      "stage": "decision_replay",
+      "status": "completed",
+      "inference_calls": 0,
+      "same_pdf_bytes": true,
+      "same_primary_model_input": true,
+      "additional_reading_order_view": true,
+      "previous_verdict": "insufficient_evidence",
+      "verdict": "inconsistent"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "blind_spots_claim_1",
+      "source_group": "paper_text",
+      "description": "The stated construction crosses the document-knowledge boundary. The general description of an adversary with document read access creates conflicting framing rather than resolving the explicit exclusion.",
+      "scope": {
+        "paper_version": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+        "experiment_arm": "Paper-text audit of camouflage payload construction. The clearest inconsistency concerns access to the evaluated clean document; access to the specific task instruction remains unresolved.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "attacker LLM",
+        "phase": "payload construction",
+        "source": "target task's clean context document",
+        "representation": "document text supplied as generation context",
+        "operation": "generate domain-camouflaged payloads; select variants using context embeddings"
+      },
+      "verdict": "inconsistent",
+      "reason": "scoped_forbidden_delivery_confirmed",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "attacker LLM",
+            "phase": "payload construction",
+            "source": "target task's clean context document",
+            "representation": "document text supplied as generation context",
+            "operation": "generate domain-camouflaged payloads; select variants using context embeddings"
+          },
+          "permission": "deny",
+          "reference": "{\"document_sha256\": \"0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455\", \"end\": 1928, \"match\": \"normalized_exact\", \"segment_id\": \"p2\", \"start\": 1840, \"text_view\": \"reading_order\", \"text_view_sha256\": \"575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "attacker LLM",
+            "phase": "payload construction",
+            "source": "target task's clean context document",
+            "representation": "document text supplied as generation context",
+            "operation": "generate domain-camouflaged payloads; select variants using context embeddings"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455\", \"end\": 2353, \"match\": \"normalized_exact\", \"segment_id\": \"p3\", \"start\": 2257, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2b11566656f12ba121c0a3e5b6eb5d5a4f9a88075178a93b0c0d6fa748bb5079\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Clean-document access during camouflage construction",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "document_content",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "The restriction describes the attacker in this setting, and the method explicitly identifies the generation recipient as an attacker LLM. No separate stronger construction arm is specified.",
+          "reference": "{\"document_sha256\": \"0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455\", \"end\": 1798, \"match\": \"normalized_exact\", \"segment_id\": \"p2\", \"start\": 1741, \"text_view\": \"reading_order\", \"text_view_sha256\": \"575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The construction procedure supplies the task's clean context to the generator and also uses it for variant scoring.",
+          "reference": "{\"document_sha256\": \"0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455\", \"end\": 2630, \"match\": \"normalized_exact\", \"segment_id\": \"p3\", \"start\": 2542, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2b11566656f12ba121c0a3e5b6eb5d5a4f9a88075178a93b0c0d6fa748bb5079\"}"
+        },
+        "refutation": {
+          "basis": "none",
+          "reason": "Document-read access is described elsewhere, but no explicit exception reconciles it with the exact-clean-document exclusion.",
+          "reference": ""
+        }
+      },
+      "claim_result": "confirmed",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p2",
+          "start": 1741,
+          "end": 1798,
+          "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771"
+        },
+        "delivery": {
+          "segment_id": "p3",
+          "start": 2542,
+          "end": 2630,
+          "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "2b11566656f12ba121c0a3e5b6eb5d5a4f9a88075178a93b0c0d6fa748bb5079"
+        },
+        "declaration": {
+          "segment_id": "p2",
+          "start": 1840,
+          "end": 1928,
+          "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771"
+        },
+        "implementation": {
+          "segment_id": "p3",
+          "start": 2257,
+          "end": 2353,
+          "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "2b11566656f12ba121c0a3e5b6eb5d5a4f9a88075178a93b0c0d6fa748bb5079"
+        }
+      },
+      "semantic_review": {
+        "index": 0,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "confirmed",
+        "refutation": "none",
+        "reason": "p2 excludes the exact clean document; p3 supplies the task's clean context to the attacker LLM and uses context embeddings for selection. p1's general read-access framing supplies no explicit exception. This establishes a construction mismatch in the described procedure, not its causal behavioral impact."
+      }
+    },
+    {
+      "id": "blind_spots_claim_2",
+      "source_group": "paper_text",
+      "description": "The paper establishes clean-document delivery, but does not establish raw task-instruction delivery. The broad context wording warrants clarification.",
+      "scope": {
+        "paper_version": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+        "experiment_arm": "Paper-text audit of camouflage payload construction. The clearest inconsistency concerns access to the evaluated clean document; access to the specific task instruction remains unresolved.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "attacker LLM",
+        "phase": "payload construction",
+        "source": "target task's natural-language instruction",
+        "representation": "potential component of full task context",
+        "operation": "condition payload generation",
+        "query_form": "full_query"
+      },
+      "verdict": "insufficient_evidence",
+      "reason": "delivery_to_input_boundary_not_established",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "attacker LLM",
+            "phase": "payload construction",
+            "source": "target task's natural-language instruction",
+            "representation": "potential component of full task context",
+            "operation": "condition payload generation",
+            "query_form": "full_query"
+          },
+          "permission": "deny",
+          "reference": "{\"document_sha256\": \"0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455\", \"end\": 1877, \"match\": \"normalized_exact\", \"segment_id\": \"p2\", \"start\": 1840, \"text_view\": \"reading_order\", \"text_view_sha256\": \"575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "attacker LLM",
+            "phase": "payload construction",
+            "source": "target task's natural-language instruction",
+            "representation": "potential component of full task context",
+            "operation": "condition payload generation",
+            "query_form": "full_query"
+          },
+          "status": "possible",
+          "reference": "{\"document_sha256\": \"0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455\", \"end\": 290, \"match\": \"normalized_exact\", \"segment_id\": \"p2\", \"start\": 239, \"text_view\": \"reading_order\", \"text_view_sha256\": \"575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Possible specific-task-instruction access through full task context",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "exact_query",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "The exclusion applies to the construction attacker and the target task instruction if that instruction is delivered.",
+          "reference": "{\"document_sha256\": \"0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455\", \"end\": 1877, \"match\": \"normalized_exact\", \"segment_id\": \"p2\", \"start\": 1840, \"text_view\": \"reading_order\", \"text_view_sha256\": \"575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771\"}"
+        },
+        "delivery": {
+          "status": "unresolved",
+          "evidence_kind": "possible_path",
+          "task_relation": "same_evaluated_instance",
+          "reason": "Full task context could include the instruction, but the detailed generator description names only clean context and malicious goal.",
+          "reference": "{\"document_sha256\": \"0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455\", \"end\": 290, \"match\": \"normalized_exact\", \"segment_id\": \"p2\", \"start\": 239, \"text_view\": \"reading_order\", \"text_view_sha256\": \"575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771\"}"
+        },
+        "refutation": {
+          "basis": "none",
+          "reason": "The narrower input description does not affirmatively exclude the instruction.",
+          "reference": ""
+        }
+      },
+      "claim_result": "unresolved",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p2",
+          "start": 1840,
+          "end": 1877,
+          "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771"
+        },
+        "delivery": {
+          "segment_id": "p2",
+          "start": 239,
+          "end": 290,
+          "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771"
+        },
+        "declaration": {
+          "segment_id": "p2",
+          "start": 1840,
+          "end": 1877,
+          "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771"
+        },
+        "implementation": {
+          "segment_id": "p2",
+          "start": 239,
+          "end": 290,
+          "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771"
+        }
+      },
+      "semantic_review": {
+        "index": 1,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "unresolved",
+        "refutation": "none",
+        "reason": "p2 excludes the specific instruction but mentions full task context. p3 explicitly supplies clean context and malicious goal without establishing instruction delivery or exclusion. The proposed uncertainty is supported; a confirmed raw-query mismatch is not."
+      }
+    },
+    {
+      "id": "blind_spots_claim_3",
+      "source_group": "paper_text",
+      "description": "Domain adaptation alone is consistent with the stated budget. The concern is the more specific document information used to achieve it.",
+      "scope": {
+        "paper_version": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+        "experiment_arm": "Paper-text audit of camouflage payload construction. The clearest inconsistency concerns access to the evaluated clean document; access to the specific task instruction remains unresolved.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "attacker LLM",
+        "phase": "payload construction",
+        "source": "task's professional domain",
+        "representation": "domain vocabulary and register",
+        "operation": "generate domain-appropriate payloads"
+      },
+      "verdict": "insufficient_evidence",
+      "reason": "refutation_not_supported_by_scoped_evidence",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "attacker LLM",
+            "phase": "payload construction",
+            "source": "task's professional domain",
+            "representation": "domain vocabulary and register",
+            "operation": "generate domain-appropriate payloads"
+          },
+          "permission": "allow",
+          "reference": "{\"document_sha256\": \"0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455\", \"end\": 1798, \"match\": \"normalized_exact\", \"segment_id\": \"p2\", \"start\": 1741, \"text_view\": \"reading_order\", \"text_view_sha256\": \"575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771\"}"
+        }
+      ],
+      "matching_observations": [],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Permitted control: general-domain knowledge for camouflage",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "task_category",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "The threat model expressly permits domain knowledge for this attacker.",
+          "reference": "{\"document_sha256\": \"0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455\", \"end\": 1798, \"match\": \"normalized_exact\", \"segment_id\": \"p2\", \"start\": 1741, \"text_view\": \"reading_order\", \"text_view_sha256\": \"575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The generator receives domain information through the provided context.",
+          "reference": "{\"document_sha256\": \"0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455\", \"end\": 2630, \"match\": \"normalized_exact\", \"segment_id\": \"p3\", \"start\": 2536, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2b11566656f12ba121c0a3e5b6eb5d5a4f9a88075178a93b0c0d6fa748bb5079\"}"
+        },
+        "refutation": {
+          "basis": "explicit_permission",
+          "reason": "Domain knowledge itself is authorized; this permission does not extend to the exact clean document.",
+          "reference": "{\"document_sha256\": \"0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455\", \"end\": 1798, \"match\": \"normalized_exact\", \"segment_id\": \"p2\", \"start\": 1741, \"text_view\": \"reading_order\", \"text_view_sha256\": \"575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771\"}"
+        }
+      },
+      "claim_result": "unresolved",
+      "citation_errors": [
+        "implementation: citation is absent after whitespace/Unicode normalization"
+      ],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p2",
+          "start": 1741,
+          "end": 1798,
+          "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771"
+        },
+        "delivery": {
+          "segment_id": "p3",
+          "start": 2536,
+          "end": 2630,
+          "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "2b11566656f12ba121c0a3e5b6eb5d5a4f9a88075178a93b0c0d6fa748bb5079"
+        },
+        "refutation": {
+          "segment_id": "p2",
+          "start": 1741,
+          "end": 1798,
+          "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771"
+        },
+        "declaration": {
+          "segment_id": "p2",
+          "start": 1741,
+          "end": 1798,
+          "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "575333236aaa577382b423139965ceda2b6cae5a52169c505fc43b65506c4771"
+        }
+      },
+      "semantic_review": {
+        "index": 2,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "confirmed",
+        "refutation": "explicit_permission",
+        "reason": "p3 delivers domain vocabulary and register through construction context. p2 expressly permits general-domain knowledge, refuting a mismatch at that information level without permitting exact-document access."
+      }
+    }
+  ],
+  "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+  "schema_version": 3,
+  "applicability": "in_scope",
+  "scope": "Paper-text audit of camouflage payload construction. The clearest inconsistency concerns access to the evaluated clean document; access to the specific task instruction remains unresolved.",
+  "review_status": "model_reviewed_not_human_verified",
+  "evidence_scope": "listed_claims_document_only",
+  "notes": [
+    "Only supplied paper text was available; no code, saved requests, or runtime traces establish actual execution.",
+    "The paper states that original generated payload texts were not persisted in trial logs and that Llama Guard 3 used proxy camouflage payloads.",
+    "Specific-task-instruction delivery remains unanswered, so review of the listed suspicions is incomplete.",
+    "Evidence establishes the paper-described construction inputs; no supplied execution traces verify actual requests or isolate their causal effect.",
+    "p7 states that original generated payloads were not persisted and Llama Guard 3 used proxy camouflage payloads."
+  ],
+  "unresolved_questions": [
+    "Does the actual generator request contain the natural-language task instruction, or only the clean document and malicious goal?",
+    "Is clean-document access intended as an explicit stronger attacker arm, despite the threat model's exact-document exclusion?"
+  ],
+  "verdict": "inconsistent",
+  "reason": "confirmed_inconsistency_in_scope",
+  "coverage_complete": false,
+  "claim_result_counts": {
+    "confirmed": 1,
+    "unresolved": 2
+  },
+  "input_mode": "document_only",
+  "prompt_sha256": "dd80afd03660a2128242d06873b82a37c4c1ac043952e83a8a380e71835af55e",
+  "duration_seconds": 63.468,
+  "cohort": "curated_ipi",
+  "expected": null,
+  "expected_basis": "pending_independent_adjudication",
+  "comparison_note": "Historical targets are withheld while sources and scope are independently adjudicated.",
+  "matches_gold": null,
+  "previous_verdict": "insufficient_evidence",
+  "model_output_hashes": {
+    "extraction.json": "c30dc40c50e96398ef10523e68606421d6c46c631203e1b4d95dbb8a3e736c62",
+    "review.json": "9a76b9fac1ff6515da7349a7400d02779b4b42385fbf7793ae55509657e06bd3"
+  }
+}
+```
+
+### 3. ASPI attacker\-information budget audit
+
+论文 ID：aspi  
+运行 / 判定：证据不足
+
+#### 测试过程
+
+| 步骤 | 状态 | 记录 |
+| --- | --- | --- |
+| ingestion | 已完成 | \{"stage": "ingestion", "status": "completed", "segments": 34, "characters": 149931, "coverage": \{"complete": true, "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"\}, "source\_links": \["https://github\.com/scaleapi/aspi", "https://arxiv\.org/abs/2009\.11352", "https://arxiv\.org/", "https://doi\.org/10\.1145/3733799\.3762982", "https://openreview\.net/forum?id=", "https://proceedings", "https://openreview\.net/", "https://arxiv", "https://www\.usenix\.org/conference/", "https://arxiv\.org/abs/2603\.15714", "https://arxiv\.org/abs/2603\.26233", "https://aclanthology\.org/2020\.emnlp\-main\.466/", "https://huggingface\.co/", "https://doi\.org/10\.1145/3605764\.3623985", "https://arxiv\.org/abs/2602\.10525", "https://openreview\.net/forum", "https://arxiv\.org/abs/2507\.22034", "https://arxiv\.org/abs/2603\.10749", "https://arxiv\.org/abs/2511", "https://doi\.org/10\.1145/3690624\.3709179", "https://openreview\.net/forum?id=X2yzXtH4wp", "https://aclanthology\.org/2024", "https://arxiv\.org/abs/2508\.09124", "https://arxiv\.org/abs/2407\.19056", "https://simonwillison\.net/", "https://arxiv\.org/abs/2403\.04960", "https://arxiv\.org/abs/2603\.01357", "https://openreview\.net/forum?id=oKn9c6ytLx", "https://deepmind\.google/models/gemini/pro/", "https://www\.litellm\.ai"\], "sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893"\} |
+| extraction | 已完成 | \{"stage": "extraction", "status": "completed", "applicability": "in\_scope", "flow\_count": 4\} |
+| semantic\_review | 已完成 | \{"stage": "semantic\_review", "status": "completed", "applicability": "in\_scope"\} |
+| citation\_validation\_and\_decision | 已完成 | \{"stage": "citation\_validation\_and\_decision", "status": "completed", "verdict": "insufficient\_evidence", "reason": "unresolved\_checks"\} |
+| decision\_replay | 已完成 | \{"stage": "decision\_replay", "status": "completed", "inference\_calls": 0, "same\_pdf\_bytes": true, "same\_primary\_model\_input": true, "additional\_reading\_order\_view": true, "previous\_verdict": "insufficient\_evidence", "verdict": "insufficient\_evidence"\} |
+
+#### 证据
+
+```json
+[
+  {
+    "id": "aspi_claim_1",
+    "source_group": "paper_text",
+    "description": "This is a demonstrated construction input, not an inference from dataset storage. The base prompt is partial task text; the additional slot information should not be mislabeled as delivery of raw full-query text.",
+    "scope": {
+      "paper_version": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+      "experiment_arm": "Paper-described construction exposes task-specific information to injection generators. Dynamic attack generation also conditions on the original task and observed clarification question. These create bounded tensions with the stated external-adversary restrictions; whether benchmark-side generation is exempt remains unresolved.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "injection-generation LLM",
+      "phase": "offline payload construction",
+      "source": "same task–attack record",
+      "representation": "base prompt and task-specific clarification fields",
+      "operation": "generate an adversarial clarification response",
+      "query_form": "partial_query"
+    },
+    "verdict": "insufficient_evidence",
+    "reason": "policy_scope_not_established",
+    "matching_rules": [],
+    "matching_observations": [],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Task-conditioned injection construction: the injection LLM receives the ambiguous task, missing slot, expected question, and benign answer.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "partial_query",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "uncertain",
+        "reason": "The restriction explicitly covers the external attacker. The paper does not clarify whether its offline injection generator must obey that actor's budget.",
+        "reference": "{\"document_sha256\": \"cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893\", \"end\": 3250, \"match\": \"normalized_exact\", \"segment_id\": \"p3\", \"start\": 3215, \"text_view\": \"reading_order\", \"text_view_sha256\": \"990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275\"}"
+      },
+      "delivery": {
+        "status": "unresolved",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The reproduced injection prompt supplies task-specific fields directly to the construction model.",
+        "reference": "{\"document_sha256\": \"cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893\", \"end\": 1707, \"match\": \"normalized_exact\", \"segment_id\": \"p13\", \"start\": 1651, \"text_view\": \"reading_order\", \"text_view_sha256\": \"7c7bbacd40cf3714d9a74630309e65dbbb994e5d4aadb5bb4f61f37d3a9d7928\"}"
+      },
+      "refutation": {
+        "basis": "none",
+        "reason": "No specific exemption for task-conditioned attack construction is supplied.",
+        "reference": ""
+      }
+    },
+    "claim_result": "unresolved",
+    "citation_errors": [
+      "semantic_review_disagrees_with_proposed_assessment"
+    ],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p3",
+        "start": 3215,
+        "end": 3250,
+        "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275"
+      },
+      "delivery": {
+        "segment_id": "p13",
+        "start": 1651,
+        "end": 1707,
+        "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "7c7bbacd40cf3714d9a74630309e65dbbb994e5d4aadb5bb4f61f37d3a9d7928"
+      },
+      "implementation": {
+        "segment_id": "p13",
+        "start": 1046,
+        "end": 1192,
+        "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "7c7bbacd40cf3714d9a74630309e65dbbb994e5d4aadb5bb4f61f37d3a9d7928"
+      }
+    },
+    "semantic_review": {
+      "index": 0,
+      "supported": false,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "uncertain",
+      "delivery": "confirmed",
+      "refutation": "none",
+      "reason": "p13 explicitly supplies task-specific fields to the injection generator. p3 restricts external-attacker knowledge, but its application to offline construction is unresolved; delivery supports a concern, not a confirmed mismatch."
+    }
+  },
+  {
+    "id": "aspi_claim_2",
+    "source_group": "paper_text",
+    "description": "The paper describes full original-task delivery at this boundary. The benign-only simulator prompt in p17 leaves the exact attack-mode request unresolved.",
+    "scope": {
+      "paper_version": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+      "experiment_arm": "Paper-described construction exposes task-specific information to injection generators. Dynamic attack generation also conditions on the original task and observed clarification question. These create bounded tensions with the stated external-adversary restrictions; whether benchmark-side generation is exempt remains unresolved.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "clarification simulator generating attack responses",
+      "phase": "evaluation-time response construction",
+      "source": "original prompt of the evaluated task",
+      "representation": "original task text supplied as simulator context",
+      "operation": "answer the clarification question and embed the attacker instruction",
+      "query_form": "full_query"
+    },
+    "verdict": "insufficient_evidence",
+    "reason": "policy_scope_not_established",
+    "matching_rules": [],
+    "matching_observations": [],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Original-task-conditioned runtime attack generation: the simulator receives the original task while generating attacked clarification replies.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "uncertain",
+        "reason": "The simulator combines legitimate user simulation with attack construction. Applicability depends on whether the attack-generating component is subject to the external attacker's exclusion.",
+        "reference": "{\"document_sha256\": \"cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893\", \"end\": 3489, \"match\": \"normalized_exact\", \"segment_id\": \"p3\", \"start\": 3437, \"text_view\": \"reading_order\", \"text_view_sha256\": \"990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275\"}"
+      },
+      "delivery": {
+        "status": "unresolved",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The workflow explicitly connects original-task context to the model constructing the attacked response.",
+        "reference": "{\"document_sha256\": \"cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893\", \"end\": 1597, \"match\": \"normalized_exact\", \"segment_id\": \"p16\", \"start\": 1463, \"text_view\": \"reading_order\", \"text_view_sha256\": \"e18b1edb2e6e75a84cedf1bf56e2ac3b63b008e0ffa4c60e845a5b340a706ac9\"}"
+      },
+      "refutation": {
+        "basis": "none",
+        "reason": "The benign simulator's need for task context does not establish a permission for the attack-generating component.",
+        "reference": ""
+      }
+    },
+    "claim_result": "unresolved",
+    "citation_errors": [
+      "semantic_review_disagrees_with_proposed_assessment"
+    ],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p3",
+        "start": 3437,
+        "end": 3489,
+        "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275"
+      },
+      "delivery": {
+        "segment_id": "p16",
+        "start": 1463,
+        "end": 1597,
+        "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "e18b1edb2e6e75a84cedf1bf56e2ac3b63b008e0ffa4c60e845a5b340a706ac9"
+      },
+      "implementation": {
+        "segment_id": "p16",
+        "start": 1191,
+        "end": 1311,
+        "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "e18b1edb2e6e75a84cedf1bf56e2ac3b63b008e0ffa4c60e845a5b340a706ac9"
+      }
+    },
+    "semantic_review": {
+      "index": 1,
+      "supported": false,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "uncertain",
+      "delivery": "confirmed",
+      "refutation": "none",
+      "reason": "p16 explicitly connects original-task context to the simulator constructing attacked replies. Whether that component inherits the external attacker's knowledge budget remains unresolved. p17's benign prompt supplies no affirmative exemption."
+    }
+  },
+  {
+    "id": "aspi_claim_3",
+    "source_group": "paper_text",
+    "description": "Question-conditioned attack construction is present. Whether it constitutes the excluded strategy adaptation requires the attack-mode prompt and separation procedure.",
+    "scope": {
+      "paper_version": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+      "experiment_arm": "Paper-described construction exposes task-specific information to injection generators. Dynamic attack generation also conditions on the original task and observed clarification question. These create bounded tensions with the stated external-adversary restrictions; whether benchmark-side generation is exempt remains unresolved.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "attack-response simulator",
+      "phase": "evaluation-time payload construction",
+      "source": "evaluated agent's ask_user arguments",
+      "representation": "actual clarification question",
+      "operation": "dynamically align an attacked response with observed clarification behavior"
+    },
+    "verdict": "insufficient_evidence",
+    "reason": "policy_scope_not_established",
+    "matching_rules": [],
+    "matching_observations": [],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Observed-question adaptation: attack replies are generated against the agent's actual clarification question despite the stated nonadaptive scope.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "runtime_trace",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "uncertain",
+        "reason": "Dynamic response generation is described, but the paper does not distinguish benign answer adaptation from adaptation of the malicious instruction or strategy.",
+        "reference": "{\"document_sha256\": \"cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893\", \"end\": 690, \"match\": \"normalized_exact\", \"segment_id\": \"p9\", \"start\": 656, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2ca2eab416223c5b1f1bb93566e82d633515ff38f887c24c6b768320b5093d95\"}"
+      },
+      "delivery": {
+        "status": "unresolved",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The actual question reaches the response generator used in attack conditions.",
+        "reference": "{\"document_sha256\": \"cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893\", \"end\": 4227, \"match\": \"normalized_exact\", \"segment_id\": \"p16\", \"start\": 4164, \"text_view\": \"reading_order\", \"text_view_sha256\": \"e18b1edb2e6e75a84cedf1bf56e2ac3b63b008e0ffa4c60e845a5b340a706ac9\"}"
+      },
+      "refutation": {
+        "basis": "none",
+        "reason": "Predefined operators constrain generation but do not prove that malicious wording is independent of the observed question.",
+        "reference": ""
+      }
+    },
+    "claim_result": "unresolved",
+    "citation_errors": [
+      "semantic_review_disagrees_with_proposed_assessment"
+    ],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p9",
+        "start": 656,
+        "end": 690,
+        "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "2ca2eab416223c5b1f1bb93566e82d633515ff38f887c24c6b768320b5093d95"
+      },
+      "delivery": {
+        "segment_id": "p16",
+        "start": 4164,
+        "end": 4227,
+        "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "e18b1edb2e6e75a84cedf1bf56e2ac3b63b008e0ffa4c60e845a5b340a706ac9"
+      },
+      "implementation": {
+        "segment_id": "p16",
+        "start": 4349,
+        "end": 4469,
+        "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "e18b1edb2e6e75a84cedf1bf56e2ac3b63b008e0ffa4c60e845a5b340a706ac9"
+      }
+    },
+    "semantic_review": {
+      "index": 2,
+      "supported": false,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "uncertain",
+      "delivery": "confirmed",
+      "refutation": "none",
+      "reason": "p16 delivers the actual clarification question to the attack-response generator. It does not resolve whether malicious strategy adapts, as excluded by p9, or only the benign answer adapts. Predefined operators do not refute the concern."
+    }
+  },
+  {
+    "id": "aspi_claim_4",
+    "source_group": "paper_text",
+    "description": "This control does not excuse the separate delivery of resulting task-specific fields to the injection generator.",
+    "scope": {
+      "paper_version": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+      "experiment_arm": "Paper-described construction exposes task-specific information to injection generators. Dynamic attack generation also conditions on the original task and observed clarification question. These create bounded tensions with the stated external-adversary restrictions; whether benchmark-side generation is exempt remains unresolved.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "ambiguity-generation LLM",
+      "phase": "benchmark task construction",
+      "source": "original task and ground-truth solution",
+      "representation": "original prompt, answer, and tool calls",
+      "operation": "select and remove one user-provided slot",
+      "query_form": "full_query"
+    },
+    "verdict": "insufficient_evidence",
+    "reason": "refutation_not_supported_by_scoped_evidence",
+    "matching_rules": [],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "ambiguity-generation LLM",
+          "phase": "benchmark task construction",
+          "source": "original task and ground-truth solution",
+          "representation": "original prompt, answer, and tool calls",
+          "operation": "select and remove one user-provided slot",
+          "query_form": "full_query"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893\", \"end\": 3209, \"match\": \"normalized_exact\", \"segment_id\": \"p12\", \"start\": 3081, \"text_view\": \"reading_order\", \"text_view_sha256\": \"4fb8f4b60060c1a76aa9937e83e952da95c6c0cbd925dd34e0a0d36c4dbcd9e0\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Control—original-task and solution-trace access by the ambiguity designer is benchmark construction, without an established attacker-budget violation.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "not_applicable",
+        "reason": "This boundary serves task design rather than adversarial response generation.",
+        "reference": "{\"document_sha256\": \"cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893\", \"end\": 2190, \"match\": \"normalized_exact\", \"segment_id\": \"p12\", \"start\": 2087, \"text_view\": \"reading_order\", \"text_view_sha256\": \"4fb8f4b60060c1a76aa9937e83e952da95c6c0cbd925dd34e0a0d36c4dbcd9e0\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The paper explicitly describes the task-construction input.",
+        "reference": "{\"document_sha256\": \"cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893\", \"end\": 706, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 646, \"text_view\": \"reading_order\", \"text_view_sha256\": \"bd26f4032c5c9c08646f494c1a404da11e83db51f774b4ec1b2cc6c2054738f7\"}"
+      },
+      "refutation": {
+        "basis": "different_issue_type",
+        "reason": "The named access belongs to benchmark task design; it does not itself establish attacker knowledge.",
+        "reference": "{\"document_sha256\": \"cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893\", \"end\": 2190, \"match\": \"normalized_exact\", \"segment_id\": \"p12\", \"start\": 2122, \"text_view\": \"reading_order\", \"text_view_sha256\": \"4fb8f4b60060c1a76aa9937e83e952da95c6c0cbd925dd34e0a0d36c4dbcd9e0\"}"
+      }
+    },
+    "claim_result": "unresolved",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p12",
+        "start": 2087,
+        "end": 2190,
+        "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "4fb8f4b60060c1a76aa9937e83e952da95c6c0cbd925dd34e0a0d36c4dbcd9e0"
+      },
+      "delivery": {
+        "segment_id": "p4",
+        "start": 646,
+        "end": 706,
+        "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "bd26f4032c5c9c08646f494c1a404da11e83db51f774b4ec1b2cc6c2054738f7"
+      },
+      "refutation": {
+        "segment_id": "p12",
+        "start": 2122,
+        "end": 2190,
+        "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "4fb8f4b60060c1a76aa9937e83e952da95c6c0cbd925dd34e0a0d36c4dbcd9e0"
+      },
+      "implementation": {
+        "segment_id": "p12",
+        "start": 3081,
+        "end": 3209,
+        "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "4fb8f4b60060c1a76aa9937e83e952da95c6c0cbd925dd34e0a0d36c4dbcd9e0"
+      }
+    },
+    "semantic_review": {
+      "index": 3,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "not_applicable",
+      "delivery": "confirmed",
+      "refutation": "different_issue_type",
+      "reason": "p12 explicitly gives original-task and solution information to an ambiguity designer whose stated task excludes attack design. This supports the benchmark-construction control, without excusing separate injection-generator access."
+    }
+  }
+]
+```
+
+#### 备注
+
+```json
+[
+  "Only supplied paper text was audited; no code, saved requests, or execution logs were supplied.",
+  "Confirmed delivery denotes a described paper procedure, not independently observed runtime behavior.",
+  "Attack success and residual defense failures do not independently establish information-budget violations.",
+  "The generator-budget contract, exact attack-mode simulator prompt, malicious-content adaptation, and relationship between offline injections and runtime responses remain unresolved.",
+  "Delivery is confirmed only as a described paper procedure; no execution records were supplied.",
+  "Construction access does not independently establish causal effects on attack success; successful victim compromise is not itself a knowledge-budget violation."
+]
+```
+
+#### 完整论文记录 JSON
+
+```json
+{
+  "id": "aspi",
+  "title": "ASPI attacker-information budget audit",
+  "source": "https://arxiv.org/pdf/2605.17324v1",
+  "status": "completed",
+  "has_confirmed_inconsistency": false,
+  "stages": [
+    {
+      "stage": "ingestion",
+      "status": "completed",
+      "segments": 34,
+      "characters": 149931,
+      "coverage": {
+        "complete": true,
+        "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+      },
+      "source_links": [
+        "https://github.com/scaleapi/aspi",
+        "https://arxiv.org/abs/2009.11352",
+        "https://arxiv.org/",
+        "https://doi.org/10.1145/3733799.3762982",
+        "https://openreview.net/forum?id=",
+        "https://proceedings",
+        "https://openreview.net/",
+        "https://arxiv",
+        "https://www.usenix.org/conference/",
+        "https://arxiv.org/abs/2603.15714",
+        "https://arxiv.org/abs/2603.26233",
+        "https://aclanthology.org/2020.emnlp-main.466/",
+        "https://huggingface.co/",
+        "https://doi.org/10.1145/3605764.3623985",
+        "https://arxiv.org/abs/2602.10525",
+        "https://openreview.net/forum",
+        "https://arxiv.org/abs/2507.22034",
+        "https://arxiv.org/abs/2603.10749",
+        "https://arxiv.org/abs/2511",
+        "https://doi.org/10.1145/3690624.3709179",
+        "https://openreview.net/forum?id=X2yzXtH4wp",
+        "https://aclanthology.org/2024",
+        "https://arxiv.org/abs/2508.09124",
+        "https://arxiv.org/abs/2407.19056",
+        "https://simonwillison.net/",
+        "https://arxiv.org/abs/2403.04960",
+        "https://arxiv.org/abs/2603.01357",
+        "https://openreview.net/forum?id=oKn9c6ytLx",
+        "https://deepmind.google/models/gemini/pro/",
+        "https://www.litellm.ai"
+      ],
+      "sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893"
+    },
+    {
+      "stage": "extraction",
+      "status": "completed",
+      "applicability": "in_scope",
+      "flow_count": 4
+    },
+    {
+      "stage": "semantic_review",
+      "status": "completed",
+      "applicability": "in_scope"
+    },
+    {
+      "stage": "citation_validation_and_decision",
+      "status": "completed",
+      "verdict": "insufficient_evidence",
+      "reason": "unresolved_checks"
+    },
+    {
+      "stage": "decision_replay",
+      "status": "completed",
+      "inference_calls": 0,
+      "same_pdf_bytes": true,
+      "same_primary_model_input": true,
+      "additional_reading_order_view": true,
+      "previous_verdict": "insufficient_evidence",
+      "verdict": "insufficient_evidence"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "aspi_claim_1",
+      "source_group": "paper_text",
+      "description": "This is a demonstrated construction input, not an inference from dataset storage. The base prompt is partial task text; the additional slot information should not be mislabeled as delivery of raw full-query text.",
+      "scope": {
+        "paper_version": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+        "experiment_arm": "Paper-described construction exposes task-specific information to injection generators. Dynamic attack generation also conditions on the original task and observed clarification question. These create bounded tensions with the stated external-adversary restrictions; whether benchmark-side generation is exempt remains unresolved.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "injection-generation LLM",
+        "phase": "offline payload construction",
+        "source": "same task–attack record",
+        "representation": "base prompt and task-specific clarification fields",
+        "operation": "generate an adversarial clarification response",
+        "query_form": "partial_query"
+      },
+      "verdict": "insufficient_evidence",
+      "reason": "policy_scope_not_established",
+      "matching_rules": [],
+      "matching_observations": [],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Task-conditioned injection construction: the injection LLM receives the ambiguous task, missing slot, expected question, and benign answer.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "partial_query",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "uncertain",
+          "reason": "The restriction explicitly covers the external attacker. The paper does not clarify whether its offline injection generator must obey that actor's budget.",
+          "reference": "{\"document_sha256\": \"cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893\", \"end\": 3250, \"match\": \"normalized_exact\", \"segment_id\": \"p3\", \"start\": 3215, \"text_view\": \"reading_order\", \"text_view_sha256\": \"990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275\"}"
+        },
+        "delivery": {
+          "status": "unresolved",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The reproduced injection prompt supplies task-specific fields directly to the construction model.",
+          "reference": "{\"document_sha256\": \"cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893\", \"end\": 1707, \"match\": \"normalized_exact\", \"segment_id\": \"p13\", \"start\": 1651, \"text_view\": \"reading_order\", \"text_view_sha256\": \"7c7bbacd40cf3714d9a74630309e65dbbb994e5d4aadb5bb4f61f37d3a9d7928\"}"
+        },
+        "refutation": {
+          "basis": "none",
+          "reason": "No specific exemption for task-conditioned attack construction is supplied.",
+          "reference": ""
+        }
+      },
+      "claim_result": "unresolved",
+      "citation_errors": [
+        "semantic_review_disagrees_with_proposed_assessment"
+      ],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p3",
+          "start": 3215,
+          "end": 3250,
+          "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275"
+        },
+        "delivery": {
+          "segment_id": "p13",
+          "start": 1651,
+          "end": 1707,
+          "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "7c7bbacd40cf3714d9a74630309e65dbbb994e5d4aadb5bb4f61f37d3a9d7928"
+        },
+        "implementation": {
+          "segment_id": "p13",
+          "start": 1046,
+          "end": 1192,
+          "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "7c7bbacd40cf3714d9a74630309e65dbbb994e5d4aadb5bb4f61f37d3a9d7928"
+        }
+      },
+      "semantic_review": {
+        "index": 0,
+        "supported": false,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "uncertain",
+        "delivery": "confirmed",
+        "refutation": "none",
+        "reason": "p13 explicitly supplies task-specific fields to the injection generator. p3 restricts external-attacker knowledge, but its application to offline construction is unresolved; delivery supports a concern, not a confirmed mismatch."
+      }
+    },
+    {
+      "id": "aspi_claim_2",
+      "source_group": "paper_text",
+      "description": "The paper describes full original-task delivery at this boundary. The benign-only simulator prompt in p17 leaves the exact attack-mode request unresolved.",
+      "scope": {
+        "paper_version": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+        "experiment_arm": "Paper-described construction exposes task-specific information to injection generators. Dynamic attack generation also conditions on the original task and observed clarification question. These create bounded tensions with the stated external-adversary restrictions; whether benchmark-side generation is exempt remains unresolved.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "clarification simulator generating attack responses",
+        "phase": "evaluation-time response construction",
+        "source": "original prompt of the evaluated task",
+        "representation": "original task text supplied as simulator context",
+        "operation": "answer the clarification question and embed the attacker instruction",
+        "query_form": "full_query"
+      },
+      "verdict": "insufficient_evidence",
+      "reason": "policy_scope_not_established",
+      "matching_rules": [],
+      "matching_observations": [],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Original-task-conditioned runtime attack generation: the simulator receives the original task while generating attacked clarification replies.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "exact_query",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "uncertain",
+          "reason": "The simulator combines legitimate user simulation with attack construction. Applicability depends on whether the attack-generating component is subject to the external attacker's exclusion.",
+          "reference": "{\"document_sha256\": \"cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893\", \"end\": 3489, \"match\": \"normalized_exact\", \"segment_id\": \"p3\", \"start\": 3437, \"text_view\": \"reading_order\", \"text_view_sha256\": \"990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275\"}"
+        },
+        "delivery": {
+          "status": "unresolved",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The workflow explicitly connects original-task context to the model constructing the attacked response.",
+          "reference": "{\"document_sha256\": \"cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893\", \"end\": 1597, \"match\": \"normalized_exact\", \"segment_id\": \"p16\", \"start\": 1463, \"text_view\": \"reading_order\", \"text_view_sha256\": \"e18b1edb2e6e75a84cedf1bf56e2ac3b63b008e0ffa4c60e845a5b340a706ac9\"}"
+        },
+        "refutation": {
+          "basis": "none",
+          "reason": "The benign simulator's need for task context does not establish a permission for the attack-generating component.",
+          "reference": ""
+        }
+      },
+      "claim_result": "unresolved",
+      "citation_errors": [
+        "semantic_review_disagrees_with_proposed_assessment"
+      ],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p3",
+          "start": 3437,
+          "end": 3489,
+          "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275"
+        },
+        "delivery": {
+          "segment_id": "p16",
+          "start": 1463,
+          "end": 1597,
+          "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "e18b1edb2e6e75a84cedf1bf56e2ac3b63b008e0ffa4c60e845a5b340a706ac9"
+        },
+        "implementation": {
+          "segment_id": "p16",
+          "start": 1191,
+          "end": 1311,
+          "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "e18b1edb2e6e75a84cedf1bf56e2ac3b63b008e0ffa4c60e845a5b340a706ac9"
+        }
+      },
+      "semantic_review": {
+        "index": 1,
+        "supported": false,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "uncertain",
+        "delivery": "confirmed",
+        "refutation": "none",
+        "reason": "p16 explicitly connects original-task context to the simulator constructing attacked replies. Whether that component inherits the external attacker's knowledge budget remains unresolved. p17's benign prompt supplies no affirmative exemption."
+      }
+    },
+    {
+      "id": "aspi_claim_3",
+      "source_group": "paper_text",
+      "description": "Question-conditioned attack construction is present. Whether it constitutes the excluded strategy adaptation requires the attack-mode prompt and separation procedure.",
+      "scope": {
+        "paper_version": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+        "experiment_arm": "Paper-described construction exposes task-specific information to injection generators. Dynamic attack generation also conditions on the original task and observed clarification question. These create bounded tensions with the stated external-adversary restrictions; whether benchmark-side generation is exempt remains unresolved.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "attack-response simulator",
+        "phase": "evaluation-time payload construction",
+        "source": "evaluated agent's ask_user arguments",
+        "representation": "actual clarification question",
+        "operation": "dynamically align an attacked response with observed clarification behavior"
+      },
+      "verdict": "insufficient_evidence",
+      "reason": "policy_scope_not_established",
+      "matching_rules": [],
+      "matching_observations": [],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Observed-question adaptation: attack replies are generated against the agent's actual clarification question despite the stated nonadaptive scope.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "runtime_trace",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "uncertain",
+          "reason": "Dynamic response generation is described, but the paper does not distinguish benign answer adaptation from adaptation of the malicious instruction or strategy.",
+          "reference": "{\"document_sha256\": \"cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893\", \"end\": 690, \"match\": \"normalized_exact\", \"segment_id\": \"p9\", \"start\": 656, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2ca2eab416223c5b1f1bb93566e82d633515ff38f887c24c6b768320b5093d95\"}"
+        },
+        "delivery": {
+          "status": "unresolved",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The actual question reaches the response generator used in attack conditions.",
+          "reference": "{\"document_sha256\": \"cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893\", \"end\": 4227, \"match\": \"normalized_exact\", \"segment_id\": \"p16\", \"start\": 4164, \"text_view\": \"reading_order\", \"text_view_sha256\": \"e18b1edb2e6e75a84cedf1bf56e2ac3b63b008e0ffa4c60e845a5b340a706ac9\"}"
+        },
+        "refutation": {
+          "basis": "none",
+          "reason": "Predefined operators constrain generation but do not prove that malicious wording is independent of the observed question.",
+          "reference": ""
+        }
+      },
+      "claim_result": "unresolved",
+      "citation_errors": [
+        "semantic_review_disagrees_with_proposed_assessment"
+      ],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p9",
+          "start": 656,
+          "end": 690,
+          "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "2ca2eab416223c5b1f1bb93566e82d633515ff38f887c24c6b768320b5093d95"
+        },
+        "delivery": {
+          "segment_id": "p16",
+          "start": 4164,
+          "end": 4227,
+          "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "e18b1edb2e6e75a84cedf1bf56e2ac3b63b008e0ffa4c60e845a5b340a706ac9"
+        },
+        "implementation": {
+          "segment_id": "p16",
+          "start": 4349,
+          "end": 4469,
+          "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "e18b1edb2e6e75a84cedf1bf56e2ac3b63b008e0ffa4c60e845a5b340a706ac9"
+        }
+      },
+      "semantic_review": {
+        "index": 2,
+        "supported": false,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "uncertain",
+        "delivery": "confirmed",
+        "refutation": "none",
+        "reason": "p16 delivers the actual clarification question to the attack-response generator. It does not resolve whether malicious strategy adapts, as excluded by p9, or only the benign answer adapts. Predefined operators do not refute the concern."
+      }
+    },
+    {
+      "id": "aspi_claim_4",
+      "source_group": "paper_text",
+      "description": "This control does not excuse the separate delivery of resulting task-specific fields to the injection generator.",
+      "scope": {
+        "paper_version": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+        "experiment_arm": "Paper-described construction exposes task-specific information to injection generators. Dynamic attack generation also conditions on the original task and observed clarification question. These create bounded tensions with the stated external-adversary restrictions; whether benchmark-side generation is exempt remains unresolved.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "ambiguity-generation LLM",
+        "phase": "benchmark task construction",
+        "source": "original task and ground-truth solution",
+        "representation": "original prompt, answer, and tool calls",
+        "operation": "select and remove one user-provided slot",
+        "query_form": "full_query"
+      },
+      "verdict": "insufficient_evidence",
+      "reason": "refutation_not_supported_by_scoped_evidence",
+      "matching_rules": [],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "ambiguity-generation LLM",
+            "phase": "benchmark task construction",
+            "source": "original task and ground-truth solution",
+            "representation": "original prompt, answer, and tool calls",
+            "operation": "select and remove one user-provided slot",
+            "query_form": "full_query"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893\", \"end\": 3209, \"match\": \"normalized_exact\", \"segment_id\": \"p12\", \"start\": 3081, \"text_view\": \"reading_order\", \"text_view_sha256\": \"4fb8f4b60060c1a76aa9937e83e952da95c6c0cbd925dd34e0a0d36c4dbcd9e0\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Control—original-task and solution-trace access by the ambiguity designer is benchmark construction, without an established attacker-budget violation.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "exact_query",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "not_applicable",
+          "reason": "This boundary serves task design rather than adversarial response generation.",
+          "reference": "{\"document_sha256\": \"cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893\", \"end\": 2190, \"match\": \"normalized_exact\", \"segment_id\": \"p12\", \"start\": 2087, \"text_view\": \"reading_order\", \"text_view_sha256\": \"4fb8f4b60060c1a76aa9937e83e952da95c6c0cbd925dd34e0a0d36c4dbcd9e0\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The paper explicitly describes the task-construction input.",
+          "reference": "{\"document_sha256\": \"cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893\", \"end\": 706, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 646, \"text_view\": \"reading_order\", \"text_view_sha256\": \"bd26f4032c5c9c08646f494c1a404da11e83db51f774b4ec1b2cc6c2054738f7\"}"
+        },
+        "refutation": {
+          "basis": "different_issue_type",
+          "reason": "The named access belongs to benchmark task design; it does not itself establish attacker knowledge.",
+          "reference": "{\"document_sha256\": \"cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893\", \"end\": 2190, \"match\": \"normalized_exact\", \"segment_id\": \"p12\", \"start\": 2122, \"text_view\": \"reading_order\", \"text_view_sha256\": \"4fb8f4b60060c1a76aa9937e83e952da95c6c0cbd925dd34e0a0d36c4dbcd9e0\"}"
+        }
+      },
+      "claim_result": "unresolved",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p12",
+          "start": 2087,
+          "end": 2190,
+          "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "4fb8f4b60060c1a76aa9937e83e952da95c6c0cbd925dd34e0a0d36c4dbcd9e0"
+        },
+        "delivery": {
+          "segment_id": "p4",
+          "start": 646,
+          "end": 706,
+          "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "bd26f4032c5c9c08646f494c1a404da11e83db51f774b4ec1b2cc6c2054738f7"
+        },
+        "refutation": {
+          "segment_id": "p12",
+          "start": 2122,
+          "end": 2190,
+          "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "4fb8f4b60060c1a76aa9937e83e952da95c6c0cbd925dd34e0a0d36c4dbcd9e0"
+        },
+        "implementation": {
+          "segment_id": "p12",
+          "start": 3081,
+          "end": 3209,
+          "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "4fb8f4b60060c1a76aa9937e83e952da95c6c0cbd925dd34e0a0d36c4dbcd9e0"
+        }
+      },
+      "semantic_review": {
+        "index": 3,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "not_applicable",
+        "delivery": "confirmed",
+        "refutation": "different_issue_type",
+        "reason": "p12 explicitly gives original-task and solution information to an ambiguity designer whose stated task excludes attack design. This supports the benchmark-construction control, without excusing separate injection-generator access."
+      }
+    }
+  ],
+  "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+  "schema_version": 3,
+  "applicability": "in_scope",
+  "scope": "Paper-described construction exposes task-specific information to injection generators. Dynamic attack generation also conditions on the original task and observed clarification question. These create bounded tensions with the stated external-adversary restrictions; whether benchmark-side generation is exempt remains unresolved.",
+  "review_status": "model_reviewed_not_human_verified",
+  "evidence_scope": "listed_claims_document_only",
+  "notes": [
+    "Only supplied paper text was audited; no code, saved requests, or execution logs were supplied.",
+    "Confirmed delivery denotes a described paper procedure, not independently observed runtime behavior.",
+    "Attack success and residual defense failures do not independently establish information-budget violations.",
+    "The generator-budget contract, exact attack-mode simulator prompt, malicious-content adaptation, and relationship between offline injections and runtime responses remain unresolved.",
+    "Delivery is confirmed only as a described paper procedure; no execution records were supplied.",
+    "Construction access does not independently establish causal effects on attack success; successful victim compromise is not itself a knowledge-budget violation."
+  ],
+  "unresolved_questions": [
+    "Must offline and runtime attack generators obey the external adversary's no-task-access restriction, or are they explicitly stronger construction arms?",
+    "What exact attack-mode simulator prompt is used, and does it separate original-task context from malicious-content generation?",
+    "Does the actual clarification question affect only the benign answer, or also the malicious instruction's wording and strategy?",
+    "How are offline Gemini-generated injections combined with dynamically generated attack responses in each evaluated condition?"
+  ],
+  "verdict": "insufficient_evidence",
+  "reason": "unresolved_checks",
+  "coverage_complete": false,
+  "claim_result_counts": {
+    "unresolved": 4
+  },
+  "input_mode": "document_only",
+  "prompt_sha256": "dd80afd03660a2128242d06873b82a37c4c1ac043952e83a8a380e71835af55e",
+  "duration_seconds": 80.194,
+  "cohort": "curated_ipi",
+  "expected": null,
+  "expected_basis": "pending_independent_adjudication",
+  "comparison_note": "Historical targets are withheld while sources and scope are independently adjudicated.",
+  "matches_gold": null,
+  "previous_verdict": "insufficient_evidence",
+  "model_output_hashes": {
+    "extraction.json": "8a5538b759c70c71e1214f9d644f0a5549557ec2d0e31b77d8a034cd3e21499d",
+    "review.json": "5fb9ea69eab9c25015fec85dff240f37b372dfabe00df361ddba421e07e01ee0"
+  }
+}
+```
+
+### 4. MUZZLE information\-budget audit
+
+论文 ID：muzzle  
+运行 / 判定：证据不足
+
+#### 测试过程
+
+| 步骤 | 状态 | 记录 |
+| --- | --- | --- |
+| ingestion | 已完成 | \{"stage": "ingestion", "status": "completed", "segments": 21, "characters": 124184, "coverage": \{"complete": true, "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"\}, "source\_links": \["https://www\.usenix\.org/conference/usenixsecurity26/presentation/syros", "https://arxiv\.org/abs/2602\.09222", "https://github\.com/gsi", "https://github\.com/bgrins/the\_zoo", "http://gitea\.zoo/alice/hello\-zoo/issues", "https://doi\.org/10\.5281/zeno", "https://arxi", "https://claude\.com", "https://browser\-use\.com/", "https://search\.google/ways", "https://www\.search\.google/ways\-to\-sea", "https://arxiv\.org/", "https://huggin", "https://github\.com/microso", "https://www\.mi", "https://openai\.com", "https://op", "https://huggingface\.co/m", "https://huggingface\.co", "https://huggingface\.co/P", "https://huggingfac", "https://www\.diabrowser\.c", "https://arxiv\.org/abs/2404\.13208", "https://arxiv\.org/abs/2505\.05849", "https://html", "http://www\.w3\.org/TR/2004/REC", "https://www\.dobrowser\.io/", "https://www\.w3\.org/Security/", "https://arxiv\.org/abs/2307\.15043", "https://adnanthekhan\.com/posts/clinejection/"\], "sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0"\} |
+| extraction | 已完成 | \{"stage": "extraction", "status": "completed", "applicability": "in\_scope", "flow\_count": 4\} |
+| semantic\_review | 已完成 | \{"stage": "semantic\_review", "status": "completed", "applicability": "in\_scope"\} |
+| citation\_validation\_and\_decision | 已完成 | \{"stage": "citation\_validation\_and\_decision", "status": "completed", "verdict": "insufficient\_evidence", "reason": "unresolved\_checks"\} |
+| decision\_replay | 已完成 | \{"stage": "decision\_replay", "status": "completed", "inference\_calls": 0, "same\_pdf\_bytes": true, "same\_primary\_model\_input": true, "additional\_reading\_order\_view": true, "previous\_verdict": "insufficient\_evidence", "verdict": "insufficient\_evidence"\} |
+
+#### 证据
+
+```json
+[
+  {
+    "id": "muzzle_claim_1",
+    "source_group": "paper_text",
+    "description": "This is a bounded unresolved suspicion, not a demonstrated forbidden configuration flow.",
+    "scope": {
+      "paper_version": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+      "experiment_arm": "Paper-text audit of configuration inputs, discovery telemetry, objective-specific traces, and backend payload insertion. The supplied text establishes permitted discovery access but leaves the separation between operator configuration and attacker knowledge unclear.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "Operator to MUZZLE; downstream red-team recipients unresolved",
+      "phase": "Task initialization and attack construction",
+      "source": "Operator-provided task specification",
+      "representation": "Victim agent configuration",
+      "operation": "Ingest task specification"
+    },
+    "verdict": "insufficient_evidence",
+    "reason": "policy_scope_not_established",
+    "matching_rules": [],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "Operator to MUZZLE; downstream red-team recipients unresolved",
+          "phase": "Task initialization and attack construction",
+          "source": "Operator-provided task specification",
+          "representation": "Victim agent configuration",
+          "operation": "Ingest task specification"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 3278, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 3223, \"text_view\": \"reading_order\", \"text_view_sha256\": \"ad43fe0220c23781870630a636e892b4a277f379041d024b789e783249486729\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Configuration exposure: the framework ingests victim configuration, but its delivery to attack-construction agents is unresolved.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "other",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "uncertain",
+        "reason": "The exclusion applies to the adversary. Framework initialization by an operator does not establish that privileged configuration reaches the simulated adversary or payload generator.",
+        "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 253, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 181, \"text_view\": \"reading_order\", \"text_view_sha256\": \"9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d\"}"
+      },
+      "delivery": {
+        "status": "unresolved",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "Framework receipt is described; downstream configuration fields and recipients are not specified.",
+        "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 3232, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 3168, \"text_view\": \"reading_order\", \"text_view_sha256\": \"ad43fe0220c23781870630a636e892b4a277f379041d024b789e783249486729\"}"
+      },
+      "refutation": {
+        "basis": "none",
+        "reason": "No affirmative separation of operator-only configuration from attack-construction inputs is supplied.",
+        "reference": ""
+      }
+    },
+    "claim_result": "unresolved",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p5",
+        "start": 181,
+        "end": 253,
+        "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d"
+      },
+      "delivery": {
+        "segment_id": "p6",
+        "start": 3168,
+        "end": 3232,
+        "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "ad43fe0220c23781870630a636e892b4a277f379041d024b789e783249486729"
+      },
+      "implementation": {
+        "segment_id": "p6",
+        "start": 3223,
+        "end": 3278,
+        "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "ad43fe0220c23781870630a636e892b4a277f379041d024b789e783249486729"
+      }
+    },
+    "semantic_review": {
+      "index": 0,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "uncertain",
+      "delivery": "unresolved",
+      "refutation": "none",
+      "reason": "p5 restricts adversary configuration knowledge; p6 establishes operator-spec receipt and Explorer initialization, but does not identify privileged configuration delivered to payload construction. The bounded suspicion remains unresolved."
+    }
+  },
+  {
+    "id": "muzzle_claim_2",
+    "source_group": "paper_text",
+    "description": "The confirmed information object is execution context; the text does not establish which raw benign-query fields reach the payload LLM.",
+    "scope": {
+      "paper_version": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+      "experiment_arm": "Paper-text audit of configuration inputs, discovery telemetry, objective-specific traces, and backend payload insertion. The supplied text establishes permitted discovery access but leaves the separation between operator configuration and attacker knowledge unclear.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "Discovery adversary and Payload Generator",
+      "phase": "Offline reconnaissance and attack synthesis",
+      "source": "Locally deployed victim execution and placeholder run",
+      "representation": "LLM interaction transcripts and contextual reasoning traces",
+      "operation": "Collect and use as payload-generation context"
+    },
+    "verdict": "consistent_within_scope",
+    "reason": "claim_refuted_explicit_permission",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "Discovery adversary and Payload Generator",
+          "phase": "Offline reconnaissance and attack synthesis",
+          "source": "Locally deployed victim execution and placeholder run",
+          "representation": "LLM interaction transcripts and contextual reasoning traces",
+          "operation": "Collect and use as payload-generation context"
+        },
+        "permission": "allow",
+        "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 179, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 111, \"text_view\": \"reading_order\", \"text_view_sha256\": \"9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "Discovery adversary and Payload Generator",
+          "phase": "Offline reconnaissance and attack synthesis",
+          "source": "Locally deployed victim execution and placeholder run",
+          "representation": "LLM interaction transcripts and contextual reasoning traces",
+          "operation": "Collect and use as payload-generation context"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 1748, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 1687, \"text_view\": \"reading_order\", \"text_view_sha256\": \"ad43fe0220c23781870630a636e892b4a277f379041d024b789e783249486729\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Discovery telemetry control: victim LLM I/O and reasoning context are permitted inputs to payload construction.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "runtime_trace",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "The permission expressly covers the discovery actor and phase used for contextual attack construction.",
+        "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 5459, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 5399, \"text_view\": \"reading_order\", \"text_view_sha256\": \"68b69092d531361674ec4841121c3c662ba256e1dcc0799bd21316663b2f2144\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The paper explicitly connects collected context to the Payload Generator.",
+        "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 1685, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 1568, \"text_view\": \"reading_order\", \"text_view_sha256\": \"ad43fe0220c23781870630a636e892b4a277f379041d024b789e783249486729\"}"
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reason": "This specific discovery access is permitted, despite the black-box characterization.",
+        "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 179, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 111, \"text_view\": \"reading_order\", \"text_view_sha256\": \"9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d\"}"
+      }
+    },
+    "claim_result": "refuted",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p4",
+        "start": 5399,
+        "end": 5459,
+        "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "68b69092d531361674ec4841121c3c662ba256e1dcc0799bd21316663b2f2144"
+      },
+      "delivery": {
+        "segment_id": "p6",
+        "start": 1568,
+        "end": 1685,
+        "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "ad43fe0220c23781870630a636e892b4a277f379041d024b789e783249486729"
+      },
+      "refutation": {
+        "segment_id": "p5",
+        "start": 111,
+        "end": 179,
+        "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d"
+      },
+      "declaration": {
+        "segment_id": "p5",
+        "start": 111,
+        "end": 179,
+        "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d"
+      },
+      "implementation": {
+        "segment_id": "p6",
+        "start": 1687,
+        "end": 1748,
+        "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "ad43fe0220c23781870630a636e892b4a277f379041d024b789e783249486729"
+      }
+    },
+    "semantic_review": {
+      "index": 1,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "confirmed",
+      "refutation": "explicit_permission",
+      "reason": "p6 explicitly delivers placeholder-run traces and context to the Payload Generator. p4–p5 permit discovery access to execution traces and LLM I/O, so this construction input does not establish a knowledge-budget violation."
+    }
+  },
+  {
+    "id": "muzzle_claim_3",
+    "source_group": "paper_text",
+    "description": "Objective demonstrations are not unseen benign evaluation queries or privileged implementation access.",
+    "scope": {
+      "paper_version": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+      "experiment_arm": "Paper-text audit of configuration inputs, discovery telemetry, objective-specific traces, and backend payload insertion. The supplied text establishes permitted discovery access but leaves the separation between operator configuration and attacker knowledge unclear.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "Explorer to Payload Generator",
+      "phase": "Reconnaissance and attack synthesis",
+      "source": "Standalone execution of an adversarial objective",
+      "representation": "Objective-specific transcript distilled into an imperative instruction",
+      "operation": "Distill procedural knowledge and rephrase into payloads"
+    },
+    "verdict": "consistent_within_scope",
+    "reason": "claim_refuted_explicit_permission",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "Explorer to Payload Generator",
+          "phase": "Reconnaissance and attack synthesis",
+          "source": "Standalone execution of an adversarial objective",
+          "representation": "Objective-specific transcript distilled into an imperative instruction",
+          "operation": "Distill procedural knowledge and rephrase into payloads"
+        },
+        "permission": "allow",
+        "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 179, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 111, \"text_view\": \"reading_order\", \"text_view_sha256\": \"9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "Explorer to Payload Generator",
+          "phase": "Reconnaissance and attack synthesis",
+          "source": "Standalone execution of an adversarial objective",
+          "representation": "Objective-specific transcript distilled into an imperative instruction",
+          "operation": "Distill procedural knowledge and rephrase into payloads"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 4491, \"match\": \"normalized_exact\", \"segment_id\": \"p8\", \"start\": 4415, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2a076136af292214a2d9f53d8b47c2ff136dd0d645dda53bcf5cf5883f2e042b\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Objective-trace control: standalone adversarial-task executions supply procedural knowledge through the permitted trace channel.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "runtime_trace",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "The construction uses observable execution traces during discovery, with no stated restriction limiting discovery to benign executions.",
+        "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 5397, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 5314, \"text_view\": \"reading_order\", \"text_view_sha256\": \"68b69092d531361674ec4841121c3c662ba256e1dcc0799bd21316663b2f2144\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "different_instance",
+        "reason": "These are separate objective-demonstration executions, explicitly connected to subsequent payload synthesis.",
+        "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 633, \"match\": \"normalized_exact\", \"segment_id\": \"p8\", \"start\": 540, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2a076136af292214a2d9f53d8b47c2ff136dd0d645dda53bcf5cf5883f2e042b\"}"
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reason": "The described procedural knowledge comes from an expressly permitted information source.",
+        "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 179, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 111, \"text_view\": \"reading_order\", \"text_view_sha256\": \"9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d\"}"
+      }
+    },
+    "claim_result": "refuted",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p4",
+        "start": 5314,
+        "end": 5397,
+        "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "68b69092d531361674ec4841121c3c662ba256e1dcc0799bd21316663b2f2144"
+      },
+      "delivery": {
+        "segment_id": "p8",
+        "start": 540,
+        "end": 633,
+        "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "2a076136af292214a2d9f53d8b47c2ff136dd0d645dda53bcf5cf5883f2e042b"
+      },
+      "refutation": {
+        "segment_id": "p5",
+        "start": 111,
+        "end": 179,
+        "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d"
+      },
+      "declaration": {
+        "segment_id": "p5",
+        "start": 111,
+        "end": 179,
+        "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d"
+      },
+      "implementation": {
+        "segment_id": "p8",
+        "start": 4415,
+        "end": 4491,
+        "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "2a076136af292214a2d9f53d8b47c2ff136dd0d645dda53bcf5cf5883f2e042b"
+      }
+    },
+    "semantic_review": {
+      "index": 2,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "confirmed",
+      "refutation": "explicit_permission",
+      "reason": "p8 explicitly connects standalone objective transcripts to Payload Generator distillation. These discovery executions use the trace channel permitted by p5; they do not establish access to unseen benign evaluation queries."
+    }
+  },
+  {
+    "id": "muzzle_claim_4",
+    "source_group": "paper_text",
+    "description": "Whether backend insertion preserves client-facing permissions and field constraints remains a protocol question.",
+    "scope": {
+      "paper_version": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+      "experiment_arm": "Paper-text audit of configuration inputs, discovery telemetry, objective-specific traces, and backend payload insertion. The supplied text establishes permitted discovery access but leaves the separation between operator configuration and attacker knowledge unclear.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "Explorer",
+      "phase": "Final payload deployment",
+      "source": "Generated payload and selected UI vessel",
+      "representation": "Backend web-content modification",
+      "operation": "Replace placeholder with malicious instructions"
+    },
+    "verdict": "consistent_within_scope",
+    "reason": "claim_refuted_different_issue_type",
+    "matching_rules": [],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "Explorer",
+          "phase": "Final payload deployment",
+          "source": "Generated payload and selected UI vessel",
+          "representation": "Backend web-content modification",
+          "operation": "Replace placeholder with malicious instructions"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 5649, \"match\": \"normalized_exact\", \"segment_id\": \"p8\", \"start\": 5589, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2a076136af292214a2d9f53d8b47c2ff136dd0d645dda53bcf5cf5883f2e042b\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Backend insertion: direct state modification leaves client-interface equivalence unresolved, without establishing an extra knowledge flow.",
+    "issue_type": "experimental_protocol",
+    "assessment": {
+      "information_level": "other",
+      "policy_application": {
+        "policy_kind": "protocol_requirement",
+        "status": "uncertain",
+        "reason": "The adversary's insertion route is bounded, but the Explorer also performs sandbox orchestration. Backend content writes do not themselves demonstrate forbidden server-side logic changes.",
+        "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 356, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 281, \"text_view\": \"reading_order\", \"text_view_sha256\": \"9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The paper describes backend insertion into the UI content used for evaluation.",
+        "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 5527, \"match\": \"normalized_exact\", \"segment_id\": \"p8\", \"start\": 5431, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2a076136af292214a2d9f53d8b47c2ff136dd0d645dda53bcf5cf5883f2e042b\"}"
+      },
+      "refutation": {
+        "basis": "different_issue_type",
+        "reason": "The evidenced operation concerns deployment mechanics, not delivery of prohibited information to an attacker.",
+        "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 5696, \"match\": \"normalized_exact\", \"segment_id\": \"p8\", \"start\": 5650, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2a076136af292214a2d9f53d8b47c2ff136dd0d645dda53bcf5cf5883f2e042b\"}"
+      }
+    },
+    "claim_result": "refuted",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p5",
+        "start": 281,
+        "end": 356,
+        "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d"
+      },
+      "delivery": {
+        "segment_id": "p8",
+        "start": 5431,
+        "end": 5527,
+        "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "2a076136af292214a2d9f53d8b47c2ff136dd0d645dda53bcf5cf5883f2e042b"
+      },
+      "refutation": {
+        "segment_id": "p8",
+        "start": 5650,
+        "end": 5696,
+        "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "2a076136af292214a2d9f53d8b47c2ff136dd0d645dda53bcf5cf5883f2e042b"
+      },
+      "implementation": {
+        "segment_id": "p8",
+        "start": 5589,
+        "end": 5649,
+        "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "2a076136af292214a2d9f53d8b47c2ff136dd0d645dda53bcf5cf5883f2e042b"
+      }
+    },
+    "semantic_review": {
+      "index": 3,
+      "supported": true,
+      "policy_kind": "protocol_requirement",
+      "policy_application": "uncertain",
+      "delivery": "confirmed",
+      "refutation": "different_issue_type",
+      "reason": "p8 confirms Explorer backend payload insertion. This concerns deployment capabilities rather than prohibited knowledge delivery. Client-interface equivalence remains unresolved; backend insertion alone proves neither forbidden server-logic modification nor compliance with client-facing limits."
+    }
+  }
+]
+```
+
+#### 备注
+
+```json
+[
+  "Only supplied paper text was examined; no static code, saved requests, or runtime artifacts were supplied.",
+  "Successful exfiltration and destructive actions demonstrate victim security failures, not independently forbidden attacker knowledge.",
+  "No prohibited information flow is conclusively established by the supplied text.",
+  "Configuration separation and backend insertion equivalence remain unanswered, so the listed scope review is incomplete.",
+  "p8 establishes that candidate evaluation modifies the placeholder-bearing request and sends it to the underlying victim LLM. Exact benign-task fields delivered to the Payload Generator remain unspecified.",
+  "Only supplied document text supports these construction findings; no prohibited information flow or causal behavioral effect of configuration exposure is established.",
+  "Successful confidentiality, integrity, or availability attacks demonstrate victim security failures, not violations of attacker-knowledge assumptions."
+]
+```
+
+#### 完整论文记录 JSON
+
+```json
+{
+  "id": "muzzle",
+  "title": "MUZZLE information-budget audit",
+  "source": "https://www.usenix.org/system/files/usenixsecurity26-syros.pdf",
+  "status": "completed",
+  "has_confirmed_inconsistency": false,
+  "stages": [
+    {
+      "stage": "ingestion",
+      "status": "completed",
+      "segments": 21,
+      "characters": 124184,
+      "coverage": {
+        "complete": true,
+        "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+      },
+      "source_links": [
+        "https://www.usenix.org/conference/usenixsecurity26/presentation/syros",
+        "https://arxiv.org/abs/2602.09222",
+        "https://github.com/gsi",
+        "https://github.com/bgrins/the_zoo",
+        "http://gitea.zoo/alice/hello-zoo/issues",
+        "https://doi.org/10.5281/zeno",
+        "https://arxi",
+        "https://claude.com",
+        "https://browser-use.com/",
+        "https://search.google/ways",
+        "https://www.search.google/ways-to-sea",
+        "https://arxiv.org/",
+        "https://huggin",
+        "https://github.com/microso",
+        "https://www.mi",
+        "https://openai.com",
+        "https://op",
+        "https://huggingface.co/m",
+        "https://huggingface.co",
+        "https://huggingface.co/P",
+        "https://huggingfac",
+        "https://www.diabrowser.c",
+        "https://arxiv.org/abs/2404.13208",
+        "https://arxiv.org/abs/2505.05849",
+        "https://html",
+        "http://www.w3.org/TR/2004/REC",
+        "https://www.dobrowser.io/",
+        "https://www.w3.org/Security/",
+        "https://arxiv.org/abs/2307.15043",
+        "https://adnanthekhan.com/posts/clinejection/"
+      ],
+      "sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0"
+    },
+    {
+      "stage": "extraction",
+      "status": "completed",
+      "applicability": "in_scope",
+      "flow_count": 4
+    },
+    {
+      "stage": "semantic_review",
+      "status": "completed",
+      "applicability": "in_scope"
+    },
+    {
+      "stage": "citation_validation_and_decision",
+      "status": "completed",
+      "verdict": "insufficient_evidence",
+      "reason": "unresolved_checks"
+    },
+    {
+      "stage": "decision_replay",
+      "status": "completed",
+      "inference_calls": 0,
+      "same_pdf_bytes": true,
+      "same_primary_model_input": true,
+      "additional_reading_order_view": true,
+      "previous_verdict": "insufficient_evidence",
+      "verdict": "insufficient_evidence"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "muzzle_claim_1",
+      "source_group": "paper_text",
+      "description": "This is a bounded unresolved suspicion, not a demonstrated forbidden configuration flow.",
+      "scope": {
+        "paper_version": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+        "experiment_arm": "Paper-text audit of configuration inputs, discovery telemetry, objective-specific traces, and backend payload insertion. The supplied text establishes permitted discovery access but leaves the separation between operator configuration and attacker knowledge unclear.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "Operator to MUZZLE; downstream red-team recipients unresolved",
+        "phase": "Task initialization and attack construction",
+        "source": "Operator-provided task specification",
+        "representation": "Victim agent configuration",
+        "operation": "Ingest task specification"
+      },
+      "verdict": "insufficient_evidence",
+      "reason": "policy_scope_not_established",
+      "matching_rules": [],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "Operator to MUZZLE; downstream red-team recipients unresolved",
+            "phase": "Task initialization and attack construction",
+            "source": "Operator-provided task specification",
+            "representation": "Victim agent configuration",
+            "operation": "Ingest task specification"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 3278, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 3223, \"text_view\": \"reading_order\", \"text_view_sha256\": \"ad43fe0220c23781870630a636e892b4a277f379041d024b789e783249486729\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Configuration exposure: the framework ingests victim configuration, but its delivery to attack-construction agents is unresolved.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "other",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "uncertain",
+          "reason": "The exclusion applies to the adversary. Framework initialization by an operator does not establish that privileged configuration reaches the simulated adversary or payload generator.",
+          "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 253, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 181, \"text_view\": \"reading_order\", \"text_view_sha256\": \"9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d\"}"
+        },
+        "delivery": {
+          "status": "unresolved",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "Framework receipt is described; downstream configuration fields and recipients are not specified.",
+          "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 3232, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 3168, \"text_view\": \"reading_order\", \"text_view_sha256\": \"ad43fe0220c23781870630a636e892b4a277f379041d024b789e783249486729\"}"
+        },
+        "refutation": {
+          "basis": "none",
+          "reason": "No affirmative separation of operator-only configuration from attack-construction inputs is supplied.",
+          "reference": ""
+        }
+      },
+      "claim_result": "unresolved",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p5",
+          "start": 181,
+          "end": 253,
+          "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d"
+        },
+        "delivery": {
+          "segment_id": "p6",
+          "start": 3168,
+          "end": 3232,
+          "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "ad43fe0220c23781870630a636e892b4a277f379041d024b789e783249486729"
+        },
+        "implementation": {
+          "segment_id": "p6",
+          "start": 3223,
+          "end": 3278,
+          "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "ad43fe0220c23781870630a636e892b4a277f379041d024b789e783249486729"
+        }
+      },
+      "semantic_review": {
+        "index": 0,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "uncertain",
+        "delivery": "unresolved",
+        "refutation": "none",
+        "reason": "p5 restricts adversary configuration knowledge; p6 establishes operator-spec receipt and Explorer initialization, but does not identify privileged configuration delivered to payload construction. The bounded suspicion remains unresolved."
+      }
+    },
+    {
+      "id": "muzzle_claim_2",
+      "source_group": "paper_text",
+      "description": "The confirmed information object is execution context; the text does not establish which raw benign-query fields reach the payload LLM.",
+      "scope": {
+        "paper_version": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+        "experiment_arm": "Paper-text audit of configuration inputs, discovery telemetry, objective-specific traces, and backend payload insertion. The supplied text establishes permitted discovery access but leaves the separation between operator configuration and attacker knowledge unclear.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "Discovery adversary and Payload Generator",
+        "phase": "Offline reconnaissance and attack synthesis",
+        "source": "Locally deployed victim execution and placeholder run",
+        "representation": "LLM interaction transcripts and contextual reasoning traces",
+        "operation": "Collect and use as payload-generation context"
+      },
+      "verdict": "consistent_within_scope",
+      "reason": "claim_refuted_explicit_permission",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "Discovery adversary and Payload Generator",
+            "phase": "Offline reconnaissance and attack synthesis",
+            "source": "Locally deployed victim execution and placeholder run",
+            "representation": "LLM interaction transcripts and contextual reasoning traces",
+            "operation": "Collect and use as payload-generation context"
+          },
+          "permission": "allow",
+          "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 179, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 111, \"text_view\": \"reading_order\", \"text_view_sha256\": \"9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "Discovery adversary and Payload Generator",
+            "phase": "Offline reconnaissance and attack synthesis",
+            "source": "Locally deployed victim execution and placeholder run",
+            "representation": "LLM interaction transcripts and contextual reasoning traces",
+            "operation": "Collect and use as payload-generation context"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 1748, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 1687, \"text_view\": \"reading_order\", \"text_view_sha256\": \"ad43fe0220c23781870630a636e892b4a277f379041d024b789e783249486729\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Discovery telemetry control: victim LLM I/O and reasoning context are permitted inputs to payload construction.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "runtime_trace",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "The permission expressly covers the discovery actor and phase used for contextual attack construction.",
+          "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 5459, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 5399, \"text_view\": \"reading_order\", \"text_view_sha256\": \"68b69092d531361674ec4841121c3c662ba256e1dcc0799bd21316663b2f2144\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The paper explicitly connects collected context to the Payload Generator.",
+          "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 1685, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 1568, \"text_view\": \"reading_order\", \"text_view_sha256\": \"ad43fe0220c23781870630a636e892b4a277f379041d024b789e783249486729\"}"
+        },
+        "refutation": {
+          "basis": "explicit_permission",
+          "reason": "This specific discovery access is permitted, despite the black-box characterization.",
+          "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 179, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 111, \"text_view\": \"reading_order\", \"text_view_sha256\": \"9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d\"}"
+        }
+      },
+      "claim_result": "refuted",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p4",
+          "start": 5399,
+          "end": 5459,
+          "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "68b69092d531361674ec4841121c3c662ba256e1dcc0799bd21316663b2f2144"
+        },
+        "delivery": {
+          "segment_id": "p6",
+          "start": 1568,
+          "end": 1685,
+          "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "ad43fe0220c23781870630a636e892b4a277f379041d024b789e783249486729"
+        },
+        "refutation": {
+          "segment_id": "p5",
+          "start": 111,
+          "end": 179,
+          "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d"
+        },
+        "declaration": {
+          "segment_id": "p5",
+          "start": 111,
+          "end": 179,
+          "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d"
+        },
+        "implementation": {
+          "segment_id": "p6",
+          "start": 1687,
+          "end": 1748,
+          "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "ad43fe0220c23781870630a636e892b4a277f379041d024b789e783249486729"
+        }
+      },
+      "semantic_review": {
+        "index": 1,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "confirmed",
+        "refutation": "explicit_permission",
+        "reason": "p6 explicitly delivers placeholder-run traces and context to the Payload Generator. p4–p5 permit discovery access to execution traces and LLM I/O, so this construction input does not establish a knowledge-budget violation."
+      }
+    },
+    {
+      "id": "muzzle_claim_3",
+      "source_group": "paper_text",
+      "description": "Objective demonstrations are not unseen benign evaluation queries or privileged implementation access.",
+      "scope": {
+        "paper_version": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+        "experiment_arm": "Paper-text audit of configuration inputs, discovery telemetry, objective-specific traces, and backend payload insertion. The supplied text establishes permitted discovery access but leaves the separation between operator configuration and attacker knowledge unclear.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "Explorer to Payload Generator",
+        "phase": "Reconnaissance and attack synthesis",
+        "source": "Standalone execution of an adversarial objective",
+        "representation": "Objective-specific transcript distilled into an imperative instruction",
+        "operation": "Distill procedural knowledge and rephrase into payloads"
+      },
+      "verdict": "consistent_within_scope",
+      "reason": "claim_refuted_explicit_permission",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "Explorer to Payload Generator",
+            "phase": "Reconnaissance and attack synthesis",
+            "source": "Standalone execution of an adversarial objective",
+            "representation": "Objective-specific transcript distilled into an imperative instruction",
+            "operation": "Distill procedural knowledge and rephrase into payloads"
+          },
+          "permission": "allow",
+          "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 179, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 111, \"text_view\": \"reading_order\", \"text_view_sha256\": \"9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "Explorer to Payload Generator",
+            "phase": "Reconnaissance and attack synthesis",
+            "source": "Standalone execution of an adversarial objective",
+            "representation": "Objective-specific transcript distilled into an imperative instruction",
+            "operation": "Distill procedural knowledge and rephrase into payloads"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 4491, \"match\": \"normalized_exact\", \"segment_id\": \"p8\", \"start\": 4415, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2a076136af292214a2d9f53d8b47c2ff136dd0d645dda53bcf5cf5883f2e042b\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Objective-trace control: standalone adversarial-task executions supply procedural knowledge through the permitted trace channel.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "runtime_trace",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "The construction uses observable execution traces during discovery, with no stated restriction limiting discovery to benign executions.",
+          "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 5397, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 5314, \"text_view\": \"reading_order\", \"text_view_sha256\": \"68b69092d531361674ec4841121c3c662ba256e1dcc0799bd21316663b2f2144\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "different_instance",
+          "reason": "These are separate objective-demonstration executions, explicitly connected to subsequent payload synthesis.",
+          "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 633, \"match\": \"normalized_exact\", \"segment_id\": \"p8\", \"start\": 540, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2a076136af292214a2d9f53d8b47c2ff136dd0d645dda53bcf5cf5883f2e042b\"}"
+        },
+        "refutation": {
+          "basis": "explicit_permission",
+          "reason": "The described procedural knowledge comes from an expressly permitted information source.",
+          "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 179, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 111, \"text_view\": \"reading_order\", \"text_view_sha256\": \"9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d\"}"
+        }
+      },
+      "claim_result": "refuted",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p4",
+          "start": 5314,
+          "end": 5397,
+          "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "68b69092d531361674ec4841121c3c662ba256e1dcc0799bd21316663b2f2144"
+        },
+        "delivery": {
+          "segment_id": "p8",
+          "start": 540,
+          "end": 633,
+          "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "2a076136af292214a2d9f53d8b47c2ff136dd0d645dda53bcf5cf5883f2e042b"
+        },
+        "refutation": {
+          "segment_id": "p5",
+          "start": 111,
+          "end": 179,
+          "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d"
+        },
+        "declaration": {
+          "segment_id": "p5",
+          "start": 111,
+          "end": 179,
+          "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d"
+        },
+        "implementation": {
+          "segment_id": "p8",
+          "start": 4415,
+          "end": 4491,
+          "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "2a076136af292214a2d9f53d8b47c2ff136dd0d645dda53bcf5cf5883f2e042b"
+        }
+      },
+      "semantic_review": {
+        "index": 2,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "confirmed",
+        "refutation": "explicit_permission",
+        "reason": "p8 explicitly connects standalone objective transcripts to Payload Generator distillation. These discovery executions use the trace channel permitted by p5; they do not establish access to unseen benign evaluation queries."
+      }
+    },
+    {
+      "id": "muzzle_claim_4",
+      "source_group": "paper_text",
+      "description": "Whether backend insertion preserves client-facing permissions and field constraints remains a protocol question.",
+      "scope": {
+        "paper_version": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+        "experiment_arm": "Paper-text audit of configuration inputs, discovery telemetry, objective-specific traces, and backend payload insertion. The supplied text establishes permitted discovery access but leaves the separation between operator configuration and attacker knowledge unclear.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "Explorer",
+        "phase": "Final payload deployment",
+        "source": "Generated payload and selected UI vessel",
+        "representation": "Backend web-content modification",
+        "operation": "Replace placeholder with malicious instructions"
+      },
+      "verdict": "consistent_within_scope",
+      "reason": "claim_refuted_different_issue_type",
+      "matching_rules": [],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "Explorer",
+            "phase": "Final payload deployment",
+            "source": "Generated payload and selected UI vessel",
+            "representation": "Backend web-content modification",
+            "operation": "Replace placeholder with malicious instructions"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 5649, \"match\": \"normalized_exact\", \"segment_id\": \"p8\", \"start\": 5589, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2a076136af292214a2d9f53d8b47c2ff136dd0d645dda53bcf5cf5883f2e042b\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Backend insertion: direct state modification leaves client-interface equivalence unresolved, without establishing an extra knowledge flow.",
+      "issue_type": "experimental_protocol",
+      "assessment": {
+        "information_level": "other",
+        "policy_application": {
+          "policy_kind": "protocol_requirement",
+          "status": "uncertain",
+          "reason": "The adversary's insertion route is bounded, but the Explorer also performs sandbox orchestration. Backend content writes do not themselves demonstrate forbidden server-side logic changes.",
+          "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 356, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 281, \"text_view\": \"reading_order\", \"text_view_sha256\": \"9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The paper describes backend insertion into the UI content used for evaluation.",
+          "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 5527, \"match\": \"normalized_exact\", \"segment_id\": \"p8\", \"start\": 5431, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2a076136af292214a2d9f53d8b47c2ff136dd0d645dda53bcf5cf5883f2e042b\"}"
+        },
+        "refutation": {
+          "basis": "different_issue_type",
+          "reason": "The evidenced operation concerns deployment mechanics, not delivery of prohibited information to an attacker.",
+          "reference": "{\"document_sha256\": \"d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0\", \"end\": 5696, \"match\": \"normalized_exact\", \"segment_id\": \"p8\", \"start\": 5650, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2a076136af292214a2d9f53d8b47c2ff136dd0d645dda53bcf5cf5883f2e042b\"}"
+        }
+      },
+      "claim_result": "refuted",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p5",
+          "start": 281,
+          "end": 356,
+          "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d"
+        },
+        "delivery": {
+          "segment_id": "p8",
+          "start": 5431,
+          "end": 5527,
+          "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "2a076136af292214a2d9f53d8b47c2ff136dd0d645dda53bcf5cf5883f2e042b"
+        },
+        "refutation": {
+          "segment_id": "p8",
+          "start": 5650,
+          "end": 5696,
+          "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "2a076136af292214a2d9f53d8b47c2ff136dd0d645dda53bcf5cf5883f2e042b"
+        },
+        "implementation": {
+          "segment_id": "p8",
+          "start": 5589,
+          "end": 5649,
+          "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "2a076136af292214a2d9f53d8b47c2ff136dd0d645dda53bcf5cf5883f2e042b"
+        }
+      },
+      "semantic_review": {
+        "index": 3,
+        "supported": true,
+        "policy_kind": "protocol_requirement",
+        "policy_application": "uncertain",
+        "delivery": "confirmed",
+        "refutation": "different_issue_type",
+        "reason": "p8 confirms Explorer backend payload insertion. This concerns deployment capabilities rather than prohibited knowledge delivery. Client-interface equivalence remains unresolved; backend insertion alone proves neither forbidden server-logic modification nor compliance with client-facing limits."
+      }
+    }
+  ],
+  "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+  "schema_version": 3,
+  "applicability": "in_scope",
+  "scope": "Paper-text audit of configuration inputs, discovery telemetry, objective-specific traces, and backend payload insertion. The supplied text establishes permitted discovery access but leaves the separation between operator configuration and attacker knowledge unclear.",
+  "review_status": "model_reviewed_not_human_verified",
+  "evidence_scope": "listed_claims_document_only",
+  "notes": [
+    "Only supplied paper text was examined; no static code, saved requests, or runtime artifacts were supplied.",
+    "Successful exfiltration and destructive actions demonstrate victim security failures, not independently forbidden attacker knowledge.",
+    "No prohibited information flow is conclusively established by the supplied text.",
+    "Configuration separation and backend insertion equivalence remain unanswered, so the listed scope review is incomplete.",
+    "p8 establishes that candidate evaluation modifies the placeholder-bearing request and sends it to the underlying victim LLM. Exact benign-task fields delivered to the Payload Generator remain unspecified.",
+    "Only supplied document text supports these construction findings; no prohibited information flow or causal behavioral effect of configuration exposure is established.",
+    "Successful confidentiality, integrity, or availability attacks demonstrate victim security failures, not violations of attacker-knowledge assumptions."
+  ],
+  "unresolved_questions": [
+    "Which victim configuration fields are supplied to each red-team agent, and which remain confined to Explorer orchestration?",
+    "Does backend payload replacement enforce the same field limits and access permissions as the simulated adversary's client-facing insertion?",
+    "Which portions of the benign task and truncated victim transcript are actually passed to the Payload Generator, rather than used only in candidate evaluation?"
+  ],
+  "verdict": "insufficient_evidence",
+  "reason": "unresolved_checks",
+  "coverage_complete": false,
+  "claim_result_counts": {
+    "unresolved": 1,
+    "refuted": 3
+  },
+  "input_mode": "document_only",
+  "prompt_sha256": "dd80afd03660a2128242d06873b82a37c4c1ac043952e83a8a380e71835af55e",
+  "duration_seconds": 83.065,
+  "cohort": "curated_ipi",
+  "expected": null,
+  "expected_basis": "pending_independent_adjudication",
+  "comparison_note": "Historical targets are withheld while sources and scope are independently adjudicated.",
+  "matches_gold": null,
+  "previous_verdict": "insufficient_evidence",
+  "model_output_hashes": {
+    "extraction.json": "6c836e699b028c5db93fc1378330fc1c2b170353ce2b8bad342facb63c07cc0e",
+    "review.json": "8e9745c780885dbd185a60ee8dcc78d4fa9eccb58abd0e67ca9d7c2702997e17"
+  }
+}
+```
+
+### 5. FHA query access: construction inputs versus deployment restrictions
+
+论文 ID：fha  
+运行 / 判定：证据不足
+
+#### 测试过程
+
+| 步骤 | 状态 | 记录 |
+| --- | --- | --- |
+| ingestion | 已完成 | \{"stage": "ingestion", "status": "completed", "segments": 41, "characters": 145552, "coverage": \{"complete": true, "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"\}, "source\_links": \["https://github\.com/GraySwanAI/nanoGCG", "https://github\.com/modelcontextprotocol/servers\-archived/", "https://jmlr\.org/tmlr/ethics\.html", "https://arxiv\.org/abs/2407\.00121", "https://arxiv\.org/abs/2406\.13352", "https://doi\.org/10\.24963/ijcai\.2024/890", "https://arxiv\.org/abs/2402\.12329", "https://arxiv\.org/abs/2407\.19354", "https://arxiv\.org/abs/2503\.23278", "https://www\.ibm\.com/downloads/", "https://adversa\.ai/", "https://invariantlabs", "https://arxiv\.org/abs/2310\.06825", "https://arxiv\.org/abs/2504\.19277", "https://doi\.org/10\.1007/", "https://www\.usenix\.org/conference/usenixsecurity18/presentation/kumar", "https://arxiv\.org/abs/2310\.04451", "https://arxiv\.org/abs/2410\.18890", "https://arxiv", "https://arxiv\.org/abs/2303\.08774", "https://arxiv\.org/abs/2305\.15334", "https://arxiv\.org/abs/2505\.09388", "https://arxiv\.org/abs/2409\.15398", "https://arxiv\.org/abs/2302\.04761", "https://arxiv\.org/abs/2302\.13971", "https://nvlpubs\.nist\.gov/", "http://dx\.doi\.org/10\.1007/s11704\-024\-40231\-1", "https://arxiv\.org/abs/2410", "https://arxiv\.org/abs/2407\.17915", "https://arxiv\.org/abs/2210\.03629", "https://arxiv\.org/abs/2407\.04295", "https://arxiv\.org/abs/2403", "https://arxiv\.org/abs/2407\.20859", "https://arxiv\.org/abs/2307", "https://arxiv\.org/abs/2406\.04313", "https://github\.com/hanbaoergogo/MPMA\.git"\], "sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc"\} |
+| extraction | 已完成 | \{"stage": "extraction", "status": "completed", "applicability": "in\_scope", "flow\_count": 4\} |
+| semantic\_review | 已完成 | \{"stage": "semantic\_review", "status": "completed", "applicability": "in\_scope"\} |
+| citation\_validation\_and\_decision | 已完成 | \{"stage": "citation\_validation\_and\_decision", "status": "completed", "verdict": "insufficient\_evidence", "reason": "unresolved\_checks"\} |
+| decision\_replay | 已完成 | \{"stage": "decision\_replay", "status": "completed", "inference\_calls": 0, "same\_pdf\_bytes": true, "same\_primary\_model\_input": true, "additional\_reading\_order\_view": true, "previous\_verdict": "insufficient\_evidence", "verdict": "insufficient\_evidence"\} |
+
+#### 证据
+
+```json
+[
+  {
+    "id": "fha_claim_1",
+    "source_group": "paper_text",
+    "description": "Query-conditioned construction is described directly. Whether it violates the intended deployment budget depends on which fixed-query arms the no-prompt exclusion governs.",
+    "scope": {
+      "paper_version": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+      "experiment_arm": "Paper-text audit of query-conditioned FHA optimization, permitted training batches, held-out transfer, and query-aware baselines. The central tension concerns fixed-query construction under a stated no-user-prompt threat model.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "FHA suffix optimizer",
+      "phase": "offline construction",
+      "source": "single-payload or fixed-query payload batch",
+      "representation": "query-conditioned model context and construction loss",
+      "operation": "optimize description tokens using query-conditioned gradients and candidate losses",
+      "query_form": "full_query"
+    },
+    "verdict": "insufficient_evidence",
+    "reason": "policy_scope_not_established",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "FHA suffix optimizer",
+          "phase": "offline construction",
+          "source": "single-payload or fixed-query payload batch",
+          "representation": "query-conditioned model context and construction loss",
+          "operation": "optimize description tokens using query-conditioned gradients and candidate losses",
+          "query_form": "full_query"
+        },
+        "permission": "deny",
+        "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 2655, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2603, \"text_view\": \"reading_order\", \"text_view_sha256\": \"21d00e722b0ff38477db1751770b05b37d02a5f54d01045892f169300a6dcd33\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "FHA suffix optimizer",
+          "phase": "offline construction",
+          "source": "single-payload or fixed-query payload batch",
+          "representation": "query-conditioned model context and construction loss",
+          "operation": "optimize description tokens using query-conditioned gradients and candidate losses",
+          "query_form": "full_query"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 344, \"match\": \"normalized_exact\", \"segment_id\": \"p23\", \"start\": 314, \"text_view\": \"reading_order\", \"text_view_sha256\": \"1adb3bf5fb1a8754a0d10062ae826f65afbea68a4a4ad337206f0b14833432f6\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Fixed-query FHA construction: the optimizer uses the same query against which the attack is evaluated.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "uncertain",
+        "reason": "The exclusion explicitly concerns attacker knowledge. Single-payload experiments are designated diagnostic, which limits its applicability there. The fixed-query multi-payload robustness arm also constructs attacks using q, without an equally explicit exemption.",
+        "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 1113, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 1079, \"text_view\": \"reading_order\", \"text_view_sha256\": \"e6b107a73e018303a761647c47fbf4a12b34378af28521f8bb3e2b7c07de02f0\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The paper describes the fixed query entering construction contexts. This establishes optimizer conditioning, not raw-query delivery to a separate payload-generating LLM.",
+        "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 3800, \"match\": \"normalized_exact\", \"segment_id\": \"p14\", \"start\": 3714, \"text_view\": \"reading_order\", \"text_view_sha256\": \"6df8d88b0820d479693068b798c684db246cc31d16bf4f71305c92b2f3fe1cc8\"}"
+      },
+      "refutation": {
+        "basis": "none",
+        "reason": "The diagnostic qualification limits the claim but does not resolve the fixed-query robustness arm.",
+        "reference": ""
+      }
+    },
+    "claim_result": "unresolved",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p6",
+        "start": 1079,
+        "end": 1113,
+        "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "e6b107a73e018303a761647c47fbf4a12b34378af28521f8bb3e2b7c07de02f0"
+      },
+      "delivery": {
+        "segment_id": "p14",
+        "start": 3714,
+        "end": 3800,
+        "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "6df8d88b0820d479693068b798c684db246cc31d16bf4f71305c92b2f3fe1cc8"
+      },
+      "declaration": {
+        "segment_id": "p4",
+        "start": 2603,
+        "end": 2655,
+        "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "21d00e722b0ff38477db1751770b05b37d02a5f54d01045892f169300a6dcd33"
+      },
+      "implementation": {
+        "segment_id": "p23",
+        "start": 314,
+        "end": 344,
+        "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "1adb3bf5fb1a8754a0d10062ae826f65afbea68a4a4ad337206f0b14833432f6"
+      }
+    },
+    "semantic_review": {
+      "index": 0,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "uncertain",
+      "delivery": "confirmed",
+      "refutation": "none",
+      "reason": "p14 and p23 place the exact fixed query in the suffix optimizer's contexts, gradients and candidate selection. p6 exempts single-payload diagnostics from deployment claims but does not clearly resolve the fixed-query robustness arm. Construction access is supported; a budget violation remains uncertain."
+    }
+  },
+  {
+    "id": "fha_claim_2",
+    "source_group": "paper_text",
+    "description": "Permitted source training does not establish access to full held-out query text.",
+    "scope": {
+      "paper_version": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+      "experiment_arm": "Paper-text audit of query-conditioned FHA optimization, permitted training batches, held-out transfer, and query-aware baselines. The central tension concerns fixed-query construction under a stated no-user-prompt threat model.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "universal FHA optimizer",
+      "phase": "offline training",
+      "source": "Arguments variation training batches",
+      "representation": "query contexts and accumulated cross-entropy loss",
+      "operation": "optimize a shared description suffix over training queries",
+      "query_form": "full_query"
+    },
+    "verdict": "consistent_within_scope",
+    "reason": "claim_refuted_explicit_permission",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "universal FHA optimizer",
+          "phase": "offline training",
+          "source": "Arguments variation training batches",
+          "representation": "query contexts and accumulated cross-entropy loss",
+          "operation": "optimize a shared description suffix over training queries",
+          "query_form": "full_query"
+        },
+        "permission": "allow",
+        "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 2161, \"match\": \"normalized_exact\", \"segment_id\": \"p13\", \"start\": 2099, \"text_view\": \"reading_order\", \"text_view_sha256\": \"77526b3b0d3dc750d2d2666425208c187af6894aa8841b8dca40c2b8a2b95023\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "universal FHA optimizer",
+          "phase": "offline training",
+          "source": "Arguments variation training batches",
+          "representation": "query contexts and accumulated cross-entropy loss",
+          "operation": "optimize a shared description suffix over training queries",
+          "query_form": "full_query"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 830, \"match\": \"normalized_exact\", \"segment_id\": \"p23\", \"start\": 751, \"text_view\": \"reading_order\", \"text_view_sha256\": \"1adb3bf5fb1a8754a0d10062ae826f65afbea68a4a4ad337206f0b14833432f6\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Universal training control: source training queries are explicitly available for suffix optimization.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "The specific universal configuration permits source-query training. Its training queries must be distinguished from unseen deployment queries.",
+        "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 2161, \"match\": \"normalized_exact\", \"segment_id\": \"p13\", \"start\": 2099, \"text_view\": \"reading_order\", \"text_view_sha256\": \"77526b3b0d3dc750d2d2666425208c187af6894aa8841b8dca40c2b8a2b95023\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "training_instance",
+        "reason": "The construction procedure explicitly conditions optimization on the training batch.",
+        "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 938, \"match\": \"normalized_exact\", \"segment_id\": \"p23\", \"start\": 847, \"text_view\": \"reading_order\", \"text_view_sha256\": \"1adb3bf5fb1a8754a0d10062ae826f65afbea68a4a4ad337206f0b14833432f6\"}"
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reason": "This specific source-training configuration counters a blanket allegation that any query-conditioned universal training violates the threat model.",
+        "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 2161, \"match\": \"normalized_exact\", \"segment_id\": \"p13\", \"start\": 2099, \"text_view\": \"reading_order\", \"text_view_sha256\": \"77526b3b0d3dc750d2d2666425208c187af6894aa8841b8dca40c2b8a2b95023\"}"
+      }
+    },
+    "claim_result": "refuted",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p13",
+        "start": 2099,
+        "end": 2161,
+        "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "77526b3b0d3dc750d2d2666425208c187af6894aa8841b8dca40c2b8a2b95023"
+      },
+      "delivery": {
+        "segment_id": "p23",
+        "start": 847,
+        "end": 938,
+        "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "1adb3bf5fb1a8754a0d10062ae826f65afbea68a4a4ad337206f0b14833432f6"
+      },
+      "refutation": {
+        "segment_id": "p13",
+        "start": 2099,
+        "end": 2161,
+        "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "77526b3b0d3dc750d2d2666425208c187af6894aa8841b8dca40c2b8a2b95023"
+      },
+      "declaration": {
+        "segment_id": "p13",
+        "start": 2099,
+        "end": 2161,
+        "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "77526b3b0d3dc750d2d2666425208c187af6894aa8841b8dca40c2b8a2b95023"
+      },
+      "implementation": {
+        "segment_id": "p23",
+        "start": 751,
+        "end": 830,
+        "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "1adb3bf5fb1a8754a0d10062ae826f65afbea68a4a4ad337206f0b14833432f6"
+      }
+    },
+    "semantic_review": {
+      "index": 1,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "confirmed",
+      "refutation": "explicit_permission",
+      "reason": "p13 expressly permits Arguments variation training, and p23 delivers those queries to the universal optimizer. This specific training permission counters a blanket no-query allegation without permitting exact future deployment queries."
+    }
+  },
+  {
+    "id": "fha_claim_3",
+    "source_group": "paper_text",
+    "description": "The paper describes exclusion at construction time. Shared original examples and topics do not themselves demonstrate identical training and test query text.",
+    "scope": {
+      "paper_version": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+      "experiment_arm": "Paper-text audit of query-conditioned FHA optimization, permitted training batches, held-out transfer, and query-aware baselines. The central tension concerns fixed-query construction under a stated no-user-prompt threat model.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "universal FHA optimizer",
+      "phase": "construction before held-out evaluation",
+      "source": "Formulation diversity test queries",
+      "representation": "full held-out query text",
+      "operation": "potential conditioning of suffix construction on test queries",
+      "query_form": "full_query"
+    },
+    "verdict": "consistent_within_scope",
+    "reason": "claim_refuted_excluded_delivery",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "universal FHA optimizer",
+          "phase": "construction before held-out evaluation",
+          "source": "Formulation diversity test queries",
+          "representation": "full held-out query text",
+          "operation": "potential conditioning of suffix construction on test queries",
+          "query_form": "full_query"
+        },
+        "permission": "deny",
+        "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 2655, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2603, \"text_view\": \"reading_order\", \"text_view_sha256\": \"21d00e722b0ff38477db1751770b05b37d02a5f54d01045892f169300a6dcd33\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "universal FHA optimizer",
+          "phase": "construction before held-out evaluation",
+          "source": "Formulation diversity test queries",
+          "representation": "full held-out query text",
+          "operation": "potential conditioning of suffix construction on test queries",
+          "query_form": "full_query"
+        },
+        "status": "absent",
+        "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 211, \"match\": \"normalized_exact\", \"segment_id\": \"p39\", \"start\": 118, \"text_view\": \"reading_order\", \"text_view_sha256\": \"191d03bc62d639bbed810c7cd56e01ea315939f2c92a82682ee37ac6a6a6abd2\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Held-out query leakage: the described transfer procedure separates target queries from suffix training.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "The restriction concerns unseen target queries, while the explicit training permission concerns a separate source batch.",
+        "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 2731, \"match\": \"normalized_exact\", \"segment_id\": \"p13\", \"start\": 2678, \"text_view\": \"reading_order\", \"text_view_sha256\": \"77526b3b0d3dc750d2d2666425208c187af6894aa8841b8dca40c2b8a2b95023\"}"
+      },
+      "delivery": {
+        "status": "excluded",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The stated procedure trains on one batch and transfers the resulting attack to the held-out batch.",
+        "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 361, \"match\": \"normalized_exact\", \"segment_id\": \"p39\", \"start\": 279, \"text_view\": \"reading_order\", \"text_view_sha256\": \"191d03bc62d639bbed810c7cd56e01ea315939f2c92a82682ee37ac6a6a6abd2\"}"
+      },
+      "refutation": {
+        "basis": "excluded_delivery",
+        "reason": "This is affirmative procedural separation, rather than an inference from missing query-access evidence.",
+        "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 211, \"match\": \"normalized_exact\", \"segment_id\": \"p39\", \"start\": 118, \"text_view\": \"reading_order\", \"text_view_sha256\": \"191d03bc62d639bbed810c7cd56e01ea315939f2c92a82682ee37ac6a6a6abd2\"}"
+      }
+    },
+    "claim_result": "refuted",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p13",
+        "start": 2678,
+        "end": 2731,
+        "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "77526b3b0d3dc750d2d2666425208c187af6894aa8841b8dca40c2b8a2b95023"
+      },
+      "delivery": {
+        "segment_id": "p39",
+        "start": 279,
+        "end": 361,
+        "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "191d03bc62d639bbed810c7cd56e01ea315939f2c92a82682ee37ac6a6a6abd2"
+      },
+      "refutation": {
+        "segment_id": "p39",
+        "start": 118,
+        "end": 211,
+        "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "191d03bc62d639bbed810c7cd56e01ea315939f2c92a82682ee37ac6a6a6abd2"
+      },
+      "declaration": {
+        "segment_id": "p4",
+        "start": 2603,
+        "end": 2655,
+        "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "21d00e722b0ff38477db1751770b05b37d02a5f54d01045892f169300a6dcd33"
+      },
+      "implementation": {
+        "segment_id": "p39",
+        "start": 118,
+        "end": 211,
+        "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "191d03bc62d639bbed810c7cd56e01ea315939f2c92a82682ee37ac6a6a6abd2"
+      }
+    },
+    "semantic_review": {
+      "index": 2,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "excluded",
+      "refutation": "excluded_delivery",
+      "reason": "p13 and p39 affirmatively describe training on Arguments variation and transferring trained suffixes to held-out, unseen Formulation diversity queries. This supports procedural construction separation. Shared original examples do not establish identical records; selection leakage and exact overlap remain unanswered."
+    }
+  },
+  {
+    "id": "fha_claim_4",
+    "source_group": "paper_text",
+    "description": "This permitted baseline has a different information budget from query-universal deployment.",
+    "scope": {
+      "paper_version": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+      "experiment_arm": "Paper-text audit of query-conditioned FHA optimization, permitted training batches, held-out transfer, and query-aware baselines. The central tension concerns fixed-query construction under a stated no-user-prompt threat model.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "Function Injection baseline generator",
+      "phase": "single-shot attack construction",
+      "source": "sample user query",
+      "representation": "raw query inserted into generator prompt",
+      "operation": "generate an injected function fitted to that query",
+      "query_form": "full_query"
+    },
+    "verdict": "insufficient_evidence",
+    "reason": "refutation_not_supported_by_scoped_evidence",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "Function Injection baseline generator",
+          "phase": "single-shot attack construction",
+          "source": "sample user query",
+          "representation": "raw query inserted into generator prompt",
+          "operation": "generate an injected function fitted to that query",
+          "query_form": "full_query"
+        },
+        "permission": "allow",
+        "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 2406, \"match\": \"normalized_exact\", \"segment_id\": \"p7\", \"start\": 2388, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f47b9959adf55ccd5ca008833bc4988ed3717b5b17efc7a7137573cc8bc2d777\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "Function Injection baseline generator",
+          "phase": "single-shot attack construction",
+          "source": "sample user query",
+          "representation": "raw query inserted into generator prompt",
+          "operation": "generate an injected function fitted to that query",
+          "query_form": "full_query"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 3885, \"match\": \"normalized_exact\", \"segment_id\": \"p8\", \"start\": 3762, \"text_view\": \"reading_order\", \"text_view_sha256\": \"873ef3a91af48d1b43f4e26c9a0ee07ab976395c0352040b37d7b2f8db707aec\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Query-aware Function Injection control: the baseline generator receives the evaluation query under its own explicit configuration.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "not_applicable",
+        "reason": "The paper explicitly defines this comparison baseline as query-aware. FHA's no-prompt restriction cannot automatically be imposed on that separate arm.",
+        "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 1416, \"match\": \"normalized_exact\", \"segment_id\": \"p27\", \"start\": 1357, \"text_view\": \"reading_order\", \"text_view_sha256\": \"959b33f3e86a291054b48b42b6d98e156b65ccdc069a78b5e6f97f2564929202\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The paper directly describes query delivery to the baseline's generating LLM.",
+        "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 3732, \"match\": \"normalized_exact\", \"segment_id\": \"p8\", \"start\": 3664, \"text_view\": \"reading_order\", \"text_view_sha256\": \"873ef3a91af48d1b43f4e26c9a0ee07ab976395c0352040b37d7b2f8db707aec\"}"
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reason": "Query access is an explicit feature of this baseline.",
+        "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 2406, \"match\": \"normalized_exact\", \"segment_id\": \"p7\", \"start\": 2353, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f47b9959adf55ccd5ca008833bc4988ed3717b5b17efc7a7137573cc8bc2d777\"}"
+      }
+    },
+    "claim_result": "unresolved",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p27",
+        "start": 1357,
+        "end": 1416,
+        "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "959b33f3e86a291054b48b42b6d98e156b65ccdc069a78b5e6f97f2564929202"
+      },
+      "delivery": {
+        "segment_id": "p8",
+        "start": 3664,
+        "end": 3732,
+        "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "873ef3a91af48d1b43f4e26c9a0ee07ab976395c0352040b37d7b2f8db707aec"
+      },
+      "refutation": {
+        "segment_id": "p7",
+        "start": 2353,
+        "end": 2406,
+        "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "f47b9959adf55ccd5ca008833bc4988ed3717b5b17efc7a7137573cc8bc2d777"
+      },
+      "declaration": {
+        "segment_id": "p7",
+        "start": 2388,
+        "end": 2406,
+        "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "f47b9959adf55ccd5ca008833bc4988ed3717b5b17efc7a7137573cc8bc2d777"
+      },
+      "implementation": {
+        "segment_id": "p8",
+        "start": 3762,
+        "end": 3885,
+        "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "873ef3a91af48d1b43f4e26c9a0ee07ab976395c0352040b37d7b2f8db707aec"
+      }
+    },
+    "semantic_review": {
+      "index": 3,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "not_applicable",
+      "delivery": "confirmed",
+      "refutation": "explicit_permission",
+      "reason": "p7, p8 and p26 explicitly define the single-shot Function Injection baseline as receiving the sample query in its generation prompt. Its stated contract permits query access, so FHA's no-prompt restriction does not govern this arm."
+    }
+  }
+]
+```
+
+#### 备注
+
+```json
+[
+  "Only supplied paper text was available; no code, saved construction requests, or runtime traces were supplied.",
+  "Held-out construction exclusion is supported at the paper-procedure level, without independent implementation verification.",
+  "Tool-call hijacking success and defense failure are security outcomes, not independent evidence of prohibited attacker knowledge.",
+  "The fixed-query robustness arm's knowledge contract remains unresolved.",
+  "Held-out selection, stopping or refinement access and exact training/test string overlap are not established by the supplied text.",
+  "Delivery and exclusion findings are supported by paper procedures, without independent implementation traces.",
+  "Construction access does not establish its causal effect on attack success; hijacking and defense failures are security outcomes, not knowledge-budget violations."
+]
+```
+
+#### 完整论文记录 JSON
+
+```json
+{
+  "id": "fha",
+  "title": "FHA query access: construction inputs versus deployment restrictions",
+  "source": "https://arxiv.org/pdf/2604.20994v2",
+  "status": "completed",
+  "has_confirmed_inconsistency": false,
+  "stages": [
+    {
+      "stage": "ingestion",
+      "status": "completed",
+      "segments": 41,
+      "characters": 145552,
+      "coverage": {
+        "complete": true,
+        "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+      },
+      "source_links": [
+        "https://github.com/GraySwanAI/nanoGCG",
+        "https://github.com/modelcontextprotocol/servers-archived/",
+        "https://jmlr.org/tmlr/ethics.html",
+        "https://arxiv.org/abs/2407.00121",
+        "https://arxiv.org/abs/2406.13352",
+        "https://doi.org/10.24963/ijcai.2024/890",
+        "https://arxiv.org/abs/2402.12329",
+        "https://arxiv.org/abs/2407.19354",
+        "https://arxiv.org/abs/2503.23278",
+        "https://www.ibm.com/downloads/",
+        "https://adversa.ai/",
+        "https://invariantlabs",
+        "https://arxiv.org/abs/2310.06825",
+        "https://arxiv.org/abs/2504.19277",
+        "https://doi.org/10.1007/",
+        "https://www.usenix.org/conference/usenixsecurity18/presentation/kumar",
+        "https://arxiv.org/abs/2310.04451",
+        "https://arxiv.org/abs/2410.18890",
+        "https://arxiv",
+        "https://arxiv.org/abs/2303.08774",
+        "https://arxiv.org/abs/2305.15334",
+        "https://arxiv.org/abs/2505.09388",
+        "https://arxiv.org/abs/2409.15398",
+        "https://arxiv.org/abs/2302.04761",
+        "https://arxiv.org/abs/2302.13971",
+        "https://nvlpubs.nist.gov/",
+        "http://dx.doi.org/10.1007/s11704-024-40231-1",
+        "https://arxiv.org/abs/2410",
+        "https://arxiv.org/abs/2407.17915",
+        "https://arxiv.org/abs/2210.03629",
+        "https://arxiv.org/abs/2407.04295",
+        "https://arxiv.org/abs/2403",
+        "https://arxiv.org/abs/2407.20859",
+        "https://arxiv.org/abs/2307",
+        "https://arxiv.org/abs/2406.04313",
+        "https://github.com/hanbaoergogo/MPMA.git"
+      ],
+      "sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc"
+    },
+    {
+      "stage": "extraction",
+      "status": "completed",
+      "applicability": "in_scope",
+      "flow_count": 4
+    },
+    {
+      "stage": "semantic_review",
+      "status": "completed",
+      "applicability": "in_scope"
+    },
+    {
+      "stage": "citation_validation_and_decision",
+      "status": "completed",
+      "verdict": "insufficient_evidence",
+      "reason": "unresolved_checks"
+    },
+    {
+      "stage": "decision_replay",
+      "status": "completed",
+      "inference_calls": 0,
+      "same_pdf_bytes": true,
+      "same_primary_model_input": true,
+      "additional_reading_order_view": true,
+      "previous_verdict": "insufficient_evidence",
+      "verdict": "insufficient_evidence"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "fha_claim_1",
+      "source_group": "paper_text",
+      "description": "Query-conditioned construction is described directly. Whether it violates the intended deployment budget depends on which fixed-query arms the no-prompt exclusion governs.",
+      "scope": {
+        "paper_version": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+        "experiment_arm": "Paper-text audit of query-conditioned FHA optimization, permitted training batches, held-out transfer, and query-aware baselines. The central tension concerns fixed-query construction under a stated no-user-prompt threat model.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "FHA suffix optimizer",
+        "phase": "offline construction",
+        "source": "single-payload or fixed-query payload batch",
+        "representation": "query-conditioned model context and construction loss",
+        "operation": "optimize description tokens using query-conditioned gradients and candidate losses",
+        "query_form": "full_query"
+      },
+      "verdict": "insufficient_evidence",
+      "reason": "policy_scope_not_established",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "FHA suffix optimizer",
+            "phase": "offline construction",
+            "source": "single-payload or fixed-query payload batch",
+            "representation": "query-conditioned model context and construction loss",
+            "operation": "optimize description tokens using query-conditioned gradients and candidate losses",
+            "query_form": "full_query"
+          },
+          "permission": "deny",
+          "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 2655, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2603, \"text_view\": \"reading_order\", \"text_view_sha256\": \"21d00e722b0ff38477db1751770b05b37d02a5f54d01045892f169300a6dcd33\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "FHA suffix optimizer",
+            "phase": "offline construction",
+            "source": "single-payload or fixed-query payload batch",
+            "representation": "query-conditioned model context and construction loss",
+            "operation": "optimize description tokens using query-conditioned gradients and candidate losses",
+            "query_form": "full_query"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 344, \"match\": \"normalized_exact\", \"segment_id\": \"p23\", \"start\": 314, \"text_view\": \"reading_order\", \"text_view_sha256\": \"1adb3bf5fb1a8754a0d10062ae826f65afbea68a4a4ad337206f0b14833432f6\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Fixed-query FHA construction: the optimizer uses the same query against which the attack is evaluated.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "exact_query",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "uncertain",
+          "reason": "The exclusion explicitly concerns attacker knowledge. Single-payload experiments are designated diagnostic, which limits its applicability there. The fixed-query multi-payload robustness arm also constructs attacks using q, without an equally explicit exemption.",
+          "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 1113, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 1079, \"text_view\": \"reading_order\", \"text_view_sha256\": \"e6b107a73e018303a761647c47fbf4a12b34378af28521f8bb3e2b7c07de02f0\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The paper describes the fixed query entering construction contexts. This establishes optimizer conditioning, not raw-query delivery to a separate payload-generating LLM.",
+          "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 3800, \"match\": \"normalized_exact\", \"segment_id\": \"p14\", \"start\": 3714, \"text_view\": \"reading_order\", \"text_view_sha256\": \"6df8d88b0820d479693068b798c684db246cc31d16bf4f71305c92b2f3fe1cc8\"}"
+        },
+        "refutation": {
+          "basis": "none",
+          "reason": "The diagnostic qualification limits the claim but does not resolve the fixed-query robustness arm.",
+          "reference": ""
+        }
+      },
+      "claim_result": "unresolved",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p6",
+          "start": 1079,
+          "end": 1113,
+          "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "e6b107a73e018303a761647c47fbf4a12b34378af28521f8bb3e2b7c07de02f0"
+        },
+        "delivery": {
+          "segment_id": "p14",
+          "start": 3714,
+          "end": 3800,
+          "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "6df8d88b0820d479693068b798c684db246cc31d16bf4f71305c92b2f3fe1cc8"
+        },
+        "declaration": {
+          "segment_id": "p4",
+          "start": 2603,
+          "end": 2655,
+          "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "21d00e722b0ff38477db1751770b05b37d02a5f54d01045892f169300a6dcd33"
+        },
+        "implementation": {
+          "segment_id": "p23",
+          "start": 314,
+          "end": 344,
+          "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "1adb3bf5fb1a8754a0d10062ae826f65afbea68a4a4ad337206f0b14833432f6"
+        }
+      },
+      "semantic_review": {
+        "index": 0,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "uncertain",
+        "delivery": "confirmed",
+        "refutation": "none",
+        "reason": "p14 and p23 place the exact fixed query in the suffix optimizer's contexts, gradients and candidate selection. p6 exempts single-payload diagnostics from deployment claims but does not clearly resolve the fixed-query robustness arm. Construction access is supported; a budget violation remains uncertain."
+      }
+    },
+    {
+      "id": "fha_claim_2",
+      "source_group": "paper_text",
+      "description": "Permitted source training does not establish access to full held-out query text.",
+      "scope": {
+        "paper_version": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+        "experiment_arm": "Paper-text audit of query-conditioned FHA optimization, permitted training batches, held-out transfer, and query-aware baselines. The central tension concerns fixed-query construction under a stated no-user-prompt threat model.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "universal FHA optimizer",
+        "phase": "offline training",
+        "source": "Arguments variation training batches",
+        "representation": "query contexts and accumulated cross-entropy loss",
+        "operation": "optimize a shared description suffix over training queries",
+        "query_form": "full_query"
+      },
+      "verdict": "consistent_within_scope",
+      "reason": "claim_refuted_explicit_permission",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "universal FHA optimizer",
+            "phase": "offline training",
+            "source": "Arguments variation training batches",
+            "representation": "query contexts and accumulated cross-entropy loss",
+            "operation": "optimize a shared description suffix over training queries",
+            "query_form": "full_query"
+          },
+          "permission": "allow",
+          "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 2161, \"match\": \"normalized_exact\", \"segment_id\": \"p13\", \"start\": 2099, \"text_view\": \"reading_order\", \"text_view_sha256\": \"77526b3b0d3dc750d2d2666425208c187af6894aa8841b8dca40c2b8a2b95023\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "universal FHA optimizer",
+            "phase": "offline training",
+            "source": "Arguments variation training batches",
+            "representation": "query contexts and accumulated cross-entropy loss",
+            "operation": "optimize a shared description suffix over training queries",
+            "query_form": "full_query"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 830, \"match\": \"normalized_exact\", \"segment_id\": \"p23\", \"start\": 751, \"text_view\": \"reading_order\", \"text_view_sha256\": \"1adb3bf5fb1a8754a0d10062ae826f65afbea68a4a4ad337206f0b14833432f6\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Universal training control: source training queries are explicitly available for suffix optimization.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "exact_query",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "The specific universal configuration permits source-query training. Its training queries must be distinguished from unseen deployment queries.",
+          "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 2161, \"match\": \"normalized_exact\", \"segment_id\": \"p13\", \"start\": 2099, \"text_view\": \"reading_order\", \"text_view_sha256\": \"77526b3b0d3dc750d2d2666425208c187af6894aa8841b8dca40c2b8a2b95023\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "training_instance",
+          "reason": "The construction procedure explicitly conditions optimization on the training batch.",
+          "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 938, \"match\": \"normalized_exact\", \"segment_id\": \"p23\", \"start\": 847, \"text_view\": \"reading_order\", \"text_view_sha256\": \"1adb3bf5fb1a8754a0d10062ae826f65afbea68a4a4ad337206f0b14833432f6\"}"
+        },
+        "refutation": {
+          "basis": "explicit_permission",
+          "reason": "This specific source-training configuration counters a blanket allegation that any query-conditioned universal training violates the threat model.",
+          "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 2161, \"match\": \"normalized_exact\", \"segment_id\": \"p13\", \"start\": 2099, \"text_view\": \"reading_order\", \"text_view_sha256\": \"77526b3b0d3dc750d2d2666425208c187af6894aa8841b8dca40c2b8a2b95023\"}"
+        }
+      },
+      "claim_result": "refuted",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p13",
+          "start": 2099,
+          "end": 2161,
+          "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "77526b3b0d3dc750d2d2666425208c187af6894aa8841b8dca40c2b8a2b95023"
+        },
+        "delivery": {
+          "segment_id": "p23",
+          "start": 847,
+          "end": 938,
+          "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "1adb3bf5fb1a8754a0d10062ae826f65afbea68a4a4ad337206f0b14833432f6"
+        },
+        "refutation": {
+          "segment_id": "p13",
+          "start": 2099,
+          "end": 2161,
+          "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "77526b3b0d3dc750d2d2666425208c187af6894aa8841b8dca40c2b8a2b95023"
+        },
+        "declaration": {
+          "segment_id": "p13",
+          "start": 2099,
+          "end": 2161,
+          "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "77526b3b0d3dc750d2d2666425208c187af6894aa8841b8dca40c2b8a2b95023"
+        },
+        "implementation": {
+          "segment_id": "p23",
+          "start": 751,
+          "end": 830,
+          "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "1adb3bf5fb1a8754a0d10062ae826f65afbea68a4a4ad337206f0b14833432f6"
+        }
+      },
+      "semantic_review": {
+        "index": 1,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "confirmed",
+        "refutation": "explicit_permission",
+        "reason": "p13 expressly permits Arguments variation training, and p23 delivers those queries to the universal optimizer. This specific training permission counters a blanket no-query allegation without permitting exact future deployment queries."
+      }
+    },
+    {
+      "id": "fha_claim_3",
+      "source_group": "paper_text",
+      "description": "The paper describes exclusion at construction time. Shared original examples and topics do not themselves demonstrate identical training and test query text.",
+      "scope": {
+        "paper_version": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+        "experiment_arm": "Paper-text audit of query-conditioned FHA optimization, permitted training batches, held-out transfer, and query-aware baselines. The central tension concerns fixed-query construction under a stated no-user-prompt threat model.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "universal FHA optimizer",
+        "phase": "construction before held-out evaluation",
+        "source": "Formulation diversity test queries",
+        "representation": "full held-out query text",
+        "operation": "potential conditioning of suffix construction on test queries",
+        "query_form": "full_query"
+      },
+      "verdict": "consistent_within_scope",
+      "reason": "claim_refuted_excluded_delivery",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "universal FHA optimizer",
+            "phase": "construction before held-out evaluation",
+            "source": "Formulation diversity test queries",
+            "representation": "full held-out query text",
+            "operation": "potential conditioning of suffix construction on test queries",
+            "query_form": "full_query"
+          },
+          "permission": "deny",
+          "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 2655, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2603, \"text_view\": \"reading_order\", \"text_view_sha256\": \"21d00e722b0ff38477db1751770b05b37d02a5f54d01045892f169300a6dcd33\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "universal FHA optimizer",
+            "phase": "construction before held-out evaluation",
+            "source": "Formulation diversity test queries",
+            "representation": "full held-out query text",
+            "operation": "potential conditioning of suffix construction on test queries",
+            "query_form": "full_query"
+          },
+          "status": "absent",
+          "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 211, \"match\": \"normalized_exact\", \"segment_id\": \"p39\", \"start\": 118, \"text_view\": \"reading_order\", \"text_view_sha256\": \"191d03bc62d639bbed810c7cd56e01ea315939f2c92a82682ee37ac6a6a6abd2\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Held-out query leakage: the described transfer procedure separates target queries from suffix training.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "exact_query",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "The restriction concerns unseen target queries, while the explicit training permission concerns a separate source batch.",
+          "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 2731, \"match\": \"normalized_exact\", \"segment_id\": \"p13\", \"start\": 2678, \"text_view\": \"reading_order\", \"text_view_sha256\": \"77526b3b0d3dc750d2d2666425208c187af6894aa8841b8dca40c2b8a2b95023\"}"
+        },
+        "delivery": {
+          "status": "excluded",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The stated procedure trains on one batch and transfers the resulting attack to the held-out batch.",
+          "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 361, \"match\": \"normalized_exact\", \"segment_id\": \"p39\", \"start\": 279, \"text_view\": \"reading_order\", \"text_view_sha256\": \"191d03bc62d639bbed810c7cd56e01ea315939f2c92a82682ee37ac6a6a6abd2\"}"
+        },
+        "refutation": {
+          "basis": "excluded_delivery",
+          "reason": "This is affirmative procedural separation, rather than an inference from missing query-access evidence.",
+          "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 211, \"match\": \"normalized_exact\", \"segment_id\": \"p39\", \"start\": 118, \"text_view\": \"reading_order\", \"text_view_sha256\": \"191d03bc62d639bbed810c7cd56e01ea315939f2c92a82682ee37ac6a6a6abd2\"}"
+        }
+      },
+      "claim_result": "refuted",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p13",
+          "start": 2678,
+          "end": 2731,
+          "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "77526b3b0d3dc750d2d2666425208c187af6894aa8841b8dca40c2b8a2b95023"
+        },
+        "delivery": {
+          "segment_id": "p39",
+          "start": 279,
+          "end": 361,
+          "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "191d03bc62d639bbed810c7cd56e01ea315939f2c92a82682ee37ac6a6a6abd2"
+        },
+        "refutation": {
+          "segment_id": "p39",
+          "start": 118,
+          "end": 211,
+          "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "191d03bc62d639bbed810c7cd56e01ea315939f2c92a82682ee37ac6a6a6abd2"
+        },
+        "declaration": {
+          "segment_id": "p4",
+          "start": 2603,
+          "end": 2655,
+          "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "21d00e722b0ff38477db1751770b05b37d02a5f54d01045892f169300a6dcd33"
+        },
+        "implementation": {
+          "segment_id": "p39",
+          "start": 118,
+          "end": 211,
+          "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "191d03bc62d639bbed810c7cd56e01ea315939f2c92a82682ee37ac6a6a6abd2"
+        }
+      },
+      "semantic_review": {
+        "index": 2,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "excluded",
+        "refutation": "excluded_delivery",
+        "reason": "p13 and p39 affirmatively describe training on Arguments variation and transferring trained suffixes to held-out, unseen Formulation diversity queries. This supports procedural construction separation. Shared original examples do not establish identical records; selection leakage and exact overlap remain unanswered."
+      }
+    },
+    {
+      "id": "fha_claim_4",
+      "source_group": "paper_text",
+      "description": "This permitted baseline has a different information budget from query-universal deployment.",
+      "scope": {
+        "paper_version": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+        "experiment_arm": "Paper-text audit of query-conditioned FHA optimization, permitted training batches, held-out transfer, and query-aware baselines. The central tension concerns fixed-query construction under a stated no-user-prompt threat model.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "Function Injection baseline generator",
+        "phase": "single-shot attack construction",
+        "source": "sample user query",
+        "representation": "raw query inserted into generator prompt",
+        "operation": "generate an injected function fitted to that query",
+        "query_form": "full_query"
+      },
+      "verdict": "insufficient_evidence",
+      "reason": "refutation_not_supported_by_scoped_evidence",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "Function Injection baseline generator",
+            "phase": "single-shot attack construction",
+            "source": "sample user query",
+            "representation": "raw query inserted into generator prompt",
+            "operation": "generate an injected function fitted to that query",
+            "query_form": "full_query"
+          },
+          "permission": "allow",
+          "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 2406, \"match\": \"normalized_exact\", \"segment_id\": \"p7\", \"start\": 2388, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f47b9959adf55ccd5ca008833bc4988ed3717b5b17efc7a7137573cc8bc2d777\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "Function Injection baseline generator",
+            "phase": "single-shot attack construction",
+            "source": "sample user query",
+            "representation": "raw query inserted into generator prompt",
+            "operation": "generate an injected function fitted to that query",
+            "query_form": "full_query"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 3885, \"match\": \"normalized_exact\", \"segment_id\": \"p8\", \"start\": 3762, \"text_view\": \"reading_order\", \"text_view_sha256\": \"873ef3a91af48d1b43f4e26c9a0ee07ab976395c0352040b37d7b2f8db707aec\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Query-aware Function Injection control: the baseline generator receives the evaluation query under its own explicit configuration.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "exact_query",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "not_applicable",
+          "reason": "The paper explicitly defines this comparison baseline as query-aware. FHA's no-prompt restriction cannot automatically be imposed on that separate arm.",
+          "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 1416, \"match\": \"normalized_exact\", \"segment_id\": \"p27\", \"start\": 1357, \"text_view\": \"reading_order\", \"text_view_sha256\": \"959b33f3e86a291054b48b42b6d98e156b65ccdc069a78b5e6f97f2564929202\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The paper directly describes query delivery to the baseline's generating LLM.",
+          "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 3732, \"match\": \"normalized_exact\", \"segment_id\": \"p8\", \"start\": 3664, \"text_view\": \"reading_order\", \"text_view_sha256\": \"873ef3a91af48d1b43f4e26c9a0ee07ab976395c0352040b37d7b2f8db707aec\"}"
+        },
+        "refutation": {
+          "basis": "explicit_permission",
+          "reason": "Query access is an explicit feature of this baseline.",
+          "reference": "{\"document_sha256\": \"a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc\", \"end\": 2406, \"match\": \"normalized_exact\", \"segment_id\": \"p7\", \"start\": 2353, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f47b9959adf55ccd5ca008833bc4988ed3717b5b17efc7a7137573cc8bc2d777\"}"
+        }
+      },
+      "claim_result": "unresolved",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p27",
+          "start": 1357,
+          "end": 1416,
+          "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "959b33f3e86a291054b48b42b6d98e156b65ccdc069a78b5e6f97f2564929202"
+        },
+        "delivery": {
+          "segment_id": "p8",
+          "start": 3664,
+          "end": 3732,
+          "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "873ef3a91af48d1b43f4e26c9a0ee07ab976395c0352040b37d7b2f8db707aec"
+        },
+        "refutation": {
+          "segment_id": "p7",
+          "start": 2353,
+          "end": 2406,
+          "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "f47b9959adf55ccd5ca008833bc4988ed3717b5b17efc7a7137573cc8bc2d777"
+        },
+        "declaration": {
+          "segment_id": "p7",
+          "start": 2388,
+          "end": 2406,
+          "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "f47b9959adf55ccd5ca008833bc4988ed3717b5b17efc7a7137573cc8bc2d777"
+        },
+        "implementation": {
+          "segment_id": "p8",
+          "start": 3762,
+          "end": 3885,
+          "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "873ef3a91af48d1b43f4e26c9a0ee07ab976395c0352040b37d7b2f8db707aec"
+        }
+      },
+      "semantic_review": {
+        "index": 3,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "not_applicable",
+        "delivery": "confirmed",
+        "refutation": "explicit_permission",
+        "reason": "p7, p8 and p26 explicitly define the single-shot Function Injection baseline as receiving the sample query in its generation prompt. Its stated contract permits query access, so FHA's no-prompt restriction does not govern this arm."
+      }
+    }
+  ],
+  "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+  "schema_version": 3,
+  "applicability": "in_scope",
+  "scope": "Paper-text audit of query-conditioned FHA optimization, permitted training batches, held-out transfer, and query-aware baselines. The central tension concerns fixed-query construction under a stated no-user-prompt threat model.",
+  "review_status": "model_reviewed_not_human_verified",
+  "evidence_scope": "listed_claims_document_only",
+  "notes": [
+    "Only supplied paper text was available; no code, saved construction requests, or runtime traces were supplied.",
+    "Held-out construction exclusion is supported at the paper-procedure level, without independent implementation verification.",
+    "Tool-call hijacking success and defense failure are security outcomes, not independent evidence of prohibited attacker knowledge.",
+    "The fixed-query robustness arm's knowledge contract remains unresolved.",
+    "Held-out selection, stopping or refinement access and exact training/test string overlap are not established by the supplied text.",
+    "Delivery and exclusion findings are supported by paper procedures, without independent implementation traces.",
+    "Construction access does not establish its causal effect on attack success; hijacking and defense failures are security outcomes, not knowledge-budget violations."
+  ],
+  "unresolved_questions": [
+    "Does the no-user-prompt exclusion apply to fixed-query multi-payload robustness construction, or is that arm also intended solely as an informed diagnostic?",
+    "Were held-out queries used for suffix selection, stopping decisions, or refinement beyond the training-and-transfer procedure described?",
+    "Were generated training and held-out query strings checked for exact overlap, given their shared original examples?"
+  ],
+  "verdict": "insufficient_evidence",
+  "reason": "unresolved_checks",
+  "coverage_complete": false,
+  "claim_result_counts": {
+    "unresolved": 2,
+    "refuted": 2
+  },
+  "input_mode": "document_only",
+  "prompt_sha256": "dd80afd03660a2128242d06873b82a37c4c1ac043952e83a8a380e71835af55e",
+  "duration_seconds": 80.501,
+  "cohort": "curated_ipi",
+  "expected": null,
+  "expected_basis": "pending_independent_adjudication",
+  "comparison_note": "Historical targets are withheld while sources and scope are independently adjudicated.",
+  "matches_gold": null,
+  "previous_verdict": "insufficient_evidence",
+  "model_output_hashes": {
+    "extraction.json": "07e342df1953b01dcc9633be25c789eb52144e175cec25e5e1d726a3075ed44a",
+    "review.json": "3919d175e633f4092e7f39e5bbf9caa63541db22029a574ecd7132ea58e26955"
+  }
+}
+```
+
+### 6. agentcon
+
+论文 ID：agentcon  
+运行 / 判定：运行失败
+
+#### 测试过程
+
+| 步骤 | 状态 | 记录 |
+| --- | --- | --- |
+| ingestion | 运行失败 | \{"stage": "ingestion", "status": "failed", "error": "Received an access/security challenge page, not paper body text; provide an accessible PDF or a local document"\} |
+
+#### 证据
+
+```json
+[]
+```
+
+#### 备注
+
+```json
+[]
+```
+
+#### 完整论文记录 JSON
+
+```json
+{
+  "id": "agentcon",
+  "title": "agentcon",
+  "source": "https://openreview.net/pdf?id=AMIb7RWnBI",
+  "status": "failed",
+  "has_confirmed_inconsistency": null,
+  "stages": [
+    {
+      "stage": "ingestion",
+      "status": "failed",
+      "error": "Received an access/security challenge page, not paper body text; provide an accessible PDF or a local document"
+    }
+  ],
+  "evidence": [],
+  "verdict": "technical_failure",
+  "error": "Received an access/security challenge page, not paper body text; provide an accessible PDF or a local document",
+  "duration_seconds": 3.147,
+  "cohort": "curated_ipi",
+  "expected": null,
+  "expected_basis": "pending_independent_adjudication",
+  "comparison_note": "Historical targets are withheld while sources and scope are independently adjudicated.",
+  "matches_gold": null,
+  "previous_verdict": "technical_failure"
+}
+```
+
+### 7. Information\-budget audit of Overcoming the Retrieval Barrier
+
+论文 ID：retrieval\_barrier  
+运行 / 判定：证据不足
+
+#### 测试过程
+
+| 步骤 | 状态 | 记录 |
+| --- | --- | --- |
+| ingestion | 已完成 | \{"stage": "ingestion", "status": "completed", "segments": 21, "characters": 142451, "coverage": \{"complete": true, "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"\}, "source\_links": \["https://www\.usenix\.org/conference/usenixsecurity26/presentation/chang\-hongyan", "https://docs\.weaviate\.io/", "https://zenodo\.org/records/", "https://genai\.owasp\.org/resource/owasp\-", "https://www\.aim", "https://bailian\.console\.aliyun", "https://www", "https://azure\.microsoft\.com/en\-", "https://web\.stanford\.edu/", "https://cursor", "https://arxiv\.org/abs/2508\.12175", "https://arxiv\.org/", "https://learn\.microsoft\.com/en\-", "https://blog"\], "sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285"\} |
+| extraction | 已完成 | \{"stage": "extraction", "status": "completed", "applicability": "in\_scope", "flow\_count": 3\} |
+| semantic\_review | 已完成 | \{"stage": "semantic\_review", "status": "completed", "applicability": "in\_scope"\} |
+| citation\_validation\_and\_decision | 已完成 | \{"stage": "citation\_validation\_and\_decision", "status": "completed", "verdict": "insufficient\_evidence", "reason": "unresolved\_checks"\} |
+| decision\_replay | 已完成 | \{"stage": "decision\_replay", "status": "completed", "inference\_calls": 0, "same\_pdf\_bytes": true, "same\_primary\_model\_input": true, "additional\_reading\_order\_view": true, "previous\_verdict": "insufficient\_evidence", "verdict": "insufficient\_evidence"\} |
+
+#### 证据
+
+```json
+[
+  {
+    "id": "retrieval_barrier_claim_1",
+    "source_group": "paper_text",
+    "description": "Natural queries need not be unknown queries. The supplied framework permits this conditioning.",
+    "scope": {
+      "paper_version": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+      "experiment_arm": "The supplied paper describes a query-aware, black-box attacker denied corpus contents and model parameters. Target-query use is explicitly permitted. Corpus-derived evaluation statistics warrant a bounded delivery question, but no prohibited construction input is established.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "attacker's CEM optimizer",
+      "phase": "trigger construction",
+      "source": "target user query",
+      "representation": "query input and query-conditioned similarity objective",
+      "operation": "construct the objective and score candidate prefixes",
+      "query_form": "full_query"
+    },
+    "verdict": "consistent_within_scope",
+    "reason": "claim_refuted_explicit_permission",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "attacker's CEM optimizer",
+          "phase": "trigger construction",
+          "source": "target user query",
+          "representation": "query input and query-conditioned similarity objective",
+          "operation": "construct the objective and score candidate prefixes",
+          "query_form": "full_query"
+        },
+        "permission": "allow",
+        "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 4014, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 3949, \"text_view\": \"reading_order\", \"text_view_sha256\": \"87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "attacker's CEM optimizer",
+          "phase": "trigger construction",
+          "source": "target user query",
+          "representation": "query input and query-conditioned similarity objective",
+          "operation": "construct the objective and score candidate prefixes",
+          "query_form": "full_query"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 2851, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 2771, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c425d0087d02d35e9df0158d5cc99198a6d6a9e511b2ac351fccf0455d9d3aa2\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Target-query conditioning: CEM receives the evaluated target query, consistent with the stated attack framework.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "The attack framework explicitly supplies the query to the adversary; black-box restrictions concern corpus contents and parameters.",
+        "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 2091, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2052, \"text_view\": \"reading_order\", \"text_view_sha256\": \"87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "Algorithm 1 explicitly uses the target query for per-query construction. This is optimizer input, not evidence of a payload-generating LLM receiving raw text.",
+        "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 4936, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 4879, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c425d0087d02d35e9df0158d5cc99198a6d6a9e511b2ac351fccf0455d9d3aa2\"}"
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reason": "Specific query access defeats the suspicion that query-conditioned construction itself violates the threat model.",
+        "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 4014, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 3949, \"text_view\": \"reading_order\", \"text_view_sha256\": \"87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5\"}"
+      }
+    },
+    "claim_result": "refuted",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p4",
+        "start": 2052,
+        "end": 2091,
+        "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5"
+      },
+      "delivery": {
+        "segment_id": "p6",
+        "start": 4879,
+        "end": 4936,
+        "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "c425d0087d02d35e9df0158d5cc99198a6d6a9e511b2ac351fccf0455d9d3aa2"
+      },
+      "refutation": {
+        "segment_id": "p4",
+        "start": 3949,
+        "end": 4014,
+        "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5"
+      },
+      "declaration": {
+        "segment_id": "p4",
+        "start": 3949,
+        "end": 4014,
+        "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5"
+      },
+      "implementation": {
+        "segment_id": "p6",
+        "start": 2771,
+        "end": 2851,
+        "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "c425d0087d02d35e9df0158d5cc99198a6d6a9e511b2ac351fccf0455d9d3aa2"
+      }
+    },
+    "semantic_review": {
+      "index": 0,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "confirmed",
+      "refutation": "explicit_permission",
+      "reason": "p4 explicitly supplies user query q to the adversary. Algorithm 1 in p6 takes target query q as input and constructs its objective from q, confirming delivery to the CEM optimizer. This access is permitted; natural queries need not be unknown."
+    }
+  },
+  {
+    "id": "retrieval_barrier_claim_2",
+    "source_group": "paper_text",
+    "description": "No forbidden flow is demonstrated. Corpus statistics used for post hoc analysis alone would not violate the attacker boundary.",
+    "scope": {
+      "paper_version": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+      "experiment_arm": "The supplied paper describes a query-aware, black-box attacker denied corpus contents and model parameters. Target-query use is explicitly permitted. Corpus-derived evaluation statistics warrant a bounded delivery question, but no prohibited construction input is established.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "attacker's prefix constructor",
+      "phase": "trigger construction",
+      "source": "clean evaluation corpus",
+      "representation": "derived fifth-ranked clean-document similarity statistics",
+      "operation": "potentially inform prefix selection or stopping"
+    },
+    "verdict": "insufficient_evidence",
+    "reason": "delivery_to_input_boundary_not_established",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "attacker's prefix constructor",
+          "phase": "trigger construction",
+          "source": "clean evaluation corpus",
+          "representation": "derived fifth-ranked clean-document similarity statistics",
+          "operation": "potentially inform prefix selection or stopping"
+        },
+        "permission": "deny",
+        "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 2584, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2470, \"text_view\": \"reading_order\", \"text_view_sha256\": \"87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5\"}"
+      }
+    ],
+    "matching_observations": [],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Corpus-competition feedback: whether clean-corpus similarity statistics informed attacker prefix construction remains unresolved.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "document_content",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "The construction discussion explicitly treats the clean-corpus retrieval threshold as unknown to the adversary. This restriction would apply if those statistics reached the constructor, but does not prohibit evaluator analysis.",
+        "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 652, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 609, \"text_view\": \"reading_order\", \"text_view_sha256\": \"11e3b462d9b75d4dc3099410bdff90f3a7a6caac364cb965356b4e5a9fbea34e\"}"
+      },
+      "delivery": {
+        "status": "unresolved",
+        "evidence_kind": "possible_path",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The paper establishes evaluator computation on evaluated queries, without establishing delivery to attacker construction.",
+        "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 754, \"match\": \"normalized_exact\", \"segment_id\": \"p8\", \"start\": 706, \"text_view\": \"reading_order\", \"text_view_sha256\": \"808900f30d4df69c884ac12176926e2f1e61a8564bfde867e81b51429a0da6c4\"}"
+      },
+      "refutation": {
+        "basis": "none",
+        "reason": "The stated unknown-threshold assumption is not independent evidence that implementation excluded such feedback.",
+        "reference": ""
+      }
+    },
+    "claim_result": "unresolved",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p5",
+        "start": 609,
+        "end": 652,
+        "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "11e3b462d9b75d4dc3099410bdff90f3a7a6caac364cb965356b4e5a9fbea34e"
+      },
+      "delivery": {
+        "segment_id": "p8",
+        "start": 706,
+        "end": 754,
+        "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "808900f30d4df69c884ac12176926e2f1e61a8564bfde867e81b51429a0da6c4"
+      },
+      "declaration": {
+        "segment_id": "p4",
+        "start": 2470,
+        "end": 2584,
+        "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5"
+      }
+    },
+    "semantic_review": {
+      "index": 1,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "unresolved",
+      "refutation": "none",
+      "reason": "p4–p5 deny corpus access and treat the clean retrieval threshold as unknown. p8 establishes evaluator computation of competition statistics, but not their delivery to prefix construction. Neither forbidden feedback nor its implementation absence is established."
+    }
+  },
+  {
+    "id": "retrieval_barrier_claim_3",
+    "source_group": "paper_text",
+    "description": "This permitted control distinguishes black-box optimization feedback from prohibited corpus or parameter access.",
+    "scope": {
+      "paper_version": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+      "experiment_arm": "The supplied paper describes a query-aware, black-box attacker denied corpus contents and model parameters. Target-query use is explicitly permitted. Corpus-derived evaluation statistics warrant a bounded delivery question, but no prohibited construction input is established.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "attacker's CEM optimizer",
+      "phase": "candidate scoring",
+      "source": "embedding model API",
+      "representation": "embedding vectors and similarity scores",
+      "operation": "evaluate sampled prefixes and select elites"
+    },
+    "verdict": "consistent_within_scope",
+    "reason": "claim_refuted_explicit_permission",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "attacker's CEM optimizer",
+          "phase": "candidate scoring",
+          "source": "embedding model API",
+          "representation": "embedding vectors and similarity scores",
+          "operation": "evaluate sampled prefixes and select elites"
+        },
+        "permission": "allow",
+        "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 3099, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2972, \"text_view\": \"reading_order\", \"text_view_sha256\": \"87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "attacker's CEM optimizer",
+          "phase": "candidate scoring",
+          "source": "embedding model API",
+          "representation": "embedding vectors and similarity scores",
+          "operation": "evaluate sampled prefixes and select elites"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 645, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 594, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c425d0087d02d35e9df0158d5cc99198a6d6a9e511b2ac351fccf0455d9d3aa2\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Embedding-vector access: candidate embeddings are a specifically permitted construction input.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "other",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "The stated black-box budget specifically permits scoring through embedding calls.",
+        "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 2748, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 2671, \"text_view\": \"reading_order\", \"text_view_sha256\": \"11e3b462d9b75d4dc3099410bdff90f3a7a6caac364cb965356b4e5a9fbea34e\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "Candidate scores directly determine the optimizer's elite selection.",
+        "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 684, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 649, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c425d0087d02d35e9df0158d5cc99198a6d6a9e511b2ac351fccf0455d9d3aa2\"}"
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reason": "Vector access is expressly authorized and does not itself establish parameter access.",
+        "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 3099, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 3046, \"text_view\": \"reading_order\", \"text_view_sha256\": \"87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5\"}"
+      }
+    },
+    "claim_result": "refuted",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p5",
+        "start": 2671,
+        "end": 2748,
+        "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "11e3b462d9b75d4dc3099410bdff90f3a7a6caac364cb965356b4e5a9fbea34e"
+      },
+      "delivery": {
+        "segment_id": "p6",
+        "start": 649,
+        "end": 684,
+        "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "c425d0087d02d35e9df0158d5cc99198a6d6a9e511b2ac351fccf0455d9d3aa2"
+      },
+      "refutation": {
+        "segment_id": "p4",
+        "start": 3046,
+        "end": 3099,
+        "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5"
+      },
+      "declaration": {
+        "segment_id": "p4",
+        "start": 2972,
+        "end": 3099,
+        "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5"
+      },
+      "implementation": {
+        "segment_id": "p6",
+        "start": 594,
+        "end": 645,
+        "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "c425d0087d02d35e9df0158d5cc99198a6d6a9e511b2ac351fccf0455d9d3aa2"
+      }
+    },
+    "semantic_review": {
+      "index": 2,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "confirmed",
+      "refutation": "explicit_permission",
+      "reason": "p4 expressly permits API embedding vectors, and p5 permits black-box scoring calls. p6 uses those scores to select elites and update CEM, confirming permitted construction feedback without establishing parameter access."
+    }
+  }
+]
+```
+
+#### 备注
+
+```json
+[
+  "Only supplied paper text was audited; no static code, saved requests, or runtime traces were supplied.",
+  "Referenced full-version appendices containing agent prompts and raw logs were not supplied.",
+  "Successful exfiltration and defense failures are security outcomes and do not independently establish attacker information-budget violations.",
+  "Clean-corpus statistics reaching prefix selection, stopping, or construction hyperparameter decisions remains unresolved.",
+  "Whether agentic construction also used execution-time rewritten retrieval queries remains unresolved; p11–p12 establish victim rewriting, not delivery to the constructor.",
+  "No implementation code, runtime traces, or referenced full-version agent logs were supplied.",
+  "Successful downstream attacks establish security outcomes, not attacker-knowledge budget violations or the causal impact of any disputed construction input."
+]
+```
+
+#### 完整论文记录 JSON
+
+```json
+{
+  "id": "retrieval_barrier",
+  "title": "Information-budget audit of Overcoming the Retrieval Barrier",
+  "source": "https://www.usenix.org/system/files/usenixsecurity26-chang-hongyan.pdf",
+  "status": "completed",
+  "has_confirmed_inconsistency": false,
+  "stages": [
+    {
+      "stage": "ingestion",
+      "status": "completed",
+      "segments": 21,
+      "characters": 142451,
+      "coverage": {
+        "complete": true,
+        "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+      },
+      "source_links": [
+        "https://www.usenix.org/conference/usenixsecurity26/presentation/chang-hongyan",
+        "https://docs.weaviate.io/",
+        "https://zenodo.org/records/",
+        "https://genai.owasp.org/resource/owasp-",
+        "https://www.aim",
+        "https://bailian.console.aliyun",
+        "https://www",
+        "https://azure.microsoft.com/en-",
+        "https://web.stanford.edu/",
+        "https://cursor",
+        "https://arxiv.org/abs/2508.12175",
+        "https://arxiv.org/",
+        "https://learn.microsoft.com/en-",
+        "https://blog"
+      ],
+      "sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285"
+    },
+    {
+      "stage": "extraction",
+      "status": "completed",
+      "applicability": "in_scope",
+      "flow_count": 3
+    },
+    {
+      "stage": "semantic_review",
+      "status": "completed",
+      "applicability": "in_scope"
+    },
+    {
+      "stage": "citation_validation_and_decision",
+      "status": "completed",
+      "verdict": "insufficient_evidence",
+      "reason": "unresolved_checks"
+    },
+    {
+      "stage": "decision_replay",
+      "status": "completed",
+      "inference_calls": 0,
+      "same_pdf_bytes": true,
+      "same_primary_model_input": true,
+      "additional_reading_order_view": true,
+      "previous_verdict": "insufficient_evidence",
+      "verdict": "insufficient_evidence"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "retrieval_barrier_claim_1",
+      "source_group": "paper_text",
+      "description": "Natural queries need not be unknown queries. The supplied framework permits this conditioning.",
+      "scope": {
+        "paper_version": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+        "experiment_arm": "The supplied paper describes a query-aware, black-box attacker denied corpus contents and model parameters. Target-query use is explicitly permitted. Corpus-derived evaluation statistics warrant a bounded delivery question, but no prohibited construction input is established.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "attacker's CEM optimizer",
+        "phase": "trigger construction",
+        "source": "target user query",
+        "representation": "query input and query-conditioned similarity objective",
+        "operation": "construct the objective and score candidate prefixes",
+        "query_form": "full_query"
+      },
+      "verdict": "consistent_within_scope",
+      "reason": "claim_refuted_explicit_permission",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "attacker's CEM optimizer",
+            "phase": "trigger construction",
+            "source": "target user query",
+            "representation": "query input and query-conditioned similarity objective",
+            "operation": "construct the objective and score candidate prefixes",
+            "query_form": "full_query"
+          },
+          "permission": "allow",
+          "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 4014, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 3949, \"text_view\": \"reading_order\", \"text_view_sha256\": \"87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "attacker's CEM optimizer",
+            "phase": "trigger construction",
+            "source": "target user query",
+            "representation": "query input and query-conditioned similarity objective",
+            "operation": "construct the objective and score candidate prefixes",
+            "query_form": "full_query"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 2851, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 2771, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c425d0087d02d35e9df0158d5cc99198a6d6a9e511b2ac351fccf0455d9d3aa2\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Target-query conditioning: CEM receives the evaluated target query, consistent with the stated attack framework.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "exact_query",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "The attack framework explicitly supplies the query to the adversary; black-box restrictions concern corpus contents and parameters.",
+          "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 2091, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2052, \"text_view\": \"reading_order\", \"text_view_sha256\": \"87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "Algorithm 1 explicitly uses the target query for per-query construction. This is optimizer input, not evidence of a payload-generating LLM receiving raw text.",
+          "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 4936, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 4879, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c425d0087d02d35e9df0158d5cc99198a6d6a9e511b2ac351fccf0455d9d3aa2\"}"
+        },
+        "refutation": {
+          "basis": "explicit_permission",
+          "reason": "Specific query access defeats the suspicion that query-conditioned construction itself violates the threat model.",
+          "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 4014, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 3949, \"text_view\": \"reading_order\", \"text_view_sha256\": \"87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5\"}"
+        }
+      },
+      "claim_result": "refuted",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p4",
+          "start": 2052,
+          "end": 2091,
+          "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5"
+        },
+        "delivery": {
+          "segment_id": "p6",
+          "start": 4879,
+          "end": 4936,
+          "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "c425d0087d02d35e9df0158d5cc99198a6d6a9e511b2ac351fccf0455d9d3aa2"
+        },
+        "refutation": {
+          "segment_id": "p4",
+          "start": 3949,
+          "end": 4014,
+          "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5"
+        },
+        "declaration": {
+          "segment_id": "p4",
+          "start": 3949,
+          "end": 4014,
+          "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5"
+        },
+        "implementation": {
+          "segment_id": "p6",
+          "start": 2771,
+          "end": 2851,
+          "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "c425d0087d02d35e9df0158d5cc99198a6d6a9e511b2ac351fccf0455d9d3aa2"
+        }
+      },
+      "semantic_review": {
+        "index": 0,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "confirmed",
+        "refutation": "explicit_permission",
+        "reason": "p4 explicitly supplies user query q to the adversary. Algorithm 1 in p6 takes target query q as input and constructs its objective from q, confirming delivery to the CEM optimizer. This access is permitted; natural queries need not be unknown."
+      }
+    },
+    {
+      "id": "retrieval_barrier_claim_2",
+      "source_group": "paper_text",
+      "description": "No forbidden flow is demonstrated. Corpus statistics used for post hoc analysis alone would not violate the attacker boundary.",
+      "scope": {
+        "paper_version": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+        "experiment_arm": "The supplied paper describes a query-aware, black-box attacker denied corpus contents and model parameters. Target-query use is explicitly permitted. Corpus-derived evaluation statistics warrant a bounded delivery question, but no prohibited construction input is established.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "attacker's prefix constructor",
+        "phase": "trigger construction",
+        "source": "clean evaluation corpus",
+        "representation": "derived fifth-ranked clean-document similarity statistics",
+        "operation": "potentially inform prefix selection or stopping"
+      },
+      "verdict": "insufficient_evidence",
+      "reason": "delivery_to_input_boundary_not_established",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "attacker's prefix constructor",
+            "phase": "trigger construction",
+            "source": "clean evaluation corpus",
+            "representation": "derived fifth-ranked clean-document similarity statistics",
+            "operation": "potentially inform prefix selection or stopping"
+          },
+          "permission": "deny",
+          "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 2584, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2470, \"text_view\": \"reading_order\", \"text_view_sha256\": \"87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5\"}"
+        }
+      ],
+      "matching_observations": [],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Corpus-competition feedback: whether clean-corpus similarity statistics informed attacker prefix construction remains unresolved.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "document_content",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "The construction discussion explicitly treats the clean-corpus retrieval threshold as unknown to the adversary. This restriction would apply if those statistics reached the constructor, but does not prohibit evaluator analysis.",
+          "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 652, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 609, \"text_view\": \"reading_order\", \"text_view_sha256\": \"11e3b462d9b75d4dc3099410bdff90f3a7a6caac364cb965356b4e5a9fbea34e\"}"
+        },
+        "delivery": {
+          "status": "unresolved",
+          "evidence_kind": "possible_path",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The paper establishes evaluator computation on evaluated queries, without establishing delivery to attacker construction.",
+          "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 754, \"match\": \"normalized_exact\", \"segment_id\": \"p8\", \"start\": 706, \"text_view\": \"reading_order\", \"text_view_sha256\": \"808900f30d4df69c884ac12176926e2f1e61a8564bfde867e81b51429a0da6c4\"}"
+        },
+        "refutation": {
+          "basis": "none",
+          "reason": "The stated unknown-threshold assumption is not independent evidence that implementation excluded such feedback.",
+          "reference": ""
+        }
+      },
+      "claim_result": "unresolved",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p5",
+          "start": 609,
+          "end": 652,
+          "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "11e3b462d9b75d4dc3099410bdff90f3a7a6caac364cb965356b4e5a9fbea34e"
+        },
+        "delivery": {
+          "segment_id": "p8",
+          "start": 706,
+          "end": 754,
+          "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "808900f30d4df69c884ac12176926e2f1e61a8564bfde867e81b51429a0da6c4"
+        },
+        "declaration": {
+          "segment_id": "p4",
+          "start": 2470,
+          "end": 2584,
+          "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5"
+        }
+      },
+      "semantic_review": {
+        "index": 1,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "unresolved",
+        "refutation": "none",
+        "reason": "p4–p5 deny corpus access and treat the clean retrieval threshold as unknown. p8 establishes evaluator computation of competition statistics, but not their delivery to prefix construction. Neither forbidden feedback nor its implementation absence is established."
+      }
+    },
+    {
+      "id": "retrieval_barrier_claim_3",
+      "source_group": "paper_text",
+      "description": "This permitted control distinguishes black-box optimization feedback from prohibited corpus or parameter access.",
+      "scope": {
+        "paper_version": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+        "experiment_arm": "The supplied paper describes a query-aware, black-box attacker denied corpus contents and model parameters. Target-query use is explicitly permitted. Corpus-derived evaluation statistics warrant a bounded delivery question, but no prohibited construction input is established.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "attacker's CEM optimizer",
+        "phase": "candidate scoring",
+        "source": "embedding model API",
+        "representation": "embedding vectors and similarity scores",
+        "operation": "evaluate sampled prefixes and select elites"
+      },
+      "verdict": "consistent_within_scope",
+      "reason": "claim_refuted_explicit_permission",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "attacker's CEM optimizer",
+            "phase": "candidate scoring",
+            "source": "embedding model API",
+            "representation": "embedding vectors and similarity scores",
+            "operation": "evaluate sampled prefixes and select elites"
+          },
+          "permission": "allow",
+          "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 3099, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2972, \"text_view\": \"reading_order\", \"text_view_sha256\": \"87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "attacker's CEM optimizer",
+            "phase": "candidate scoring",
+            "source": "embedding model API",
+            "representation": "embedding vectors and similarity scores",
+            "operation": "evaluate sampled prefixes and select elites"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 645, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 594, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c425d0087d02d35e9df0158d5cc99198a6d6a9e511b2ac351fccf0455d9d3aa2\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Embedding-vector access: candidate embeddings are a specifically permitted construction input.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "other",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "The stated black-box budget specifically permits scoring through embedding calls.",
+          "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 2748, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 2671, \"text_view\": \"reading_order\", \"text_view_sha256\": \"11e3b462d9b75d4dc3099410bdff90f3a7a6caac364cb965356b4e5a9fbea34e\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "Candidate scores directly determine the optimizer's elite selection.",
+          "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 684, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 649, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c425d0087d02d35e9df0158d5cc99198a6d6a9e511b2ac351fccf0455d9d3aa2\"}"
+        },
+        "refutation": {
+          "basis": "explicit_permission",
+          "reason": "Vector access is expressly authorized and does not itself establish parameter access.",
+          "reference": "{\"document_sha256\": \"618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285\", \"end\": 3099, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 3046, \"text_view\": \"reading_order\", \"text_view_sha256\": \"87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5\"}"
+        }
+      },
+      "claim_result": "refuted",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p5",
+          "start": 2671,
+          "end": 2748,
+          "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "11e3b462d9b75d4dc3099410bdff90f3a7a6caac364cb965356b4e5a9fbea34e"
+        },
+        "delivery": {
+          "segment_id": "p6",
+          "start": 649,
+          "end": 684,
+          "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "c425d0087d02d35e9df0158d5cc99198a6d6a9e511b2ac351fccf0455d9d3aa2"
+        },
+        "refutation": {
+          "segment_id": "p4",
+          "start": 3046,
+          "end": 3099,
+          "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5"
+        },
+        "declaration": {
+          "segment_id": "p4",
+          "start": 2972,
+          "end": 3099,
+          "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5"
+        },
+        "implementation": {
+          "segment_id": "p6",
+          "start": 594,
+          "end": 645,
+          "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "c425d0087d02d35e9df0158d5cc99198a6d6a9e511b2ac351fccf0455d9d3aa2"
+        }
+      },
+      "semantic_review": {
+        "index": 2,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "confirmed",
+        "refutation": "explicit_permission",
+        "reason": "p4 expressly permits API embedding vectors, and p5 permits black-box scoring calls. p6 uses those scores to select elites and update CEM, confirming permitted construction feedback without establishing parameter access."
+      }
+    }
+  ],
+  "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+  "schema_version": 3,
+  "applicability": "in_scope",
+  "scope": "The supplied paper describes a query-aware, black-box attacker denied corpus contents and model parameters. Target-query use is explicitly permitted. Corpus-derived evaluation statistics warrant a bounded delivery question, but no prohibited construction input is established.",
+  "review_status": "model_reviewed_not_human_verified",
+  "evidence_scope": "listed_claims_document_only",
+  "notes": [
+    "Only supplied paper text was audited; no static code, saved requests, or runtime traces were supplied.",
+    "Referenced full-version appendices containing agent prompts and raw logs were not supplied.",
+    "Successful exfiltration and defense failures are security outcomes and do not independently establish attacker information-budget violations.",
+    "Clean-corpus statistics reaching prefix selection, stopping, or construction hyperparameter decisions remains unresolved.",
+    "Whether agentic construction also used execution-time rewritten retrieval queries remains unresolved; p11–p12 establish victim rewriting, not delivery to the constructor.",
+    "No implementation code, runtime traces, or referenced full-version agent logs were supplied.",
+    "Successful downstream attacks establish security outcomes, not attacker-knowledge budget violations or the causal impact of any disputed construction input."
+  ],
+  "unresolved_questions": [
+    "Were clean-corpus competition scores used exclusively for evaluation, or also for prefix selection, stopping, or construction hyperparameter decisions?",
+    "In agentic experiments, did construction use only the original user query, or also agent-rewritten retrieval queries from execution logs?"
+  ],
+  "verdict": "insufficient_evidence",
+  "reason": "unresolved_checks",
+  "coverage_complete": false,
+  "claim_result_counts": {
+    "refuted": 2,
+    "unresolved": 1
+  },
+  "input_mode": "document_only",
+  "prompt_sha256": "dd80afd03660a2128242d06873b82a37c4c1ac043952e83a8a380e71835af55e",
+  "duration_seconds": 70.597,
+  "cohort": "curated_ipi",
+  "expected": null,
+  "expected_basis": "pending_independent_adjudication",
+  "comparison_note": "Historical targets are withheld while sources and scope are independently adjudicated.",
+  "matches_gold": null,
+  "previous_verdict": "insufficient_evidence",
+  "model_output_hashes": {
+    "extraction.json": "0637bc64d20323d57926e39da6ab3da64e61ea7904b35a7f001cc2fca93c4985",
+    "review.json": "bd6e699833afcff515006452f57c97da5b8a77172e850ce6d43987e884e581e6"
+  }
+}
+```
+
+### 8. LIAR: source\-training permissions and unresolved query\-conditioned construction
+
+论文 ID：liar  
+运行 / 判定：证据不足
+
+#### 测试过程
+
+| 步骤 | 状态 | 记录 |
+| --- | --- | --- |
+| ingestion | 已完成 | \{"stage": "ingestion", "status": "completed", "segments": 17, "characters": 89373, "coverage": \{"complete": true, "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"\}, "source\_links": \["https://www\.bbc\.com/news/articles/cd11gzejgz4o/", "https://www\.reddit\.com/r/Pizza/comments/1a19s0/", "https://www\.washingtonpost\.com/google\-halt\-ai\-search/", "https://huggingface\.co/datasets/Salesforce/wikitext/", "https://python\.langchain\.com/google\_search/"\], "sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0"\} |
+| extraction | 已完成 | \{"stage": "extraction", "status": "completed", "applicability": "in\_scope", "flow\_count": 3\} |
+| semantic\_review | 已完成 | \{"stage": "semantic\_review", "status": "completed", "applicability": "in\_scope"\} |
+| citation\_validation\_and\_decision | 已完成 | \{"stage": "citation\_validation\_and\_decision", "status": "completed", "verdict": "insufficient\_evidence", "reason": "unresolved\_checks"\} |
+| decision\_replay | 已完成 | \{"stage": "decision\_replay", "status": "completed", "inference\_calls": 0, "same\_pdf\_bytes": true, "same\_primary\_model\_input": true, "additional\_reading\_order\_view": true, "previous\_verdict": "insufficient\_evidence", "verdict": "insufficient\_evidence"\} |
+
+#### 证据
+
+```json
+[
+  {
+    "id": "liar_claim_1",
+    "source_group": "paper_text",
+    "description": "A construction dependency is described; a forbidden same-instance information flow is unresolved. The additional statement that queries are clustered by embeddings leaves their provenance unclear.",
+    "scope": {
+      "paper_version": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+      "experiment_arm": "The supplied paper describes LIAR construction and evaluation. Source-document and source-model training are explicitly permitted. Query-conditioned optimization is described, but the identity of its queries relative to unseen evaluation queries remains unresolved.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "LIAR attack optimizer",
+      "phase": "offline adversarial-document construction",
+      "source": "query q in the AGS training objective",
+      "representation": "query-conditioned NLL loss and token-embedding gradients",
+      "operation": "Optimize AGS through gradients and token replacement; query embeddings also support document clustering.",
+      "query_form": "full_query"
+    },
+    "verdict": "insufficient_evidence",
+    "reason": "delivery_boundary_evidence_missing",
+    "matching_rules": [],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "LIAR attack optimizer",
+          "phase": "offline adversarial-document construction",
+          "source": "query q in the AGS training objective",
+          "representation": "query-conditioned NLL loss and token-embedding gradients",
+          "operation": "Optimize AGS through gradients and token replacement; query embeddings also support document clustering.",
+          "query_form": "full_query"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0\", \"end\": 3086, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 3066, \"text_view\": \"reading_order\", \"text_view_sha256\": \"691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Query-conditioned construction: AGS optimization uses a user query, but access to an evaluation-instance query is not established.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "uncertain",
+        "reason": "The restriction concerns target user queries. The paper does not identify whether q is a source-training query, a pseudo query, or an evaluated target query.",
+        "reference": "{\"document_sha256\": \"4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0\", \"end\": 1805, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 1739, \"text_view\": \"reading_order\", \"text_view_sha256\": \"691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "unknown",
+        "reason": "The paper describes a query-conditioned loss feeding construction gradients. This establishes optimizer conditioning, not raw evaluation-query delivery to a payload-generating LLM.",
+        "reference": ""
+      },
+      "refutation": {
+        "basis": "none",
+        "reason": "No supplied evidence establishes the query split or proves that construction queries differ from evaluation queries.",
+        "reference": ""
+      }
+    },
+    "claim_result": "unresolved",
+    "citation_errors": [
+      "delivery: citation is absent after whitespace/Unicode normalization"
+    ],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p5",
+        "start": 1739,
+        "end": 1805,
+        "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95"
+      },
+      "implementation": {
+        "segment_id": "p5",
+        "start": 3066,
+        "end": 3086,
+        "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95"
+      }
+    },
+    "semantic_review": {
+      "index": 0,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "uncertain",
+      "delivery": "confirmed",
+      "refutation": "none",
+      "reason": "Equations 4–6 and the gradient procedure establish query-conditioned loss reaching the offline AGS optimizer. They do not establish raw evaluation-query access or identify construction queries as evaluation instances. Query provenance, clustering inputs, and splits in warm-up and sensitivity experiments remain unresolved; no confirmed budget violation follows."
+    }
+  },
+  {
+    "id": "liar_claim_2",
+    "source_group": "paper_text",
+    "description": "Shared source and target benchmark names do not establish document overlap or access to an unseen target corpus.",
+    "scope": {
+      "paper_version": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+      "experiment_arm": "The supplied paper describes LIAR construction and evaluation. Source-document and source-model training are explicitly permitted. Query-conditioned optimization is described, but the identity of its queries relative to unseen evaluation queries remains unresolved.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "LIAR retriever-sequence optimizer",
+      "phase": "offline adversarial-document construction",
+      "source": "training subset of a source knowledge base",
+      "representation": "document text encoded as pseudo-query embeddings",
+      "operation": "Maximize similarity to construct ARS."
+    },
+    "verdict": "consistent_within_scope",
+    "reason": "claim_refuted_explicit_permission",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "LIAR retriever-sequence optimizer",
+          "phase": "offline adversarial-document construction",
+          "source": "training subset of a source knowledge base",
+          "representation": "document text encoded as pseudo-query embeddings",
+          "operation": "Maximize similarity to construct ARS."
+        },
+        "permission": "allow",
+        "reference": "{\"document_sha256\": \"4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0\", \"end\": 1730, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 1652, \"text_view\": \"reading_order\", \"text_view_sha256\": \"691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "LIAR retriever-sequence optimizer",
+          "phase": "offline adversarial-document construction",
+          "source": "training subset of a source knowledge base",
+          "representation": "document text encoded as pseudo-query embeddings",
+          "operation": "Maximize similarity to construct ARS."
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0\", \"end\": 1650, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 1571, \"text_view\": \"reading_order\", \"text_view_sha256\": \"691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Source-document control: using source knowledge-base documents as pseudo queries is explicitly permitted.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "document_content",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "The specific source-training permission applies to this construction actor, phase, and information object.",
+        "reference": "{\"document_sha256\": \"4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0\", \"end\": 1730, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 1652, \"text_view\": \"reading_order\", \"text_view_sha256\": \"691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "training_instance",
+        "reason": "Source documents explicitly enter retriever-sequence training.",
+        "reference": "{\"document_sha256\": \"4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0\", \"end\": 1650, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 1571, \"text_view\": \"reading_order\", \"text_view_sha256\": \"691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95\"}"
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reason": "This permission counters treating source-document training itself as prohibited database access.",
+        "reference": "{\"document_sha256\": \"4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0\", \"end\": 1730, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 1652, \"text_view\": \"reading_order\", \"text_view_sha256\": \"691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95\"}"
+      }
+    },
+    "claim_result": "refuted",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p5",
+        "start": 1652,
+        "end": 1730,
+        "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95"
+      },
+      "delivery": {
+        "segment_id": "p5",
+        "start": 1571,
+        "end": 1650,
+        "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95"
+      },
+      "refutation": {
+        "segment_id": "p5",
+        "start": 1652,
+        "end": 1730,
+        "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95"
+      },
+      "declaration": {
+        "segment_id": "p5",
+        "start": 1652,
+        "end": 1730,
+        "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95"
+      },
+      "implementation": {
+        "segment_id": "p5",
+        "start": 1571,
+        "end": 1650,
+        "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95"
+      }
+    },
+    "semantic_review": {
+      "index": 1,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "confirmed",
+      "refutation": "explicit_permission",
+      "reason": "Section 5.2 explicitly permits a source-training subset and feeds its documents into ARS optimization as pseudo queries. This specific permission counters the generic database-access restriction for that flow. Shared benchmark names do not establish identical target records; source/target record separation remains unanswered."
+    }
+  },
+  {
+    "id": "liar_claim_3",
+    "source_group": "paper_text",
+    "description": "The described source-model gradients do not establish access to target-model parameters.",
+    "scope": {
+      "paper_version": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+      "experiment_arm": "The supplied paper describes LIAR construction and evaluation. Source-document and source-model training are explicitly permitted. Query-conditioned optimization is described, but the identity of its queries relative to unseen evaluation queries remains unresolved.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "LIAR generation-sequence optimizer",
+      "phase": "offline adversarial-document construction",
+      "source": "source LLM models",
+      "representation": "model losses and token-embedding gradients",
+      "operation": "Optimize AGS on source models for transfer to target LLMs."
+    },
+    "verdict": "consistent_within_scope",
+    "reason": "claim_refuted_explicit_permission",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "LIAR generation-sequence optimizer",
+          "phase": "offline adversarial-document construction",
+          "source": "source LLM models",
+          "representation": "model losses and token-embedding gradients",
+          "operation": "Optimize AGS on source models for transfer to target LLMs."
+        },
+        "permission": "allow",
+        "reference": "{\"document_sha256\": \"4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0\", \"end\": 2912, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 2850, \"text_view\": \"reading_order\", \"text_view_sha256\": \"691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "LIAR generation-sequence optimizer",
+          "phase": "offline adversarial-document construction",
+          "source": "source LLM models",
+          "representation": "model losses and token-embedding gradients",
+          "operation": "Optimize AGS on source models for transfer to target LLMs."
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0\", \"end\": 607, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 551, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c6af2e330a5459f7547ef4d5fc7c835272e2bc0cf0452fd142bf9c674cb6fa1c\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Source-model control: gradient-based AGS construction on source LLMs is explicitly permitted.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "other",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "The source-model permission specifically governs offline construction; the target-parameter exclusion does not automatically prohibit this access.",
+        "reference": "{\"document_sha256\": \"4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0\", \"end\": 2912, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 2850, \"text_view\": \"reading_order\", \"text_view_sha256\": \"691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "training_instance",
+        "reason": "Source-model losses explicitly feed AGS refinement.",
+        "reference": "{\"document_sha256\": \"4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0\", \"end\": 685, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 609, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c6af2e330a5459f7547ef4d5fc7c835272e2bc0cf0452fd142bf9c674cb6fa1c\"}"
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reason": "Source-model optimization is authorized by the stated construction procedure.",
+        "reference": "{\"document_sha256\": \"4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0\", \"end\": 2912, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 2850, \"text_view\": \"reading_order\", \"text_view_sha256\": \"691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95\"}"
+      }
+    },
+    "claim_result": "refuted",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p5",
+        "start": 2850,
+        "end": 2912,
+        "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95"
+      },
+      "delivery": {
+        "segment_id": "p6",
+        "start": 609,
+        "end": 685,
+        "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "c6af2e330a5459f7547ef4d5fc7c835272e2bc0cf0452fd142bf9c674cb6fa1c"
+      },
+      "refutation": {
+        "segment_id": "p5",
+        "start": 2850,
+        "end": 2912,
+        "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95"
+      },
+      "declaration": {
+        "segment_id": "p5",
+        "start": 2850,
+        "end": 2912,
+        "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95"
+      },
+      "implementation": {
+        "segment_id": "p6",
+        "start": 551,
+        "end": 607,
+        "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "c6af2e330a5459f7547ef4d5fc7c835272e2bc0cf0452fd142bf9c674cb6fa1c"
+      }
+    },
+    "semantic_review": {
+      "index": 2,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "confirmed",
+      "refutation": "explicit_permission",
+      "reason": "Sections 5.3 and 5.4 explicitly permit source LLMs and aggregate their losses during offline AGS construction. This supports authorized source-model optimization, without establishing access to target-model parameters."
+    }
+  }
+]
+```
+
+#### 备注
+
+```json
+[
+  "Evidence consists only of supplied paper text; no implementation, saved requests, or runtime traces were supplied.",
+  "Successful harmful or promotional outputs demonstrate security outcomes, not independently prohibited construction inputs.",
+  "Only supplied document text was available; implementation and runtime delivery were not independently verified.",
+  "Specific query-provenance and source/target document-overlap suspicions remain unanswered.",
+  "Reported attack success establishes victim security outcomes, not prohibited attacker knowledge or the causal impact of any unresolved information flow."
+]
+```
+
+#### 完整论文记录 JSON
+
+```json
+{
+  "id": "liar",
+  "title": "LIAR: source-training permissions and unresolved query-conditioned construction",
+  "source": "https://aclanthology.org/2024.emnlp-main.96.pdf",
+  "status": "completed",
+  "has_confirmed_inconsistency": false,
+  "stages": [
+    {
+      "stage": "ingestion",
+      "status": "completed",
+      "segments": 17,
+      "characters": 89373,
+      "coverage": {
+        "complete": true,
+        "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+      },
+      "source_links": [
+        "https://www.bbc.com/news/articles/cd11gzejgz4o/",
+        "https://www.reddit.com/r/Pizza/comments/1a19s0/",
+        "https://www.washingtonpost.com/google-halt-ai-search/",
+        "https://huggingface.co/datasets/Salesforce/wikitext/",
+        "https://python.langchain.com/google_search/"
+      ],
+      "sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0"
+    },
+    {
+      "stage": "extraction",
+      "status": "completed",
+      "applicability": "in_scope",
+      "flow_count": 3
+    },
+    {
+      "stage": "semantic_review",
+      "status": "completed",
+      "applicability": "in_scope"
+    },
+    {
+      "stage": "citation_validation_and_decision",
+      "status": "completed",
+      "verdict": "insufficient_evidence",
+      "reason": "unresolved_checks"
+    },
+    {
+      "stage": "decision_replay",
+      "status": "completed",
+      "inference_calls": 0,
+      "same_pdf_bytes": true,
+      "same_primary_model_input": true,
+      "additional_reading_order_view": true,
+      "previous_verdict": "insufficient_evidence",
+      "verdict": "insufficient_evidence"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "liar_claim_1",
+      "source_group": "paper_text",
+      "description": "A construction dependency is described; a forbidden same-instance information flow is unresolved. The additional statement that queries are clustered by embeddings leaves their provenance unclear.",
+      "scope": {
+        "paper_version": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+        "experiment_arm": "The supplied paper describes LIAR construction and evaluation. Source-document and source-model training are explicitly permitted. Query-conditioned optimization is described, but the identity of its queries relative to unseen evaluation queries remains unresolved.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "LIAR attack optimizer",
+        "phase": "offline adversarial-document construction",
+        "source": "query q in the AGS training objective",
+        "representation": "query-conditioned NLL loss and token-embedding gradients",
+        "operation": "Optimize AGS through gradients and token replacement; query embeddings also support document clustering.",
+        "query_form": "full_query"
+      },
+      "verdict": "insufficient_evidence",
+      "reason": "delivery_boundary_evidence_missing",
+      "matching_rules": [],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "LIAR attack optimizer",
+            "phase": "offline adversarial-document construction",
+            "source": "query q in the AGS training objective",
+            "representation": "query-conditioned NLL loss and token-embedding gradients",
+            "operation": "Optimize AGS through gradients and token replacement; query embeddings also support document clustering.",
+            "query_form": "full_query"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0\", \"end\": 3086, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 3066, \"text_view\": \"reading_order\", \"text_view_sha256\": \"691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Query-conditioned construction: AGS optimization uses a user query, but access to an evaluation-instance query is not established.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "exact_query",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "uncertain",
+          "reason": "The restriction concerns target user queries. The paper does not identify whether q is a source-training query, a pseudo query, or an evaluated target query.",
+          "reference": "{\"document_sha256\": \"4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0\", \"end\": 1805, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 1739, \"text_view\": \"reading_order\", \"text_view_sha256\": \"691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "unknown",
+          "reason": "The paper describes a query-conditioned loss feeding construction gradients. This establishes optimizer conditioning, not raw evaluation-query delivery to a payload-generating LLM.",
+          "reference": ""
+        },
+        "refutation": {
+          "basis": "none",
+          "reason": "No supplied evidence establishes the query split or proves that construction queries differ from evaluation queries.",
+          "reference": ""
+        }
+      },
+      "claim_result": "unresolved",
+      "citation_errors": [
+        "delivery: citation is absent after whitespace/Unicode normalization"
+      ],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p5",
+          "start": 1739,
+          "end": 1805,
+          "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95"
+        },
+        "implementation": {
+          "segment_id": "p5",
+          "start": 3066,
+          "end": 3086,
+          "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95"
+        }
+      },
+      "semantic_review": {
+        "index": 0,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "uncertain",
+        "delivery": "confirmed",
+        "refutation": "none",
+        "reason": "Equations 4–6 and the gradient procedure establish query-conditioned loss reaching the offline AGS optimizer. They do not establish raw evaluation-query access or identify construction queries as evaluation instances. Query provenance, clustering inputs, and splits in warm-up and sensitivity experiments remain unresolved; no confirmed budget violation follows."
+      }
+    },
+    {
+      "id": "liar_claim_2",
+      "source_group": "paper_text",
+      "description": "Shared source and target benchmark names do not establish document overlap or access to an unseen target corpus.",
+      "scope": {
+        "paper_version": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+        "experiment_arm": "The supplied paper describes LIAR construction and evaluation. Source-document and source-model training are explicitly permitted. Query-conditioned optimization is described, but the identity of its queries relative to unseen evaluation queries remains unresolved.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "LIAR retriever-sequence optimizer",
+        "phase": "offline adversarial-document construction",
+        "source": "training subset of a source knowledge base",
+        "representation": "document text encoded as pseudo-query embeddings",
+        "operation": "Maximize similarity to construct ARS."
+      },
+      "verdict": "consistent_within_scope",
+      "reason": "claim_refuted_explicit_permission",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "LIAR retriever-sequence optimizer",
+            "phase": "offline adversarial-document construction",
+            "source": "training subset of a source knowledge base",
+            "representation": "document text encoded as pseudo-query embeddings",
+            "operation": "Maximize similarity to construct ARS."
+          },
+          "permission": "allow",
+          "reference": "{\"document_sha256\": \"4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0\", \"end\": 1730, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 1652, \"text_view\": \"reading_order\", \"text_view_sha256\": \"691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "LIAR retriever-sequence optimizer",
+            "phase": "offline adversarial-document construction",
+            "source": "training subset of a source knowledge base",
+            "representation": "document text encoded as pseudo-query embeddings",
+            "operation": "Maximize similarity to construct ARS."
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0\", \"end\": 1650, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 1571, \"text_view\": \"reading_order\", \"text_view_sha256\": \"691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Source-document control: using source knowledge-base documents as pseudo queries is explicitly permitted.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "document_content",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "The specific source-training permission applies to this construction actor, phase, and information object.",
+          "reference": "{\"document_sha256\": \"4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0\", \"end\": 1730, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 1652, \"text_view\": \"reading_order\", \"text_view_sha256\": \"691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "training_instance",
+          "reason": "Source documents explicitly enter retriever-sequence training.",
+          "reference": "{\"document_sha256\": \"4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0\", \"end\": 1650, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 1571, \"text_view\": \"reading_order\", \"text_view_sha256\": \"691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95\"}"
+        },
+        "refutation": {
+          "basis": "explicit_permission",
+          "reason": "This permission counters treating source-document training itself as prohibited database access.",
+          "reference": "{\"document_sha256\": \"4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0\", \"end\": 1730, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 1652, \"text_view\": \"reading_order\", \"text_view_sha256\": \"691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95\"}"
+        }
+      },
+      "claim_result": "refuted",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p5",
+          "start": 1652,
+          "end": 1730,
+          "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95"
+        },
+        "delivery": {
+          "segment_id": "p5",
+          "start": 1571,
+          "end": 1650,
+          "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95"
+        },
+        "refutation": {
+          "segment_id": "p5",
+          "start": 1652,
+          "end": 1730,
+          "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95"
+        },
+        "declaration": {
+          "segment_id": "p5",
+          "start": 1652,
+          "end": 1730,
+          "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95"
+        },
+        "implementation": {
+          "segment_id": "p5",
+          "start": 1571,
+          "end": 1650,
+          "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95"
+        }
+      },
+      "semantic_review": {
+        "index": 1,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "confirmed",
+        "refutation": "explicit_permission",
+        "reason": "Section 5.2 explicitly permits a source-training subset and feeds its documents into ARS optimization as pseudo queries. This specific permission counters the generic database-access restriction for that flow. Shared benchmark names do not establish identical target records; source/target record separation remains unanswered."
+      }
+    },
+    {
+      "id": "liar_claim_3",
+      "source_group": "paper_text",
+      "description": "The described source-model gradients do not establish access to target-model parameters.",
+      "scope": {
+        "paper_version": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+        "experiment_arm": "The supplied paper describes LIAR construction and evaluation. Source-document and source-model training are explicitly permitted. Query-conditioned optimization is described, but the identity of its queries relative to unseen evaluation queries remains unresolved.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "LIAR generation-sequence optimizer",
+        "phase": "offline adversarial-document construction",
+        "source": "source LLM models",
+        "representation": "model losses and token-embedding gradients",
+        "operation": "Optimize AGS on source models for transfer to target LLMs."
+      },
+      "verdict": "consistent_within_scope",
+      "reason": "claim_refuted_explicit_permission",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "LIAR generation-sequence optimizer",
+            "phase": "offline adversarial-document construction",
+            "source": "source LLM models",
+            "representation": "model losses and token-embedding gradients",
+            "operation": "Optimize AGS on source models for transfer to target LLMs."
+          },
+          "permission": "allow",
+          "reference": "{\"document_sha256\": \"4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0\", \"end\": 2912, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 2850, \"text_view\": \"reading_order\", \"text_view_sha256\": \"691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "LIAR generation-sequence optimizer",
+            "phase": "offline adversarial-document construction",
+            "source": "source LLM models",
+            "representation": "model losses and token-embedding gradients",
+            "operation": "Optimize AGS on source models for transfer to target LLMs."
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0\", \"end\": 607, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 551, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c6af2e330a5459f7547ef4d5fc7c835272e2bc0cf0452fd142bf9c674cb6fa1c\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Source-model control: gradient-based AGS construction on source LLMs is explicitly permitted.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "other",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "The source-model permission specifically governs offline construction; the target-parameter exclusion does not automatically prohibit this access.",
+          "reference": "{\"document_sha256\": \"4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0\", \"end\": 2912, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 2850, \"text_view\": \"reading_order\", \"text_view_sha256\": \"691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "training_instance",
+          "reason": "Source-model losses explicitly feed AGS refinement.",
+          "reference": "{\"document_sha256\": \"4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0\", \"end\": 685, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 609, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c6af2e330a5459f7547ef4d5fc7c835272e2bc0cf0452fd142bf9c674cb6fa1c\"}"
+        },
+        "refutation": {
+          "basis": "explicit_permission",
+          "reason": "Source-model optimization is authorized by the stated construction procedure.",
+          "reference": "{\"document_sha256\": \"4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0\", \"end\": 2912, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 2850, \"text_view\": \"reading_order\", \"text_view_sha256\": \"691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95\"}"
+        }
+      },
+      "claim_result": "refuted",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p5",
+          "start": 2850,
+          "end": 2912,
+          "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95"
+        },
+        "delivery": {
+          "segment_id": "p6",
+          "start": 609,
+          "end": 685,
+          "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "c6af2e330a5459f7547ef4d5fc7c835272e2bc0cf0452fd142bf9c674cb6fa1c"
+        },
+        "refutation": {
+          "segment_id": "p5",
+          "start": 2850,
+          "end": 2912,
+          "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95"
+        },
+        "declaration": {
+          "segment_id": "p5",
+          "start": 2850,
+          "end": 2912,
+          "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "691230301fcb1ddf943dd0e4a6997a59c031d666e9e7302a202768e3e9e0dd95"
+        },
+        "implementation": {
+          "segment_id": "p6",
+          "start": 551,
+          "end": 607,
+          "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "c6af2e330a5459f7547ef4d5fc7c835272e2bc0cf0452fd142bf9c674cb6fa1c"
+        }
+      },
+      "semantic_review": {
+        "index": 2,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "confirmed",
+        "refutation": "explicit_permission",
+        "reason": "Sections 5.3 and 5.4 explicitly permit source LLMs and aggregate their losses during offline AGS construction. This supports authorized source-model optimization, without establishing access to target-model parameters."
+      }
+    }
+  ],
+  "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+  "schema_version": 3,
+  "applicability": "in_scope",
+  "scope": "The supplied paper describes LIAR construction and evaluation. Source-document and source-model training are explicitly permitted. Query-conditioned optimization is described, but the identity of its queries relative to unseen evaluation queries remains unresolved.",
+  "review_status": "model_reviewed_not_human_verified",
+  "evidence_scope": "listed_claims_document_only",
+  "notes": [
+    "Evidence consists only of supplied paper text; no implementation, saved requests, or runtime traces were supplied.",
+    "Successful harmful or promotional outputs demonstrate security outcomes, not independently prohibited construction inputs.",
+    "Only supplied document text was available; implementation and runtime delivery were not independently verified.",
+    "Specific query-provenance and source/target document-overlap suspicions remain unanswered.",
+    "Reported attack success establishes victim security outcomes, not prohibited attacker knowledge or the causal impact of any unresolved information flow."
+  ],
+  "unresolved_questions": [
+    "What supplies q in AGS optimization and the queries used for K-means clustering?",
+    "Are construction queries disjoint from evaluation queries, including in warm-up and sensitivity experiments?",
+    "How are source-training documents separated from target documents when source and target share a benchmark name?"
+  ],
+  "verdict": "insufficient_evidence",
+  "reason": "unresolved_checks",
+  "coverage_complete": false,
+  "claim_result_counts": {
+    "unresolved": 1,
+    "refuted": 2
+  },
+  "input_mode": "document_only",
+  "prompt_sha256": "dd80afd03660a2128242d06873b82a37c4c1ac043952e83a8a380e71835af55e",
+  "duration_seconds": 65.062,
+  "cohort": "curated_ipi",
+  "expected": null,
+  "expected_basis": "pending_independent_adjudication",
+  "comparison_note": "Historical targets are withheld while sources and scope are independently adjudicated.",
+  "matches_gold": null,
+  "previous_verdict": "insufficient_evidence",
+  "model_output_hashes": {
+    "extraction.json": "f832d3cc0e362869080eb0616ae7cfbd59710dcd055fafb6a4378f2863be5d66",
+    "review.json": "129d7800d687ea716a9ecc0bc346946a64fa7f11fb518a9daa30c74f363b95d0"
+  }
+}
+```
+
+### 9. ObliInjection information\-budget audit
+
+论文 ID：obliinjection  
+运行 / 判定：证据不足
+
+#### 测试过程
+
+| 步骤 | 状态 | 记录 |
+| --- | --- | --- |
+| ingestion | 已完成 | \{"stage": "ingestion", "status": "completed", "segments": 18, "characters": 136067, "coverage": \{"complete": true, "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"\}, "source\_links": \["https://github\.com/ReachalWang/ObliInjection", "https://dx\.doi\.org/10\.14722/ndss\.2026\.240702", "https://www\.aboutamazon\.com/news/amazon\-ai/", "https://blog\.google/products/search/", "https://github", "https://github\.com/GraySwanAI/nanoGCG", "https://twitter\.com/yoheinakajima/", "https://github\.com/tatsu\-lab/stanford"\], "sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e"\} |
+| extraction | 已完成 | \{"stage": "extraction", "status": "completed", "applicability": "in\_scope", "flow\_count": 4\} |
+| semantic\_review | 已完成 | \{"stage": "semantic\_review", "status": "completed", "applicability": "in\_scope"\} |
+| citation\_validation\_and\_decision | 已完成 | \{"stage": "citation\_validation\_and\_decision", "status": "completed", "verdict": "insufficient\_evidence", "reason": "unresolved\_checks"\} |
+| decision\_replay | 已完成 | \{"stage": "decision\_replay", "status": "completed", "inference\_calls": 0, "same\_pdf\_bytes": true, "same\_primary\_model\_input": true, "additional\_reading\_order\_view": true, "previous\_verdict": "insufficient\_evidence", "verdict": "insufficient\_evidence"\} |
+
+#### 证据
+
+```json
+[
+  {
+    "id": "obliinjection_claim_1",
+    "source_group": "paper_text",
+    "description": "For the listed paper procedure, category-conditioned synthesis does not expose the confidential instruction.",
+    "scope": {
+      "paper_version": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+      "experiment_arm": "Bounded paper-text audit of construction inputs and explicitly stronger API access. The supplied text establishes no prohibited information flow; the provenance and granularity of news metadata remain unresolved.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "attacker's auxiliary LLM",
+      "phase": "shadow instruction generation",
+      "source": "target task instruction",
+      "representation": "specific target instruction text",
+      "operation": "provide as generation input",
+      "query_form": "full_query"
+    },
+    "verdict": "consistent_within_scope",
+    "reason": "claim_refuted_excluded_delivery",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "attacker's auxiliary LLM",
+          "phase": "shadow instruction generation",
+          "source": "target task instruction",
+          "representation": "specific target instruction text",
+          "operation": "provide as generation input",
+          "query_form": "full_query"
+        },
+        "permission": "deny",
+        "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 564, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 496, \"text_view\": \"reading_order\", \"text_view_sha256\": \"bc9941edd9d94ca84b98a626792bc9e6e71a13c78455a0a94c254b431a5ee77b\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "attacker's auxiliary LLM",
+          "phase": "shadow instruction generation",
+          "source": "target task instruction",
+          "representation": "specific target instruction text",
+          "operation": "provide as generation input",
+          "query_form": "full_query"
+        },
+        "status": "absent",
+        "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 595, \"match\": \"normalized_exact\", \"segment_id\": \"p16\", \"start\": 509, \"text_view\": \"reading_order\", \"text_view_sha256\": \"13f9f5f648bb585635e22c5d835bacb9e56bce09b171e3b3feea9d6e14af6e66\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Exact-instruction exposure: the auxiliary instruction generator might receive the confidential target instruction.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "The exclusion governs the attacker constructing shadow instructions in the default arm.",
+        "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 564, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 496, \"text_view\": \"reading_order\", \"text_view_sha256\": \"bc9941edd9d94ca84b98a626792bc9e6e71a13c78455a0a94c254b431a5ee77b\"}"
+      },
+      "delivery": {
+        "status": "excluded",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The supplied generation prompts specify task categories without inserting the actual target instruction.",
+        "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 110, \"match\": \"normalized_exact\", \"segment_id\": \"p16\", \"start\": 10, \"text_view\": \"reading_order\", \"text_view_sha256\": \"13f9f5f648bb585635e22c5d835bacb9e56bce09b171e3b3feea9d6e14af6e66\"}"
+      },
+      "refutation": {
+        "basis": "excluded_delivery",
+        "reason": "The documented instruction-generation templates provide affirmative evidence of category-based construction.",
+        "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 266, \"match\": \"normalized_exact\", \"segment_id\": \"p16\", \"start\": 171, \"text_view\": \"reading_order\", \"text_view_sha256\": \"13f9f5f648bb585635e22c5d835bacb9e56bce09b171e3b3feea9d6e14af6e66\"}"
+      }
+    },
+    "claim_result": "refuted",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p4",
+        "start": 496,
+        "end": 564,
+        "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "bc9941edd9d94ca84b98a626792bc9e6e71a13c78455a0a94c254b431a5ee77b"
+      },
+      "delivery": {
+        "segment_id": "p16",
+        "start": 10,
+        "end": 110,
+        "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "13f9f5f648bb585635e22c5d835bacb9e56bce09b171e3b3feea9d6e14af6e66"
+      },
+      "refutation": {
+        "segment_id": "p16",
+        "start": 171,
+        "end": 266,
+        "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "13f9f5f648bb585635e22c5d835bacb9e56bce09b171e3b3feea9d6e14af6e66"
+      },
+      "declaration": {
+        "segment_id": "p4",
+        "start": 496,
+        "end": 564,
+        "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "bc9941edd9d94ca84b98a626792bc9e6e71a13c78455a0a94c254b431a5ee77b"
+      },
+      "implementation": {
+        "segment_id": "p16",
+        "start": 509,
+        "end": 595,
+        "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "13f9f5f648bb585635e22c5d835bacb9e56bce09b171e3b3feea9d6e14af6e66"
+      }
+    },
+    "semantic_review": {
+      "index": 0,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "excluded",
+      "refutation": "excluded_delivery",
+      "reason": "p4 denies specific target-instruction access. The complete instruction-generation templates in p16 supply task categories without target-instruction text, positively excluding that delivery in the documented procedure."
+    }
+  },
+  {
+    "id": "obliinjection_claim_2",
+    "source_group": "paper_text",
+    "description": "The demonstrated flow is question-type metadata, not full query text or a query-conditioned construction gradient.",
+    "scope": {
+      "paper_version": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+      "experiment_arm": "Bounded paper-text audit of construction inputs and explicitly stronger API access. The supplied text establishes no prohibited information flow; the provenance and granularity of news metadata remain unresolved.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "attacker's auxiliary LLM",
+      "phase": "shadow question and segment generation",
+      "source": "HotpotQA target-task metadata",
+      "representation": "question type",
+      "operation": "condition generation of a synthetic question and supporting facts"
+    },
+    "verdict": "insufficient_evidence",
+    "reason": "refutation_not_supported_by_scoped_evidence",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "attacker's auxiliary LLM",
+          "phase": "shadow question and segment generation",
+          "source": "HotpotQA target-task metadata",
+          "representation": "question type",
+          "operation": "condition generation of a synthetic question and supporting facts"
+        },
+        "permission": "allow",
+        "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 721, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 652, \"text_view\": \"reading_order\", \"text_view_sha256\": \"bc9941edd9d94ca84b98a626792bc9e6e71a13c78455a0a94c254b431a5ee77b\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "attacker's auxiliary LLM",
+          "phase": "shadow question and segment generation",
+          "source": "HotpotQA target-task metadata",
+          "representation": "question type",
+          "operation": "condition generation of a synthetic question and supporting facts"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 1309, \"match\": \"normalized_exact\", \"segment_id\": \"p17\", \"start\": 1270, \"text_view\": \"reading_order\", \"text_view_sha256\": \"9bf7921d12603f38d2b5c8a51c6e1482d2316004ba0cc24695ef8801979f8446\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "HotpotQA question exposure: question-type metadata might be mistaken for delivery of the full evaluation question.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "task_category",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "Task-category knowledge is explicitly permitted during attack construction.",
+        "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 721, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 652, \"text_view\": \"reading_order\", \"text_view_sha256\": \"bc9941edd9d94ca84b98a626792bc9e6e71a13c78455a0a94c254b431a5ee77b\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The setup and template bind target-task question type to auxiliary generation.",
+        "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 1034, \"match\": \"normalized_exact\", \"segment_id\": \"p10\", \"start\": 988, \"text_view\": \"reading_order\", \"text_view_sha256\": \"eac3fcc1290b677c5efdffcf1f64f6f5fc5f2e49829b19b2d52d26bc9532ff41\"}"
+      },
+      "refutation": {
+        "basis": "excluded_delivery",
+        "reason": "The listed input supplies a type and requests a newly generated question; it does not insert the evaluation question.",
+        "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 1125, \"match\": \"normalized_exact\", \"segment_id\": \"p17\", \"start\": 1039, \"text_view\": \"reading_order\", \"text_view_sha256\": \"9bf7921d12603f38d2b5c8a51c6e1482d2316004ba0cc24695ef8801979f8446\"}"
+      }
+    },
+    "claim_result": "unresolved",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p4",
+        "start": 652,
+        "end": 721,
+        "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "bc9941edd9d94ca84b98a626792bc9e6e71a13c78455a0a94c254b431a5ee77b"
+      },
+      "delivery": {
+        "segment_id": "p10",
+        "start": 988,
+        "end": 1034,
+        "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "eac3fcc1290b677c5efdffcf1f64f6f5fc5f2e49829b19b2d52d26bc9532ff41"
+      },
+      "refutation": {
+        "segment_id": "p17",
+        "start": 1039,
+        "end": 1125,
+        "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "9bf7921d12603f38d2b5c8a51c6e1482d2316004ba0cc24695ef8801979f8446"
+      },
+      "declaration": {
+        "segment_id": "p4",
+        "start": 652,
+        "end": 721,
+        "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "bc9941edd9d94ca84b98a626792bc9e6e71a13c78455a0a94c254b431a5ee77b"
+      },
+      "implementation": {
+        "segment_id": "p17",
+        "start": 1270,
+        "end": 1309,
+        "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "9bf7921d12603f38d2b5c8a51c6e1482d2316004ba0cc24695ef8801979f8446"
+      }
+    },
+    "semantic_review": {
+      "index": 1,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "confirmed",
+      "refutation": "excluded_delivery",
+      "reason": "p10 and p17 deliver question-type metadata to auxiliary generation, consistent with permitted task knowledge in p4. The template requests a newly generated question rather than inserting the evaluation question. Actual metadata values and their granularity remain unspecified."
+    }
+  },
+  {
+    "id": "obliinjection_claim_3",
+    "source_group": "paper_text",
+    "description": "Event-fact delivery is documented. Delivery of complete target articles, confidential instructions, or full evaluation queries is not established.",
+    "scope": {
+      "paper_version": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+      "experiment_arm": "Bounded paper-text audit of construction inputs and explicitly stronger API access. The supplied text establishes no prohibited information flow; the provenance and granularity of news metadata remain unresolved.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "attacker's auxiliary LLM",
+      "phase": "shadow news generation",
+      "source": "Multi-News target-task metadata",
+      "representation": "event summary and key facts",
+      "operation": "condition synthetic article generation"
+    },
+    "verdict": "insufficient_evidence",
+    "reason": "policy_scope_not_established",
+    "matching_rules": [],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "attacker's auxiliary LLM",
+          "phase": "shadow news generation",
+          "source": "Multi-News target-task metadata",
+          "representation": "event summary and key facts",
+          "operation": "condition synthetic article generation"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 376, \"match\": \"normalized_exact\", \"segment_id\": \"p17\", \"start\": 332, \"text_view\": \"reading_order\", \"text_view_sha256\": \"9bf7921d12603f38d2b5c8a51c6e1482d2316004ba0cc24695ef8801979f8446\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "News-fact provenance: event metadata supplied to shadow generation could contain information extracted from otherwise inaccessible target articles.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "document_content",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "uncertain",
+        "reason": "The model allows some clean-segment access and collectible metadata, but describes construction without true target segments. The origin and detail of these event summaries determine which allowance applies.",
+        "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 1099, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 1054, \"text_view\": \"reading_order\", \"text_view_sha256\": \"bc9941edd9d94ca84b98a626792bc9e6e71a13c78455a0a94c254b431a5ee77b\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The setup explicitly supplies target-event details, and the template inserts key facts into the auxiliary prompt.",
+        "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 982, \"match\": \"normalized_exact\", \"segment_id\": \"p10\", \"start\": 916, \"text_view\": \"reading_order\", \"text_view_sha256\": \"eac3fcc1290b677c5efdffcf1f64f6f5fc5f2e49829b19b2d52d26bc9532ff41\"}"
+      },
+      "refutation": {
+        "basis": "none",
+        "reason": "Neither independent public provenance nor extraction from prohibited target content is established.",
+        "reference": ""
+      }
+    },
+    "claim_result": "unresolved",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p4",
+        "start": 1054,
+        "end": 1099,
+        "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "bc9941edd9d94ca84b98a626792bc9e6e71a13c78455a0a94c254b431a5ee77b"
+      },
+      "delivery": {
+        "segment_id": "p10",
+        "start": 916,
+        "end": 982,
+        "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "eac3fcc1290b677c5efdffcf1f64f6f5fc5f2e49829b19b2d52d26bc9532ff41"
+      },
+      "implementation": {
+        "segment_id": "p17",
+        "start": 332,
+        "end": 376,
+        "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "9bf7921d12603f38d2b5c8a51c6e1482d2316004ba0cc24695ef8801979f8446"
+      }
+    },
+    "semantic_review": {
+      "index": 2,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "uncertain",
+      "delivery": "confirmed",
+      "refutation": "none",
+      "reason": "p17 inserts event summaries and key facts into auxiliary construction. Their provenance and detail are unresolved; collectible metadata and some clean-segment access are permitted, while construction is described as using inaccessible-target substitutes. No prohibited flow can be confirmed."
+    }
+  },
+  {
+    "id": "obliinjection_claim_4",
+    "source_group": "paper_text",
+    "description": "This is disclosed, specifically authorized optimization feedback in a separate experimental arm.",
+    "scope": {
+      "paper_version": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+      "experiment_arm": "Bounded paper-text audit of construction inputs and explicitly stronger API access. The supplied text establishes no prohibited information flow; the provenance and granularity of news metadata remain unresolved.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "attacker's optimizer",
+      "phase": "candidate loss estimation in the API-assisted arm",
+      "source": "GPT-4o API",
+      "representation": "output token log probabilities for shadow prompts",
+      "operation": "compute approximate order-oblivious loss"
+    },
+    "verdict": "insufficient_evidence",
+    "reason": "policy_scope_evidence_missing",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "attacker's optimizer",
+          "phase": "candidate loss estimation in the API-assisted arm",
+          "source": "GPT-4o API",
+          "representation": "output token log probabilities for shadow prompts",
+          "operation": "compute approximate order-oblivious loss"
+        },
+        "permission": "allow",
+        "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 1316, \"match\": \"normalized_exact\", \"segment_id\": \"p11\", \"start\": 1216, \"text_view\": \"reading_order\", \"text_view_sha256\": \"ddee25cf094323863ace21a2033c4db628d5e2cf48234cb162c484b570eeb236\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "attacker's optimizer",
+          "phase": "candidate loss estimation in the API-assisted arm",
+          "source": "GPT-4o API",
+          "representation": "output token log probabilities for shadow prompts",
+          "operation": "compute approximate order-oblivious loss"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 1621, \"match\": \"normalized_exact\", \"segment_id\": \"p11\", \"start\": 1537, \"text_view\": \"reading_order\", \"text_view_sha256\": \"ddee25cf094323863ace21a2033c4db628d5e2cf48234cb162c484b570eeb236\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "GPT-4o feedback access: optimization uses target-model log probabilities despite a separate no-API transfer result.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "other",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "not_applicable",
+        "reason": "The no-API condition applies to the separately reported 24.0% arm, not this explicitly API-assisted arm.",
+        "reference": ""
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "unknown",
+        "reason": "Target-model feedback reaches construction through losses on shadow inputs; this does not establish access to actual evaluation instructions or documents.",
+        "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 1421, \"match\": \"normalized_exact\", \"segment_id\": \"p11\", \"start\": 1331, \"text_view\": \"reading_order\", \"text_view_sha256\": \"ddee25cf094323863ace21a2033c4db628d5e2cf48234cb162c484b570eeb236\"}"
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reason": "The stronger arm explicitly permits the particular feedback used.",
+        "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 1316, \"match\": \"normalized_exact\", \"segment_id\": \"p11\", \"start\": 1216, \"text_view\": \"reading_order\", \"text_view_sha256\": \"ddee25cf094323863ace21a2033c4db628d5e2cf48234cb162c484b570eeb236\"}"
+      }
+    },
+    "claim_result": "unresolved",
+    "citation_errors": [
+      "policy_scope: citation is absent after whitespace/Unicode normalization"
+    ],
+    "locators": {
+      "delivery": {
+        "segment_id": "p11",
+        "start": 1331,
+        "end": 1421,
+        "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "ddee25cf094323863ace21a2033c4db628d5e2cf48234cb162c484b570eeb236"
+      },
+      "refutation": {
+        "segment_id": "p11",
+        "start": 1216,
+        "end": 1316,
+        "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "ddee25cf094323863ace21a2033c4db628d5e2cf48234cb162c484b570eeb236"
+      },
+      "declaration": {
+        "segment_id": "p11",
+        "start": 1216,
+        "end": 1316,
+        "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "ddee25cf094323863ace21a2033c4db628d5e2cf48234cb162c484b570eeb236"
+      },
+      "implementation": {
+        "segment_id": "p11",
+        "start": 1537,
+        "end": 1621,
+        "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "ddee25cf094323863ace21a2033c4db628d5e2cf48234cb162c484b570eeb236"
+      }
+    },
+    "semantic_review": {
+      "index": 3,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "not_applicable",
+      "delivery": "confirmed",
+      "refutation": "explicit_permission",
+      "reason": "p11 expressly permits GPT-4o log probabilities for candidate-loss computation in the API-assisted arm, specifying the optimizer boundary and shadow inputs. The separate no-API condition does not govern this feedback; other target-information restrictions remain intact."
+    }
+  }
+]
+```
+
+#### 备注
+
+```json
+[
+  "Evidence consists only of supplied paper text; no static code, saved requests, or runtime traces were supplied.",
+  "Template-based exclusions describe the paper procedure and do not independently verify execution.",
+  "Reported attack success and defense failures do not establish threat-model inconsistency.",
+  "Review covers supplied paper procedures, without runtime verification.",
+  "News-metadata provenance, question-type granularity, and actual construction-request conformity remain unanswered, so scope review is incomplete.",
+  "Construction access does not establish causal behavioral impact; reported attack success and defense failures do not establish attacker-knowledge violations."
+]
+```
+
+#### 完整论文记录 JSON
+
+```json
+{
+  "id": "obliinjection",
+  "title": "ObliInjection information-budget audit",
+  "source": "https://arxiv.org/pdf/2512.09321v3",
+  "status": "completed",
+  "has_confirmed_inconsistency": false,
+  "stages": [
+    {
+      "stage": "ingestion",
+      "status": "completed",
+      "segments": 18,
+      "characters": 136067,
+      "coverage": {
+        "complete": true,
+        "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+      },
+      "source_links": [
+        "https://github.com/ReachalWang/ObliInjection",
+        "https://dx.doi.org/10.14722/ndss.2026.240702",
+        "https://www.aboutamazon.com/news/amazon-ai/",
+        "https://blog.google/products/search/",
+        "https://github",
+        "https://github.com/GraySwanAI/nanoGCG",
+        "https://twitter.com/yoheinakajima/",
+        "https://github.com/tatsu-lab/stanford"
+      ],
+      "sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e"
+    },
+    {
+      "stage": "extraction",
+      "status": "completed",
+      "applicability": "in_scope",
+      "flow_count": 4
+    },
+    {
+      "stage": "semantic_review",
+      "status": "completed",
+      "applicability": "in_scope"
+    },
+    {
+      "stage": "citation_validation_and_decision",
+      "status": "completed",
+      "verdict": "insufficient_evidence",
+      "reason": "unresolved_checks"
+    },
+    {
+      "stage": "decision_replay",
+      "status": "completed",
+      "inference_calls": 0,
+      "same_pdf_bytes": true,
+      "same_primary_model_input": true,
+      "additional_reading_order_view": true,
+      "previous_verdict": "insufficient_evidence",
+      "verdict": "insufficient_evidence"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "obliinjection_claim_1",
+      "source_group": "paper_text",
+      "description": "For the listed paper procedure, category-conditioned synthesis does not expose the confidential instruction.",
+      "scope": {
+        "paper_version": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+        "experiment_arm": "Bounded paper-text audit of construction inputs and explicitly stronger API access. The supplied text establishes no prohibited information flow; the provenance and granularity of news metadata remain unresolved.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "attacker's auxiliary LLM",
+        "phase": "shadow instruction generation",
+        "source": "target task instruction",
+        "representation": "specific target instruction text",
+        "operation": "provide as generation input",
+        "query_form": "full_query"
+      },
+      "verdict": "consistent_within_scope",
+      "reason": "claim_refuted_excluded_delivery",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "attacker's auxiliary LLM",
+            "phase": "shadow instruction generation",
+            "source": "target task instruction",
+            "representation": "specific target instruction text",
+            "operation": "provide as generation input",
+            "query_form": "full_query"
+          },
+          "permission": "deny",
+          "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 564, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 496, \"text_view\": \"reading_order\", \"text_view_sha256\": \"bc9941edd9d94ca84b98a626792bc9e6e71a13c78455a0a94c254b431a5ee77b\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "attacker's auxiliary LLM",
+            "phase": "shadow instruction generation",
+            "source": "target task instruction",
+            "representation": "specific target instruction text",
+            "operation": "provide as generation input",
+            "query_form": "full_query"
+          },
+          "status": "absent",
+          "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 595, \"match\": \"normalized_exact\", \"segment_id\": \"p16\", \"start\": 509, \"text_view\": \"reading_order\", \"text_view_sha256\": \"13f9f5f648bb585635e22c5d835bacb9e56bce09b171e3b3feea9d6e14af6e66\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Exact-instruction exposure: the auxiliary instruction generator might receive the confidential target instruction.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "exact_query",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "The exclusion governs the attacker constructing shadow instructions in the default arm.",
+          "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 564, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 496, \"text_view\": \"reading_order\", \"text_view_sha256\": \"bc9941edd9d94ca84b98a626792bc9e6e71a13c78455a0a94c254b431a5ee77b\"}"
+        },
+        "delivery": {
+          "status": "excluded",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The supplied generation prompts specify task categories without inserting the actual target instruction.",
+          "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 110, \"match\": \"normalized_exact\", \"segment_id\": \"p16\", \"start\": 10, \"text_view\": \"reading_order\", \"text_view_sha256\": \"13f9f5f648bb585635e22c5d835bacb9e56bce09b171e3b3feea9d6e14af6e66\"}"
+        },
+        "refutation": {
+          "basis": "excluded_delivery",
+          "reason": "The documented instruction-generation templates provide affirmative evidence of category-based construction.",
+          "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 266, \"match\": \"normalized_exact\", \"segment_id\": \"p16\", \"start\": 171, \"text_view\": \"reading_order\", \"text_view_sha256\": \"13f9f5f648bb585635e22c5d835bacb9e56bce09b171e3b3feea9d6e14af6e66\"}"
+        }
+      },
+      "claim_result": "refuted",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p4",
+          "start": 496,
+          "end": 564,
+          "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "bc9941edd9d94ca84b98a626792bc9e6e71a13c78455a0a94c254b431a5ee77b"
+        },
+        "delivery": {
+          "segment_id": "p16",
+          "start": 10,
+          "end": 110,
+          "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "13f9f5f648bb585635e22c5d835bacb9e56bce09b171e3b3feea9d6e14af6e66"
+        },
+        "refutation": {
+          "segment_id": "p16",
+          "start": 171,
+          "end": 266,
+          "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "13f9f5f648bb585635e22c5d835bacb9e56bce09b171e3b3feea9d6e14af6e66"
+        },
+        "declaration": {
+          "segment_id": "p4",
+          "start": 496,
+          "end": 564,
+          "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "bc9941edd9d94ca84b98a626792bc9e6e71a13c78455a0a94c254b431a5ee77b"
+        },
+        "implementation": {
+          "segment_id": "p16",
+          "start": 509,
+          "end": 595,
+          "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "13f9f5f648bb585635e22c5d835bacb9e56bce09b171e3b3feea9d6e14af6e66"
+        }
+      },
+      "semantic_review": {
+        "index": 0,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "excluded",
+        "refutation": "excluded_delivery",
+        "reason": "p4 denies specific target-instruction access. The complete instruction-generation templates in p16 supply task categories without target-instruction text, positively excluding that delivery in the documented procedure."
+      }
+    },
+    {
+      "id": "obliinjection_claim_2",
+      "source_group": "paper_text",
+      "description": "The demonstrated flow is question-type metadata, not full query text or a query-conditioned construction gradient.",
+      "scope": {
+        "paper_version": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+        "experiment_arm": "Bounded paper-text audit of construction inputs and explicitly stronger API access. The supplied text establishes no prohibited information flow; the provenance and granularity of news metadata remain unresolved.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "attacker's auxiliary LLM",
+        "phase": "shadow question and segment generation",
+        "source": "HotpotQA target-task metadata",
+        "representation": "question type",
+        "operation": "condition generation of a synthetic question and supporting facts"
+      },
+      "verdict": "insufficient_evidence",
+      "reason": "refutation_not_supported_by_scoped_evidence",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "attacker's auxiliary LLM",
+            "phase": "shadow question and segment generation",
+            "source": "HotpotQA target-task metadata",
+            "representation": "question type",
+            "operation": "condition generation of a synthetic question and supporting facts"
+          },
+          "permission": "allow",
+          "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 721, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 652, \"text_view\": \"reading_order\", \"text_view_sha256\": \"bc9941edd9d94ca84b98a626792bc9e6e71a13c78455a0a94c254b431a5ee77b\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "attacker's auxiliary LLM",
+            "phase": "shadow question and segment generation",
+            "source": "HotpotQA target-task metadata",
+            "representation": "question type",
+            "operation": "condition generation of a synthetic question and supporting facts"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 1309, \"match\": \"normalized_exact\", \"segment_id\": \"p17\", \"start\": 1270, \"text_view\": \"reading_order\", \"text_view_sha256\": \"9bf7921d12603f38d2b5c8a51c6e1482d2316004ba0cc24695ef8801979f8446\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "HotpotQA question exposure: question-type metadata might be mistaken for delivery of the full evaluation question.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "task_category",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "Task-category knowledge is explicitly permitted during attack construction.",
+          "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 721, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 652, \"text_view\": \"reading_order\", \"text_view_sha256\": \"bc9941edd9d94ca84b98a626792bc9e6e71a13c78455a0a94c254b431a5ee77b\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The setup and template bind target-task question type to auxiliary generation.",
+          "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 1034, \"match\": \"normalized_exact\", \"segment_id\": \"p10\", \"start\": 988, \"text_view\": \"reading_order\", \"text_view_sha256\": \"eac3fcc1290b677c5efdffcf1f64f6f5fc5f2e49829b19b2d52d26bc9532ff41\"}"
+        },
+        "refutation": {
+          "basis": "excluded_delivery",
+          "reason": "The listed input supplies a type and requests a newly generated question; it does not insert the evaluation question.",
+          "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 1125, \"match\": \"normalized_exact\", \"segment_id\": \"p17\", \"start\": 1039, \"text_view\": \"reading_order\", \"text_view_sha256\": \"9bf7921d12603f38d2b5c8a51c6e1482d2316004ba0cc24695ef8801979f8446\"}"
+        }
+      },
+      "claim_result": "unresolved",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p4",
+          "start": 652,
+          "end": 721,
+          "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "bc9941edd9d94ca84b98a626792bc9e6e71a13c78455a0a94c254b431a5ee77b"
+        },
+        "delivery": {
+          "segment_id": "p10",
+          "start": 988,
+          "end": 1034,
+          "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "eac3fcc1290b677c5efdffcf1f64f6f5fc5f2e49829b19b2d52d26bc9532ff41"
+        },
+        "refutation": {
+          "segment_id": "p17",
+          "start": 1039,
+          "end": 1125,
+          "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "9bf7921d12603f38d2b5c8a51c6e1482d2316004ba0cc24695ef8801979f8446"
+        },
+        "declaration": {
+          "segment_id": "p4",
+          "start": 652,
+          "end": 721,
+          "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "bc9941edd9d94ca84b98a626792bc9e6e71a13c78455a0a94c254b431a5ee77b"
+        },
+        "implementation": {
+          "segment_id": "p17",
+          "start": 1270,
+          "end": 1309,
+          "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "9bf7921d12603f38d2b5c8a51c6e1482d2316004ba0cc24695ef8801979f8446"
+        }
+      },
+      "semantic_review": {
+        "index": 1,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "confirmed",
+        "refutation": "excluded_delivery",
+        "reason": "p10 and p17 deliver question-type metadata to auxiliary generation, consistent with permitted task knowledge in p4. The template requests a newly generated question rather than inserting the evaluation question. Actual metadata values and their granularity remain unspecified."
+      }
+    },
+    {
+      "id": "obliinjection_claim_3",
+      "source_group": "paper_text",
+      "description": "Event-fact delivery is documented. Delivery of complete target articles, confidential instructions, or full evaluation queries is not established.",
+      "scope": {
+        "paper_version": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+        "experiment_arm": "Bounded paper-text audit of construction inputs and explicitly stronger API access. The supplied text establishes no prohibited information flow; the provenance and granularity of news metadata remain unresolved.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "attacker's auxiliary LLM",
+        "phase": "shadow news generation",
+        "source": "Multi-News target-task metadata",
+        "representation": "event summary and key facts",
+        "operation": "condition synthetic article generation"
+      },
+      "verdict": "insufficient_evidence",
+      "reason": "policy_scope_not_established",
+      "matching_rules": [],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "attacker's auxiliary LLM",
+            "phase": "shadow news generation",
+            "source": "Multi-News target-task metadata",
+            "representation": "event summary and key facts",
+            "operation": "condition synthetic article generation"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 376, \"match\": \"normalized_exact\", \"segment_id\": \"p17\", \"start\": 332, \"text_view\": \"reading_order\", \"text_view_sha256\": \"9bf7921d12603f38d2b5c8a51c6e1482d2316004ba0cc24695ef8801979f8446\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "News-fact provenance: event metadata supplied to shadow generation could contain information extracted from otherwise inaccessible target articles.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "document_content",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "uncertain",
+          "reason": "The model allows some clean-segment access and collectible metadata, but describes construction without true target segments. The origin and detail of these event summaries determine which allowance applies.",
+          "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 1099, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 1054, \"text_view\": \"reading_order\", \"text_view_sha256\": \"bc9941edd9d94ca84b98a626792bc9e6e71a13c78455a0a94c254b431a5ee77b\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The setup explicitly supplies target-event details, and the template inserts key facts into the auxiliary prompt.",
+          "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 982, \"match\": \"normalized_exact\", \"segment_id\": \"p10\", \"start\": 916, \"text_view\": \"reading_order\", \"text_view_sha256\": \"eac3fcc1290b677c5efdffcf1f64f6f5fc5f2e49829b19b2d52d26bc9532ff41\"}"
+        },
+        "refutation": {
+          "basis": "none",
+          "reason": "Neither independent public provenance nor extraction from prohibited target content is established.",
+          "reference": ""
+        }
+      },
+      "claim_result": "unresolved",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p4",
+          "start": 1054,
+          "end": 1099,
+          "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "bc9941edd9d94ca84b98a626792bc9e6e71a13c78455a0a94c254b431a5ee77b"
+        },
+        "delivery": {
+          "segment_id": "p10",
+          "start": 916,
+          "end": 982,
+          "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "eac3fcc1290b677c5efdffcf1f64f6f5fc5f2e49829b19b2d52d26bc9532ff41"
+        },
+        "implementation": {
+          "segment_id": "p17",
+          "start": 332,
+          "end": 376,
+          "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "9bf7921d12603f38d2b5c8a51c6e1482d2316004ba0cc24695ef8801979f8446"
+        }
+      },
+      "semantic_review": {
+        "index": 2,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "uncertain",
+        "delivery": "confirmed",
+        "refutation": "none",
+        "reason": "p17 inserts event summaries and key facts into auxiliary construction. Their provenance and detail are unresolved; collectible metadata and some clean-segment access are permitted, while construction is described as using inaccessible-target substitutes. No prohibited flow can be confirmed."
+      }
+    },
+    {
+      "id": "obliinjection_claim_4",
+      "source_group": "paper_text",
+      "description": "This is disclosed, specifically authorized optimization feedback in a separate experimental arm.",
+      "scope": {
+        "paper_version": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+        "experiment_arm": "Bounded paper-text audit of construction inputs and explicitly stronger API access. The supplied text establishes no prohibited information flow; the provenance and granularity of news metadata remain unresolved.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "attacker's optimizer",
+        "phase": "candidate loss estimation in the API-assisted arm",
+        "source": "GPT-4o API",
+        "representation": "output token log probabilities for shadow prompts",
+        "operation": "compute approximate order-oblivious loss"
+      },
+      "verdict": "insufficient_evidence",
+      "reason": "policy_scope_evidence_missing",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "attacker's optimizer",
+            "phase": "candidate loss estimation in the API-assisted arm",
+            "source": "GPT-4o API",
+            "representation": "output token log probabilities for shadow prompts",
+            "operation": "compute approximate order-oblivious loss"
+          },
+          "permission": "allow",
+          "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 1316, \"match\": \"normalized_exact\", \"segment_id\": \"p11\", \"start\": 1216, \"text_view\": \"reading_order\", \"text_view_sha256\": \"ddee25cf094323863ace21a2033c4db628d5e2cf48234cb162c484b570eeb236\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "attacker's optimizer",
+            "phase": "candidate loss estimation in the API-assisted arm",
+            "source": "GPT-4o API",
+            "representation": "output token log probabilities for shadow prompts",
+            "operation": "compute approximate order-oblivious loss"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 1621, \"match\": \"normalized_exact\", \"segment_id\": \"p11\", \"start\": 1537, \"text_view\": \"reading_order\", \"text_view_sha256\": \"ddee25cf094323863ace21a2033c4db628d5e2cf48234cb162c484b570eeb236\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "GPT-4o feedback access: optimization uses target-model log probabilities despite a separate no-API transfer result.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "other",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "not_applicable",
+          "reason": "The no-API condition applies to the separately reported 24.0% arm, not this explicitly API-assisted arm.",
+          "reference": ""
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "unknown",
+          "reason": "Target-model feedback reaches construction through losses on shadow inputs; this does not establish access to actual evaluation instructions or documents.",
+          "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 1421, \"match\": \"normalized_exact\", \"segment_id\": \"p11\", \"start\": 1331, \"text_view\": \"reading_order\", \"text_view_sha256\": \"ddee25cf094323863ace21a2033c4db628d5e2cf48234cb162c484b570eeb236\"}"
+        },
+        "refutation": {
+          "basis": "explicit_permission",
+          "reason": "The stronger arm explicitly permits the particular feedback used.",
+          "reference": "{\"document_sha256\": \"deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e\", \"end\": 1316, \"match\": \"normalized_exact\", \"segment_id\": \"p11\", \"start\": 1216, \"text_view\": \"reading_order\", \"text_view_sha256\": \"ddee25cf094323863ace21a2033c4db628d5e2cf48234cb162c484b570eeb236\"}"
+        }
+      },
+      "claim_result": "unresolved",
+      "citation_errors": [
+        "policy_scope: citation is absent after whitespace/Unicode normalization"
+      ],
+      "locators": {
+        "delivery": {
+          "segment_id": "p11",
+          "start": 1331,
+          "end": 1421,
+          "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "ddee25cf094323863ace21a2033c4db628d5e2cf48234cb162c484b570eeb236"
+        },
+        "refutation": {
+          "segment_id": "p11",
+          "start": 1216,
+          "end": 1316,
+          "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "ddee25cf094323863ace21a2033c4db628d5e2cf48234cb162c484b570eeb236"
+        },
+        "declaration": {
+          "segment_id": "p11",
+          "start": 1216,
+          "end": 1316,
+          "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "ddee25cf094323863ace21a2033c4db628d5e2cf48234cb162c484b570eeb236"
+        },
+        "implementation": {
+          "segment_id": "p11",
+          "start": 1537,
+          "end": 1621,
+          "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "ddee25cf094323863ace21a2033c4db628d5e2cf48234cb162c484b570eeb236"
+        }
+      },
+      "semantic_review": {
+        "index": 3,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "not_applicable",
+        "delivery": "confirmed",
+        "refutation": "explicit_permission",
+        "reason": "p11 expressly permits GPT-4o log probabilities for candidate-loss computation in the API-assisted arm, specifying the optimizer boundary and shadow inputs. The separate no-API condition does not govern this feedback; other target-information restrictions remain intact."
+      }
+    }
+  ],
+  "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+  "schema_version": 3,
+  "applicability": "in_scope",
+  "scope": "Bounded paper-text audit of construction inputs and explicitly stronger API access. The supplied text establishes no prohibited information flow; the provenance and granularity of news metadata remain unresolved.",
+  "review_status": "model_reviewed_not_human_verified",
+  "evidence_scope": "listed_claims_document_only",
+  "notes": [
+    "Evidence consists only of supplied paper text; no static code, saved requests, or runtime traces were supplied.",
+    "Template-based exclusions describe the paper procedure and do not independently verify execution.",
+    "Reported attack success and defense failures do not establish threat-model inconsistency.",
+    "Review covers supplied paper procedures, without runtime verification.",
+    "News-metadata provenance, question-type granularity, and actual construction-request conformity remain unanswered, so scope review is incomplete.",
+    "Construction access does not establish causal behavioral impact; reported attack success and defense failures do not establish attacker-knowledge violations."
+  ],
+  "unresolved_questions": [
+    "How were Multi-News event summaries and key facts obtained, and were they independently public or derived from evaluation articles or reference summaries?",
+    "What values populated the question-type metadata, and how coarse were those categories?",
+    "Do actual construction requests match the paper's templates and keep true target instructions and clean evaluation segments outside optimization and candidate selection?"
+  ],
+  "verdict": "insufficient_evidence",
+  "reason": "unresolved_checks",
+  "coverage_complete": false,
+  "claim_result_counts": {
+    "refuted": 1,
+    "unresolved": 3
+  },
+  "input_mode": "document_only",
+  "prompt_sha256": "dd80afd03660a2128242d06873b82a37c4c1ac043952e83a8a380e71835af55e",
+  "duration_seconds": 71.956,
+  "cohort": "curated_ipi",
+  "expected": null,
+  "expected_basis": "pending_independent_adjudication",
+  "comparison_note": "Historical targets are withheld while sources and scope are independently adjudicated.",
+  "matches_gold": null,
+  "previous_verdict": "insufficient_evidence",
+  "model_output_hashes": {
+    "extraction.json": "2b32d6ead888b2f3c1b7394b24c4b14a0b1e3c834f326064c8e1ceca3a6af4c2",
+    "review.json": "d3bcf1ae34cf9698c2393cb2ea4c44a9f6c77e89c8f3ec4bd8d6f7d4a3cc657c"
+  }
+}
+```
+
+### 10. WebTrap information\-budget audit
+
+论文 ID：webtrap  
+运行 / 判定：证据不足
+
+#### 测试过程
+
+| 步骤 | 状态 | 记录 |
+| --- | --- | --- |
+| ingestion | 已完成 | \{"stage": "ingestion", "status": "completed", "segments": 31, "characters": 143482, "coverage": \{"complete": true, "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"\}, "source\_links": \["https://github\.com/liuyaojialiuyaojia/WebTrap", "https://openreview\.net/forum?id=lIVRgt4nLv", "https://proceedings\.mlr\.press/v267/", "https://aclanthology\.org/2025\.emnlp\-main\.372/", "https://aclanthology\.org/2025\.acl\-long\.890/", "https://aclanthology\.org/2025\.acl\-long\.897/", "https://proceedings\.neurips\.cc/paper\_files/paper/2024/hash/", "https://arxiv\.org/abs/2412\.19437", "https://papers\.nips\.cc/paper\_", "https://proceedings\.mlr\.press/", "https://openreview\.net/forum?id=Ip1cCUAllL", "https://arxiv\.org/abs/2507\.06261", "https://arxiv\.org/abs/2508", "https://doi\.org/10\.1145/3605764", "https://doi\.org/10\.1007/978\-3\-031\-73113\-6\_10", "https://arxiv\.org/abs/2507\.20534", "https://aclanthology\.org/2024\.acl\-long\.50/", "https://openreview", "https://aclanthology\.org/2024\.tacl\-1\.9/", "https://openreview\.net/forum?id=zAdUB0aCTQ", "https://www\.usenix\.org/conference/usenixsecurity24/presentation/liu\-yupei", "https://proceedings\.mlr\.press/v235/lu24e\.html", "https://arxiv\.org/abs/2505\.09388", "https://doi\.org/10\.1145/3690624\.3709179", "https://aclanthology", "https://aclanthology\.org/2024\.findings\-acl\.624/", "https://openreview\.net/forum?id=V4y0CpX4hK", "https://aclanthology\.org/2025\.acl\-long", "https://openreview\.net/forum?id=oKn9c6ytLx"\], "sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a"\} |
+| extraction | 已完成 | \{"stage": "extraction", "status": "completed", "applicability": "in\_scope", "flow\_count": 4\} |
+| semantic\_review | 已完成 | \{"stage": "semantic\_review", "status": "completed", "applicability": "in\_scope"\} |
+| citation\_validation\_and\_decision | 已完成 | \{"stage": "citation\_validation\_and\_decision", "status": "completed", "verdict": "insufficient\_evidence", "reason": "audit\_scope\_not\_fully\_covered"\} |
+| decision\_replay | 已完成 | \{"stage": "decision\_replay", "status": "completed", "inference\_calls": 0, "same\_pdf\_bytes": true, "same\_primary\_model\_input": true, "additional\_reading\_order\_view": true, "previous\_verdict": "insufficient\_evidence", "verdict": "insufficient\_evidence"\} |
+
+#### 证据
+
+```json
+[
+  {
+    "id": "webtrap_claim_1",
+    "source_group": "paper_text",
+    "description": "Generic references to resuming the original task and dietary details visible on travel pages do not establish delivery of the exact user question. This exclusion is supported at the paper-procedure level.",
+    "scope": {
+      "paper_version": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+      "experiment_arm": "Paper-text audit of WebTrap construction inputs and stronger baseline permissions. The supplied algorithms and templates do not establish a forbidden construction input. No code or saved requests were supplied.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "WebTrap attacker planner and generation model",
+      "phase": "attack construction",
+      "source": "evaluated instance's hidden user goal",
+      "representation": "specific user-task text or exact goal",
+      "operation": "condition trap construction and goal coupling",
+      "query_form": "full_query"
+    },
+    "verdict": "consistent_within_scope",
+    "reason": "claim_refuted_excluded_delivery",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "WebTrap attacker planner and generation model",
+          "phase": "attack construction",
+          "source": "evaluated instance's hidden user goal",
+          "representation": "specific user-task text or exact goal",
+          "operation": "condition trap construction and goal coupling",
+          "query_form": "full_query"
+        },
+        "permission": "deny",
+        "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 2955, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 2891, \"text_view\": \"reading_order\", \"text_view_sha256\": \"17fe6e1ffae3ff2d05bf30a0c2e57e1dc0af824af1c5c2cc9d116214a867a2f1\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "WebTrap attacker planner and generation model",
+          "phase": "attack construction",
+          "source": "evaluated instance's hidden user goal",
+          "representation": "specific user-task text or exact goal",
+          "operation": "condition trap construction and goal coupling",
+          "query_form": "full_query"
+        },
+        "status": "absent",
+        "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 1742, \"match\": \"normalized_exact\", \"segment_id\": \"p14\", \"start\": 1652, \"text_view\": \"reading_order\", \"text_view_sha256\": \"842fc934646ba631fd9468d156a2648c469e291dce76ebd5a2eba9925967cf2d\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Hidden-task coupling: does WebTrap construction receive the exact evaluated user task?",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "The exclusion applies to WebTrap's attacker during construction for the evaluated instance.",
+        "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 2955, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 2891, \"text_view\": \"reading_order\", \"text_view_sha256\": \"17fe6e1ffae3ff2d05bf30a0c2e57e1dc0af824af1c5c2cc9d116214a867a2f1\"}"
+      },
+      "delivery": {
+        "status": "excluded",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The construction algorithm substitutes an environment-type approximation; the supplied stage templates use page context, routes and attacker objectives.",
+        "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 1742, \"match\": \"normalized_exact\", \"segment_id\": \"p14\", \"start\": 1652, \"text_view\": \"reading_order\", \"text_view_sha256\": \"842fc934646ba631fd9468d156a2648c469e291dce76ebd5a2eba9925967cf2d\"}"
+      },
+      "refutation": {
+        "basis": "excluded_delivery",
+        "reason": "The described construction procedure explicitly excludes the hidden goal from its approximation.",
+        "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 1742, \"match\": \"normalized_exact\", \"segment_id\": \"p14\", \"start\": 1652, \"text_view\": \"reading_order\", \"text_view_sha256\": \"842fc934646ba631fd9468d156a2648c469e291dce76ebd5a2eba9925967cf2d\"}"
+      }
+    },
+    "claim_result": "refuted",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p5",
+        "start": 2891,
+        "end": 2955,
+        "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "17fe6e1ffae3ff2d05bf30a0c2e57e1dc0af824af1c5c2cc9d116214a867a2f1"
+      },
+      "delivery": {
+        "segment_id": "p14",
+        "start": 1652,
+        "end": 1742,
+        "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "842fc934646ba631fd9468d156a2648c469e291dce76ebd5a2eba9925967cf2d"
+      },
+      "refutation": {
+        "segment_id": "p14",
+        "start": 1652,
+        "end": 1742,
+        "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "842fc934646ba631fd9468d156a2648c469e291dce76ebd5a2eba9925967cf2d"
+      },
+      "declaration": {
+        "segment_id": "p5",
+        "start": 2891,
+        "end": 2955,
+        "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "17fe6e1ffae3ff2d05bf30a0c2e57e1dc0af824af1c5c2cc9d116214a867a2f1"
+      },
+      "implementation": {
+        "segment_id": "p14",
+        "start": 1652,
+        "end": 1742,
+        "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "842fc934646ba631fd9468d156a2648c469e291dce76ebd5a2eba9925967cf2d"
+      }
+    },
+    "semantic_review": {
+      "index": 0,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "excluded",
+      "refutation": "excluded_delivery",
+      "reason": "At the paper-procedure level, p14 derives the coarse goal solely from environment type and lists stage-generation inputs without the hidden user goal. This positively supports exclusion; visible task themes and evaluator receipt in p26 do not establish attacker receipt."
+    }
+  },
+  {
+    "id": "webtrap_claim_2",
+    "source_group": "paper_text",
+    "description": "Specific-looking token operations do not independently prove hidden-page access. The supplied procedure describes prediction from permitted inputs; later victim inspection is a separate boundary.",
+    "scope": {
+      "paper_version": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+      "experiment_arm": "Paper-text audit of WebTrap construction inputs and stronger baseline permissions. The supplied algorithms and templates do not establish a forbidden construction input. No code or saved requests were supplied.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "WebTrap workflow-hint generation model",
+      "phase": "payload construction",
+      "source": "restricted-area internal pages, files and transition structure",
+      "representation": "verified internal observations or action sequence",
+      "operation": "generate the payload workflow hint"
+    },
+    "verdict": "consistent_within_scope",
+    "reason": "claim_refuted_excluded_delivery",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "WebTrap workflow-hint generation model",
+          "phase": "payload construction",
+          "source": "restricted-area internal pages, files and transition structure",
+          "representation": "verified internal observations or action sequence",
+          "operation": "generate the payload workflow hint"
+        },
+        "permission": "deny",
+        "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 2665, \"match\": \"normalized_exact\", \"segment_id\": \"p30\", \"start\": 2578, \"text_view\": \"reading_order\", \"text_view_sha256\": \"d642bb4c2383f0f9ed690478f8c701ac693367b0fc5937d05fccb7d76745d811\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "WebTrap workflow-hint generation model",
+          "phase": "payload construction",
+          "source": "restricted-area internal pages, files and transition structure",
+          "representation": "verified internal observations or action sequence",
+          "operation": "generate the payload workflow hint"
+        },
+        "status": "absent",
+        "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 3667, \"match\": \"normalized_exact\", \"segment_id\": \"p15\", \"start\": 3544, \"text_view\": \"reading_order\", \"text_view_sha256\": \"eca1539ed5665f98a7a23d1f40f1905cefe05df2f5cf9a9b73fc1641183a35c3\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Restricted-workflow foreknowledge: do predicted payload steps use hidden restricted-area observations?",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "document_content",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "The exclusion applies to WebTrap's construction actor, including the model generating workflow hints.",
+        "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 2665, \"match\": \"normalized_exact\", \"segment_id\": \"p30\", \"start\": 2578, \"text_view\": \"reading_order\", \"text_view_sha256\": \"d642bb4c2383f0f9ed690478f8c701ac693367b0fc5937d05fccb7d76745d811\"}"
+      },
+      "delivery": {
+        "status": "excluded",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "Algorithm A.2 lists visible entrance context, attacker goal and environment type as the hint-generation inputs. It assigns inspection of actual restricted observations to the victim after entry.",
+        "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 149, \"match\": \"normalized_exact\", \"segment_id\": \"p16\", \"start\": 58, \"text_view\": \"reading_order\", \"text_view_sha256\": \"fdd6471bea771e9c62d106ae28f05521ed683599057ee3af648719a6cee01e6e\"}"
+      },
+      "refutation": {
+        "basis": "excluded_delivery",
+        "reason": "The payload template describes prediction and subsequent victim adaptation, rather than construction from verified internal navigation.",
+        "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 1617, \"match\": \"normalized_exact\", \"segment_id\": \"p19\", \"start\": 1533, \"text_view\": \"reading_order\", \"text_view_sha256\": \"ff07c4891c9fbee4434c35eb9c30c9e533ee94b513408e9f70ed3c8d225024d0\"}"
+      }
+    },
+    "claim_result": "refuted",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p30",
+        "start": 2578,
+        "end": 2665,
+        "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "d642bb4c2383f0f9ed690478f8c701ac693367b0fc5937d05fccb7d76745d811"
+      },
+      "delivery": {
+        "segment_id": "p16",
+        "start": 58,
+        "end": 149,
+        "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "fdd6471bea771e9c62d106ae28f05521ed683599057ee3af648719a6cee01e6e"
+      },
+      "refutation": {
+        "segment_id": "p19",
+        "start": 1533,
+        "end": 1617,
+        "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "ff07c4891c9fbee4434c35eb9c30c9e533ee94b513408e9f70ed3c8d225024d0"
+      },
+      "declaration": {
+        "segment_id": "p30",
+        "start": 2578,
+        "end": 2665,
+        "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "d642bb4c2383f0f9ed690478f8c701ac693367b0fc5937d05fccb7d76745d811"
+      },
+      "implementation": {
+        "segment_id": "p15",
+        "start": 3544,
+        "end": 3667,
+        "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "eca1539ed5665f98a7a23d1f40f1905cefe05df2f5cf9a9b73fc1641183a35c3"
+      }
+    },
+    "semantic_review": {
+      "index": 1,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "excluded",
+      "refutation": "excluded_delivery",
+      "reason": "For the described workflow-hint procedure, p16 supplies the generation model with entrance context, attacker objective and environment type. Actual restricted observations reach the victim after entry. This supports exclusion of verified internal observations, subject to unresolved attacker-goal serialization."
+    }
+  },
+  {
+    "id": "webtrap_claim_3",
+    "source_group": "paper_text",
+    "description": "This permitted control explains concrete navigation paths and local task-themed rationales without implying access to the hidden user question or restricted internals.",
+    "scope": {
+      "paper_version": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+      "experiment_arm": "Paper-text audit of WebTrap construction inputs and stronger baseline permissions. The supplied algorithms and templates do not establish a forbidden construction input. No code or saved requests were supplied.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "WebTrap attacker planner and stage generators",
+      "phase": "route planning and trap construction",
+      "source": "visible user-area graph, local observations and boundary entrance",
+      "representation": "route hints, page content and entrance label",
+      "operation": "place traps and generate navigation instructions"
+    },
+    "verdict": "consistent_within_scope",
+    "reason": "claim_refuted_explicit_permission",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "WebTrap attacker planner and stage generators",
+          "phase": "route planning and trap construction",
+          "source": "visible user-area graph, local observations and boundary entrance",
+          "representation": "route hints, page content and entrance label",
+          "operation": "place traps and generate navigation instructions"
+        },
+        "permission": "allow",
+        "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 2572, \"match\": \"normalized_exact\", \"segment_id\": \"p30\", \"start\": 2476, \"text_view\": \"reading_order\", \"text_view_sha256\": \"d642bb4c2383f0f9ed690478f8c701ac693367b0fc5937d05fccb7d76745d811\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "WebTrap attacker planner and stage generators",
+          "phase": "route planning and trap construction",
+          "source": "visible user-area graph, local observations and boundary entrance",
+          "representation": "route hints, page content and entrance label",
+          "operation": "place traps and generate navigation instructions"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 336, \"match\": \"normalized_exact\", \"segment_id\": \"p17\", \"start\": 280, \"text_view\": \"reading_order\", \"text_view_sha256\": \"4b0e08201570e8c9fa31324ff2d8b4178da55593ccffe730b1d9175ab197dc6c\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Visible-route control: WebTrap may use the user-area graph and restricted-area entrance descriptor.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "resource_metadata",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "This permission expressly covers WebTrap's visible user-area information during construction.",
+        "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 2437, \"match\": \"normalized_exact\", \"segment_id\": \"p15\", \"start\": 2370, \"text_view\": \"reading_order\", \"text_view_sha256\": \"eca1539ed5665f98a7a23d1f40f1905cefe05df2f5cf9a9b73fc1641183a35c3\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The lure template supplies current HTML and the remaining route to the generation model.",
+        "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 1284, \"match\": \"normalized_exact\", \"segment_id\": \"p17\", \"start\": 1204, \"text_view\": \"reading_order\", \"text_view_sha256\": \"4b0e08201570e8c9fa31324ff2d8b4178da55593ccffe730b1d9175ab197dc6c\"}"
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reason": "Route and entrance knowledge are specifically permitted, so they do not establish restricted-area foreknowledge.",
+        "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 2572, \"match\": \"normalized_exact\", \"segment_id\": \"p30\", \"start\": 2476, \"text_view\": \"reading_order\", \"text_view_sha256\": \"d642bb4c2383f0f9ed690478f8c701ac693367b0fc5937d05fccb7d76745d811\"}"
+      }
+    },
+    "claim_result": "refuted",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p15",
+        "start": 2370,
+        "end": 2437,
+        "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "eca1539ed5665f98a7a23d1f40f1905cefe05df2f5cf9a9b73fc1641183a35c3"
+      },
+      "delivery": {
+        "segment_id": "p17",
+        "start": 1204,
+        "end": 1284,
+        "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "4b0e08201570e8c9fa31324ff2d8b4178da55593ccffe730b1d9175ab197dc6c"
+      },
+      "refutation": {
+        "segment_id": "p30",
+        "start": 2476,
+        "end": 2572,
+        "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "d642bb4c2383f0f9ed690478f8c701ac693367b0fc5937d05fccb7d76745d811"
+      },
+      "declaration": {
+        "segment_id": "p30",
+        "start": 2476,
+        "end": 2572,
+        "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "d642bb4c2383f0f9ed690478f8c701ac693367b0fc5937d05fccb7d76745d811"
+      },
+      "implementation": {
+        "segment_id": "p17",
+        "start": 280,
+        "end": 336,
+        "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "4b0e08201570e8c9fa31324ff2d8b4178da55593ccffe730b1d9175ab197dc6c"
+      }
+    },
+    "semantic_review": {
+      "index": 2,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "confirmed",
+      "refutation": "explicit_permission",
+      "reason": "P14 and p17 deliver user-area observations and route hints to construction actors. P15 and p30 expressly permit this information, including the visible entrance; it does not establish hidden-task or restricted-internal access."
+    }
+  },
+  {
+    "id": "webtrap_claim_4",
+    "source_group": "paper_text",
+    "description": "Task-aware baseline construction is not evidence that WebTrap itself receives the hidden task.",
+    "scope": {
+      "paper_version": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+      "experiment_arm": "Paper-text audit of WebTrap construction inputs and stronger baseline permissions. The supplied algorithms and templates do not establish a forbidden construction input. No code or saved requests were supplied.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "Hijacking Text and Hijacking URL baseline attackers",
+      "phase": "baseline attack construction",
+      "source": "current evaluated user task",
+      "representation": "specific task details",
+      "operation": "construct task-aware baseline injections"
+    },
+    "verdict": "consistent_within_scope",
+    "reason": "claim_refuted_explicit_permission",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "Hijacking Text and Hijacking URL baseline attackers",
+          "phase": "baseline attack construction",
+          "source": "current evaluated user task",
+          "representation": "specific task details",
+          "operation": "construct task-aware baseline injections"
+        },
+        "permission": "allow",
+        "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 3584, \"match\": \"normalized_exact\", \"segment_id\": \"p24\", \"start\": 3451, \"text_view\": \"reading_order\", \"text_view_sha256\": \"14aea017be70a2c80190bee0f7a2779e1887ebfd606aada647553614df4b52a9\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "Hijacking Text and Hijacking URL baseline attackers",
+          "phase": "baseline attack construction",
+          "source": "current evaluated user task",
+          "representation": "specific task details",
+          "operation": "construct task-aware baseline injections"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 1606, \"match\": \"normalized_exact\", \"segment_id\": \"p24\", \"start\": 1501, \"text_view\": \"reading_order\", \"text_view_sha256\": \"14aea017be70a2c80190bee0f7a2779e1887ebfd606aada647553614df4b52a9\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Stronger-baseline control: Hijacking Text and Hijacking URL may know the current user task.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "These baseline arms receive explicit additional knowledge; WebTrap's task-blind restriction does not override that permission.",
+        "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 3926, \"match\": \"normalized_exact\", \"segment_id\": \"p24\", \"start\": 3859, \"text_view\": \"reading_order\", \"text_view_sha256\": \"14aea017be70a2c80190bee0f7a2779e1887ebfd606aada647553614df4b52a9\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The baseline implementation section describes supplying current-task details. It does not establish the precise raw-text representation sent to an auxiliary model.",
+        "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 1845, \"match\": \"normalized_exact\", \"segment_id\": \"p24\", \"start\": 1608, \"text_view\": \"reading_order\", \"text_view_sha256\": \"14aea017be70a2c80190bee0f7a2779e1887ebfd606aada647553614df4b52a9\"}"
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reason": "The stronger task-aware baseline setting is expressly authorized.",
+        "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 3733, \"match\": \"normalized_exact\", \"segment_id\": \"p7\", \"start\": 3633, \"text_view\": \"reading_order\", \"text_view_sha256\": \"6bfd0b9664c7077ad75fab09bf356241057a6d8716f9cc28b7ee11bdd38883e7\"}"
+      }
+    },
+    "claim_result": "refuted",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p24",
+        "start": 3859,
+        "end": 3926,
+        "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "14aea017be70a2c80190bee0f7a2779e1887ebfd606aada647553614df4b52a9"
+      },
+      "delivery": {
+        "segment_id": "p24",
+        "start": 1608,
+        "end": 1845,
+        "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "14aea017be70a2c80190bee0f7a2779e1887ebfd606aada647553614df4b52a9"
+      },
+      "refutation": {
+        "segment_id": "p7",
+        "start": 3633,
+        "end": 3733,
+        "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "6bfd0b9664c7077ad75fab09bf356241057a6d8716f9cc28b7ee11bdd38883e7"
+      },
+      "declaration": {
+        "segment_id": "p24",
+        "start": 3451,
+        "end": 3584,
+        "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "14aea017be70a2c80190bee0f7a2779e1887ebfd606aada647553614df4b52a9"
+      },
+      "implementation": {
+        "segment_id": "p24",
+        "start": 1501,
+        "end": 1606,
+        "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "14aea017be70a2c80190bee0f7a2779e1887ebfd606aada647553614df4b52a9"
+      }
+    },
+    "semantic_review": {
+      "index": 3,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "confirmed",
+      "refutation": "explicit_permission",
+      "reason": "P24 describes supplying current-task details to the baselines, and p7/p24 explicitly authorize current-task knowledge for both Hijacking variants. Their contract permits the claimed knowledge, although exact raw-text delivery to an auxiliary model is unspecified."
+    }
+  }
+]
+```
+
+#### 备注
+
+```json
+[
+  "Evidence consists solely of supplied paper text, including algorithms, templates and generated examples; no static code, saved requests or runtime construction traces were supplied.",
+  "Reported exfiltration and defense failures are security outcomes and do not independently establish an attacker information-budget violation.",
+  "Specific unanswered suspicions remain: whether actual generation requests match the listed inputs, and whether structured attacker goals expose internal target identifiers or evaluation predicates described in p23.",
+  "Exclusions are supported at the documented procedure level; no code, saved requests or runtime construction traces were supplied.",
+  "Successful hijacking, exfiltration and defense failures concern victim security outcomes; they do not independently establish forbidden attacker knowledge or its causal impact."
+]
+```
+
+#### 完整论文记录 JSON
+
+```json
+{
+  "id": "webtrap",
+  "title": "WebTrap information-budget audit",
+  "source": "https://arxiv.org/pdf/2605.08310v1",
+  "status": "completed",
+  "has_confirmed_inconsistency": false,
+  "stages": [
+    {
+      "stage": "ingestion",
+      "status": "completed",
+      "segments": 31,
+      "characters": 143482,
+      "coverage": {
+        "complete": true,
+        "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+      },
+      "source_links": [
+        "https://github.com/liuyaojialiuyaojia/WebTrap",
+        "https://openreview.net/forum?id=lIVRgt4nLv",
+        "https://proceedings.mlr.press/v267/",
+        "https://aclanthology.org/2025.emnlp-main.372/",
+        "https://aclanthology.org/2025.acl-long.890/",
+        "https://aclanthology.org/2025.acl-long.897/",
+        "https://proceedings.neurips.cc/paper_files/paper/2024/hash/",
+        "https://arxiv.org/abs/2412.19437",
+        "https://papers.nips.cc/paper_",
+        "https://proceedings.mlr.press/",
+        "https://openreview.net/forum?id=Ip1cCUAllL",
+        "https://arxiv.org/abs/2507.06261",
+        "https://arxiv.org/abs/2508",
+        "https://doi.org/10.1145/3605764",
+        "https://doi.org/10.1007/978-3-031-73113-6_10",
+        "https://arxiv.org/abs/2507.20534",
+        "https://aclanthology.org/2024.acl-long.50/",
+        "https://openreview",
+        "https://aclanthology.org/2024.tacl-1.9/",
+        "https://openreview.net/forum?id=zAdUB0aCTQ",
+        "https://www.usenix.org/conference/usenixsecurity24/presentation/liu-yupei",
+        "https://proceedings.mlr.press/v235/lu24e.html",
+        "https://arxiv.org/abs/2505.09388",
+        "https://doi.org/10.1145/3690624.3709179",
+        "https://aclanthology",
+        "https://aclanthology.org/2024.findings-acl.624/",
+        "https://openreview.net/forum?id=V4y0CpX4hK",
+        "https://aclanthology.org/2025.acl-long",
+        "https://openreview.net/forum?id=oKn9c6ytLx"
+      ],
+      "sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a"
+    },
+    {
+      "stage": "extraction",
+      "status": "completed",
+      "applicability": "in_scope",
+      "flow_count": 4
+    },
+    {
+      "stage": "semantic_review",
+      "status": "completed",
+      "applicability": "in_scope"
+    },
+    {
+      "stage": "citation_validation_and_decision",
+      "status": "completed",
+      "verdict": "insufficient_evidence",
+      "reason": "audit_scope_not_fully_covered"
+    },
+    {
+      "stage": "decision_replay",
+      "status": "completed",
+      "inference_calls": 0,
+      "same_pdf_bytes": true,
+      "same_primary_model_input": true,
+      "additional_reading_order_view": true,
+      "previous_verdict": "insufficient_evidence",
+      "verdict": "insufficient_evidence"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "webtrap_claim_1",
+      "source_group": "paper_text",
+      "description": "Generic references to resuming the original task and dietary details visible on travel pages do not establish delivery of the exact user question. This exclusion is supported at the paper-procedure level.",
+      "scope": {
+        "paper_version": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+        "experiment_arm": "Paper-text audit of WebTrap construction inputs and stronger baseline permissions. The supplied algorithms and templates do not establish a forbidden construction input. No code or saved requests were supplied.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "WebTrap attacker planner and generation model",
+        "phase": "attack construction",
+        "source": "evaluated instance's hidden user goal",
+        "representation": "specific user-task text or exact goal",
+        "operation": "condition trap construction and goal coupling",
+        "query_form": "full_query"
+      },
+      "verdict": "consistent_within_scope",
+      "reason": "claim_refuted_excluded_delivery",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "WebTrap attacker planner and generation model",
+            "phase": "attack construction",
+            "source": "evaluated instance's hidden user goal",
+            "representation": "specific user-task text or exact goal",
+            "operation": "condition trap construction and goal coupling",
+            "query_form": "full_query"
+          },
+          "permission": "deny",
+          "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 2955, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 2891, \"text_view\": \"reading_order\", \"text_view_sha256\": \"17fe6e1ffae3ff2d05bf30a0c2e57e1dc0af824af1c5c2cc9d116214a867a2f1\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "WebTrap attacker planner and generation model",
+            "phase": "attack construction",
+            "source": "evaluated instance's hidden user goal",
+            "representation": "specific user-task text or exact goal",
+            "operation": "condition trap construction and goal coupling",
+            "query_form": "full_query"
+          },
+          "status": "absent",
+          "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 1742, \"match\": \"normalized_exact\", \"segment_id\": \"p14\", \"start\": 1652, \"text_view\": \"reading_order\", \"text_view_sha256\": \"842fc934646ba631fd9468d156a2648c469e291dce76ebd5a2eba9925967cf2d\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Hidden-task coupling: does WebTrap construction receive the exact evaluated user task?",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "exact_query",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "The exclusion applies to WebTrap's attacker during construction for the evaluated instance.",
+          "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 2955, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 2891, \"text_view\": \"reading_order\", \"text_view_sha256\": \"17fe6e1ffae3ff2d05bf30a0c2e57e1dc0af824af1c5c2cc9d116214a867a2f1\"}"
+        },
+        "delivery": {
+          "status": "excluded",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The construction algorithm substitutes an environment-type approximation; the supplied stage templates use page context, routes and attacker objectives.",
+          "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 1742, \"match\": \"normalized_exact\", \"segment_id\": \"p14\", \"start\": 1652, \"text_view\": \"reading_order\", \"text_view_sha256\": \"842fc934646ba631fd9468d156a2648c469e291dce76ebd5a2eba9925967cf2d\"}"
+        },
+        "refutation": {
+          "basis": "excluded_delivery",
+          "reason": "The described construction procedure explicitly excludes the hidden goal from its approximation.",
+          "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 1742, \"match\": \"normalized_exact\", \"segment_id\": \"p14\", \"start\": 1652, \"text_view\": \"reading_order\", \"text_view_sha256\": \"842fc934646ba631fd9468d156a2648c469e291dce76ebd5a2eba9925967cf2d\"}"
+        }
+      },
+      "claim_result": "refuted",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p5",
+          "start": 2891,
+          "end": 2955,
+          "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "17fe6e1ffae3ff2d05bf30a0c2e57e1dc0af824af1c5c2cc9d116214a867a2f1"
+        },
+        "delivery": {
+          "segment_id": "p14",
+          "start": 1652,
+          "end": 1742,
+          "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "842fc934646ba631fd9468d156a2648c469e291dce76ebd5a2eba9925967cf2d"
+        },
+        "refutation": {
+          "segment_id": "p14",
+          "start": 1652,
+          "end": 1742,
+          "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "842fc934646ba631fd9468d156a2648c469e291dce76ebd5a2eba9925967cf2d"
+        },
+        "declaration": {
+          "segment_id": "p5",
+          "start": 2891,
+          "end": 2955,
+          "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "17fe6e1ffae3ff2d05bf30a0c2e57e1dc0af824af1c5c2cc9d116214a867a2f1"
+        },
+        "implementation": {
+          "segment_id": "p14",
+          "start": 1652,
+          "end": 1742,
+          "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "842fc934646ba631fd9468d156a2648c469e291dce76ebd5a2eba9925967cf2d"
+        }
+      },
+      "semantic_review": {
+        "index": 0,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "excluded",
+        "refutation": "excluded_delivery",
+        "reason": "At the paper-procedure level, p14 derives the coarse goal solely from environment type and lists stage-generation inputs without the hidden user goal. This positively supports exclusion; visible task themes and evaluator receipt in p26 do not establish attacker receipt."
+      }
+    },
+    {
+      "id": "webtrap_claim_2",
+      "source_group": "paper_text",
+      "description": "Specific-looking token operations do not independently prove hidden-page access. The supplied procedure describes prediction from permitted inputs; later victim inspection is a separate boundary.",
+      "scope": {
+        "paper_version": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+        "experiment_arm": "Paper-text audit of WebTrap construction inputs and stronger baseline permissions. The supplied algorithms and templates do not establish a forbidden construction input. No code or saved requests were supplied.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "WebTrap workflow-hint generation model",
+        "phase": "payload construction",
+        "source": "restricted-area internal pages, files and transition structure",
+        "representation": "verified internal observations or action sequence",
+        "operation": "generate the payload workflow hint"
+      },
+      "verdict": "consistent_within_scope",
+      "reason": "claim_refuted_excluded_delivery",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "WebTrap workflow-hint generation model",
+            "phase": "payload construction",
+            "source": "restricted-area internal pages, files and transition structure",
+            "representation": "verified internal observations or action sequence",
+            "operation": "generate the payload workflow hint"
+          },
+          "permission": "deny",
+          "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 2665, \"match\": \"normalized_exact\", \"segment_id\": \"p30\", \"start\": 2578, \"text_view\": \"reading_order\", \"text_view_sha256\": \"d642bb4c2383f0f9ed690478f8c701ac693367b0fc5937d05fccb7d76745d811\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "WebTrap workflow-hint generation model",
+            "phase": "payload construction",
+            "source": "restricted-area internal pages, files and transition structure",
+            "representation": "verified internal observations or action sequence",
+            "operation": "generate the payload workflow hint"
+          },
+          "status": "absent",
+          "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 3667, \"match\": \"normalized_exact\", \"segment_id\": \"p15\", \"start\": 3544, \"text_view\": \"reading_order\", \"text_view_sha256\": \"eca1539ed5665f98a7a23d1f40f1905cefe05df2f5cf9a9b73fc1641183a35c3\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Restricted-workflow foreknowledge: do predicted payload steps use hidden restricted-area observations?",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "document_content",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "The exclusion applies to WebTrap's construction actor, including the model generating workflow hints.",
+          "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 2665, \"match\": \"normalized_exact\", \"segment_id\": \"p30\", \"start\": 2578, \"text_view\": \"reading_order\", \"text_view_sha256\": \"d642bb4c2383f0f9ed690478f8c701ac693367b0fc5937d05fccb7d76745d811\"}"
+        },
+        "delivery": {
+          "status": "excluded",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "Algorithm A.2 lists visible entrance context, attacker goal and environment type as the hint-generation inputs. It assigns inspection of actual restricted observations to the victim after entry.",
+          "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 149, \"match\": \"normalized_exact\", \"segment_id\": \"p16\", \"start\": 58, \"text_view\": \"reading_order\", \"text_view_sha256\": \"fdd6471bea771e9c62d106ae28f05521ed683599057ee3af648719a6cee01e6e\"}"
+        },
+        "refutation": {
+          "basis": "excluded_delivery",
+          "reason": "The payload template describes prediction and subsequent victim adaptation, rather than construction from verified internal navigation.",
+          "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 1617, \"match\": \"normalized_exact\", \"segment_id\": \"p19\", \"start\": 1533, \"text_view\": \"reading_order\", \"text_view_sha256\": \"ff07c4891c9fbee4434c35eb9c30c9e533ee94b513408e9f70ed3c8d225024d0\"}"
+        }
+      },
+      "claim_result": "refuted",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p30",
+          "start": 2578,
+          "end": 2665,
+          "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "d642bb4c2383f0f9ed690478f8c701ac693367b0fc5937d05fccb7d76745d811"
+        },
+        "delivery": {
+          "segment_id": "p16",
+          "start": 58,
+          "end": 149,
+          "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "fdd6471bea771e9c62d106ae28f05521ed683599057ee3af648719a6cee01e6e"
+        },
+        "refutation": {
+          "segment_id": "p19",
+          "start": 1533,
+          "end": 1617,
+          "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "ff07c4891c9fbee4434c35eb9c30c9e533ee94b513408e9f70ed3c8d225024d0"
+        },
+        "declaration": {
+          "segment_id": "p30",
+          "start": 2578,
+          "end": 2665,
+          "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "d642bb4c2383f0f9ed690478f8c701ac693367b0fc5937d05fccb7d76745d811"
+        },
+        "implementation": {
+          "segment_id": "p15",
+          "start": 3544,
+          "end": 3667,
+          "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "eca1539ed5665f98a7a23d1f40f1905cefe05df2f5cf9a9b73fc1641183a35c3"
+        }
+      },
+      "semantic_review": {
+        "index": 1,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "excluded",
+        "refutation": "excluded_delivery",
+        "reason": "For the described workflow-hint procedure, p16 supplies the generation model with entrance context, attacker objective and environment type. Actual restricted observations reach the victim after entry. This supports exclusion of verified internal observations, subject to unresolved attacker-goal serialization."
+      }
+    },
+    {
+      "id": "webtrap_claim_3",
+      "source_group": "paper_text",
+      "description": "This permitted control explains concrete navigation paths and local task-themed rationales without implying access to the hidden user question or restricted internals.",
+      "scope": {
+        "paper_version": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+        "experiment_arm": "Paper-text audit of WebTrap construction inputs and stronger baseline permissions. The supplied algorithms and templates do not establish a forbidden construction input. No code or saved requests were supplied.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "WebTrap attacker planner and stage generators",
+        "phase": "route planning and trap construction",
+        "source": "visible user-area graph, local observations and boundary entrance",
+        "representation": "route hints, page content and entrance label",
+        "operation": "place traps and generate navigation instructions"
+      },
+      "verdict": "consistent_within_scope",
+      "reason": "claim_refuted_explicit_permission",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "WebTrap attacker planner and stage generators",
+            "phase": "route planning and trap construction",
+            "source": "visible user-area graph, local observations and boundary entrance",
+            "representation": "route hints, page content and entrance label",
+            "operation": "place traps and generate navigation instructions"
+          },
+          "permission": "allow",
+          "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 2572, \"match\": \"normalized_exact\", \"segment_id\": \"p30\", \"start\": 2476, \"text_view\": \"reading_order\", \"text_view_sha256\": \"d642bb4c2383f0f9ed690478f8c701ac693367b0fc5937d05fccb7d76745d811\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "WebTrap attacker planner and stage generators",
+            "phase": "route planning and trap construction",
+            "source": "visible user-area graph, local observations and boundary entrance",
+            "representation": "route hints, page content and entrance label",
+            "operation": "place traps and generate navigation instructions"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 336, \"match\": \"normalized_exact\", \"segment_id\": \"p17\", \"start\": 280, \"text_view\": \"reading_order\", \"text_view_sha256\": \"4b0e08201570e8c9fa31324ff2d8b4178da55593ccffe730b1d9175ab197dc6c\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Visible-route control: WebTrap may use the user-area graph and restricted-area entrance descriptor.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "resource_metadata",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "This permission expressly covers WebTrap's visible user-area information during construction.",
+          "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 2437, \"match\": \"normalized_exact\", \"segment_id\": \"p15\", \"start\": 2370, \"text_view\": \"reading_order\", \"text_view_sha256\": \"eca1539ed5665f98a7a23d1f40f1905cefe05df2f5cf9a9b73fc1641183a35c3\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The lure template supplies current HTML and the remaining route to the generation model.",
+          "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 1284, \"match\": \"normalized_exact\", \"segment_id\": \"p17\", \"start\": 1204, \"text_view\": \"reading_order\", \"text_view_sha256\": \"4b0e08201570e8c9fa31324ff2d8b4178da55593ccffe730b1d9175ab197dc6c\"}"
+        },
+        "refutation": {
+          "basis": "explicit_permission",
+          "reason": "Route and entrance knowledge are specifically permitted, so they do not establish restricted-area foreknowledge.",
+          "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 2572, \"match\": \"normalized_exact\", \"segment_id\": \"p30\", \"start\": 2476, \"text_view\": \"reading_order\", \"text_view_sha256\": \"d642bb4c2383f0f9ed690478f8c701ac693367b0fc5937d05fccb7d76745d811\"}"
+        }
+      },
+      "claim_result": "refuted",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p15",
+          "start": 2370,
+          "end": 2437,
+          "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "eca1539ed5665f98a7a23d1f40f1905cefe05df2f5cf9a9b73fc1641183a35c3"
+        },
+        "delivery": {
+          "segment_id": "p17",
+          "start": 1204,
+          "end": 1284,
+          "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "4b0e08201570e8c9fa31324ff2d8b4178da55593ccffe730b1d9175ab197dc6c"
+        },
+        "refutation": {
+          "segment_id": "p30",
+          "start": 2476,
+          "end": 2572,
+          "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "d642bb4c2383f0f9ed690478f8c701ac693367b0fc5937d05fccb7d76745d811"
+        },
+        "declaration": {
+          "segment_id": "p30",
+          "start": 2476,
+          "end": 2572,
+          "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "d642bb4c2383f0f9ed690478f8c701ac693367b0fc5937d05fccb7d76745d811"
+        },
+        "implementation": {
+          "segment_id": "p17",
+          "start": 280,
+          "end": 336,
+          "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "4b0e08201570e8c9fa31324ff2d8b4178da55593ccffe730b1d9175ab197dc6c"
+        }
+      },
+      "semantic_review": {
+        "index": 2,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "confirmed",
+        "refutation": "explicit_permission",
+        "reason": "P14 and p17 deliver user-area observations and route hints to construction actors. P15 and p30 expressly permit this information, including the visible entrance; it does not establish hidden-task or restricted-internal access."
+      }
+    },
+    {
+      "id": "webtrap_claim_4",
+      "source_group": "paper_text",
+      "description": "Task-aware baseline construction is not evidence that WebTrap itself receives the hidden task.",
+      "scope": {
+        "paper_version": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+        "experiment_arm": "Paper-text audit of WebTrap construction inputs and stronger baseline permissions. The supplied algorithms and templates do not establish a forbidden construction input. No code or saved requests were supplied.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "Hijacking Text and Hijacking URL baseline attackers",
+        "phase": "baseline attack construction",
+        "source": "current evaluated user task",
+        "representation": "specific task details",
+        "operation": "construct task-aware baseline injections"
+      },
+      "verdict": "consistent_within_scope",
+      "reason": "claim_refuted_explicit_permission",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "Hijacking Text and Hijacking URL baseline attackers",
+            "phase": "baseline attack construction",
+            "source": "current evaluated user task",
+            "representation": "specific task details",
+            "operation": "construct task-aware baseline injections"
+          },
+          "permission": "allow",
+          "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 3584, \"match\": \"normalized_exact\", \"segment_id\": \"p24\", \"start\": 3451, \"text_view\": \"reading_order\", \"text_view_sha256\": \"14aea017be70a2c80190bee0f7a2779e1887ebfd606aada647553614df4b52a9\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "Hijacking Text and Hijacking URL baseline attackers",
+            "phase": "baseline attack construction",
+            "source": "current evaluated user task",
+            "representation": "specific task details",
+            "operation": "construct task-aware baseline injections"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 1606, \"match\": \"normalized_exact\", \"segment_id\": \"p24\", \"start\": 1501, \"text_view\": \"reading_order\", \"text_view_sha256\": \"14aea017be70a2c80190bee0f7a2779e1887ebfd606aada647553614df4b52a9\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Stronger-baseline control: Hijacking Text and Hijacking URL may know the current user task.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "exact_query",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "These baseline arms receive explicit additional knowledge; WebTrap's task-blind restriction does not override that permission.",
+          "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 3926, \"match\": \"normalized_exact\", \"segment_id\": \"p24\", \"start\": 3859, \"text_view\": \"reading_order\", \"text_view_sha256\": \"14aea017be70a2c80190bee0f7a2779e1887ebfd606aada647553614df4b52a9\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The baseline implementation section describes supplying current-task details. It does not establish the precise raw-text representation sent to an auxiliary model.",
+          "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 1845, \"match\": \"normalized_exact\", \"segment_id\": \"p24\", \"start\": 1608, \"text_view\": \"reading_order\", \"text_view_sha256\": \"14aea017be70a2c80190bee0f7a2779e1887ebfd606aada647553614df4b52a9\"}"
+        },
+        "refutation": {
+          "basis": "explicit_permission",
+          "reason": "The stronger task-aware baseline setting is expressly authorized.",
+          "reference": "{\"document_sha256\": \"00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a\", \"end\": 3733, \"match\": \"normalized_exact\", \"segment_id\": \"p7\", \"start\": 3633, \"text_view\": \"reading_order\", \"text_view_sha256\": \"6bfd0b9664c7077ad75fab09bf356241057a6d8716f9cc28b7ee11bdd38883e7\"}"
+        }
+      },
+      "claim_result": "refuted",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p24",
+          "start": 3859,
+          "end": 3926,
+          "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "14aea017be70a2c80190bee0f7a2779e1887ebfd606aada647553614df4b52a9"
+        },
+        "delivery": {
+          "segment_id": "p24",
+          "start": 1608,
+          "end": 1845,
+          "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "14aea017be70a2c80190bee0f7a2779e1887ebfd606aada647553614df4b52a9"
+        },
+        "refutation": {
+          "segment_id": "p7",
+          "start": 3633,
+          "end": 3733,
+          "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "6bfd0b9664c7077ad75fab09bf356241057a6d8716f9cc28b7ee11bdd38883e7"
+        },
+        "declaration": {
+          "segment_id": "p24",
+          "start": 3451,
+          "end": 3584,
+          "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "14aea017be70a2c80190bee0f7a2779e1887ebfd606aada647553614df4b52a9"
+        },
+        "implementation": {
+          "segment_id": "p24",
+          "start": 1501,
+          "end": 1606,
+          "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "14aea017be70a2c80190bee0f7a2779e1887ebfd606aada647553614df4b52a9"
+        }
+      },
+      "semantic_review": {
+        "index": 3,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "confirmed",
+        "refutation": "explicit_permission",
+        "reason": "P24 describes supplying current-task details to the baselines, and p7/p24 explicitly authorize current-task knowledge for both Hijacking variants. Their contract permits the claimed knowledge, although exact raw-text delivery to an auxiliary model is unspecified."
+      }
+    }
+  ],
+  "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+  "schema_version": 3,
+  "applicability": "in_scope",
+  "scope": "Paper-text audit of WebTrap construction inputs and stronger baseline permissions. The supplied algorithms and templates do not establish a forbidden construction input. No code or saved requests were supplied.",
+  "review_status": "model_reviewed_not_human_verified",
+  "evidence_scope": "listed_claims_document_only",
+  "notes": [
+    "Evidence consists solely of supplied paper text, including algorithms, templates and generated examples; no static code, saved requests or runtime construction traces were supplied.",
+    "Reported exfiltration and defense failures are security outcomes and do not independently establish an attacker information-budget violation.",
+    "Specific unanswered suspicions remain: whether actual generation requests match the listed inputs, and whether structured attacker goals expose internal target identifiers or evaluation predicates described in p23.",
+    "Exclusions are supported at the documented procedure level; no code, saved requests or runtime construction traces were supplied.",
+    "Successful hijacking, exfiltration and defense failures concern victim security outcomes; they do not independently establish forbidden attacker knowledge or its causal impact."
+  ],
+  "unresolved_questions": [
+    "Do actual WebTrap generation requests match the paper's listed inputs and exclude hidden user-goal fields and restricted-area metadata?",
+    "How is the structured attacker goal serialized for generation? In particular, are internal target-node identifiers or evaluation predicates from the goal formulation omitted in favor of the stated natural-language objective?"
+  ],
+  "verdict": "insufficient_evidence",
+  "reason": "audit_scope_not_fully_covered",
+  "coverage_complete": false,
+  "claim_result_counts": {
+    "refuted": 4
+  },
+  "input_mode": "document_only",
+  "prompt_sha256": "dd80afd03660a2128242d06873b82a37c4c1ac043952e83a8a380e71835af55e",
+  "duration_seconds": 89.439,
+  "cohort": "curated_ipi",
+  "expected": null,
+  "expected_basis": "pending_independent_adjudication",
+  "comparison_note": "Historical targets are withheld while sources and scope are independently adjudicated.",
+  "matches_gold": null,
+  "previous_verdict": "insufficient_evidence",
+  "model_output_hashes": {
+    "extraction.json": "f655de9e748d7e3ec787f90c0b37a56dfd02dc37f8322974f1170c308adcd027",
+    "review.json": "964b2cd90d4c46052c37b842f872cc6891c6470a750146faad7fb22dcb871248"
+  }
+}
+```
+
+### 11. ICoA information\-budget audit
+
+论文 ID：icoa  
+运行 / 判定：证据不足
+
+#### 测试过程
+
+| 步骤 | 状态 | 记录 |
+| --- | --- | --- |
+| ingestion | 已完成 | \{"stage": "ingestion", "status": "completed", "segments": 19, "characters": 116646, "coverage": \{"complete": true, "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"\}, "source\_links": \["https://yslmoment\.github\.io/ICoA", "https://www\.lake"\], "sha256": "4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2"\} |
+| extraction | 已完成 | \{"stage": "extraction", "status": "completed", "applicability": "in\_scope", "flow\_count": 2\} |
+| semantic\_review | 已完成 | \{"stage": "semantic\_review", "status": "completed", "applicability": "in\_scope"\} |
+| citation\_validation\_and\_decision | 已完成 | \{"stage": "citation\_validation\_and\_decision", "status": "completed", "verdict": "insufficient\_evidence", "reason": "unresolved\_checks"\} |
+| decision\_replay | 已完成 | \{"stage": "decision\_replay", "status": "completed", "inference\_calls": 0, "same\_pdf\_bytes": true, "same\_primary\_model\_input": true, "additional\_reading\_order\_view": true, "previous\_verdict": "insufficient\_evidence", "verdict": "insufficient\_evidence"\} |
+
+#### 证据
+
+```json
+[
+  {
+    "id": "icoa_claim_1",
+    "source_group": "paper_text",
+    "description": "Identity delivery is established; prohibited acquisition is not. This is an unresolved provenance question, not a demonstrated information-budget violation.",
+    "scope": {
+      "paper_version": "4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2",
+      "experiment_arm": "Paper-text audit of ICoA construction inputs. Target identity enters the payload, but its acquisition source remains unresolved. The described deterministic constructor excludes the original user query as an input.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "ICoA attacker/payload constructor",
+      "phase": "payload construction",
+      "source": "Target user identity; acquisition source unspecified",
+      "representation": "Identity substituted into the user framing",
+      "operation": "Insert the identity into the payload"
+    },
+    "verdict": "insufficient_evidence",
+    "reason": "policy_scope_not_established",
+    "matching_rules": [],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "ICoA attacker/payload constructor",
+          "phase": "payload construction",
+          "source": "Target user identity; acquisition source unspecified",
+          "representation": "Identity substituted into the user framing",
+          "operation": "Insert the identity into the payload"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2\", \"end\": 2696, \"match\": \"normalized_exact\", \"segment_id\": \"p12\", \"start\": 2574, \"text_view\": \"reading_order\", \"text_view_sha256\": \"02d92c166c8c633a01c5702394050e45f8479c608e29e5a8850aeb2703bd066a\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "System-matching identity acquisition: ICoA uses the target user's identity despite excluding attacker access to the system prompt; the identity's acquisition source is unresolved.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "user_identity",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "uncertain",
+        "reason": "The system-prompt exclusion applies to the attack setting, but does not explicitly prohibit knowing the same identity from another source. Identity matching does not establish system-prompt access.",
+        "reference": "{\"document_sha256\": \"4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2\", \"end\": 3096, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 3052, \"text_view\": \"reading_order\", \"text_view_sha256\": \"9318ba42e08ce9cfee810213c1aabac8c463b5e3e4c8080f9b598889d1b752ed\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The paper explicitly describes target identity entering payload construction.",
+        "reference": "{\"document_sha256\": \"4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2\", \"end\": 2673, \"match\": \"normalized_exact\", \"segment_id\": \"p12\", \"start\": 2614, \"text_view\": \"reading_order\", \"text_view_sha256\": \"02d92c166c8c633a01c5702394050e45f8479c608e29e5a8850aeb2703bd066a\"}"
+      },
+      "refutation": {
+        "basis": "none",
+        "reason": "No acquisition procedure or specific identity-access permission resolves the suspected system-prompt dependency.",
+        "reference": ""
+      }
+    },
+    "claim_result": "unresolved",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p5",
+        "start": 3052,
+        "end": 3096,
+        "document_sha256": "4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "9318ba42e08ce9cfee810213c1aabac8c463b5e3e4c8080f9b598889d1b752ed"
+      },
+      "delivery": {
+        "segment_id": "p12",
+        "start": 2614,
+        "end": 2673,
+        "document_sha256": "4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "02d92c166c8c633a01c5702394050e45f8479c608e29e5a8850aeb2703bd066a"
+      },
+      "implementation": {
+        "segment_id": "p12",
+        "start": 2574,
+        "end": 2696,
+        "document_sha256": "4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "02d92c166c8c633a01c5702394050e45f8479c608e29e5a8850aeb2703bd066a"
+      }
+    },
+    "semantic_review": {
+      "index": 0,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "uncertain",
+      "delivery": "confirmed",
+      "refutation": "none",
+      "reason": "p12–p13 establish target identity reaching payload construction; p5 says it matches the system-prompt identity. p3 excludes system-prompt access, but identity provenance and permission remain unresolved. Matching identity alone establishes no budget violation or causal impact."
+    }
+  },
+  {
+    "id": "icoa_claim_2",
+    "source_group": "paper_text",
+    "description": "This control is limited to the documented ICoA constructor. Generic references to resuming the original request do not demonstrate access to its text.",
+    "scope": {
+      "paper_version": "4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2",
+      "experiment_arm": "Paper-text audit of ICoA construction inputs. Target identity enters the payload, but its acquisition source remains unresolved. The described deterministic constructor excludes the original user query as an input.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "ICoA payload constructor",
+      "phase": "payload construction",
+      "source": "Original user task",
+      "representation": "Raw query text",
+      "operation": "Potential conditioning of payload construction",
+      "query_form": "full_query"
+    },
+    "verdict": "consistent_within_scope",
+    "reason": "claim_refuted_excluded_delivery",
+    "matching_rules": [],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "ICoA payload constructor",
+          "phase": "payload construction",
+          "source": "Original user task",
+          "representation": "Raw query text",
+          "operation": "Potential conditioning of payload construction",
+          "query_form": "full_query"
+        },
+        "status": "absent",
+        "reference": "{\"document_sha256\": \"4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2\", \"end\": 3805, \"match\": \"normalized_exact\", \"segment_id\": \"p12\", \"start\": 3729, \"text_view\": \"reading_order\", \"text_view_sha256\": \"02d92c166c8c633a01c5702394050e45f8479c608e29e5a8850aeb2703bd066a\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Original-query construction control: the described ICoA constructor does not consume the original user query or query a payload LLM.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "policy_kind": "unspecified",
+        "status": "uncertain",
+        "reason": "The supplied threat model does not explicitly exclude attacker knowledge of the original query.",
+        "reference": ""
+      },
+      "delivery": {
+        "status": "excluded",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The stated constructor has only injection-goal and identity inputs, with no payload-model call.",
+        "reference": "{\"document_sha256\": \"4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2\", \"end\": 4024, \"match\": \"normalized_exact\", \"segment_id\": \"p12\", \"start\": 3957, \"text_view\": \"reading_order\", \"text_view_sha256\": \"02d92c166c8c633a01c5702394050e45f8479c608e29e5a8850aeb2703bd066a\"}"
+      },
+      "refutation": {
+        "basis": "excluded_delivery",
+        "reason": "The described construction boundary affirmatively excludes original-query conditioning.",
+        "reference": "{\"document_sha256\": \"4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2\", \"end\": 3724, \"match\": \"normalized_exact\", \"segment_id\": \"p12\", \"start\": 3682, \"text_view\": \"reading_order\", \"text_view_sha256\": \"02d92c166c8c633a01c5702394050e45f8479c608e29e5a8850aeb2703bd066a\"}"
+      }
+    },
+    "claim_result": "refuted",
+    "citation_errors": [],
+    "locators": {
+      "delivery": {
+        "segment_id": "p12",
+        "start": 3957,
+        "end": 4024,
+        "document_sha256": "4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "02d92c166c8c633a01c5702394050e45f8479c608e29e5a8850aeb2703bd066a"
+      },
+      "refutation": {
+        "segment_id": "p12",
+        "start": 3682,
+        "end": 3724,
+        "document_sha256": "4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "02d92c166c8c633a01c5702394050e45f8479c608e29e5a8850aeb2703bd066a"
+      },
+      "implementation": {
+        "segment_id": "p12",
+        "start": 3729,
+        "end": 3805,
+        "document_sha256": "4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "02d92c166c8c633a01c5702394050e45f8479c608e29e5a8850aeb2703bd066a"
+      }
+    },
+    "semantic_review": {
+      "index": 1,
+      "supported": true,
+      "policy_kind": "unspecified",
+      "policy_application": "uncertain",
+      "delivery": "excluded",
+      "refutation": "excluded_delivery",
+      "reason": "p12–p13 positively bound the documented constructor to deterministic composition from injection goal and identity, without a model query or original-query input. No explicit original-query knowledge restriction is supplied. Victim and evaluator query access do not establish constructor access."
+    }
+  }
+]
+```
+
+#### 备注
+
+```json
+[
+  "Only supplied paper text was examined; no code, saved requests, or runtime construction traces were supplied.",
+  "The constructor control establishes the described procedure, not independently verified execution.",
+  "Identity acquisition and whether it is permitted metadata remain unanswered.",
+  "Constructor exclusion describes the supplied procedure; no code or runtime construction traces independently verify execution."
+]
+```
+
+#### 完整论文记录 JSON
+
+```json
+{
+  "id": "icoa",
+  "title": "ICoA information-budget audit",
+  "source": "https://aclanthology.org/2026.emnlp-main.2035.pdf",
+  "status": "completed",
+  "has_confirmed_inconsistency": false,
+  "stages": [
+    {
+      "stage": "ingestion",
+      "status": "completed",
+      "segments": 19,
+      "characters": 116646,
+      "coverage": {
+        "complete": true,
+        "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+      },
+      "source_links": [
+        "https://yslmoment.github.io/ICoA",
+        "https://www.lake"
+      ],
+      "sha256": "4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2"
+    },
+    {
+      "stage": "extraction",
+      "status": "completed",
+      "applicability": "in_scope",
+      "flow_count": 2
+    },
+    {
+      "stage": "semantic_review",
+      "status": "completed",
+      "applicability": "in_scope"
+    },
+    {
+      "stage": "citation_validation_and_decision",
+      "status": "completed",
+      "verdict": "insufficient_evidence",
+      "reason": "unresolved_checks"
+    },
+    {
+      "stage": "decision_replay",
+      "status": "completed",
+      "inference_calls": 0,
+      "same_pdf_bytes": true,
+      "same_primary_model_input": true,
+      "additional_reading_order_view": true,
+      "previous_verdict": "insufficient_evidence",
+      "verdict": "insufficient_evidence"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "icoa_claim_1",
+      "source_group": "paper_text",
+      "description": "Identity delivery is established; prohibited acquisition is not. This is an unresolved provenance question, not a demonstrated information-budget violation.",
+      "scope": {
+        "paper_version": "4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2",
+        "experiment_arm": "Paper-text audit of ICoA construction inputs. Target identity enters the payload, but its acquisition source remains unresolved. The described deterministic constructor excludes the original user query as an input.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "ICoA attacker/payload constructor",
+        "phase": "payload construction",
+        "source": "Target user identity; acquisition source unspecified",
+        "representation": "Identity substituted into the user framing",
+        "operation": "Insert the identity into the payload"
+      },
+      "verdict": "insufficient_evidence",
+      "reason": "policy_scope_not_established",
+      "matching_rules": [],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "ICoA attacker/payload constructor",
+            "phase": "payload construction",
+            "source": "Target user identity; acquisition source unspecified",
+            "representation": "Identity substituted into the user framing",
+            "operation": "Insert the identity into the payload"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2\", \"end\": 2696, \"match\": \"normalized_exact\", \"segment_id\": \"p12\", \"start\": 2574, \"text_view\": \"reading_order\", \"text_view_sha256\": \"02d92c166c8c633a01c5702394050e45f8479c608e29e5a8850aeb2703bd066a\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "System-matching identity acquisition: ICoA uses the target user's identity despite excluding attacker access to the system prompt; the identity's acquisition source is unresolved.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "user_identity",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "uncertain",
+          "reason": "The system-prompt exclusion applies to the attack setting, but does not explicitly prohibit knowing the same identity from another source. Identity matching does not establish system-prompt access.",
+          "reference": "{\"document_sha256\": \"4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2\", \"end\": 3096, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 3052, \"text_view\": \"reading_order\", \"text_view_sha256\": \"9318ba42e08ce9cfee810213c1aabac8c463b5e3e4c8080f9b598889d1b752ed\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The paper explicitly describes target identity entering payload construction.",
+          "reference": "{\"document_sha256\": \"4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2\", \"end\": 2673, \"match\": \"normalized_exact\", \"segment_id\": \"p12\", \"start\": 2614, \"text_view\": \"reading_order\", \"text_view_sha256\": \"02d92c166c8c633a01c5702394050e45f8479c608e29e5a8850aeb2703bd066a\"}"
+        },
+        "refutation": {
+          "basis": "none",
+          "reason": "No acquisition procedure or specific identity-access permission resolves the suspected system-prompt dependency.",
+          "reference": ""
+        }
+      },
+      "claim_result": "unresolved",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p5",
+          "start": 3052,
+          "end": 3096,
+          "document_sha256": "4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "9318ba42e08ce9cfee810213c1aabac8c463b5e3e4c8080f9b598889d1b752ed"
+        },
+        "delivery": {
+          "segment_id": "p12",
+          "start": 2614,
+          "end": 2673,
+          "document_sha256": "4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "02d92c166c8c633a01c5702394050e45f8479c608e29e5a8850aeb2703bd066a"
+        },
+        "implementation": {
+          "segment_id": "p12",
+          "start": 2574,
+          "end": 2696,
+          "document_sha256": "4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "02d92c166c8c633a01c5702394050e45f8479c608e29e5a8850aeb2703bd066a"
+        }
+      },
+      "semantic_review": {
+        "index": 0,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "uncertain",
+        "delivery": "confirmed",
+        "refutation": "none",
+        "reason": "p12–p13 establish target identity reaching payload construction; p5 says it matches the system-prompt identity. p3 excludes system-prompt access, but identity provenance and permission remain unresolved. Matching identity alone establishes no budget violation or causal impact."
+      }
+    },
+    {
+      "id": "icoa_claim_2",
+      "source_group": "paper_text",
+      "description": "This control is limited to the documented ICoA constructor. Generic references to resuming the original request do not demonstrate access to its text.",
+      "scope": {
+        "paper_version": "4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2",
+        "experiment_arm": "Paper-text audit of ICoA construction inputs. Target identity enters the payload, but its acquisition source remains unresolved. The described deterministic constructor excludes the original user query as an input.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "ICoA payload constructor",
+        "phase": "payload construction",
+        "source": "Original user task",
+        "representation": "Raw query text",
+        "operation": "Potential conditioning of payload construction",
+        "query_form": "full_query"
+      },
+      "verdict": "consistent_within_scope",
+      "reason": "claim_refuted_excluded_delivery",
+      "matching_rules": [],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "ICoA payload constructor",
+            "phase": "payload construction",
+            "source": "Original user task",
+            "representation": "Raw query text",
+            "operation": "Potential conditioning of payload construction",
+            "query_form": "full_query"
+          },
+          "status": "absent",
+          "reference": "{\"document_sha256\": \"4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2\", \"end\": 3805, \"match\": \"normalized_exact\", \"segment_id\": \"p12\", \"start\": 3729, \"text_view\": \"reading_order\", \"text_view_sha256\": \"02d92c166c8c633a01c5702394050e45f8479c608e29e5a8850aeb2703bd066a\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Original-query construction control: the described ICoA constructor does not consume the original user query or query a payload LLM.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "exact_query",
+        "policy_application": {
+          "policy_kind": "unspecified",
+          "status": "uncertain",
+          "reason": "The supplied threat model does not explicitly exclude attacker knowledge of the original query.",
+          "reference": ""
+        },
+        "delivery": {
+          "status": "excluded",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The stated constructor has only injection-goal and identity inputs, with no payload-model call.",
+          "reference": "{\"document_sha256\": \"4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2\", \"end\": 4024, \"match\": \"normalized_exact\", \"segment_id\": \"p12\", \"start\": 3957, \"text_view\": \"reading_order\", \"text_view_sha256\": \"02d92c166c8c633a01c5702394050e45f8479c608e29e5a8850aeb2703bd066a\"}"
+        },
+        "refutation": {
+          "basis": "excluded_delivery",
+          "reason": "The described construction boundary affirmatively excludes original-query conditioning.",
+          "reference": "{\"document_sha256\": \"4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2\", \"end\": 3724, \"match\": \"normalized_exact\", \"segment_id\": \"p12\", \"start\": 3682, \"text_view\": \"reading_order\", \"text_view_sha256\": \"02d92c166c8c633a01c5702394050e45f8479c608e29e5a8850aeb2703bd066a\"}"
+        }
+      },
+      "claim_result": "refuted",
+      "citation_errors": [],
+      "locators": {
+        "delivery": {
+          "segment_id": "p12",
+          "start": 3957,
+          "end": 4024,
+          "document_sha256": "4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "02d92c166c8c633a01c5702394050e45f8479c608e29e5a8850aeb2703bd066a"
+        },
+        "refutation": {
+          "segment_id": "p12",
+          "start": 3682,
+          "end": 3724,
+          "document_sha256": "4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "02d92c166c8c633a01c5702394050e45f8479c608e29e5a8850aeb2703bd066a"
+        },
+        "implementation": {
+          "segment_id": "p12",
+          "start": 3729,
+          "end": 3805,
+          "document_sha256": "4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "02d92c166c8c633a01c5702394050e45f8479c608e29e5a8850aeb2703bd066a"
+        }
+      },
+      "semantic_review": {
+        "index": 1,
+        "supported": true,
+        "policy_kind": "unspecified",
+        "policy_application": "uncertain",
+        "delivery": "excluded",
+        "refutation": "excluded_delivery",
+        "reason": "p12–p13 positively bound the documented constructor to deterministic composition from injection goal and identity, without a model query or original-query input. No explicit original-query knowledge restriction is supplied. Victim and evaluator query access do not establish constructor access."
+      }
+    }
+  ],
+  "document_sha256": "4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2",
+  "schema_version": 3,
+  "applicability": "in_scope",
+  "scope": "Paper-text audit of ICoA construction inputs. Target identity enters the payload, but its acquisition source remains unresolved. The described deterministic constructor excludes the original user query as an input.",
+  "review_status": "model_reviewed_not_human_verified",
+  "evidence_scope": "listed_claims_document_only",
+  "notes": [
+    "Only supplied paper text was examined; no code, saved requests, or runtime construction traces were supplied.",
+    "The constructor control establishes the described procedure, not independently verified execution.",
+    "Identity acquisition and whether it is permitted metadata remain unanswered.",
+    "Constructor exclusion describes the supplied procedure; no code or runtime construction traces independently verify execution."
+  ],
+  "unresolved_questions": [
+    "How is the target user identity obtained, and does obtaining it require attacker access to the system prompt?",
+    "Is target identity explicitly supplied as permitted attacker metadata in the evaluated setup?"
+  ],
+  "verdict": "insufficient_evidence",
+  "reason": "unresolved_checks",
+  "coverage_complete": false,
+  "claim_result_counts": {
+    "unresolved": 1,
+    "refuted": 1
+  },
+  "input_mode": "document_only",
+  "prompt_sha256": "dd80afd03660a2128242d06873b82a37c4c1ac043952e83a8a380e71835af55e",
+  "duration_seconds": 60.972,
+  "cohort": "curated_ipi",
+  "expected": null,
+  "expected_basis": "pending_independent_adjudication",
+  "comparison_note": "Historical targets are withheld while sources and scope are independently adjudicated.",
+  "matches_gold": null,
+  "previous_verdict": "insufficient_evidence",
+  "model_output_hashes": {
+    "extraction.json": "04adb779fef04cac99b929ee0bed195686ae3bf679e426af6eb77d6534c462c9",
+    "review.json": "3415cb65acb1b39ff6cb5b4157815c446aa56dc6d1d8776567a4db74e50af52d"
+  }
+}
+```
+
+### 12. Attention Is All You Need
+
+论文 ID：attention  
+运行 / 判定：不适用（非 IPI 论文）
+
+#### 测试过程
+
+| 步骤 | 状态 | 记录 |
+| --- | --- | --- |
+| ingestion | 已完成 | \{"stage": "ingestion", "status": "completed", "segments": 11, "characters": 38171, "coverage": \{"complete": true, "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"\}, "source\_links": \["https://github\.com/"\], "sha256": "d87d482d5ae7960e2e43d7dd6d21377e60e73e8fce1bf2a01aff7aca8a08c537"\} |
+| extraction | 已完成 | \{"stage": "extraction", "status": "completed", "applicability": "out\_of\_scope", "flow\_count": 0\} |
+| semantic\_review | 已完成 | \{"stage": "semantic\_review", "status": "completed", "applicability": "out\_of\_scope"\} |
+| citation\_validation\_and\_decision | 已完成 | \{"stage": "citation\_validation\_and\_decision", "status": "completed", "verdict": "not\_applicable", "reason": "reviewed\_out\_of\_domain"\} |
+| decision\_replay | 已完成 | \{"stage": "decision\_replay", "status": "completed", "inference\_calls": 0, "same\_pdf\_bytes": true, "same\_primary\_model\_input": true, "additional\_reading\_order\_view": true, "previous\_verdict": "not\_applicable", "verdict": "not\_applicable"\} |
+
+#### 证据
+
+```json
+[]
+```
+
+#### 备注
+
+```json
+[
+  "Assessment uses only the supplied document segments.",
+  "Review is limited to supplied segments p1–p11. These describe sequence transduction architecture, training, and translation evaluation, with no indirect prompt-injection study or attacker-knowledge contract. No flows or specific unanswered suspicions were proposed."
+]
+```
+
+#### 完整论文记录 JSON
+
+```json
+{
+  "id": "attention",
+  "title": "Attention Is All You Need",
+  "source": "https://papers.nips.cc/paper_files/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf",
+  "status": "completed",
+  "has_confirmed_inconsistency": false,
+  "stages": [
+    {
+      "stage": "ingestion",
+      "status": "completed",
+      "segments": 11,
+      "characters": 38171,
+      "coverage": {
+        "complete": true,
+        "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+      },
+      "source_links": [
+        "https://github.com/"
+      ],
+      "sha256": "d87d482d5ae7960e2e43d7dd6d21377e60e73e8fce1bf2a01aff7aca8a08c537"
+    },
+    {
+      "stage": "extraction",
+      "status": "completed",
+      "applicability": "out_of_scope",
+      "flow_count": 0
+    },
+    {
+      "stage": "semantic_review",
+      "status": "completed",
+      "applicability": "out_of_scope"
+    },
+    {
+      "stage": "citation_validation_and_decision",
+      "status": "completed",
+      "verdict": "not_applicable",
+      "reason": "reviewed_out_of_domain"
+    },
+    {
+      "stage": "decision_replay",
+      "status": "completed",
+      "inference_calls": 0,
+      "same_pdf_bytes": true,
+      "same_primary_model_input": true,
+      "additional_reading_order_view": true,
+      "previous_verdict": "not_applicable",
+      "verdict": "not_applicable"
+    }
+  ],
+  "evidence": [],
+  "document_sha256": "d87d482d5ae7960e2e43d7dd6d21377e60e73e8fce1bf2a01aff7aca8a08c537",
+  "schema_version": 3,
+  "applicability": "out_of_scope",
+  "scope": "Architecture, training, and evaluation of attention-based sequence transduction models for machine translation.",
+  "review_status": "model_reviewed_not_human_verified",
+  "evidence_scope": "listed_claims_document_only",
+  "notes": [
+    "Assessment uses only the supplied document segments.",
+    "Review is limited to supplied segments p1–p11. These describe sequence transduction architecture, training, and translation evaluation, with no indirect prompt-injection study or attacker-knowledge contract. No flows or specific unanswered suspicions were proposed."
+  ],
+  "unresolved_questions": [],
+  "verdict": "not_applicable",
+  "reason": "reviewed_out_of_domain",
+  "applicability_locator": {
+    "segment_id": "p1",
+    "start": 676,
+    "end": 775,
+    "document_sha256": "d87d482d5ae7960e2e43d7dd6d21377e60e73e8fce1bf2a01aff7aca8a08c537",
+    "match": "normalized_exact",
+    "text_view": "reading_order",
+    "text_view_sha256": "8318d3c3811de619cfc8c201d62e5a80ffdce8f5525977c5f1296858f825cda5"
+  },
+  "input_mode": "document_only",
+  "prompt_sha256": "dd80afd03660a2128242d06873b82a37c4c1ac043952e83a8a380e71835af55e",
+  "duration_seconds": 23.778,
+  "cohort": "out_of_domain",
+  "expected": null,
+  "expected_basis": "pending_independent_adjudication",
+  "comparison_note": "Historical targets are withheld while sources and scope are independently adjudicated.",
+  "matches_gold": null,
+  "previous_verdict": "not_applicable",
+  "model_output_hashes": {
+    "extraction.json": "4f954a5ec8c938acda8ee932cf847eac693ca214124b502414940ec0eb515e63",
+    "review.json": "e0c45ce8c0c6d0ea5393e35b84234876d40b7cb0c7d5f5d56210d7f91d34b01a"
+  }
+}
+```
+
+### 13. Deep Residual Learning for Image Recognition
+
+论文 ID：resnet  
+运行 / 判定：不适用（非 IPI 论文）
+
+#### 测试过程
+
+| 步骤 | 状态 | 记录 |
+| --- | --- | --- |
+| ingestion | 已完成 | \{"stage": "ingestion", "status": "completed", "segments": 12, "characters": 97713, "coverage": \{"complete": true, "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"\}, "source\_links": \["http://image\-net\.org/challenges/LSVRC/2015/", "http://mscoco\.org/dataset/", "http://host\.robots\.ox\.ac\.uk:8080/leaderboard/", "http://host\.robots\.ox\.ac\.uk:8080/anonymous/3OJ4OJ\.html"\], "sha256": "1e0651b6810ecba34a3dbc5b5b0209226f889004607c1f203540a48d64e5a93a"\} |
+| extraction | 已完成 | \{"stage": "extraction", "status": "completed", "applicability": "out\_of\_scope", "flow\_count": 0\} |
+| semantic\_review | 已完成 | \{"stage": "semantic\_review", "status": "completed", "applicability": "out\_of\_scope"\} |
+| citation\_validation\_and\_decision | 已完成 | \{"stage": "citation\_validation\_and\_decision", "status": "completed", "verdict": "not\_applicable", "reason": "reviewed\_out\_of\_domain"\} |
+| decision\_replay | 已完成 | \{"stage": "decision\_replay", "status": "completed", "inference\_calls": 0, "same\_pdf\_bytes": true, "same\_primary\_model\_input": true, "additional\_reading\_order\_view": true, "previous\_verdict": "not\_applicable", "verdict": "not\_applicable"\} |
+
+#### 证据
+
+```json
+[]
+```
+
+#### 备注
+
+```json
+[
+  "Review is limited to supplied segments p1–p12. Their methods and experiments concern residual networks for visual recognition, with no indirect prompt-injection setting or attacker-knowledge contract. No flows or explicit unresolved suspicions were proposed."
+]
+```
+
+#### 完整论文记录 JSON
+
+```json
+{
+  "id": "resnet",
+  "title": "Deep Residual Learning for Image Recognition",
+  "source": "https://arxiv.org/pdf/1512.03385v1",
+  "status": "completed",
+  "has_confirmed_inconsistency": false,
+  "stages": [
+    {
+      "stage": "ingestion",
+      "status": "completed",
+      "segments": 12,
+      "characters": 97713,
+      "coverage": {
+        "complete": true,
+        "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+      },
+      "source_links": [
+        "http://image-net.org/challenges/LSVRC/2015/",
+        "http://mscoco.org/dataset/",
+        "http://host.robots.ox.ac.uk:8080/leaderboard/",
+        "http://host.robots.ox.ac.uk:8080/anonymous/3OJ4OJ.html"
+      ],
+      "sha256": "1e0651b6810ecba34a3dbc5b5b0209226f889004607c1f203540a48d64e5a93a"
+    },
+    {
+      "stage": "extraction",
+      "status": "completed",
+      "applicability": "out_of_scope",
+      "flow_count": 0
+    },
+    {
+      "stage": "semantic_review",
+      "status": "completed",
+      "applicability": "out_of_scope"
+    },
+    {
+      "stage": "citation_validation_and_decision",
+      "status": "completed",
+      "verdict": "not_applicable",
+      "reason": "reviewed_out_of_domain"
+    },
+    {
+      "stage": "decision_replay",
+      "status": "completed",
+      "inference_calls": 0,
+      "same_pdf_bytes": true,
+      "same_primary_model_input": true,
+      "additional_reading_order_view": true,
+      "previous_verdict": "not_applicable",
+      "verdict": "not_applicable"
+    }
+  ],
+  "evidence": [],
+  "document_sha256": "1e0651b6810ecba34a3dbc5b5b0209226f889004607c1f203540a48d64e5a93a",
+  "schema_version": 3,
+  "applicability": "out_of_scope",
+  "scope": "The supplied paper concerns training and evaluating deep residual networks for computer vision. No IPI information-budget audit applies.",
+  "review_status": "model_reviewed_not_human_verified",
+  "evidence_scope": "listed_claims_document_only",
+  "notes": [
+    "Review is limited to supplied segments p1–p12. Their methods and experiments concern residual networks for visual recognition, with no indirect prompt-injection setting or attacker-knowledge contract. No flows or explicit unresolved suspicions were proposed."
+  ],
+  "unresolved_questions": [],
+  "verdict": "not_applicable",
+  "reason": "reviewed_out_of_domain",
+  "applicability_locator": {
+    "segment_id": "p1",
+    "start": 0,
+    "end": 44,
+    "document_sha256": "1e0651b6810ecba34a3dbc5b5b0209226f889004607c1f203540a48d64e5a93a",
+    "match": "normalized_exact",
+    "text_view": "reading_order",
+    "text_view_sha256": "4c19ed4e212e49ffad160e643775f26a5fc3fab79babc74ac3fa506eab6cab5b"
+  },
+  "input_mode": "document_only",
+  "prompt_sha256": "dd80afd03660a2128242d06873b82a37c4c1ac043952e83a8a380e71835af55e",
+  "duration_seconds": 26.598,
+  "cohort": "out_of_domain",
+  "expected": null,
+  "expected_basis": "pending_independent_adjudication",
+  "comparison_note": "Historical targets are withheld while sources and scope are independently adjudicated.",
+  "matches_gold": null,
+  "previous_verdict": "not_applicable",
+  "model_output_hashes": {
+    "extraction.json": "d4b4be185fc294d3b470bb5d1cba4615fabfbc2045f6f58432d98aec56a2b658",
+    "review.json": "a91184f95d336b078e29c787b3110781e051737e8c98a86081eae5b8467730cb"
+  }
+}
+```
+
+### 14. Adam: A Method for Stochastic Optimization
+
+论文 ID：adam  
+运行 / 判定：不适用（非 IPI 论文）
+
+#### 测试过程
+
+| 步骤 | 状态 | 记录 |
+| --- | --- | --- |
+| ingestion | 已完成 | \{"stage": "ingestion", "status": "completed", "segments": 9, "characters": 41440, "coverage": \{"complete": true, "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"\}, "source\_links": \[\], "sha256": "935a5a15616961aff21529d86a754570028843407adfe858f1d18584b84293a7"\} |
+| extraction | 已完成 | \{"stage": "extraction", "status": "completed", "applicability": "out\_of\_scope", "flow\_count": 0\} |
+| semantic\_review | 已完成 | \{"stage": "semantic\_review", "status": "completed", "applicability": "out\_of\_scope"\} |
+| citation\_validation\_and\_decision | 运行失败 | \{"stage": "citation\_validation\_and\_decision", "status": "failed", "error": "citation is absent or ambiguous after whitespace/Unicode normalization"\} |
+| decision\_replay | 已完成 | \{"stage": "decision\_replay", "status": "completed", "inference\_calls": 0, "same\_pdf\_bytes": true, "same\_primary\_model\_input": true, "additional\_reading\_order\_view": true, "previous\_verdict": "technical\_failure", "verdict": "not\_applicable"\} |
+
+#### 证据
+
+```json
+[]
+```
+
+#### 备注
+
+```json
+[
+  "Supplied segments p1–p9 describe stochastic optimization, convergence analysis, and machine learning experiments, supporting exclusion from an indirect prompt-injection information-budget audit. No flow indices or explicit unresolved suspicions were proposed."
+]
+```
+
+#### 完整论文记录 JSON
+
+```json
+{
+  "id": "adam",
+  "title": "Adam: A Method for Stochastic Optimization",
+  "source": "https://arxiv.org/pdf/1412.6980v1",
+  "status": "completed",
+  "has_confirmed_inconsistency": false,
+  "stages": [
+    {
+      "stage": "ingestion",
+      "status": "completed",
+      "segments": 9,
+      "characters": 41440,
+      "coverage": {
+        "complete": true,
+        "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+      },
+      "source_links": [],
+      "sha256": "935a5a15616961aff21529d86a754570028843407adfe858f1d18584b84293a7"
+    },
+    {
+      "stage": "extraction",
+      "status": "completed",
+      "applicability": "out_of_scope",
+      "flow_count": 0
+    },
+    {
+      "stage": "semantic_review",
+      "status": "completed",
+      "applicability": "out_of_scope"
+    },
+    {
+      "stage": "citation_validation_and_decision",
+      "status": "failed",
+      "error": "citation is absent or ambiguous after whitespace/Unicode normalization"
+    },
+    {
+      "stage": "decision_replay",
+      "status": "completed",
+      "inference_calls": 0,
+      "same_pdf_bytes": true,
+      "same_primary_model_input": true,
+      "additional_reading_order_view": true,
+      "previous_verdict": "technical_failure",
+      "verdict": "not_applicable"
+    }
+  ],
+  "evidence": [],
+  "document_sha256": "935a5a15616961aff21529d86a754570028843407adfe858f1d18584b84293a7",
+  "verdict": "not_applicable",
+  "duration_seconds": 24.58,
+  "cohort": "out_of_domain",
+  "expected": null,
+  "expected_basis": "pending_independent_adjudication",
+  "comparison_note": "Historical targets are withheld while sources and scope are independently adjudicated.",
+  "matches_gold": null,
+  "previous_verdict": "technical_failure",
+  "schema_version": 3,
+  "applicability": "out_of_scope",
+  "scope": "Stochastic optimization, gradient moment estimation, convergence analysis, and machine learning experiments.",
+  "review_status": "model_reviewed_not_human_verified",
+  "evidence_scope": "listed_claims_document_only",
+  "notes": [
+    "Supplied segments p1–p9 describe stochastic optimization, convergence analysis, and machine learning experiments, supporting exclusion from an indirect prompt-injection information-budget audit. No flow indices or explicit unresolved suspicions were proposed."
+  ],
+  "unresolved_questions": [],
+  "reason": "reviewed_out_of_domain",
+  "applicability_locator": {
+    "segment_id": "p1",
+    "start": 268,
+    "end": 378,
+    "document_sha256": "935a5a15616961aff21529d86a754570028843407adfe858f1d18584b84293a7",
+    "match": "normalized_exact",
+    "text_view": "reading_order",
+    "text_view_sha256": "a13702b12a2f11fdc4f2438d4206b416fd95ceb553367d0617d2936a6b752e9c"
+  },
+  "model_output_hashes": {
+    "extraction.json": "83fad7b619714b32c1be4ee87664ca85bd769c1e9e9eadd8b6b0e42c9f8d495b",
+    "review.json": "dc384046d28c2a7d1d9f9b2f89fed0c06664677aeea0f7cb6a3951ade6af8caa"
+  }
+}
+```
+
+### 15. Trojan Hippo information\-budget audit
+
+论文 ID：trojan\_hippo  
+运行 / 判定：证据不足
+
+#### 测试过程
+
+| 步骤 | 状态 | 记录 |
+| --- | --- | --- |
+| ingestion | 已完成 | \{"stage": "ingestion", "status": "completed", "segments": 22, "characters": 214103, "coverage": \{"complete": true, "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"\}, "source\_links": \["https://github\.com/debesheedas/troja", "https://doi\.org/10\.12688/f1000research\.169927\.1", "https://www\.an", "https://claude\.com/import\-memory", "https://doi\.org/10\.48550/arxiv\.2504\.14064", "https://doi\.org/10\.48550/arxiv\.2407\.12784", "https://doi\.org/10", "https://doi\.org/10\.48550/arxiv\.2406\.13352", "https://doi\.org/10\.1145/3716628", "https://doi\.org/10\.1016/j\.icte\.2025\.12\.001", "https://arstechnica\.com/security", "https://openai\.com/index/scaling\-ai\-for\-", "https://get\.mem\.ai/", "https://blog\.google/products/gemini/google\-gemini\-update\-august\-2024/", "https://notebooklm\.google/", "https://deepmind\.google/mode", "https://doi\.org/10\.48550/arxiv\.2504\.19956", "https://deepmind\.google/models/project\-astra/", "https://openai\.com/blog/memory\-and\-new\-controls\-for\-chatgpt", "https://help\.openai\.com/en/articles/8983136\-what\-", "https://developers\.openai\.com/api/docs/models/gpt\-5", "https://developers\.openai\.com/api/docs/models/gpt\-", "https://chatgpt\.com/", "https://open", "https://unit42\.paloalton", "https://www\.sciencedirect\.com/science/article/abs/pii/S0167739X250", "https://doi\.org/10\.1016/j\.future\.2025\.107994", "https://www\.sciencedirect", "https://reference\.langchain\.co", "https://www\.personal\.ai/", "https://doi\.org/10\.4", "https://doi\.org/10\.48550/arxiv\.2511\.15759", "https://embracethere", "https://embracethe", "https://www\.ovid\.com/journals/prin/fulltext/10\.1037/pri0000292", "https://github\.com/algorithmicsuperintelligence/openevolve", "https://www\.zendesk\.com/newsroom/press\-", "https://doi\.org/10\.48550/arxiv\.2506\.23844", "https://doi\.org/", "https://doi\.org/10\.48550/arx"\], "sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce"\} |
+| extraction | 已完成 | \{"stage": "extraction", "status": "completed", "applicability": "in\_scope", "flow\_count": 3\} |
+| semantic\_review | 已完成 | \{"stage": "semantic\_review", "status": "completed", "applicability": "in\_scope"\} |
+| citation\_validation\_and\_decision | 已完成 | \{"stage": "citation\_validation\_and\_decision", "status": "completed", "verdict": "insufficient\_evidence", "reason": "unresolved\_checks"\} |
+| decision\_replay | 已完成 | \{"stage": "decision\_replay", "status": "completed", "inference\_calls": 0, "same\_pdf\_bytes": true, "same\_primary\_model\_input": true, "additional\_reading\_order\_view": true, "previous\_verdict": "insufficient\_evidence", "verdict": "insufficient\_evidence"\} |
+
+#### 证据
+
+```json
+[
+  {
+    "id": "trojan_hippo_claim_1",
+    "source_group": "paper_text",
+    "description": "Feedback delivery is described, but a forbidden information flow remains unresolved because critic inputs and the scope of the observability restriction are unspecified.",
+    "scope": {
+      "paper_version": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+      "experiment_arm": "One bounded concern concerns critic feedback during attack optimization. White-box configuration knowledge and training/test separation provide relevant controls. The supplied paper text does not establish a prohibited construction input.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "adaptive attack optimizer",
+      "phase": "training-time payload refinement",
+      "source": "LLM critic evaluating attack variants",
+      "representation": "numerical score and improvement feedback",
+      "operation": "use evaluation feedback to refine attack candidates"
+    },
+    "verdict": "insufficient_evidence",
+    "reason": "policy_scope_not_established",
+    "matching_rules": [],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "adaptive attack optimizer",
+          "phase": "training-time payload refinement",
+          "source": "LLM critic evaluating attack variants",
+          "representation": "numerical score and improvement feedback",
+          "operation": "use evaluation feedback to refine attack candidates"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 5484, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 5428, \"text_view\": \"reading_order\", \"text_view_sha256\": \"a95cdfda163a087844f68ce70cea711fae092677f6c30cf939e87c89ce566b59\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Critic-feedback observability: optimization receives improvement feedback beyond a binary exfiltration outcome.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "other",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "uncertain",
+        "reason": "The exclusion applies to the modeled adversary, but optimization runs against a training environment. The text does not specify whether this restriction also governs training feedback or what information the critic receives.",
+        "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 2490, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2438, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f39ab1227d4f73dea9f3f3d46668abf931d8a2c60b29d72a4ab8ac4c6f808dbe\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "training_instance",
+        "reason": "The paper describes feedback entering iterative candidate selection and refinement. It does not establish delivery of internal memory state, execution traces, or raw user queries to the mutator.",
+        "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 180, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 97, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2ca711c3c52c225833ed6dfaae1f0d6d42371ac88763f2ad0897c80abb2d44c1\"}"
+      },
+      "refutation": {
+        "basis": "none",
+        "reason": "Training-environment use alone does not establish permission for unrestricted diagnostic feedback.",
+        "reference": ""
+      }
+    },
+    "claim_result": "unresolved",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p4",
+        "start": 2438,
+        "end": 2490,
+        "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "f39ab1227d4f73dea9f3f3d46668abf931d8a2c60b29d72a4ab8ac4c6f808dbe"
+      },
+      "delivery": {
+        "segment_id": "p6",
+        "start": 97,
+        "end": 180,
+        "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "2ca711c3c52c225833ed6dfaae1f0d6d42371ac88763f2ad0897c80abb2d44c1"
+      },
+      "implementation": {
+        "segment_id": "p5",
+        "start": 5428,
+        "end": 5484,
+        "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "a95cdfda163a087844f68ce70cea711fae092677f6c30cf939e87c89ce566b59"
+      }
+    },
+    "semantic_review": {
+      "index": 0,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "uncertain",
+      "delivery": "confirmed",
+      "refutation": "none",
+      "reason": "p5–p6 describe critic scores and improvement feedback entering candidate refinement. p4 restricts adversary observability, but its application to the training optimizer and the critic's inputs remain unspecified. This supports an unresolved concern, not a confirmed budget violation."
+    }
+  },
+  {
+    "id": "trojan_hippo_claim_2",
+    "source_group": "paper_text",
+    "description": "Topic-specific optimization does not establish knowledge of full held-out queries. Separation is reported in paper text and has not been independently verified.",
+    "scope": {
+      "paper_version": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+      "experiment_arm": "One bounded concern concerns critic feedback during attack optimization. White-box configuration knowledge and training/test separation provide relevant controls. The supplied paper text does not establish a prohibited construction input.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "adaptive attack optimizer",
+      "phase": "attack construction before final evaluation",
+      "source": "training and held-out conversation cases",
+      "representation": "case templates and concrete entity values",
+      "operation": "optimize on one training case and evaluate the selected attack on four test cases"
+    },
+    "verdict": "insufficient_evidence",
+    "reason": "delivery_exclusion_conflicts_with_present",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "adaptive attack optimizer",
+          "phase": "attack construction before final evaluation",
+          "source": "training and held-out conversation cases",
+          "representation": "case templates and concrete entity values",
+          "operation": "optimize on one training case and evaluate the selected attack on four test cases"
+        },
+        "permission": "allow",
+        "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 4631, \"match\": \"normalized_exact\", \"segment_id\": \"p2\", \"start\": 4522, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c72a9b4fca655f985d699361ca23d57908533cf614258319a9a9c17a07c91cae\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "adaptive attack optimizer",
+          "phase": "attack construction before final evaluation",
+          "source": "training and held-out conversation cases",
+          "representation": "case templates and concrete entity values",
+          "operation": "optimize on one training case and evaluate the selected attack on four test cases"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 1762, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 1648, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2ca711c3c52c225833ed6dfaae1f0d6d42371ac88763f2ad0897c80abb2d44c1\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Held-out-instance separation control: optimization uses a training case rather than the held-out test instances.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "policy_kind": "protocol_requirement",
+        "status": "applicable",
+        "reason": "This requirement governs the distinction between optimization instances and final evaluation instances.",
+        "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 4711, \"match\": \"normalized_exact\", \"segment_id\": \"p2\", \"start\": 4638, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c72a9b4fca655f985d699361ca23d57908533cf614258319a9a9c17a07c91cae\"}"
+      },
+      "delivery": {
+        "status": "excluded",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "different_instance",
+        "reason": "The reported procedure separates training cases from test templates and entities; it does not describe raw test-query delivery to the payload generator.",
+        "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 1356, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 1265, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2ca711c3c52c225833ed6dfaae1f0d6d42371ac88763f2ad0897c80abb2d44c1\"}"
+      },
+      "refutation": {
+        "basis": "different_instance",
+        "reason": "This positively counters treating access to the training instance as access to the same held-out evaluation instance.",
+        "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 1527, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 1478, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2ca711c3c52c225833ed6dfaae1f0d6d42371ac88763f2ad0897c80abb2d44c1\"}"
+      }
+    },
+    "claim_result": "unresolved",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p2",
+        "start": 4638,
+        "end": 4711,
+        "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "c72a9b4fca655f985d699361ca23d57908533cf614258319a9a9c17a07c91cae"
+      },
+      "delivery": {
+        "segment_id": "p6",
+        "start": 1265,
+        "end": 1356,
+        "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "2ca711c3c52c225833ed6dfaae1f0d6d42371ac88763f2ad0897c80abb2d44c1"
+      },
+      "refutation": {
+        "segment_id": "p6",
+        "start": 1478,
+        "end": 1527,
+        "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "2ca711c3c52c225833ed6dfaae1f0d6d42371ac88763f2ad0897c80abb2d44c1"
+      },
+      "declaration": {
+        "segment_id": "p2",
+        "start": 4522,
+        "end": 4631,
+        "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "c72a9b4fca655f985d699361ca23d57908533cf614258319a9a9c17a07c91cae"
+      },
+      "implementation": {
+        "segment_id": "p6",
+        "start": 1648,
+        "end": 1762,
+        "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "2ca711c3c52c225833ed6dfaae1f0d6d42371ac88763f2ad0897c80abb2d44c1"
+      }
+    },
+    "semantic_review": {
+      "index": 1,
+      "supported": true,
+      "policy_kind": "protocol_requirement",
+      "policy_application": "applicable",
+      "delivery": "excluded",
+      "refutation": "different_instance",
+      "reason": "p2 requires held-out evaluation; p6 positively separates optimization from test cases through disjoint template and entity pools and evaluation on unseen instances. Training-case access and topic conditioning do not establish delivery of exact held-out queries to the optimizer."
+    }
+  },
+  {
+    "id": "trojan_hippo_claim_3",
+    "source_group": "paper_text",
+    "description": "Configuration awareness is consistent with the stated knowledge budget and does not imply access to model weights or internal memory contents.",
+    "scope": {
+      "paper_version": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+      "experiment_arm": "One bounded concern concerns critic feedback during attack optimization. White-box configuration knowledge and training/test separation provide relevant controls. The supplied paper text does not establish a prohibited construction input.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "modeled adversary",
+      "phase": "attack construction",
+      "source": "agent configuration",
+      "representation": "system prompt, memory backend, and tool interface",
+      "operation": "condition attack construction on the target configuration"
+    },
+    "verdict": "consistent_within_scope",
+    "reason": "claim_refuted_explicit_permission",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "modeled adversary",
+          "phase": "attack construction",
+          "source": "agent configuration",
+          "representation": "system prompt, memory backend, and tool interface",
+          "operation": "condition attack construction on the target configuration"
+        },
+        "permission": "allow",
+        "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 1972, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 1875, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f39ab1227d4f73dea9f3f3d46668abf931d8a2c60b29d72a4ab8ac4c6f808dbe\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "modeled adversary",
+          "phase": "attack construction",
+          "source": "agent configuration",
+          "representation": "system prompt, memory backend, and tool interface",
+          "operation": "condition attack construction on the target configuration"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 4920, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 4852, \"text_view\": \"reading_order\", \"text_view_sha256\": \"a95cdfda163a087844f68ce70cea711fae092677f6c30cf939e87c89ce566b59\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "White-box configuration control: system-prompt, backend, and tool-interface knowledge is explicitly permitted.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "resource_metadata",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "The model explicitly permits configuration knowledge while excluding model-weight access.",
+        "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 2009, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 1974, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f39ab1227d4f73dea9f3f3d46668abf931d8a2c60b29d72a4ab8ac4c6f808dbe\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "training_instance",
+        "reason": "Configuration-specific optimization is described; the exact mutator prompt is not supplied.",
+        "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 4920, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 4852, \"text_view\": \"reading_order\", \"text_view_sha256\": \"a95cdfda163a087844f68ce70cea711fae092677f6c30cf939e87c89ce566b59\"}"
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reason": "Knowledge of these configuration objects is expressly authorized.",
+        "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 1972, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 1875, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f39ab1227d4f73dea9f3f3d46668abf931d8a2c60b29d72a4ab8ac4c6f808dbe\"}"
+      }
+    },
+    "claim_result": "refuted",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p4",
+        "start": 1974,
+        "end": 2009,
+        "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "f39ab1227d4f73dea9f3f3d46668abf931d8a2c60b29d72a4ab8ac4c6f808dbe"
+      },
+      "delivery": {
+        "segment_id": "p5",
+        "start": 4852,
+        "end": 4920,
+        "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "a95cdfda163a087844f68ce70cea711fae092677f6c30cf939e87c89ce566b59"
+      },
+      "refutation": {
+        "segment_id": "p4",
+        "start": 1875,
+        "end": 1972,
+        "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "f39ab1227d4f73dea9f3f3d46668abf931d8a2c60b29d72a4ab8ac4c6f808dbe"
+      },
+      "declaration": {
+        "segment_id": "p4",
+        "start": 1875,
+        "end": 1972,
+        "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "f39ab1227d4f73dea9f3f3d46668abf931d8a2c60b29d72a4ab8ac4c6f808dbe"
+      },
+      "implementation": {
+        "segment_id": "p5",
+        "start": 4852,
+        "end": 4920,
+        "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "a95cdfda163a087844f68ce70cea711fae092677f6c30cf939e87c89ce566b59"
+      }
+    },
+    "semantic_review": {
+      "index": 2,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "confirmed",
+      "refutation": "explicit_permission",
+      "reason": "p5 describes configuration-specific attack optimization. p4 expressly permits knowledge of the system prompt, memory backend, and tool interface while excluding model weights. The exact mutator prompt is unspecified, but configuration awareness is authorized."
+    }
+  }
+]
+```
+
+#### 备注
+
+```json
+[
+  "Only supplied paper text was assessed; no code, saved requests, or independent runtime evidence was supplied.",
+  "The illustrative exfiltration trace demonstrates a security outcome, not prohibited attacker knowledge during payload construction.",
+  "Critic inputs, the feedback delivered to the mutator, and the training optimizer's observability contract remain unanswered.",
+  "Findings rely on supplied procedure descriptions without independent implementation or runtime verification.",
+  "The p22 exfiltration trace demonstrates a victim security failure, not prohibited construction knowledge or the causal effect of critic feedback."
+]
+```
+
+#### 完整论文记录 JSON
+
+```json
+{
+  "id": "trojan_hippo",
+  "title": "Trojan Hippo information-budget audit",
+  "source": "https://arxiv.org/pdf/2605.01970v1",
+  "status": "completed",
+  "has_confirmed_inconsistency": false,
+  "stages": [
+    {
+      "stage": "ingestion",
+      "status": "completed",
+      "segments": 22,
+      "characters": 214103,
+      "coverage": {
+        "complete": true,
+        "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+      },
+      "source_links": [
+        "https://github.com/debesheedas/troja",
+        "https://doi.org/10.12688/f1000research.169927.1",
+        "https://www.an",
+        "https://claude.com/import-memory",
+        "https://doi.org/10.48550/arxiv.2504.14064",
+        "https://doi.org/10.48550/arxiv.2407.12784",
+        "https://doi.org/10",
+        "https://doi.org/10.48550/arxiv.2406.13352",
+        "https://doi.org/10.1145/3716628",
+        "https://doi.org/10.1016/j.icte.2025.12.001",
+        "https://arstechnica.com/security",
+        "https://openai.com/index/scaling-ai-for-",
+        "https://get.mem.ai/",
+        "https://blog.google/products/gemini/google-gemini-update-august-2024/",
+        "https://notebooklm.google/",
+        "https://deepmind.google/mode",
+        "https://doi.org/10.48550/arxiv.2504.19956",
+        "https://deepmind.google/models/project-astra/",
+        "https://openai.com/blog/memory-and-new-controls-for-chatgpt",
+        "https://help.openai.com/en/articles/8983136-what-",
+        "https://developers.openai.com/api/docs/models/gpt-5",
+        "https://developers.openai.com/api/docs/models/gpt-",
+        "https://chatgpt.com/",
+        "https://open",
+        "https://unit42.paloalton",
+        "https://www.sciencedirect.com/science/article/abs/pii/S0167739X250",
+        "https://doi.org/10.1016/j.future.2025.107994",
+        "https://www.sciencedirect",
+        "https://reference.langchain.co",
+        "https://www.personal.ai/",
+        "https://doi.org/10.4",
+        "https://doi.org/10.48550/arxiv.2511.15759",
+        "https://embracethere",
+        "https://embracethe",
+        "https://www.ovid.com/journals/prin/fulltext/10.1037/pri0000292",
+        "https://github.com/algorithmicsuperintelligence/openevolve",
+        "https://www.zendesk.com/newsroom/press-",
+        "https://doi.org/10.48550/arxiv.2506.23844",
+        "https://doi.org/",
+        "https://doi.org/10.48550/arx"
+      ],
+      "sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce"
+    },
+    {
+      "stage": "extraction",
+      "status": "completed",
+      "applicability": "in_scope",
+      "flow_count": 3
+    },
+    {
+      "stage": "semantic_review",
+      "status": "completed",
+      "applicability": "in_scope"
+    },
+    {
+      "stage": "citation_validation_and_decision",
+      "status": "completed",
+      "verdict": "insufficient_evidence",
+      "reason": "unresolved_checks"
+    },
+    {
+      "stage": "decision_replay",
+      "status": "completed",
+      "inference_calls": 0,
+      "same_pdf_bytes": true,
+      "same_primary_model_input": true,
+      "additional_reading_order_view": true,
+      "previous_verdict": "insufficient_evidence",
+      "verdict": "insufficient_evidence"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "trojan_hippo_claim_1",
+      "source_group": "paper_text",
+      "description": "Feedback delivery is described, but a forbidden information flow remains unresolved because critic inputs and the scope of the observability restriction are unspecified.",
+      "scope": {
+        "paper_version": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+        "experiment_arm": "One bounded concern concerns critic feedback during attack optimization. White-box configuration knowledge and training/test separation provide relevant controls. The supplied paper text does not establish a prohibited construction input.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "adaptive attack optimizer",
+        "phase": "training-time payload refinement",
+        "source": "LLM critic evaluating attack variants",
+        "representation": "numerical score and improvement feedback",
+        "operation": "use evaluation feedback to refine attack candidates"
+      },
+      "verdict": "insufficient_evidence",
+      "reason": "policy_scope_not_established",
+      "matching_rules": [],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "adaptive attack optimizer",
+            "phase": "training-time payload refinement",
+            "source": "LLM critic evaluating attack variants",
+            "representation": "numerical score and improvement feedback",
+            "operation": "use evaluation feedback to refine attack candidates"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 5484, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 5428, \"text_view\": \"reading_order\", \"text_view_sha256\": \"a95cdfda163a087844f68ce70cea711fae092677f6c30cf939e87c89ce566b59\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Critic-feedback observability: optimization receives improvement feedback beyond a binary exfiltration outcome.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "other",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "uncertain",
+          "reason": "The exclusion applies to the modeled adversary, but optimization runs against a training environment. The text does not specify whether this restriction also governs training feedback or what information the critic receives.",
+          "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 2490, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2438, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f39ab1227d4f73dea9f3f3d46668abf931d8a2c60b29d72a4ab8ac4c6f808dbe\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "training_instance",
+          "reason": "The paper describes feedback entering iterative candidate selection and refinement. It does not establish delivery of internal memory state, execution traces, or raw user queries to the mutator.",
+          "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 180, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 97, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2ca711c3c52c225833ed6dfaae1f0d6d42371ac88763f2ad0897c80abb2d44c1\"}"
+        },
+        "refutation": {
+          "basis": "none",
+          "reason": "Training-environment use alone does not establish permission for unrestricted diagnostic feedback.",
+          "reference": ""
+        }
+      },
+      "claim_result": "unresolved",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p4",
+          "start": 2438,
+          "end": 2490,
+          "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "f39ab1227d4f73dea9f3f3d46668abf931d8a2c60b29d72a4ab8ac4c6f808dbe"
+        },
+        "delivery": {
+          "segment_id": "p6",
+          "start": 97,
+          "end": 180,
+          "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "2ca711c3c52c225833ed6dfaae1f0d6d42371ac88763f2ad0897c80abb2d44c1"
+        },
+        "implementation": {
+          "segment_id": "p5",
+          "start": 5428,
+          "end": 5484,
+          "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "a95cdfda163a087844f68ce70cea711fae092677f6c30cf939e87c89ce566b59"
+        }
+      },
+      "semantic_review": {
+        "index": 0,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "uncertain",
+        "delivery": "confirmed",
+        "refutation": "none",
+        "reason": "p5–p6 describe critic scores and improvement feedback entering candidate refinement. p4 restricts adversary observability, but its application to the training optimizer and the critic's inputs remain unspecified. This supports an unresolved concern, not a confirmed budget violation."
+      }
+    },
+    {
+      "id": "trojan_hippo_claim_2",
+      "source_group": "paper_text",
+      "description": "Topic-specific optimization does not establish knowledge of full held-out queries. Separation is reported in paper text and has not been independently verified.",
+      "scope": {
+        "paper_version": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+        "experiment_arm": "One bounded concern concerns critic feedback during attack optimization. White-box configuration knowledge and training/test separation provide relevant controls. The supplied paper text does not establish a prohibited construction input.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "adaptive attack optimizer",
+        "phase": "attack construction before final evaluation",
+        "source": "training and held-out conversation cases",
+        "representation": "case templates and concrete entity values",
+        "operation": "optimize on one training case and evaluate the selected attack on four test cases"
+      },
+      "verdict": "insufficient_evidence",
+      "reason": "delivery_exclusion_conflicts_with_present",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "adaptive attack optimizer",
+            "phase": "attack construction before final evaluation",
+            "source": "training and held-out conversation cases",
+            "representation": "case templates and concrete entity values",
+            "operation": "optimize on one training case and evaluate the selected attack on four test cases"
+          },
+          "permission": "allow",
+          "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 4631, \"match\": \"normalized_exact\", \"segment_id\": \"p2\", \"start\": 4522, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c72a9b4fca655f985d699361ca23d57908533cf614258319a9a9c17a07c91cae\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "adaptive attack optimizer",
+            "phase": "attack construction before final evaluation",
+            "source": "training and held-out conversation cases",
+            "representation": "case templates and concrete entity values",
+            "operation": "optimize on one training case and evaluate the selected attack on four test cases"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 1762, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 1648, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2ca711c3c52c225833ed6dfaae1f0d6d42371ac88763f2ad0897c80abb2d44c1\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Held-out-instance separation control: optimization uses a training case rather than the held-out test instances.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "exact_query",
+        "policy_application": {
+          "policy_kind": "protocol_requirement",
+          "status": "applicable",
+          "reason": "This requirement governs the distinction between optimization instances and final evaluation instances.",
+          "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 4711, \"match\": \"normalized_exact\", \"segment_id\": \"p2\", \"start\": 4638, \"text_view\": \"reading_order\", \"text_view_sha256\": \"c72a9b4fca655f985d699361ca23d57908533cf614258319a9a9c17a07c91cae\"}"
+        },
+        "delivery": {
+          "status": "excluded",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "different_instance",
+          "reason": "The reported procedure separates training cases from test templates and entities; it does not describe raw test-query delivery to the payload generator.",
+          "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 1356, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 1265, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2ca711c3c52c225833ed6dfaae1f0d6d42371ac88763f2ad0897c80abb2d44c1\"}"
+        },
+        "refutation": {
+          "basis": "different_instance",
+          "reason": "This positively counters treating access to the training instance as access to the same held-out evaluation instance.",
+          "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 1527, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 1478, \"text_view\": \"reading_order\", \"text_view_sha256\": \"2ca711c3c52c225833ed6dfaae1f0d6d42371ac88763f2ad0897c80abb2d44c1\"}"
+        }
+      },
+      "claim_result": "unresolved",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p2",
+          "start": 4638,
+          "end": 4711,
+          "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "c72a9b4fca655f985d699361ca23d57908533cf614258319a9a9c17a07c91cae"
+        },
+        "delivery": {
+          "segment_id": "p6",
+          "start": 1265,
+          "end": 1356,
+          "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "2ca711c3c52c225833ed6dfaae1f0d6d42371ac88763f2ad0897c80abb2d44c1"
+        },
+        "refutation": {
+          "segment_id": "p6",
+          "start": 1478,
+          "end": 1527,
+          "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "2ca711c3c52c225833ed6dfaae1f0d6d42371ac88763f2ad0897c80abb2d44c1"
+        },
+        "declaration": {
+          "segment_id": "p2",
+          "start": 4522,
+          "end": 4631,
+          "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "c72a9b4fca655f985d699361ca23d57908533cf614258319a9a9c17a07c91cae"
+        },
+        "implementation": {
+          "segment_id": "p6",
+          "start": 1648,
+          "end": 1762,
+          "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "2ca711c3c52c225833ed6dfaae1f0d6d42371ac88763f2ad0897c80abb2d44c1"
+        }
+      },
+      "semantic_review": {
+        "index": 1,
+        "supported": true,
+        "policy_kind": "protocol_requirement",
+        "policy_application": "applicable",
+        "delivery": "excluded",
+        "refutation": "different_instance",
+        "reason": "p2 requires held-out evaluation; p6 positively separates optimization from test cases through disjoint template and entity pools and evaluation on unseen instances. Training-case access and topic conditioning do not establish delivery of exact held-out queries to the optimizer."
+      }
+    },
+    {
+      "id": "trojan_hippo_claim_3",
+      "source_group": "paper_text",
+      "description": "Configuration awareness is consistent with the stated knowledge budget and does not imply access to model weights or internal memory contents.",
+      "scope": {
+        "paper_version": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+        "experiment_arm": "One bounded concern concerns critic feedback during attack optimization. White-box configuration knowledge and training/test separation provide relevant controls. The supplied paper text does not establish a prohibited construction input.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "modeled adversary",
+        "phase": "attack construction",
+        "source": "agent configuration",
+        "representation": "system prompt, memory backend, and tool interface",
+        "operation": "condition attack construction on the target configuration"
+      },
+      "verdict": "consistent_within_scope",
+      "reason": "claim_refuted_explicit_permission",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "modeled adversary",
+            "phase": "attack construction",
+            "source": "agent configuration",
+            "representation": "system prompt, memory backend, and tool interface",
+            "operation": "condition attack construction on the target configuration"
+          },
+          "permission": "allow",
+          "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 1972, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 1875, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f39ab1227d4f73dea9f3f3d46668abf931d8a2c60b29d72a4ab8ac4c6f808dbe\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "modeled adversary",
+            "phase": "attack construction",
+            "source": "agent configuration",
+            "representation": "system prompt, memory backend, and tool interface",
+            "operation": "condition attack construction on the target configuration"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 4920, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 4852, \"text_view\": \"reading_order\", \"text_view_sha256\": \"a95cdfda163a087844f68ce70cea711fae092677f6c30cf939e87c89ce566b59\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "White-box configuration control: system-prompt, backend, and tool-interface knowledge is explicitly permitted.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "resource_metadata",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "The model explicitly permits configuration knowledge while excluding model-weight access.",
+          "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 2009, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 1974, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f39ab1227d4f73dea9f3f3d46668abf931d8a2c60b29d72a4ab8ac4c6f808dbe\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "training_instance",
+          "reason": "Configuration-specific optimization is described; the exact mutator prompt is not supplied.",
+          "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 4920, \"match\": \"normalized_exact\", \"segment_id\": \"p5\", \"start\": 4852, \"text_view\": \"reading_order\", \"text_view_sha256\": \"a95cdfda163a087844f68ce70cea711fae092677f6c30cf939e87c89ce566b59\"}"
+        },
+        "refutation": {
+          "basis": "explicit_permission",
+          "reason": "Knowledge of these configuration objects is expressly authorized.",
+          "reference": "{\"document_sha256\": \"4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce\", \"end\": 1972, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 1875, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f39ab1227d4f73dea9f3f3d46668abf931d8a2c60b29d72a4ab8ac4c6f808dbe\"}"
+        }
+      },
+      "claim_result": "refuted",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p4",
+          "start": 1974,
+          "end": 2009,
+          "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "f39ab1227d4f73dea9f3f3d46668abf931d8a2c60b29d72a4ab8ac4c6f808dbe"
+        },
+        "delivery": {
+          "segment_id": "p5",
+          "start": 4852,
+          "end": 4920,
+          "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "a95cdfda163a087844f68ce70cea711fae092677f6c30cf939e87c89ce566b59"
+        },
+        "refutation": {
+          "segment_id": "p4",
+          "start": 1875,
+          "end": 1972,
+          "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "f39ab1227d4f73dea9f3f3d46668abf931d8a2c60b29d72a4ab8ac4c6f808dbe"
+        },
+        "declaration": {
+          "segment_id": "p4",
+          "start": 1875,
+          "end": 1972,
+          "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "f39ab1227d4f73dea9f3f3d46668abf931d8a2c60b29d72a4ab8ac4c6f808dbe"
+        },
+        "implementation": {
+          "segment_id": "p5",
+          "start": 4852,
+          "end": 4920,
+          "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "a95cdfda163a087844f68ce70cea711fae092677f6c30cf939e87c89ce566b59"
+        }
+      },
+      "semantic_review": {
+        "index": 2,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "confirmed",
+        "refutation": "explicit_permission",
+        "reason": "p5 describes configuration-specific attack optimization. p4 expressly permits knowledge of the system prompt, memory backend, and tool interface while excluding model weights. The exact mutator prompt is unspecified, but configuration awareness is authorized."
+      }
+    }
+  ],
+  "document_sha256": "4e6fd2911c2ee90279fa6318e14396e2638490917954de9d9ea490caf1111cce",
+  "schema_version": 3,
+  "applicability": "in_scope",
+  "scope": "One bounded concern concerns critic feedback during attack optimization. White-box configuration knowledge and training/test separation provide relevant controls. The supplied paper text does not establish a prohibited construction input.",
+  "review_status": "model_reviewed_not_human_verified",
+  "evidence_scope": "listed_claims_document_only",
+  "notes": [
+    "Only supplied paper text was assessed; no code, saved requests, or independent runtime evidence was supplied.",
+    "The illustrative exfiltration trace demonstrates a security outcome, not prohibited attacker knowledge during payload construction.",
+    "Critic inputs, the feedback delivered to the mutator, and the training optimizer's observability contract remain unanswered.",
+    "Findings rely on supplied procedure descriptions without independent implementation or runtime verification.",
+    "The p22 exfiltration trace demonstrates a victim security failure, not prohibited construction knowledge or the causal effect of critic feedback."
+  ],
+  "unresolved_questions": [
+    "What inputs does the critic receive: exfiltration outcomes alone, agent responses, tool traces, memory contents, or training queries?",
+    "Which critic outputs reach the mutator, and does the observability restriction apply to this training-time optimization arm?",
+    "What exact information is included in the mutator's construction prompt?"
+  ],
+  "verdict": "insufficient_evidence",
+  "reason": "unresolved_checks",
+  "coverage_complete": false,
+  "claim_result_counts": {
+    "unresolved": 2,
+    "refuted": 1
+  },
+  "input_mode": "document_only",
+  "prompt_sha256": "dd80afd03660a2128242d06873b82a37c4c1ac043952e83a8a380e71835af55e",
+  "duration_seconds": 61.95,
+  "cohort": "previously_suspected_control",
+  "expected": null,
+  "expected_basis": "pending_independent_adjudication",
+  "comparison_note": "A suspected false positive is not assumed clean; resolve against source evidence.",
+  "matches_gold": null,
+  "previous_verdict": "insufficient_evidence",
+  "model_output_hashes": {
+    "extraction.json": "99230c9e4274ac47a2f4aed0ec99180d2f9d1c446cedb09cb3d74e3e4fbf3e01",
+    "review.json": "d07f50c8dff7ac45be497e00d35d806d861334f0be5e7f15cfafcb793e1e9120"
+  }
+}
+```
+
+### 16. TopicAttack information\-budget audit
+
+论文 ID：topicattack  
+运行 / 判定：证据不足
+
+#### 测试过程
+
+| 步骤 | 状态 | 记录 |
+| --- | --- | --- |
+| ingestion | 已完成 | \{"stage": "ingestion", "status": "completed", "segments": 19, "characters": 99756, "coverage": \{"complete": true, "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"\}, "source\_links": \["https://github\.com/", "https://copilot\.microsoft\.com/", "https://www\.perplexity\.ai/", "https://learnprompting", "https://dropbox\.tech/machine\-learning/", "https://simonwillison\.net/"\], "sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7"\} |
+| extraction | 已完成 | \{"stage": "extraction", "status": "completed", "applicability": "in\_scope", "flow\_count": 4\} |
+| semantic\_review | 已完成 | \{"stage": "semantic\_review", "status": "completed", "applicability": "in\_scope"\} |
+| citation\_validation\_and\_decision | 已完成 | \{"stage": "citation\_validation\_and\_decision", "status": "completed", "verdict": "insufficient\_evidence", "reason": "unresolved\_checks"\} |
+| decision\_replay | 已完成 | \{"stage": "decision\_replay", "status": "completed", "inference\_calls": 0, "same\_pdf\_bytes": true, "same\_primary\_model\_input": true, "additional\_reading\_order\_view": true, "previous\_verdict": "insufficient\_evidence", "verdict": "insufficient\_evidence"\} |
+
+#### 证据
+
+```json
+[
+  {
+    "id": "topicattack_claim_1",
+    "source_group": "paper_text",
+    "description": "Queries displayed in case studies do not independently demonstrate delivery to the auxiliary model.",
+    "scope": {
+      "paper_version": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+      "experiment_arm": "The supplied paper describes restricted attacker knowledge, content-conditioned transition generation, and a separately disclosed gradient-based comparison. No prohibited construction input is established by the supplied text.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "TopicAttack auxiliary generation model",
+      "phase": "transition construction",
+      "source": "original user instruction",
+      "representation": "raw query text",
+      "operation": "supply as generation input",
+      "query_form": "full_query"
+    },
+    "verdict": "consistent_within_scope",
+    "reason": "claim_refuted_excluded_delivery",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "TopicAttack auxiliary generation model",
+          "phase": "transition construction",
+          "source": "original user instruction",
+          "representation": "raw query text",
+          "operation": "supply as generation input",
+          "query_form": "full_query"
+        },
+        "permission": "deny",
+        "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 308, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 243, \"text_view\": \"reading_order\", \"text_view_sha256\": \"0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "TopicAttack auxiliary generation model",
+          "phase": "transition construction",
+          "source": "original user instruction",
+          "representation": "raw query text",
+          "operation": "supply as generation input",
+          "query_form": "full_query"
+        },
+        "status": "absent",
+        "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 488, \"match\": \"normalized_exact\", \"segment_id\": \"p13\", \"start\": 409, \"text_view\": \"reading_order\", \"text_view_sha256\": \"3cfc5d1bf6878aac178f67941fab7cfab7cde1a62e0f1a6300ca3f2549a6bf0c\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Original-query exposure: the described transition-generation template does not supply the original evaluation query.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "The exclusion applies to the primary TopicAttack construction procedure and the attacked instance's original instruction.",
+        "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 3544, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 3482, \"text_view\": \"reading_order\", \"text_view_sha256\": \"0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407\"}"
+      },
+      "delivery": {
+        "status": "excluded",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The published construction template supplies data and a destination topic, without an original-query input. This conclusion is limited to the described template.",
+        "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 280, \"match\": \"normalized_exact\", \"segment_id\": \"p13\", \"start\": 209, \"text_view\": \"reading_order\", \"text_view_sha256\": \"3cfc5d1bf6878aac178f67941fab7cfab7cde1a62e0f1a6300ca3f2549a6bf0c\"}"
+      },
+      "refutation": {
+        "basis": "excluded_delivery",
+        "reason": "The provided template constructs the transition from content and destination topic rather than the original question.",
+        "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 488, \"match\": \"normalized_exact\", \"segment_id\": \"p13\", \"start\": 409, \"text_view\": \"reading_order\", \"text_view_sha256\": \"3cfc5d1bf6878aac178f67941fab7cfab7cde1a62e0f1a6300ca3f2549a6bf0c\"}"
+      }
+    },
+    "claim_result": "refuted",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p4",
+        "start": 3482,
+        "end": 3544,
+        "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407"
+      },
+      "delivery": {
+        "segment_id": "p13",
+        "start": 209,
+        "end": 280,
+        "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "3cfc5d1bf6878aac178f67941fab7cfab7cde1a62e0f1a6300ca3f2549a6bf0c"
+      },
+      "refutation": {
+        "segment_id": "p13",
+        "start": 409,
+        "end": 488,
+        "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "3cfc5d1bf6878aac178f67941fab7cfab7cde1a62e0f1a6300ca3f2549a6bf0c"
+      },
+      "declaration": {
+        "segment_id": "p4",
+        "start": 243,
+        "end": 308,
+        "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407"
+      },
+      "implementation": {
+        "segment_id": "p13",
+        "start": 409,
+        "end": 488,
+        "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "3cfc5d1bf6878aac178f67941fab7cfab7cde1a62e0f1a6300ca3f2549a6bf0c"
+      }
+    },
+    "semantic_review": {
+      "index": 0,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "excluded",
+      "refutation": "excluded_delivery",
+      "reason": "p4 defines construction as Atk(Tb, Iinj); p13 supplies content, turn count and destination topic, excluding an original-query input in the described procedure. This supports template-level exclusion only."
+    }
+  },
+  {
+    "id": "topicattack_claim_2",
+    "source_group": "paper_text",
+    "description": "Document-derived topical knowledge is not equivalent to access to the full original query.",
+    "scope": {
+      "paper_version": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+      "experiment_arm": "The supplied paper describes restricted attacker knowledge, content-conditioned transition generation, and a separately disclosed gradient-based comparison. No prohibited construction input is established by the supplied text.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "TopicAttack auxiliary generation model",
+      "phase": "transition construction",
+      "source": "benign external content selected for injection",
+      "representation": "data content in the construction prompt",
+      "operation": "generate a conversation bridging content and injected instruction"
+    },
+    "verdict": "consistent_within_scope",
+    "reason": "claim_refuted_explicit_permission",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "TopicAttack auxiliary generation model",
+          "phase": "transition construction",
+          "source": "benign external content selected for injection",
+          "representation": "data content in the construction prompt",
+          "operation": "generate a conversation bridging content and injected instruction"
+        },
+        "permission": "allow",
+        "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 396, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 314, \"text_view\": \"reading_order\", \"text_view_sha256\": \"0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "TopicAttack auxiliary generation model",
+          "phase": "transition construction",
+          "source": "benign external content selected for injection",
+          "representation": "data content in the construction prompt",
+          "operation": "generate a conversation bridging content and injected instruction"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 280, \"match\": \"normalized_exact\", \"segment_id\": \"p13\", \"start\": 209, \"text_view\": \"reading_order\", \"text_view_sha256\": \"3cfc5d1bf6878aac178f67941fab7cfab7cde1a62e0f1a6300ca3f2549a6bf0c\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Permitted content conditioning: TopicAttack uses the benign retrieved content to construct its transition.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "document_content",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "The permission specifically covers the document used by the primary attack constructor.",
+        "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 396, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 314, \"text_view\": \"reading_order\", \"text_view_sha256\": \"0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The published auxiliary-model prompt directly conditions generation on supplied content.",
+        "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 459, \"match\": \"normalized_exact\", \"segment_id\": \"p13\", \"start\": 409, \"text_view\": \"reading_order\", \"text_view_sha256\": \"3cfc5d1bf6878aac178f67941fab7cfab7cde1a62e0f1a6300ca3f2549a6bf0c\"}"
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reason": "Content access is expressly permitted, even when it reveals the user's likely topic.",
+        "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 396, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 314, \"text_view\": \"reading_order\", \"text_view_sha256\": \"0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407\"}"
+      }
+    },
+    "claim_result": "refuted",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p4",
+        "start": 314,
+        "end": 396,
+        "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407"
+      },
+      "delivery": {
+        "segment_id": "p13",
+        "start": 409,
+        "end": 459,
+        "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "3cfc5d1bf6878aac178f67941fab7cfab7cde1a62e0f1a6300ca3f2549a6bf0c"
+      },
+      "refutation": {
+        "segment_id": "p4",
+        "start": 314,
+        "end": 396,
+        "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407"
+      },
+      "declaration": {
+        "segment_id": "p4",
+        "start": 314,
+        "end": 396,
+        "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407"
+      },
+      "implementation": {
+        "segment_id": "p13",
+        "start": 209,
+        "end": 280,
+        "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "3cfc5d1bf6878aac178f67941fab7cfab7cde1a62e0f1a6300ca3f2549a6bf0c"
+      }
+    },
+    "semantic_review": {
+      "index": 1,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "confirmed",
+      "refutation": "explicit_permission",
+      "reason": "p13 directly supplies benign content to the auxiliary generator, and p4 expressly permits that access. Content-derived topic knowledge does not establish exact-query access."
+    }
+  },
+  {
+    "id": "topicattack_claim_3",
+    "source_group": "paper_text",
+    "description": "Readable fabricated role markers do not establish access to private target delimiters.",
+    "scope": {
+      "paper_version": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+      "experiment_arm": "The supplied paper describes restricted attacker knowledge, content-conditioned transition generation, and a separately disclosed gradient-based comparison. No prohibited construction input is established by the supplied text.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "TopicAttack constructor",
+      "phase": "payload construction",
+      "source": "target application's role identifiers",
+      "representation": "exact user and assistant delimiters",
+      "operation": "select conversation markers"
+    },
+    "verdict": "consistent_within_scope",
+    "reason": "claim_refuted_excluded_delivery",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "TopicAttack constructor",
+          "phase": "payload construction",
+          "source": "target application's role identifiers",
+          "representation": "exact user and assistant delimiters",
+          "operation": "select conversation markers"
+        },
+        "permission": "deny",
+        "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 114, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 37, \"text_view\": \"reading_order\", \"text_view_sha256\": \"0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "TopicAttack constructor",
+          "phase": "payload construction",
+          "source": "target application's role identifiers",
+          "representation": "exact user and assistant delimiters",
+          "operation": "select conversation markers"
+        },
+        "status": "absent",
+        "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 2349, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2304, \"text_view\": \"reading_order\", \"text_view_sha256\": \"0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Role-identifier knowledge: the main attack fabricates identifiers instead of acquiring the target system's exact identifiers.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "resource_metadata",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "The restriction applies to target-specific identifiers used in main-attack construction.",
+        "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 114, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 37, \"text_view\": \"reading_order\", \"text_view_sha256\": \"0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407\"}"
+      },
+      "delivery": {
+        "status": "excluded",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The procedure specifies manually chosen substitute markers.",
+        "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 2349, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2304, \"text_view\": \"reading_order\", \"text_view_sha256\": \"0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407\"}"
+      },
+      "refutation": {
+        "basis": "excluded_delivery",
+        "reason": "The markers have an explicitly described construction source independent of target identifiers.",
+        "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 2349, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2304, \"text_view\": \"reading_order\", \"text_view_sha256\": \"0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407\"}"
+      }
+    },
+    "claim_result": "refuted",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p4",
+        "start": 37,
+        "end": 114,
+        "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407"
+      },
+      "delivery": {
+        "segment_id": "p4",
+        "start": 2304,
+        "end": 2349,
+        "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407"
+      },
+      "refutation": {
+        "segment_id": "p4",
+        "start": 2304,
+        "end": 2349,
+        "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407"
+      },
+      "declaration": {
+        "segment_id": "p4",
+        "start": 37,
+        "end": 114,
+        "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407"
+      },
+      "implementation": {
+        "segment_id": "p4",
+        "start": 2304,
+        "end": 2349,
+        "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407"
+      }
+    },
+    "semantic_review": {
+      "index": 2,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "excluded",
+      "refutation": "excluded_delivery",
+      "reason": "p4 affirmatively specifies manually chosen substitute identifiers because target identifiers are unknown. This supports exclusion of acquired target identifiers in the described construction."
+    }
+  },
+  {
+    "id": "topicattack_claim_4",
+    "source_group": "paper_text",
+    "description": "The disclosed gradient comparison does not establish forbidden model access by TopicAttack, nor raw-query delivery to any optimizer.",
+    "scope": {
+      "paper_version": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+      "experiment_arm": "The supplied paper describes restricted attacker knowledge, content-conditioned transition generation, and a separately disclosed gradient-based comparison. No prohibited construction input is established by the supplied text.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "gradient-based baseline optimizer",
+      "phase": "comparison attack construction",
+      "source": "comparison victim model",
+      "representation": "model gradients",
+      "operation": "optimize attack prompts"
+    },
+    "verdict": "insufficient_evidence",
+    "reason": "refutation_not_supported_by_scoped_evidence",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "gradient-based baseline optimizer",
+          "phase": "comparison attack construction",
+          "source": "comparison victim model",
+          "representation": "model gradients",
+          "operation": "optimize attack prompts"
+        },
+        "permission": "allow",
+        "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 3942, \"match\": \"normalized_exact\", \"segment_id\": \"p7\", \"start\": 3814, \"text_view\": \"reading_order\", \"text_view_sha256\": \"d930a3fa4f5ea18acca37371d8fa8177fb54a941c6a90c241428f78891767b08\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "gradient-based baseline optimizer",
+          "phase": "comparison attack construction",
+          "source": "comparison victim model",
+          "representation": "model gradients",
+          "operation": "optimize attack prompts"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 4117, \"match\": \"normalized_exact\", \"segment_id\": \"p7\", \"start\": 4055, \"text_view\": \"reading_order\", \"text_view_sha256\": \"d930a3fa4f5ea18acca37371d8fa8177fb54a941c6a90c241428f78891767b08\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Gradient comparison exception: GCG and AutoDAN use a stronger comparison setting than the primary attack's model-knowledge budget.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "other",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "not_applicable",
+        "reason": "The paper expressly separates this stronger comparison arm from its preceding restricted-attacker assumption.",
+        "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 4040, \"match\": \"normalized_exact\", \"segment_id\": \"p7\", \"start\": 3944, \"text_view\": \"reading_order\", \"text_view_sha256\": \"d930a3fa4f5ea18acca37371d8fa8177fb54a941c6a90c241428f78891767b08\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "unknown",
+        "reason": "Gradient-based construction is reported, but the optimizer's query inputs and instance relationships are not specified.",
+        "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 4094, \"match\": \"normalized_exact\", \"segment_id\": \"p7\", \"start\": 4055, \"text_view\": \"reading_order\", \"text_view_sha256\": \"d930a3fa4f5ea18acca37371d8fa8177fb54a941c6a90c241428f78891767b08\"}"
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reason": "The comparison is explicitly introduced as an exception to the preceding model-knowledge assumption.",
+        "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 3812, \"match\": \"normalized_exact\", \"segment_id\": \"p7\", \"start\": 3777, \"text_view\": \"reading_order\", \"text_view_sha256\": \"d930a3fa4f5ea18acca37371d8fa8177fb54a941c6a90c241428f78891767b08\"}"
+      }
+    },
+    "claim_result": "unresolved",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p7",
+        "start": 3944,
+        "end": 4040,
+        "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "d930a3fa4f5ea18acca37371d8fa8177fb54a941c6a90c241428f78891767b08"
+      },
+      "delivery": {
+        "segment_id": "p7",
+        "start": 4055,
+        "end": 4094,
+        "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "d930a3fa4f5ea18acca37371d8fa8177fb54a941c6a90c241428f78891767b08"
+      },
+      "refutation": {
+        "segment_id": "p7",
+        "start": 3777,
+        "end": 3812,
+        "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "d930a3fa4f5ea18acca37371d8fa8177fb54a941c6a90c241428f78891767b08"
+      },
+      "declaration": {
+        "segment_id": "p7",
+        "start": 3814,
+        "end": 3942,
+        "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "d930a3fa4f5ea18acca37371d8fa8177fb54a941c6a90c241428f78891767b08"
+      },
+      "implementation": {
+        "segment_id": "p7",
+        "start": 4055,
+        "end": 4117,
+        "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "d930a3fa4f5ea18acca37371d8fa8177fb54a941c6a90c241428f78891767b08"
+      }
+    },
+    "semantic_review": {
+      "index": 3,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "not_applicable",
+      "delivery": "confirmed",
+      "refutation": "explicit_permission",
+      "reason": "p7 explicitly contrasts its no-gradient assumption with a separately implemented gradient-based comparison, supporting an exception for this precise model-access budget. It establishes neither main-attack gradient access nor optimizer receipt of raw queries."
+    }
+  }
+]
+```
+
+#### 备注
+
+```json
+[
+  "Only paper text was supplied; no static code, saved requests, or runtime traces establish implementation behavior.",
+  "Reported attack success and defense failure measure security outcomes and do not independently establish information-budget violations.",
+  "Findings concern the published construction procedures; actual auxiliary requests and input provenance remain unverified.",
+  "Explicit suspicions about baseline optimization inputs and instance relationships, and target-specific observations used in main-attack design or selection, remain unanswered.",
+  "Reported success, reminder ablations and attention analyses do not establish prohibited construction knowledge or its causal behavioral impact."
+]
+```
+
+#### 完整论文记录 JSON
+
+```json
+{
+  "id": "topicattack",
+  "title": "TopicAttack information-budget audit",
+  "source": "https://aclanthology.org/2025.emnlp-main.372.pdf",
+  "status": "completed",
+  "has_confirmed_inconsistency": false,
+  "stages": [
+    {
+      "stage": "ingestion",
+      "status": "completed",
+      "segments": 19,
+      "characters": 99756,
+      "coverage": {
+        "complete": true,
+        "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+      },
+      "source_links": [
+        "https://github.com/",
+        "https://copilot.microsoft.com/",
+        "https://www.perplexity.ai/",
+        "https://learnprompting",
+        "https://dropbox.tech/machine-learning/",
+        "https://simonwillison.net/"
+      ],
+      "sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7"
+    },
+    {
+      "stage": "extraction",
+      "status": "completed",
+      "applicability": "in_scope",
+      "flow_count": 4
+    },
+    {
+      "stage": "semantic_review",
+      "status": "completed",
+      "applicability": "in_scope"
+    },
+    {
+      "stage": "citation_validation_and_decision",
+      "status": "completed",
+      "verdict": "insufficient_evidence",
+      "reason": "unresolved_checks"
+    },
+    {
+      "stage": "decision_replay",
+      "status": "completed",
+      "inference_calls": 0,
+      "same_pdf_bytes": true,
+      "same_primary_model_input": true,
+      "additional_reading_order_view": true,
+      "previous_verdict": "insufficient_evidence",
+      "verdict": "insufficient_evidence"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "topicattack_claim_1",
+      "source_group": "paper_text",
+      "description": "Queries displayed in case studies do not independently demonstrate delivery to the auxiliary model.",
+      "scope": {
+        "paper_version": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+        "experiment_arm": "The supplied paper describes restricted attacker knowledge, content-conditioned transition generation, and a separately disclosed gradient-based comparison. No prohibited construction input is established by the supplied text.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "TopicAttack auxiliary generation model",
+        "phase": "transition construction",
+        "source": "original user instruction",
+        "representation": "raw query text",
+        "operation": "supply as generation input",
+        "query_form": "full_query"
+      },
+      "verdict": "consistent_within_scope",
+      "reason": "claim_refuted_excluded_delivery",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "TopicAttack auxiliary generation model",
+            "phase": "transition construction",
+            "source": "original user instruction",
+            "representation": "raw query text",
+            "operation": "supply as generation input",
+            "query_form": "full_query"
+          },
+          "permission": "deny",
+          "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 308, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 243, \"text_view\": \"reading_order\", \"text_view_sha256\": \"0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "TopicAttack auxiliary generation model",
+            "phase": "transition construction",
+            "source": "original user instruction",
+            "representation": "raw query text",
+            "operation": "supply as generation input",
+            "query_form": "full_query"
+          },
+          "status": "absent",
+          "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 488, \"match\": \"normalized_exact\", \"segment_id\": \"p13\", \"start\": 409, \"text_view\": \"reading_order\", \"text_view_sha256\": \"3cfc5d1bf6878aac178f67941fab7cfab7cde1a62e0f1a6300ca3f2549a6bf0c\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Original-query exposure: the described transition-generation template does not supply the original evaluation query.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "exact_query",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "The exclusion applies to the primary TopicAttack construction procedure and the attacked instance's original instruction.",
+          "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 3544, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 3482, \"text_view\": \"reading_order\", \"text_view_sha256\": \"0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407\"}"
+        },
+        "delivery": {
+          "status": "excluded",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The published construction template supplies data and a destination topic, without an original-query input. This conclusion is limited to the described template.",
+          "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 280, \"match\": \"normalized_exact\", \"segment_id\": \"p13\", \"start\": 209, \"text_view\": \"reading_order\", \"text_view_sha256\": \"3cfc5d1bf6878aac178f67941fab7cfab7cde1a62e0f1a6300ca3f2549a6bf0c\"}"
+        },
+        "refutation": {
+          "basis": "excluded_delivery",
+          "reason": "The provided template constructs the transition from content and destination topic rather than the original question.",
+          "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 488, \"match\": \"normalized_exact\", \"segment_id\": \"p13\", \"start\": 409, \"text_view\": \"reading_order\", \"text_view_sha256\": \"3cfc5d1bf6878aac178f67941fab7cfab7cde1a62e0f1a6300ca3f2549a6bf0c\"}"
+        }
+      },
+      "claim_result": "refuted",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p4",
+          "start": 3482,
+          "end": 3544,
+          "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407"
+        },
+        "delivery": {
+          "segment_id": "p13",
+          "start": 209,
+          "end": 280,
+          "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "3cfc5d1bf6878aac178f67941fab7cfab7cde1a62e0f1a6300ca3f2549a6bf0c"
+        },
+        "refutation": {
+          "segment_id": "p13",
+          "start": 409,
+          "end": 488,
+          "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "3cfc5d1bf6878aac178f67941fab7cfab7cde1a62e0f1a6300ca3f2549a6bf0c"
+        },
+        "declaration": {
+          "segment_id": "p4",
+          "start": 243,
+          "end": 308,
+          "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407"
+        },
+        "implementation": {
+          "segment_id": "p13",
+          "start": 409,
+          "end": 488,
+          "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "3cfc5d1bf6878aac178f67941fab7cfab7cde1a62e0f1a6300ca3f2549a6bf0c"
+        }
+      },
+      "semantic_review": {
+        "index": 0,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "excluded",
+        "refutation": "excluded_delivery",
+        "reason": "p4 defines construction as Atk(Tb, Iinj); p13 supplies content, turn count and destination topic, excluding an original-query input in the described procedure. This supports template-level exclusion only."
+      }
+    },
+    {
+      "id": "topicattack_claim_2",
+      "source_group": "paper_text",
+      "description": "Document-derived topical knowledge is not equivalent to access to the full original query.",
+      "scope": {
+        "paper_version": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+        "experiment_arm": "The supplied paper describes restricted attacker knowledge, content-conditioned transition generation, and a separately disclosed gradient-based comparison. No prohibited construction input is established by the supplied text.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "TopicAttack auxiliary generation model",
+        "phase": "transition construction",
+        "source": "benign external content selected for injection",
+        "representation": "data content in the construction prompt",
+        "operation": "generate a conversation bridging content and injected instruction"
+      },
+      "verdict": "consistent_within_scope",
+      "reason": "claim_refuted_explicit_permission",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "TopicAttack auxiliary generation model",
+            "phase": "transition construction",
+            "source": "benign external content selected for injection",
+            "representation": "data content in the construction prompt",
+            "operation": "generate a conversation bridging content and injected instruction"
+          },
+          "permission": "allow",
+          "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 396, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 314, \"text_view\": \"reading_order\", \"text_view_sha256\": \"0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "TopicAttack auxiliary generation model",
+            "phase": "transition construction",
+            "source": "benign external content selected for injection",
+            "representation": "data content in the construction prompt",
+            "operation": "generate a conversation bridging content and injected instruction"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 280, \"match\": \"normalized_exact\", \"segment_id\": \"p13\", \"start\": 209, \"text_view\": \"reading_order\", \"text_view_sha256\": \"3cfc5d1bf6878aac178f67941fab7cfab7cde1a62e0f1a6300ca3f2549a6bf0c\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Permitted content conditioning: TopicAttack uses the benign retrieved content to construct its transition.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "document_content",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "The permission specifically covers the document used by the primary attack constructor.",
+          "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 396, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 314, \"text_view\": \"reading_order\", \"text_view_sha256\": \"0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The published auxiliary-model prompt directly conditions generation on supplied content.",
+          "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 459, \"match\": \"normalized_exact\", \"segment_id\": \"p13\", \"start\": 409, \"text_view\": \"reading_order\", \"text_view_sha256\": \"3cfc5d1bf6878aac178f67941fab7cfab7cde1a62e0f1a6300ca3f2549a6bf0c\"}"
+        },
+        "refutation": {
+          "basis": "explicit_permission",
+          "reason": "Content access is expressly permitted, even when it reveals the user's likely topic.",
+          "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 396, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 314, \"text_view\": \"reading_order\", \"text_view_sha256\": \"0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407\"}"
+        }
+      },
+      "claim_result": "refuted",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p4",
+          "start": 314,
+          "end": 396,
+          "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407"
+        },
+        "delivery": {
+          "segment_id": "p13",
+          "start": 409,
+          "end": 459,
+          "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "3cfc5d1bf6878aac178f67941fab7cfab7cde1a62e0f1a6300ca3f2549a6bf0c"
+        },
+        "refutation": {
+          "segment_id": "p4",
+          "start": 314,
+          "end": 396,
+          "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407"
+        },
+        "declaration": {
+          "segment_id": "p4",
+          "start": 314,
+          "end": 396,
+          "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407"
+        },
+        "implementation": {
+          "segment_id": "p13",
+          "start": 209,
+          "end": 280,
+          "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "3cfc5d1bf6878aac178f67941fab7cfab7cde1a62e0f1a6300ca3f2549a6bf0c"
+        }
+      },
+      "semantic_review": {
+        "index": 1,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "confirmed",
+        "refutation": "explicit_permission",
+        "reason": "p13 directly supplies benign content to the auxiliary generator, and p4 expressly permits that access. Content-derived topic knowledge does not establish exact-query access."
+      }
+    },
+    {
+      "id": "topicattack_claim_3",
+      "source_group": "paper_text",
+      "description": "Readable fabricated role markers do not establish access to private target delimiters.",
+      "scope": {
+        "paper_version": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+        "experiment_arm": "The supplied paper describes restricted attacker knowledge, content-conditioned transition generation, and a separately disclosed gradient-based comparison. No prohibited construction input is established by the supplied text.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "TopicAttack constructor",
+        "phase": "payload construction",
+        "source": "target application's role identifiers",
+        "representation": "exact user and assistant delimiters",
+        "operation": "select conversation markers"
+      },
+      "verdict": "consistent_within_scope",
+      "reason": "claim_refuted_excluded_delivery",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "TopicAttack constructor",
+            "phase": "payload construction",
+            "source": "target application's role identifiers",
+            "representation": "exact user and assistant delimiters",
+            "operation": "select conversation markers"
+          },
+          "permission": "deny",
+          "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 114, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 37, \"text_view\": \"reading_order\", \"text_view_sha256\": \"0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "TopicAttack constructor",
+            "phase": "payload construction",
+            "source": "target application's role identifiers",
+            "representation": "exact user and assistant delimiters",
+            "operation": "select conversation markers"
+          },
+          "status": "absent",
+          "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 2349, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2304, \"text_view\": \"reading_order\", \"text_view_sha256\": \"0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Role-identifier knowledge: the main attack fabricates identifiers instead of acquiring the target system's exact identifiers.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "resource_metadata",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "The restriction applies to target-specific identifiers used in main-attack construction.",
+          "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 114, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 37, \"text_view\": \"reading_order\", \"text_view_sha256\": \"0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407\"}"
+        },
+        "delivery": {
+          "status": "excluded",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The procedure specifies manually chosen substitute markers.",
+          "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 2349, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2304, \"text_view\": \"reading_order\", \"text_view_sha256\": \"0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407\"}"
+        },
+        "refutation": {
+          "basis": "excluded_delivery",
+          "reason": "The markers have an explicitly described construction source independent of target identifiers.",
+          "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 2349, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2304, \"text_view\": \"reading_order\", \"text_view_sha256\": \"0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407\"}"
+        }
+      },
+      "claim_result": "refuted",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p4",
+          "start": 37,
+          "end": 114,
+          "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407"
+        },
+        "delivery": {
+          "segment_id": "p4",
+          "start": 2304,
+          "end": 2349,
+          "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407"
+        },
+        "refutation": {
+          "segment_id": "p4",
+          "start": 2304,
+          "end": 2349,
+          "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407"
+        },
+        "declaration": {
+          "segment_id": "p4",
+          "start": 37,
+          "end": 114,
+          "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407"
+        },
+        "implementation": {
+          "segment_id": "p4",
+          "start": 2304,
+          "end": 2349,
+          "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "0a692b2efb3c2711f0231994579cafff779c8799f9ddd29754ce8d73710bb407"
+        }
+      },
+      "semantic_review": {
+        "index": 2,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "excluded",
+        "refutation": "excluded_delivery",
+        "reason": "p4 affirmatively specifies manually chosen substitute identifiers because target identifiers are unknown. This supports exclusion of acquired target identifiers in the described construction."
+      }
+    },
+    {
+      "id": "topicattack_claim_4",
+      "source_group": "paper_text",
+      "description": "The disclosed gradient comparison does not establish forbidden model access by TopicAttack, nor raw-query delivery to any optimizer.",
+      "scope": {
+        "paper_version": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+        "experiment_arm": "The supplied paper describes restricted attacker knowledge, content-conditioned transition generation, and a separately disclosed gradient-based comparison. No prohibited construction input is established by the supplied text.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "gradient-based baseline optimizer",
+        "phase": "comparison attack construction",
+        "source": "comparison victim model",
+        "representation": "model gradients",
+        "operation": "optimize attack prompts"
+      },
+      "verdict": "insufficient_evidence",
+      "reason": "refutation_not_supported_by_scoped_evidence",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "gradient-based baseline optimizer",
+            "phase": "comparison attack construction",
+            "source": "comparison victim model",
+            "representation": "model gradients",
+            "operation": "optimize attack prompts"
+          },
+          "permission": "allow",
+          "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 3942, \"match\": \"normalized_exact\", \"segment_id\": \"p7\", \"start\": 3814, \"text_view\": \"reading_order\", \"text_view_sha256\": \"d930a3fa4f5ea18acca37371d8fa8177fb54a941c6a90c241428f78891767b08\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "gradient-based baseline optimizer",
+            "phase": "comparison attack construction",
+            "source": "comparison victim model",
+            "representation": "model gradients",
+            "operation": "optimize attack prompts"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 4117, \"match\": \"normalized_exact\", \"segment_id\": \"p7\", \"start\": 4055, \"text_view\": \"reading_order\", \"text_view_sha256\": \"d930a3fa4f5ea18acca37371d8fa8177fb54a941c6a90c241428f78891767b08\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Gradient comparison exception: GCG and AutoDAN use a stronger comparison setting than the primary attack's model-knowledge budget.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "other",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "not_applicable",
+          "reason": "The paper expressly separates this stronger comparison arm from its preceding restricted-attacker assumption.",
+          "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 4040, \"match\": \"normalized_exact\", \"segment_id\": \"p7\", \"start\": 3944, \"text_view\": \"reading_order\", \"text_view_sha256\": \"d930a3fa4f5ea18acca37371d8fa8177fb54a941c6a90c241428f78891767b08\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "unknown",
+          "reason": "Gradient-based construction is reported, but the optimizer's query inputs and instance relationships are not specified.",
+          "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 4094, \"match\": \"normalized_exact\", \"segment_id\": \"p7\", \"start\": 4055, \"text_view\": \"reading_order\", \"text_view_sha256\": \"d930a3fa4f5ea18acca37371d8fa8177fb54a941c6a90c241428f78891767b08\"}"
+        },
+        "refutation": {
+          "basis": "explicit_permission",
+          "reason": "The comparison is explicitly introduced as an exception to the preceding model-knowledge assumption.",
+          "reference": "{\"document_sha256\": \"8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7\", \"end\": 3812, \"match\": \"normalized_exact\", \"segment_id\": \"p7\", \"start\": 3777, \"text_view\": \"reading_order\", \"text_view_sha256\": \"d930a3fa4f5ea18acca37371d8fa8177fb54a941c6a90c241428f78891767b08\"}"
+        }
+      },
+      "claim_result": "unresolved",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p7",
+          "start": 3944,
+          "end": 4040,
+          "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "d930a3fa4f5ea18acca37371d8fa8177fb54a941c6a90c241428f78891767b08"
+        },
+        "delivery": {
+          "segment_id": "p7",
+          "start": 4055,
+          "end": 4094,
+          "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "d930a3fa4f5ea18acca37371d8fa8177fb54a941c6a90c241428f78891767b08"
+        },
+        "refutation": {
+          "segment_id": "p7",
+          "start": 3777,
+          "end": 3812,
+          "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "d930a3fa4f5ea18acca37371d8fa8177fb54a941c6a90c241428f78891767b08"
+        },
+        "declaration": {
+          "segment_id": "p7",
+          "start": 3814,
+          "end": 3942,
+          "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "d930a3fa4f5ea18acca37371d8fa8177fb54a941c6a90c241428f78891767b08"
+        },
+        "implementation": {
+          "segment_id": "p7",
+          "start": 4055,
+          "end": 4117,
+          "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "d930a3fa4f5ea18acca37371d8fa8177fb54a941c6a90c241428f78891767b08"
+        }
+      },
+      "semantic_review": {
+        "index": 3,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "not_applicable",
+        "delivery": "confirmed",
+        "refutation": "explicit_permission",
+        "reason": "p7 explicitly contrasts its no-gradient assumption with a separately implemented gradient-based comparison, supporting an exception for this precise model-access budget. It establishes neither main-attack gradient access nor optimizer receipt of raw queries."
+      }
+    }
+  ],
+  "document_sha256": "8e47318c5ddb97326c589c4b35bf602d0deea4077ec1f67856ef0f7317d5f6f7",
+  "schema_version": 3,
+  "applicability": "in_scope",
+  "scope": "The supplied paper describes restricted attacker knowledge, content-conditioned transition generation, and a separately disclosed gradient-based comparison. No prohibited construction input is established by the supplied text.",
+  "review_status": "model_reviewed_not_human_verified",
+  "evidence_scope": "listed_claims_document_only",
+  "notes": [
+    "Only paper text was supplied; no static code, saved requests, or runtime traces establish implementation behavior.",
+    "Reported attack success and defense failure measure security outcomes and do not independently establish information-budget violations.",
+    "Findings concern the published construction procedures; actual auxiliary requests and input provenance remain unverified.",
+    "Explicit suspicions about baseline optimization inputs and instance relationships, and target-specific observations used in main-attack design or selection, remain unanswered.",
+    "Reported success, reminder ablations and attention analyses do not establish prohibited construction knowledge or its causal behavioral impact."
+  ],
+  "unresolved_questions": [
+    "Do actual auxiliary-model requests match the published templates, including the values and provenance of data and topic?",
+    "What queries, documents, losses, and instance relationships are used in GCG and AutoDAN optimization?",
+    "Were target-specific model or defense observations used to select the main attack's reminder or construction prompt?"
+  ],
+  "verdict": "insufficient_evidence",
+  "reason": "unresolved_checks",
+  "coverage_complete": false,
+  "claim_result_counts": {
+    "refuted": 3,
+    "unresolved": 1
+  },
+  "input_mode": "document_only",
+  "prompt_sha256": "dd80afd03660a2128242d06873b82a37c4c1ac043952e83a8a380e71835af55e",
+  "duration_seconds": 72.381,
+  "cohort": "previously_suspected_control",
+  "expected": null,
+  "expected_basis": "pending_independent_adjudication",
+  "comparison_note": "A suspected false positive is not assumed clean; resolve against source evidence.",
+  "matches_gold": null,
+  "previous_verdict": "insufficient_evidence",
+  "model_output_hashes": {
+    "extraction.json": "77818cd1a7930686961568a18d2f00d7ed02958a9f32ac5a14390826a60ffbb5",
+    "review.json": "f23948b66e8603d382ccfce328eba6eeb312de4afbe30af40fe20366cd50d76d"
+  }
+}
+```
+
+### 17. AgentDojo information\-budget audit
+
+论文 ID：agentdojo  
+运行 / 判定：证据不足
+
+#### 测试过程
+
+| 步骤 | 状态 | 记录 |
+| --- | --- | --- |
+| ingestion | 已完成 | \{"stage": "ingestion", "status": "completed", "segments": 26, "characters": 91997, "coverage": \{"complete": true, "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"\}, "source\_links": \["https://agentdojo\.spylab\.ai", "https://github\.com/ethz\-spylab/agentdojo", "https://www\-cdn\.anthropic", "https://docs\.anthropic\.com/en/docs/tool\-use", "https://cohere\.com/command", "https://x\.com/goodside/status/1569128808308957185", "https://cookbook\.openai\.com/examples/", "https://www\.youtube\.com/watch?v=", "https://lakeraai\.github\.io/chainguard/", "https://github\.com/tiangolo/fastapi", "https://simonwillison", "https://simonwillison\.net/2023/Apr/25/dual\-llm\-pattern/", "https://drive\.google\.com/file/d/16nhDqSTRVac\_GbcC3\-9WMjVaJZfmcwLO/", "https://chatgpt\.com/share/"\], "sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913"\} |
+| extraction | 已完成 | \{"stage": "extraction", "status": "completed", "applicability": "in\_scope", "flow\_count": 4\} |
+| semantic\_review | 已完成 | \{"stage": "semantic\_review", "status": "completed", "applicability": "in\_scope"\} |
+| citation\_validation\_and\_decision | 已完成 | \{"stage": "citation\_validation\_and\_decision", "status": "completed", "verdict": "insufficient\_evidence", "reason": "unresolved\_checks"\} |
+| decision\_replay | 已完成 | \{"stage": "decision\_replay", "status": "completed", "inference\_calls": 0, "same\_pdf\_bytes": true, "same\_primary\_model\_input": true, "additional\_reading\_order\_view": true, "previous\_verdict": "insufficient\_evidence", "verdict": "insufficient\_evidence"\} |
+
+#### 证据
+
+```json
+[
+  {
+    "id": "agentdojo_claim_1",
+    "source_group": "paper_text",
+    "description": "This is delivery of derived placement information, not proof of raw user-query delivery or forced victim tool calls.",
+    "scope": {
+      "paper_version": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+      "experiment_arm": "The supplied paper describes task-informed injection placement, identity-conditioned payloads, and per-case adaptive selection. It establishes no explicit applicable exclusion violated by these procedures. Access to a user-task object does not establish delivery of its full prompt to a payload LLM.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "attack implementation",
+      "phase": "construction",
+      "source": "user-task ground-truth tool sequence",
+      "representation": "candidate injection placeholders derived from required tools",
+      "operation": "select injection endpoints using get_injection_candidates"
+    },
+    "verdict": "consistent_within_scope",
+    "reason": "claim_refuted_explicit_permission",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "attack implementation",
+          "phase": "construction",
+          "source": "user-task ground-truth tool sequence",
+          "representation": "candidate injection placeholders derived from required tools",
+          "operation": "select injection endpoints using get_injection_candidates"
+        },
+        "permission": "allow",
+        "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 2515, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2442, \"text_view\": \"reading_order\", \"text_view_sha256\": \"8a794d66a7cbb3733a56c0d4131fb3cc9defa190929459027b3f2f4961b5bbbc\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "attack implementation",
+          "phase": "construction",
+          "source": "user-task ground-truth tool sequence",
+          "representation": "candidate injection placeholders derived from required tools",
+          "operation": "select injection endpoints using get_injection_candidates"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 1554, \"match\": \"normalized_exact\", \"segment_id\": \"p16\", \"start\": 1403, \"text_view\": \"reading_order\", \"text_view_sha256\": \"50b1e94c519e1a54887fc0f70a48d6f4d8daed1cd5ef13deeff1373745b2ed15\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Task-ground-truth placement: attack construction uses task-specific tool requirements to select injection endpoints.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "other",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "The benchmark specifically supports this task-informed construction aid; no exclusion of this derived information is stated.",
+        "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 2515, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2442, \"text_view\": \"reading_order\", \"text_view_sha256\": \"8a794d66a7cbb3733a56c0d4131fb3cc9defa190929459027b3f2f4961b5bbbc\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The paper's attack example consumes candidates associated with the current user-task ID.",
+        "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 167, \"match\": \"normalized_exact\", \"segment_id\": \"p17\", \"start\": 112, \"text_view\": \"reading_order\", \"text_view_sha256\": \"dfb82c2c29541625e5cd6511dd6a7649181c6990d01be3aca4a29848da968a0e\"}"
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reason": "Task-specific endpoint adaptation is an explicitly intended facility.",
+        "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 1382, \"match\": \"normalized_exact\", \"segment_id\": \"p16\", \"start\": 1336, \"text_view\": \"reading_order\", \"text_view_sha256\": \"50b1e94c519e1a54887fc0f70a48d6f4d8daed1cd5ef13deeff1373745b2ed15\"}"
+      }
+    },
+    "claim_result": "refuted",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p4",
+        "start": 2442,
+        "end": 2515,
+        "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "8a794d66a7cbb3733a56c0d4131fb3cc9defa190929459027b3f2f4961b5bbbc"
+      },
+      "delivery": {
+        "segment_id": "p17",
+        "start": 112,
+        "end": 167,
+        "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "dfb82c2c29541625e5cd6511dd6a7649181c6990d01be3aca4a29848da968a0e"
+      },
+      "refutation": {
+        "segment_id": "p16",
+        "start": 1336,
+        "end": 1382,
+        "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "50b1e94c519e1a54887fc0f70a48d6f4d8daed1cd5ef13deeff1373745b2ed15"
+      },
+      "declaration": {
+        "segment_id": "p4",
+        "start": 2442,
+        "end": 2515,
+        "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "8a794d66a7cbb3733a56c0d4131fb3cc9defa190929459027b3f2f4961b5bbbc"
+      },
+      "implementation": {
+        "segment_id": "p16",
+        "start": 1403,
+        "end": 1554,
+        "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "50b1e94c519e1a54887fc0f70a48d6f4d8daed1cd5ef13deeff1373745b2ed15"
+      }
+    },
+    "semantic_review": {
+      "index": 0,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "confirmed",
+      "refutation": "explicit_permission",
+      "reason": "p16-p17 explicitly provide task-specific injection candidates to attack construction using the current task ID. This permits derived placement information, without establishing raw-query delivery or forced victim calls."
+    }
+  },
+  {
+    "id": "agentdojo_claim_2",
+    "source_group": "paper_text",
+    "description": "The paper's embedded example is not a saved construction request or runtime trace.",
+    "scope": {
+      "paper_version": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+      "experiment_arm": "The supplied paper describes task-informed injection placement, identity-conditioned payloads, and per-case adaptive selection. It establishes no explicit applicable exclusion violated by these procedures. Access to a user-task object does not establish delivery of its full prompt to a payload LLM.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "attack implementation or payload generator",
+      "phase": "construction",
+      "source": "current user-task object",
+      "representation": "user-task object potentially containing its natural-language prompt",
+      "operation": "receive object through the attack interface",
+      "query_form": "full_query"
+    },
+    "verdict": "insufficient_evidence",
+    "reason": "policy_is_not_attacker_knowledge_constraint",
+    "matching_rules": [],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "attack implementation or payload generator",
+          "phase": "construction",
+          "source": "current user-task object",
+          "representation": "user-task object potentially containing its natural-language prompt",
+          "operation": "receive object through the attack interface",
+          "query_form": "full_query"
+        },
+        "status": "possible",
+        "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 76, \"match\": \"normalized_exact\", \"segment_id\": \"p17\", \"start\": 0, \"text_view\": \"reading_order\", \"text_view_sha256\": \"dfb82c2c29541625e5cd6511dd6a7649181c6990d01be3aca4a29848da968a0e\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Full-query exposure: the attack interface receives a user-task object, but full prompt use in payload construction remains unresolved.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "policy_kind": "unspecified",
+        "status": "uncertain",
+        "reason": "No explicit full-query access exclusion or specific full-query construction permission is supplied.",
+        "reference": ""
+      },
+      "delivery": {
+        "status": "unresolved",
+        "evidence_kind": "possible_path",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The interface receives the task object, while the example uses its ID. It does not show raw prompt text reaching a payload LLM.",
+        "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 76, \"match\": \"normalized_exact\", \"segment_id\": \"p17\", \"start\": 0, \"text_view\": \"reading_order\", \"text_view_sha256\": \"dfb82c2c29541625e5cd6511dd6a7649181c6990d01be3aca4a29848da968a0e\"}"
+      },
+      "refutation": {
+        "basis": "none",
+        "reason": "Neither excluded delivery nor an applicable specific permission is established.",
+        "reference": ""
+      }
+    },
+    "claim_result": "unresolved",
+    "citation_errors": [],
+    "locators": {
+      "delivery": {
+        "segment_id": "p17",
+        "start": 0,
+        "end": 76,
+        "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "dfb82c2c29541625e5cd6511dd6a7649181c6990d01be3aca4a29848da968a0e"
+      },
+      "implementation": {
+        "segment_id": "p17",
+        "start": 0,
+        "end": 76,
+        "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "dfb82c2c29541625e5cd6511dd6a7649181c6990d01be3aca4a29848da968a0e"
+      }
+    },
+    "semantic_review": {
+      "index": 1,
+      "supported": true,
+      "policy_kind": "unspecified",
+      "policy_application": "uncertain",
+      "delivery": "unresolved",
+      "refutation": "none",
+      "reason": "p17 passes a user-task object, and p5 shows a PROMPT field, but the example reads only ID. Full-query use by evaluated payload construction and any applicable restriction remain unresolved; no mismatch or absence is established."
+    }
+  },
+  {
+    "id": "agentdojo_claim_3",
+    "source_group": "paper_text",
+    "description": "The reported small ASR change concerns effectiveness and does not determine construction consistency.",
+    "scope": {
+      "paper_version": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+      "experiment_arm": "The supplied paper describes task-informed injection placement, identity-conditioned payloads, and per-case adaptive selection. It establishes no explicit applicable exclusion violated by these procedures. Access to a user-task object does not establish delivery of its full prompt to a payload LLM.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "Important message attacker",
+      "phase": "construction",
+      "source": "user and model names",
+      "representation": "substitutions into attack-template placeholders",
+      "operation": "address the victim and impersonate the user"
+    },
+    "verdict": "consistent_within_scope",
+    "reason": "claim_refuted_explicit_permission",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "Important message attacker",
+          "phase": "construction",
+          "source": "user and model names",
+          "representation": "substitutions into attack-template placeholders",
+          "operation": "address the victim and impersonate the user"
+        },
+        "permission": "allow",
+        "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 2384, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 2290, \"text_view\": \"reading_order\", \"text_view_sha256\": \"da26fac8ce9a0cf097bd2540a071ebaeb5a0abd7eff4d8c9964bdcce22fb6d6e\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "Important message attacker",
+          "phase": "construction",
+          "source": "user and model names",
+          "representation": "substitutions into attack-template placeholders",
+          "operation": "address the victim and impersonate the user"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 1462, \"match\": \"normalized_exact\", \"segment_id\": \"p19\", \"start\": 1353, \"text_view\": \"reading_order\", \"text_view_sha256\": \"e6ec2950003f741ce952bffb2c61f5d5ce0bc33f9a8b4106452d937cc6c37a7f\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Identity-conditioned construction: user and model names are inserted into payloads in explicitly studied knowledge arms.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "user_identity",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "The described knowledge arms explicitly permit stronger prior knowledge; they do not impose universal identity blindness.",
+        "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 2215, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 2110, \"text_view\": \"reading_order\", \"text_view_sha256\": \"da26fac8ce9a0cf097bd2540a071ebaeb5a0abd7eff4d8c9964bdcce22fb6d6e\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "The paper describes identity use in the evaluated attack prompt.",
+        "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 1594, \"match\": \"normalized_exact\", \"segment_id\": \"p8\", \"start\": 1567, \"text_view\": \"reading_order\", \"text_view_sha256\": \"a7f8d19151be9347a491f872e82e92adc5b5faa2f36f8f5b5b7e07f76d240934\"}"
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reason": "This knowledge is expressly contemplated for the attacker.",
+        "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 2341, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 2290, \"text_view\": \"reading_order\", \"text_view_sha256\": \"da26fac8ce9a0cf097bd2540a071ebaeb5a0abd7eff4d8c9964bdcce22fb6d6e\"}"
+      }
+    },
+    "claim_result": "refuted",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p6",
+        "start": 2110,
+        "end": 2215,
+        "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "da26fac8ce9a0cf097bd2540a071ebaeb5a0abd7eff4d8c9964bdcce22fb6d6e"
+      },
+      "delivery": {
+        "segment_id": "p8",
+        "start": 1567,
+        "end": 1594,
+        "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "a7f8d19151be9347a491f872e82e92adc5b5faa2f36f8f5b5b7e07f76d240934"
+      },
+      "refutation": {
+        "segment_id": "p6",
+        "start": 2290,
+        "end": 2341,
+        "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "da26fac8ce9a0cf097bd2540a071ebaeb5a0abd7eff4d8c9964bdcce22fb6d6e"
+      },
+      "declaration": {
+        "segment_id": "p6",
+        "start": 2290,
+        "end": 2384,
+        "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "da26fac8ce9a0cf097bd2540a071ebaeb5a0abd7eff4d8c9964bdcce22fb6d6e"
+      },
+      "implementation": {
+        "segment_id": "p19",
+        "start": 1353,
+        "end": 1462,
+        "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "e6ec2950003f741ce952bffb2c61f5d5ce0bc33f9a8b4106452d937cc6c37a7f"
+      }
+    },
+    "semantic_review": {
+      "index": 2,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "confirmed",
+      "refutation": "explicit_permission",
+      "reason": "p6 expressly permits user-name knowledge; p8 and p19 document actual user/model-name substitutions and evaluated knowledge arms. This is specific permission for the claimed information, independent of its measured effect on success."
+    }
+  },
+  {
+    "id": "agentdojo_claim_4",
+    "source_group": "paper_text",
+    "description": "This establishes an outcome-informed evaluation selector, not an undisclosed raw-query input.",
+    "scope": {
+      "paper_version": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+      "experiment_arm": "The supplied paper describes task-informed injection placement, identity-conditioned payloads, and per-case adaptive selection. It establishes no explicit applicable exclusion violated by these procedures. Access to a user-task object does not establish delivery of its full prompt to a payload LLM.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "adaptive Max attack selector",
+      "phase": "evaluation and selection",
+      "source": "effectiveness of candidate attacks on each task",
+      "representation": "per-case best-attack choice",
+      "operation": "select the most effective candidate"
+    },
+    "verdict": "insufficient_evidence",
+    "reason": "refutation_not_supported_by_scoped_evidence",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "adaptive Max attack selector",
+          "phase": "evaluation and selection",
+          "source": "effectiveness of candidate attacks on each task",
+          "representation": "per-case best-attack choice",
+          "operation": "select the most effective candidate"
+        },
+        "permission": "allow",
+        "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 3379, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 3273, \"text_view\": \"reading_order\", \"text_view_sha256\": \"da26fac8ce9a0cf097bd2540a071ebaeb5a0abd7eff4d8c9964bdcce22fb6d6e\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "adaptive Max attack selector",
+          "phase": "evaluation and selection",
+          "source": "effectiveness of candidate attacks on each task",
+          "representation": "per-case best-attack choice",
+          "operation": "select the most effective candidate"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 2087, \"match\": \"normalized_exact\", \"segment_id\": \"p8\", \"start\": 1996, \"text_view\": \"reading_order\", \"text_view_sha256\": \"a7f8d19151be9347a491f872e82e92adc5b5faa2f36f8f5b5b7e07f76d240934\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Per-case outcome selection: Max uses task-specific effectiveness to select among four payloads.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "other",
+      "policy_application": {
+        "policy_kind": "protocol_requirement",
+        "status": "applicable",
+        "reason": "The reported adaptive metric explicitly permits per-case selection over the collection.",
+        "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 3271, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 3187, \"text_view\": \"reading_order\", \"text_view_sha256\": \"da26fac8ce9a0cf097bd2540a071ebaeb5a0abd7eff4d8c9964bdcce22fb6d6e\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reason": "Outcome information informs the Max selector; no delivery to a payload LLM is established.",
+        "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 2087, \"match\": \"normalized_exact\", \"segment_id\": \"p8\", \"start\": 2026, \"text_view\": \"reading_order\", \"text_view_sha256\": \"a7f8d19151be9347a491f872e82e92adc5b5faa2f36f8f5b5b7e07f76d240934\"}"
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reason": "The stronger selection procedure is part of the declared metric.",
+        "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 3379, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 3318, \"text_view\": \"reading_order\", \"text_view_sha256\": \"da26fac8ce9a0cf097bd2540a071ebaeb5a0abd7eff4d8c9964bdcce22fb6d6e\"}"
+      }
+    },
+    "claim_result": "unresolved",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p6",
+        "start": 3187,
+        "end": 3271,
+        "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "da26fac8ce9a0cf097bd2540a071ebaeb5a0abd7eff4d8c9964bdcce22fb6d6e"
+      },
+      "delivery": {
+        "segment_id": "p8",
+        "start": 2026,
+        "end": 2087,
+        "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "a7f8d19151be9347a491f872e82e92adc5b5faa2f36f8f5b5b7e07f76d240934"
+      },
+      "refutation": {
+        "segment_id": "p6",
+        "start": 3318,
+        "end": 3379,
+        "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "da26fac8ce9a0cf097bd2540a071ebaeb5a0abd7eff4d8c9964bdcce22fb6d6e"
+      },
+      "declaration": {
+        "segment_id": "p6",
+        "start": 3273,
+        "end": 3379,
+        "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "da26fac8ce9a0cf097bd2540a071ebaeb5a0abd7eff4d8c9964bdcce22fb6d6e"
+      },
+      "implementation": {
+        "segment_id": "p8",
+        "start": 1996,
+        "end": 2087,
+        "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "a7f8d19151be9347a491f872e82e92adc5b5faa2f36f8f5b5b7e07f76d240934"
+      }
+    },
+    "semantic_review": {
+      "index": 3,
+      "supported": true,
+      "policy_kind": "protocol_requirement",
+      "policy_application": "applicable",
+      "delivery": "confirmed",
+      "refutation": "explicit_permission",
+      "reason": "p6 and p8 explicitly define outcome-based per-case Max selection, supporting receipt at the claimed evaluation selector. They do not establish online attacker feedback or payload-generator receipt; the declared metric specifically permits this selection."
+    }
+  }
+]
+```
+
+#### 备注
+
+```json
+[
+  "Only supplied paper text and embedded examples were available; no repository code, saved requests, or runtime traces were supplied.",
+  "No explicit applicable attacker-knowledge exclusion was identified in the supplied text, so no prohibited information flow is established.",
+  "Full-query consumption and additional task information reaching payload generators remain unanswered.",
+  "The actual Max outcome-consumption implementation is not supplied; its documented evaluation procedure does not prove online adaptation.",
+  "No applicable knowledge-budget violation is established. Successful victim security violations alone would not establish one."
+]
+```
+
+#### 完整论文记录 JSON
+
+```json
+{
+  "id": "agentdojo",
+  "title": "AgentDojo information-budget audit",
+  "source": "https://papers.neurips.cc/paper_files/paper/2024/file/97091a5177d8dc64b1da8bf3e1f6fb54-Paper-Datasets_and_Benchmarks_Track.pdf",
+  "status": "completed",
+  "has_confirmed_inconsistency": false,
+  "stages": [
+    {
+      "stage": "ingestion",
+      "status": "completed",
+      "segments": 26,
+      "characters": 91997,
+      "coverage": {
+        "complete": true,
+        "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+      },
+      "source_links": [
+        "https://agentdojo.spylab.ai",
+        "https://github.com/ethz-spylab/agentdojo",
+        "https://www-cdn.anthropic",
+        "https://docs.anthropic.com/en/docs/tool-use",
+        "https://cohere.com/command",
+        "https://x.com/goodside/status/1569128808308957185",
+        "https://cookbook.openai.com/examples/",
+        "https://www.youtube.com/watch?v=",
+        "https://lakeraai.github.io/chainguard/",
+        "https://github.com/tiangolo/fastapi",
+        "https://simonwillison",
+        "https://simonwillison.net/2023/Apr/25/dual-llm-pattern/",
+        "https://drive.google.com/file/d/16nhDqSTRVac_GbcC3-9WMjVaJZfmcwLO/",
+        "https://chatgpt.com/share/"
+      ],
+      "sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913"
+    },
+    {
+      "stage": "extraction",
+      "status": "completed",
+      "applicability": "in_scope",
+      "flow_count": 4
+    },
+    {
+      "stage": "semantic_review",
+      "status": "completed",
+      "applicability": "in_scope"
+    },
+    {
+      "stage": "citation_validation_and_decision",
+      "status": "completed",
+      "verdict": "insufficient_evidence",
+      "reason": "unresolved_checks"
+    },
+    {
+      "stage": "decision_replay",
+      "status": "completed",
+      "inference_calls": 0,
+      "same_pdf_bytes": true,
+      "same_primary_model_input": true,
+      "additional_reading_order_view": true,
+      "previous_verdict": "insufficient_evidence",
+      "verdict": "insufficient_evidence"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "agentdojo_claim_1",
+      "source_group": "paper_text",
+      "description": "This is delivery of derived placement information, not proof of raw user-query delivery or forced victim tool calls.",
+      "scope": {
+        "paper_version": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+        "experiment_arm": "The supplied paper describes task-informed injection placement, identity-conditioned payloads, and per-case adaptive selection. It establishes no explicit applicable exclusion violated by these procedures. Access to a user-task object does not establish delivery of its full prompt to a payload LLM.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "attack implementation",
+        "phase": "construction",
+        "source": "user-task ground-truth tool sequence",
+        "representation": "candidate injection placeholders derived from required tools",
+        "operation": "select injection endpoints using get_injection_candidates"
+      },
+      "verdict": "consistent_within_scope",
+      "reason": "claim_refuted_explicit_permission",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "attack implementation",
+            "phase": "construction",
+            "source": "user-task ground-truth tool sequence",
+            "representation": "candidate injection placeholders derived from required tools",
+            "operation": "select injection endpoints using get_injection_candidates"
+          },
+          "permission": "allow",
+          "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 2515, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2442, \"text_view\": \"reading_order\", \"text_view_sha256\": \"8a794d66a7cbb3733a56c0d4131fb3cc9defa190929459027b3f2f4961b5bbbc\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "attack implementation",
+            "phase": "construction",
+            "source": "user-task ground-truth tool sequence",
+            "representation": "candidate injection placeholders derived from required tools",
+            "operation": "select injection endpoints using get_injection_candidates"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 1554, \"match\": \"normalized_exact\", \"segment_id\": \"p16\", \"start\": 1403, \"text_view\": \"reading_order\", \"text_view_sha256\": \"50b1e94c519e1a54887fc0f70a48d6f4d8daed1cd5ef13deeff1373745b2ed15\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Task-ground-truth placement: attack construction uses task-specific tool requirements to select injection endpoints.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "other",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "The benchmark specifically supports this task-informed construction aid; no exclusion of this derived information is stated.",
+          "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 2515, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2442, \"text_view\": \"reading_order\", \"text_view_sha256\": \"8a794d66a7cbb3733a56c0d4131fb3cc9defa190929459027b3f2f4961b5bbbc\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The paper's attack example consumes candidates associated with the current user-task ID.",
+          "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 167, \"match\": \"normalized_exact\", \"segment_id\": \"p17\", \"start\": 112, \"text_view\": \"reading_order\", \"text_view_sha256\": \"dfb82c2c29541625e5cd6511dd6a7649181c6990d01be3aca4a29848da968a0e\"}"
+        },
+        "refutation": {
+          "basis": "explicit_permission",
+          "reason": "Task-specific endpoint adaptation is an explicitly intended facility.",
+          "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 1382, \"match\": \"normalized_exact\", \"segment_id\": \"p16\", \"start\": 1336, \"text_view\": \"reading_order\", \"text_view_sha256\": \"50b1e94c519e1a54887fc0f70a48d6f4d8daed1cd5ef13deeff1373745b2ed15\"}"
+        }
+      },
+      "claim_result": "refuted",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p4",
+          "start": 2442,
+          "end": 2515,
+          "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "8a794d66a7cbb3733a56c0d4131fb3cc9defa190929459027b3f2f4961b5bbbc"
+        },
+        "delivery": {
+          "segment_id": "p17",
+          "start": 112,
+          "end": 167,
+          "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "dfb82c2c29541625e5cd6511dd6a7649181c6990d01be3aca4a29848da968a0e"
+        },
+        "refutation": {
+          "segment_id": "p16",
+          "start": 1336,
+          "end": 1382,
+          "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "50b1e94c519e1a54887fc0f70a48d6f4d8daed1cd5ef13deeff1373745b2ed15"
+        },
+        "declaration": {
+          "segment_id": "p4",
+          "start": 2442,
+          "end": 2515,
+          "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "8a794d66a7cbb3733a56c0d4131fb3cc9defa190929459027b3f2f4961b5bbbc"
+        },
+        "implementation": {
+          "segment_id": "p16",
+          "start": 1403,
+          "end": 1554,
+          "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "50b1e94c519e1a54887fc0f70a48d6f4d8daed1cd5ef13deeff1373745b2ed15"
+        }
+      },
+      "semantic_review": {
+        "index": 0,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "confirmed",
+        "refutation": "explicit_permission",
+        "reason": "p16-p17 explicitly provide task-specific injection candidates to attack construction using the current task ID. This permits derived placement information, without establishing raw-query delivery or forced victim calls."
+      }
+    },
+    {
+      "id": "agentdojo_claim_2",
+      "source_group": "paper_text",
+      "description": "The paper's embedded example is not a saved construction request or runtime trace.",
+      "scope": {
+        "paper_version": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+        "experiment_arm": "The supplied paper describes task-informed injection placement, identity-conditioned payloads, and per-case adaptive selection. It establishes no explicit applicable exclusion violated by these procedures. Access to a user-task object does not establish delivery of its full prompt to a payload LLM.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "attack implementation or payload generator",
+        "phase": "construction",
+        "source": "current user-task object",
+        "representation": "user-task object potentially containing its natural-language prompt",
+        "operation": "receive object through the attack interface",
+        "query_form": "full_query"
+      },
+      "verdict": "insufficient_evidence",
+      "reason": "policy_is_not_attacker_knowledge_constraint",
+      "matching_rules": [],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "attack implementation or payload generator",
+            "phase": "construction",
+            "source": "current user-task object",
+            "representation": "user-task object potentially containing its natural-language prompt",
+            "operation": "receive object through the attack interface",
+            "query_form": "full_query"
+          },
+          "status": "possible",
+          "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 76, \"match\": \"normalized_exact\", \"segment_id\": \"p17\", \"start\": 0, \"text_view\": \"reading_order\", \"text_view_sha256\": \"dfb82c2c29541625e5cd6511dd6a7649181c6990d01be3aca4a29848da968a0e\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Full-query exposure: the attack interface receives a user-task object, but full prompt use in payload construction remains unresolved.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "exact_query",
+        "policy_application": {
+          "policy_kind": "unspecified",
+          "status": "uncertain",
+          "reason": "No explicit full-query access exclusion or specific full-query construction permission is supplied.",
+          "reference": ""
+        },
+        "delivery": {
+          "status": "unresolved",
+          "evidence_kind": "possible_path",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The interface receives the task object, while the example uses its ID. It does not show raw prompt text reaching a payload LLM.",
+          "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 76, \"match\": \"normalized_exact\", \"segment_id\": \"p17\", \"start\": 0, \"text_view\": \"reading_order\", \"text_view_sha256\": \"dfb82c2c29541625e5cd6511dd6a7649181c6990d01be3aca4a29848da968a0e\"}"
+        },
+        "refutation": {
+          "basis": "none",
+          "reason": "Neither excluded delivery nor an applicable specific permission is established.",
+          "reference": ""
+        }
+      },
+      "claim_result": "unresolved",
+      "citation_errors": [],
+      "locators": {
+        "delivery": {
+          "segment_id": "p17",
+          "start": 0,
+          "end": 76,
+          "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "dfb82c2c29541625e5cd6511dd6a7649181c6990d01be3aca4a29848da968a0e"
+        },
+        "implementation": {
+          "segment_id": "p17",
+          "start": 0,
+          "end": 76,
+          "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "dfb82c2c29541625e5cd6511dd6a7649181c6990d01be3aca4a29848da968a0e"
+        }
+      },
+      "semantic_review": {
+        "index": 1,
+        "supported": true,
+        "policy_kind": "unspecified",
+        "policy_application": "uncertain",
+        "delivery": "unresolved",
+        "refutation": "none",
+        "reason": "p17 passes a user-task object, and p5 shows a PROMPT field, but the example reads only ID. Full-query use by evaluated payload construction and any applicable restriction remain unresolved; no mismatch or absence is established."
+      }
+    },
+    {
+      "id": "agentdojo_claim_3",
+      "source_group": "paper_text",
+      "description": "The reported small ASR change concerns effectiveness and does not determine construction consistency.",
+      "scope": {
+        "paper_version": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+        "experiment_arm": "The supplied paper describes task-informed injection placement, identity-conditioned payloads, and per-case adaptive selection. It establishes no explicit applicable exclusion violated by these procedures. Access to a user-task object does not establish delivery of its full prompt to a payload LLM.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "Important message attacker",
+        "phase": "construction",
+        "source": "user and model names",
+        "representation": "substitutions into attack-template placeholders",
+        "operation": "address the victim and impersonate the user"
+      },
+      "verdict": "consistent_within_scope",
+      "reason": "claim_refuted_explicit_permission",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "Important message attacker",
+            "phase": "construction",
+            "source": "user and model names",
+            "representation": "substitutions into attack-template placeholders",
+            "operation": "address the victim and impersonate the user"
+          },
+          "permission": "allow",
+          "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 2384, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 2290, \"text_view\": \"reading_order\", \"text_view_sha256\": \"da26fac8ce9a0cf097bd2540a071ebaeb5a0abd7eff4d8c9964bdcce22fb6d6e\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "Important message attacker",
+            "phase": "construction",
+            "source": "user and model names",
+            "representation": "substitutions into attack-template placeholders",
+            "operation": "address the victim and impersonate the user"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 1462, \"match\": \"normalized_exact\", \"segment_id\": \"p19\", \"start\": 1353, \"text_view\": \"reading_order\", \"text_view_sha256\": \"e6ec2950003f741ce952bffb2c61f5d5ce0bc33f9a8b4106452d937cc6c37a7f\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Identity-conditioned construction: user and model names are inserted into payloads in explicitly studied knowledge arms.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "user_identity",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "The described knowledge arms explicitly permit stronger prior knowledge; they do not impose universal identity blindness.",
+          "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 2215, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 2110, \"text_view\": \"reading_order\", \"text_view_sha256\": \"da26fac8ce9a0cf097bd2540a071ebaeb5a0abd7eff4d8c9964bdcce22fb6d6e\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "The paper describes identity use in the evaluated attack prompt.",
+          "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 1594, \"match\": \"normalized_exact\", \"segment_id\": \"p8\", \"start\": 1567, \"text_view\": \"reading_order\", \"text_view_sha256\": \"a7f8d19151be9347a491f872e82e92adc5b5faa2f36f8f5b5b7e07f76d240934\"}"
+        },
+        "refutation": {
+          "basis": "explicit_permission",
+          "reason": "This knowledge is expressly contemplated for the attacker.",
+          "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 2341, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 2290, \"text_view\": \"reading_order\", \"text_view_sha256\": \"da26fac8ce9a0cf097bd2540a071ebaeb5a0abd7eff4d8c9964bdcce22fb6d6e\"}"
+        }
+      },
+      "claim_result": "refuted",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p6",
+          "start": 2110,
+          "end": 2215,
+          "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "da26fac8ce9a0cf097bd2540a071ebaeb5a0abd7eff4d8c9964bdcce22fb6d6e"
+        },
+        "delivery": {
+          "segment_id": "p8",
+          "start": 1567,
+          "end": 1594,
+          "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "a7f8d19151be9347a491f872e82e92adc5b5faa2f36f8f5b5b7e07f76d240934"
+        },
+        "refutation": {
+          "segment_id": "p6",
+          "start": 2290,
+          "end": 2341,
+          "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "da26fac8ce9a0cf097bd2540a071ebaeb5a0abd7eff4d8c9964bdcce22fb6d6e"
+        },
+        "declaration": {
+          "segment_id": "p6",
+          "start": 2290,
+          "end": 2384,
+          "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "da26fac8ce9a0cf097bd2540a071ebaeb5a0abd7eff4d8c9964bdcce22fb6d6e"
+        },
+        "implementation": {
+          "segment_id": "p19",
+          "start": 1353,
+          "end": 1462,
+          "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "e6ec2950003f741ce952bffb2c61f5d5ce0bc33f9a8b4106452d937cc6c37a7f"
+        }
+      },
+      "semantic_review": {
+        "index": 2,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "confirmed",
+        "refutation": "explicit_permission",
+        "reason": "p6 expressly permits user-name knowledge; p8 and p19 document actual user/model-name substitutions and evaluated knowledge arms. This is specific permission for the claimed information, independent of its measured effect on success."
+      }
+    },
+    {
+      "id": "agentdojo_claim_4",
+      "source_group": "paper_text",
+      "description": "This establishes an outcome-informed evaluation selector, not an undisclosed raw-query input.",
+      "scope": {
+        "paper_version": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+        "experiment_arm": "The supplied paper describes task-informed injection placement, identity-conditioned payloads, and per-case adaptive selection. It establishes no explicit applicable exclusion violated by these procedures. Access to a user-task object does not establish delivery of its full prompt to a payload LLM.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "adaptive Max attack selector",
+        "phase": "evaluation and selection",
+        "source": "effectiveness of candidate attacks on each task",
+        "representation": "per-case best-attack choice",
+        "operation": "select the most effective candidate"
+      },
+      "verdict": "insufficient_evidence",
+      "reason": "refutation_not_supported_by_scoped_evidence",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "adaptive Max attack selector",
+            "phase": "evaluation and selection",
+            "source": "effectiveness of candidate attacks on each task",
+            "representation": "per-case best-attack choice",
+            "operation": "select the most effective candidate"
+          },
+          "permission": "allow",
+          "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 3379, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 3273, \"text_view\": \"reading_order\", \"text_view_sha256\": \"da26fac8ce9a0cf097bd2540a071ebaeb5a0abd7eff4d8c9964bdcce22fb6d6e\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "adaptive Max attack selector",
+            "phase": "evaluation and selection",
+            "source": "effectiveness of candidate attacks on each task",
+            "representation": "per-case best-attack choice",
+            "operation": "select the most effective candidate"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 2087, \"match\": \"normalized_exact\", \"segment_id\": \"p8\", \"start\": 1996, \"text_view\": \"reading_order\", \"text_view_sha256\": \"a7f8d19151be9347a491f872e82e92adc5b5faa2f36f8f5b5b7e07f76d240934\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Per-case outcome selection: Max uses task-specific effectiveness to select among four payloads.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "other",
+        "policy_application": {
+          "policy_kind": "protocol_requirement",
+          "status": "applicable",
+          "reason": "The reported adaptive metric explicitly permits per-case selection over the collection.",
+          "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 3271, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 3187, \"text_view\": \"reading_order\", \"text_view_sha256\": \"da26fac8ce9a0cf097bd2540a071ebaeb5a0abd7eff4d8c9964bdcce22fb6d6e\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "same_evaluated_instance",
+          "reason": "Outcome information informs the Max selector; no delivery to a payload LLM is established.",
+          "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 2087, \"match\": \"normalized_exact\", \"segment_id\": \"p8\", \"start\": 2026, \"text_view\": \"reading_order\", \"text_view_sha256\": \"a7f8d19151be9347a491f872e82e92adc5b5faa2f36f8f5b5b7e07f76d240934\"}"
+        },
+        "refutation": {
+          "basis": "explicit_permission",
+          "reason": "The stronger selection procedure is part of the declared metric.",
+          "reference": "{\"document_sha256\": \"26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913\", \"end\": 3379, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 3318, \"text_view\": \"reading_order\", \"text_view_sha256\": \"da26fac8ce9a0cf097bd2540a071ebaeb5a0abd7eff4d8c9964bdcce22fb6d6e\"}"
+        }
+      },
+      "claim_result": "unresolved",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p6",
+          "start": 3187,
+          "end": 3271,
+          "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "da26fac8ce9a0cf097bd2540a071ebaeb5a0abd7eff4d8c9964bdcce22fb6d6e"
+        },
+        "delivery": {
+          "segment_id": "p8",
+          "start": 2026,
+          "end": 2087,
+          "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "a7f8d19151be9347a491f872e82e92adc5b5faa2f36f8f5b5b7e07f76d240934"
+        },
+        "refutation": {
+          "segment_id": "p6",
+          "start": 3318,
+          "end": 3379,
+          "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "da26fac8ce9a0cf097bd2540a071ebaeb5a0abd7eff4d8c9964bdcce22fb6d6e"
+        },
+        "declaration": {
+          "segment_id": "p6",
+          "start": 3273,
+          "end": 3379,
+          "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "da26fac8ce9a0cf097bd2540a071ebaeb5a0abd7eff4d8c9964bdcce22fb6d6e"
+        },
+        "implementation": {
+          "segment_id": "p8",
+          "start": 1996,
+          "end": 2087,
+          "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "a7f8d19151be9347a491f872e82e92adc5b5faa2f36f8f5b5b7e07f76d240934"
+        }
+      },
+      "semantic_review": {
+        "index": 3,
+        "supported": true,
+        "policy_kind": "protocol_requirement",
+        "policy_application": "applicable",
+        "delivery": "confirmed",
+        "refutation": "explicit_permission",
+        "reason": "p6 and p8 explicitly define outcome-based per-case Max selection, supporting receipt at the claimed evaluation selector. They do not establish online attacker feedback or payload-generator receipt; the declared metric specifically permits this selection."
+      }
+    }
+  ],
+  "document_sha256": "26a3f0426ee1d533e4dd9f62d1343a7a1d231fe718cfaf3a362cc7de829ae913",
+  "schema_version": 3,
+  "applicability": "in_scope",
+  "scope": "The supplied paper describes task-informed injection placement, identity-conditioned payloads, and per-case adaptive selection. It establishes no explicit applicable exclusion violated by these procedures. Access to a user-task object does not establish delivery of its full prompt to a payload LLM.",
+  "review_status": "model_reviewed_not_human_verified",
+  "evidence_scope": "listed_claims_document_only",
+  "notes": [
+    "Only supplied paper text and embedded examples were available; no repository code, saved requests, or runtime traces were supplied.",
+    "No explicit applicable attacker-knowledge exclusion was identified in the supplied text, so no prohibited information flow is established.",
+    "Full-query consumption and additional task information reaching payload generators remain unanswered.",
+    "The actual Max outcome-consumption implementation is not supplied; its documented evaluation procedure does not prove online adaptation.",
+    "No applicable knowledge-budget violation is established. Successful victim security violations alone would not establish one."
+  ],
+  "unresolved_questions": [
+    "Do evaluated attack implementations read the current user task's PROMPT beyond using its ID for endpoint selection?",
+    "Does any payload-generating LLM receive user-query text or derived task information beyond the documented template substitutions?",
+    "How are per-case outcomes obtained and consumed by Max in the actual evaluation implementation?"
+  ],
+  "verdict": "insufficient_evidence",
+  "reason": "unresolved_checks",
+  "coverage_complete": false,
+  "claim_result_counts": {
+    "refuted": 2,
+    "unresolved": 2
+  },
+  "input_mode": "document_only",
+  "prompt_sha256": "dd80afd03660a2128242d06873b82a37c4c1ac043952e83a8a380e71835af55e",
+  "duration_seconds": 83.301,
+  "cohort": "previously_suspected_control",
+  "expected": null,
+  "expected_basis": "pending_independent_adjudication",
+  "comparison_note": "A suspected false positive is not assumed clean; resolve against source evidence.",
+  "matches_gold": null,
+  "previous_verdict": "insufficient_evidence",
+  "model_output_hashes": {
+    "extraction.json": "13f6a13fa746871e0b96105fb7632e95883da9e5e7d5665bbf41f8bc2ce92ce6",
+    "review.json": "517be2ebffed34098fed8cdeefcdb6cd9b6758b882c99cb8d4ed0d34e034335e"
+  }
+}
+```
+
+### 18. ASB information\-budget audit
+
+论文 ID：asb  
+运行 / 判定：证据不足
+
+#### 测试过程
+
+| 步骤 | 状态 | 记录 |
+| --- | --- | --- |
+| ingestion | 已完成 | \{"stage": "ingestion", "status": "completed", "segments": 36, "characters": 187606, "coverage": \{"complete": true, "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"\}, "source\_links": \["https://arxiv\.org/abs/", "https://artificialanalysis\.ai/", "https://www\.anthropic\.com/news/", "https://arxiv\.org/abs/2211\.14719", "https://www", "https://rapidapi\.com/hub", "https://www\.alignmentforum\.org/posts/pNcFYZnPdXyL2RfgA/", "https://aclanthology\.org/2024", "https://aclanthology\.org/2025\.coling\-main\.37/", "https://arxiv\.org/abs/2307", "https://learnprompting\.org/docs/", "https://learnprompting\.org/docs/prompt\_", "https://www\.usenix\.org/conference/usenixsecurity24/", "https://arxiv\.org/abs/2311\.10813", "https://arxiv\.org/abs/2403\.16971", "https://chatgpt\.com/gpts", "https://openai\.com/index/", "https://owasp\.org/www\-", "https://arxiv\.org/abs/2305\.15334", "https://arxiv", "https://openreview\.net/forum?id=dHng2O0Jjr", "https://research\.nccgroup\.com/2022/", "https://arxiv\.org/abs/2409\.07429", "https://simonwillison\.net/", "https://simonwillison", "https://arxiv\.org/abs/2406\.14598", "https://arxiv\.org/abs/2502\.14662", "https://arxiv\.org/abs/2402", "https://aclanthology\.org/2024\.findings\-acl\.624", "https://openreview\.net/forum?id=8FgdMHbW27", "https://python\.langchain\.com/docs/integrations/vectorstores/", "https://platform\.openai\.com/docs/api\-reference/chat/create", "https://github\.com/agiresearch/ASB/blob/main/aios/llm\_core/llm\_", "https://github\.com/agiresearch/ASB/blob/main/pyopenagi/agents/react\_", "https://github\.com/agiresearch/ASB/blob/main/data/all\_normal\_tools", "https://github\.com/agiresearch/ASB/blob/main/data/all\_attack\_tools", "https://github\.com/agiresearch/ASB/blob/main/pyopenagi/tools/"\], "sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9"\} |
+| extraction | 已完成 | \{"stage": "extraction", "status": "completed", "applicability": "in\_scope", "flow\_count": 3\} |
+| semantic\_review | 已完成 | \{"stage": "semantic\_review", "status": "completed", "applicability": "in\_scope"\} |
+| citation\_validation\_and\_decision | 已完成 | \{"stage": "citation\_validation\_and\_decision", "status": "completed", "verdict": "insufficient\_evidence", "reason": "unresolved\_checks"\} |
+| decision\_replay | 已完成 | \{"stage": "decision\_replay", "status": "completed", "inference\_calls": 0, "same\_pdf\_bytes": true, "same\_primary\_model\_input": true, "additional\_reading\_order\_view": true, "previous\_verdict": "insufficient\_evidence", "verdict": "insufficient\_evidence"\} |
+
+#### 证据
+
+```json
+[
+  {
+    "id": "asb_claim_1",
+    "source_group": "paper_text",
+    "description": "Task text reaches the trigger generator according to the paper procedure. Its exact evaluation-instance relationship remains unknown.",
+    "scope": {
+      "paper_version": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+      "experiment_arm": "The supplied paper describes IPI and related attack arms. No prohibited attacker information flow is established. Trigger generation receives task text, but the tasks' relationship to evaluation instances remains unresolved; user-prompt access is explicitly permitted in the backdoor threat model.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "attacker's trigger-generation LLM",
+      "phase": "PoT trigger construction",
+      "source": "attacker-supplied task collection",
+      "representation": "task query text in a trigger-generation prompt",
+      "operation": "condition phrase generation on supplied tasks",
+      "query_form": "full_query"
+    },
+    "verdict": "consistent_within_scope",
+    "reason": "claim_refuted_explicit_permission",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "attacker's trigger-generation LLM",
+          "phase": "PoT trigger construction",
+          "source": "attacker-supplied task collection",
+          "representation": "task query text in a trigger-generation prompt",
+          "operation": "condition phrase generation on supplied tasks",
+          "query_form": "full_query"
+        },
+        "permission": "allow",
+        "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 2818, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2752, \"text_view\": \"reading_order\", \"text_view_sha256\": \"86c596b4359ff24b6cc85d02b33fb6d105a51ced6b281b0f4f35b04ed6e2ee54\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "attacker's trigger-generation LLM",
+          "phase": "PoT trigger construction",
+          "source": "attacker-supplied task collection",
+          "representation": "task query text in a trigger-generation prompt",
+          "operation": "condition phrase generation on supplied tasks",
+          "query_form": "full_query"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 801, \"match\": \"normalized_exact\", \"segment_id\": \"p28\", \"start\": 718, \"text_view\": \"reading_order\", \"text_view_sha256\": \"87ccfb501f0147cebaa144a5ffafdb568fe0f010ed74f920e9f6611ed1f3745f\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Trigger-generation task access: the attacker supplies task queries to GPT-4o when constructing a phrase trigger.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "The explicit user-prompt permission concerns the backdoor attacker, matching this construction arm.",
+        "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 2691, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2625, \"text_view\": \"reading_order\", \"text_view_sha256\": \"86c596b4359ff24b6cc85d02b33fb6d105a51ced6b281b0f4f35b04ed6e2ee54\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "unknown",
+        "reason": "The paper supplies the task-conditioned construction prompt, but does not identify its tasks as evaluation queries.",
+        "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 4352, \"match\": \"normalized_exact\", \"segment_id\": \"p7\", \"start\": 4283, \"text_view\": \"reading_order\", \"text_view_sha256\": \"a32880084dbd23fa1605220e0e63405e0590bd6a4f17f7de940f506dc7d60287\"}"
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reason": "Prompt access is explicitly permitted for the backdoor attacker; this access alone is not an inconsistency.",
+        "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 2818, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2752, \"text_view\": \"reading_order\", \"text_view_sha256\": \"86c596b4359ff24b6cc85d02b33fb6d105a51ced6b281b0f4f35b04ed6e2ee54\"}"
+      }
+    },
+    "claim_result": "refuted",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p4",
+        "start": 2625,
+        "end": 2691,
+        "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "86c596b4359ff24b6cc85d02b33fb6d105a51ced6b281b0f4f35b04ed6e2ee54"
+      },
+      "delivery": {
+        "segment_id": "p7",
+        "start": 4283,
+        "end": 4352,
+        "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "a32880084dbd23fa1605220e0e63405e0590bd6a4f17f7de940f506dc7d60287"
+      },
+      "refutation": {
+        "segment_id": "p4",
+        "start": 2752,
+        "end": 2818,
+        "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "86c596b4359ff24b6cc85d02b33fb6d105a51ced6b281b0f4f35b04ed6e2ee54"
+      },
+      "declaration": {
+        "segment_id": "p4",
+        "start": 2752,
+        "end": 2818,
+        "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "86c596b4359ff24b6cc85d02b33fb6d105a51ced6b281b0f4f35b04ed6e2ee54"
+      },
+      "implementation": {
+        "segment_id": "p28",
+        "start": 718,
+        "end": 801,
+        "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "87ccfb501f0147cebaa144a5ffafdb568fe0f010ed74f920e9f6611ed1f3745f"
+      }
+    },
+    "semantic_review": {
+      "index": 0,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "confirmed",
+      "refutation": "explicit_permission",
+      "reason": "p7 and p28 establish task text reaching the attacker's phrase generator. p4 explicitly permits user-prompt access for this backdoor arm. Whether generation tasks include evaluation queries remains unresolved; no prohibited access or causal performance effect is established."
+    }
+  },
+  {
+    "id": "asb_claim_2",
+    "source_group": "paper_text",
+    "description": "This separation does not establish which tasks were supplied to the separate trigger-generation prompt.",
+    "scope": {
+      "paper_version": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+      "experiment_arm": "The supplied paper describes IPI and related attack arms. No prohibited attacker information flow is established. Trigger generation receives task text, but the tasks' relationship to evaluation instances remains unresolved; user-prompt access is explicitly permitted in the backdoor threat model.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "PoT demonstration constructor",
+      "phase": "backdoor demonstration construction",
+      "source": "selected demonstrative tasks",
+      "representation": "task-and-plan in-context demonstrations",
+      "operation": "construct poisoned demonstrations",
+      "query_form": "full_query"
+    },
+    "verdict": "insufficient_evidence",
+    "reason": "refutation_not_supported_by_scoped_evidence",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "PoT demonstration constructor",
+          "phase": "backdoor demonstration construction",
+          "source": "selected demonstrative tasks",
+          "representation": "task-and-plan in-context demonstrations",
+          "operation": "construct poisoned demonstrations",
+          "query_form": "full_query"
+        },
+        "permission": "allow",
+        "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 2094, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2017, \"text_view\": \"reading_order\", \"text_view_sha256\": \"86c596b4359ff24b6cc85d02b33fb6d105a51ced6b281b0f4f35b04ed6e2ee54\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "PoT demonstration constructor",
+          "phase": "backdoor demonstration construction",
+          "source": "selected demonstrative tasks",
+          "representation": "task-and-plan in-context demonstrations",
+          "operation": "construct poisoned demonstrations",
+          "query_form": "full_query"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 1572, \"match\": \"normalized_exact\", \"segment_id\": \"p26\", \"start\": 1494, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f93e648e2a1c3cb8106407d343a946a9f27b5bbcf0f1ce2b21b584f0d98342f2\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "PoT demonstration overlap control: demonstration tasks are distinct from the selected testing tasks.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "The PoT arm explicitly permits attacker-created system-prompt demonstrations.",
+        "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 2094, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2017, \"text_view\": \"reading_order\", \"text_view_sha256\": \"86c596b4359ff24b6cc85d02b33fb6d105a51ced6b281b0f4f35b04ed6e2ee54\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "different_instance",
+        "reason": "The paper affirmatively separates demonstration tasks from testing tasks.",
+        "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 1678, \"match\": \"normalized_exact\", \"segment_id\": \"p26\", \"start\": 1583, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f93e648e2a1c3cb8106407d343a946a9f27b5bbcf0f1ce2b21b584f0d98342f2\"}"
+      },
+      "refutation": {
+        "basis": "different_instance",
+        "reason": "This counters a suspicion that the selected demonstrations contain the identical testing tasks.",
+        "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 1678, \"match\": \"normalized_exact\", \"segment_id\": \"p26\", \"start\": 1633, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f93e648e2a1c3cb8106407d343a946a9f27b5bbcf0f1ce2b21b584f0d98342f2\"}"
+      }
+    },
+    "claim_result": "unresolved",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p4",
+        "start": 2017,
+        "end": 2094,
+        "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "86c596b4359ff24b6cc85d02b33fb6d105a51ced6b281b0f4f35b04ed6e2ee54"
+      },
+      "delivery": {
+        "segment_id": "p26",
+        "start": 1583,
+        "end": 1678,
+        "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "f93e648e2a1c3cb8106407d343a946a9f27b5bbcf0f1ce2b21b584f0d98342f2"
+      },
+      "refutation": {
+        "segment_id": "p26",
+        "start": 1633,
+        "end": 1678,
+        "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "f93e648e2a1c3cb8106407d343a946a9f27b5bbcf0f1ce2b21b584f0d98342f2"
+      },
+      "declaration": {
+        "segment_id": "p4",
+        "start": 2017,
+        "end": 2094,
+        "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "86c596b4359ff24b6cc85d02b33fb6d105a51ced6b281b0f4f35b04ed6e2ee54"
+      },
+      "implementation": {
+        "segment_id": "p26",
+        "start": 1494,
+        "end": 1572,
+        "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "f93e648e2a1c3cb8106407d343a946a9f27b5bbcf0f1ce2b21b584f0d98342f2"
+      }
+    },
+    "semantic_review": {
+      "index": 1,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "confirmed",
+      "refutation": "different_instance",
+      "reason": "p4 permits attacker-crafted system prompts, and p26 confirms ICL demonstrations with tasks distinct from the selected testing tasks. This affirmatively refutes identical demonstration/testing instances, but does not resolve the separate trigger-generator inputs."
+    }
+  },
+  {
+    "id": "asb_claim_3",
+    "source_group": "paper_text",
+    "description": "Poisoned history storage does not itself demonstrate white-box knowledge or access to a future target query.",
+    "scope": {
+      "paper_version": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+      "experiment_arm": "The supplied paper describes IPI and related attack arms. No prohibited attacker information flow is established. Trigger generation receives task text, but the tasks' relationship to evaluation instances remains unresolved; user-prompt access is explicitly permitted in the backdoor threat model.",
+      "artifact_revision": "supplied document only; no execution artifact",
+      "configuration": "v3 typed policy, applicability and delivery review"
+    },
+    "target": {
+      "role": "memory-poisoning attacker",
+      "phase": "poison construction",
+      "source": "DPI-compromised agent execution",
+      "representation": "task, generated plan and tool information",
+      "operation": "induce agent-mediated history storage"
+    },
+    "verdict": "consistent_within_scope",
+    "reason": "claim_refuted_explicit_permission",
+    "matching_rules": [
+      {
+        "edge": {
+          "role": "memory-poisoning attacker",
+          "phase": "poison construction",
+          "source": "DPI-compromised agent execution",
+          "representation": "task, generated plan and tool information",
+          "operation": "induce agent-mediated history storage"
+        },
+        "permission": "allow",
+        "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 1803, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 1702, \"text_view\": \"reading_order\", \"text_view_sha256\": \"d166631a10373419cede2894c0505f2a2067d21c7d2ae1a248d89a3adbc39771\"}"
+      }
+    ],
+    "matching_observations": [
+      {
+        "edge": {
+          "role": "memory-poisoning attacker",
+          "phase": "poison construction",
+          "source": "DPI-compromised agent execution",
+          "representation": "task, generated plan and tool information",
+          "operation": "induce agent-mediated history storage"
+        },
+        "status": "present",
+        "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 688, \"match\": \"normalized_exact\", \"segment_id\": \"p26\", \"start\": 599, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f93e648e2a1c3cb8106407d343a946a9f27b5bbcf0f1ce2b21b584f0d98342f2\"}"
+      }
+    ],
+    "other_observation_count": 0,
+    "validation_mode": "scope_review_v3",
+    "claim": "Memory-poisoning boundary: poisoned execution history enters memory through DPI rather than a described white-box database modification.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "runtime_trace",
+      "policy_application": {
+        "policy_kind": "attacker_knowledge_constraint",
+        "status": "applicable",
+        "reason": "The black-box restriction applies to the memory-poisoning attacker; indirect poisoning is specifically permitted.",
+        "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 3324, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 3260, \"text_view\": \"reading_order\", \"text_view_sha256\": \"86c596b4359ff24b6cc85d02b33fb6d105a51ced6b281b0f4f35b04ed6e2ee54\"}"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "unknown",
+        "reason": "The described path delivers poisoned plans into memory through agent history storage. It does not establish attacker access to internal database structure.",
+        "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 3928, \"match\": \"normalized_exact\", \"segment_id\": \"p18\", \"start\": 3843, \"text_view\": \"reading_order\", \"text_view_sha256\": \"98da4b76535c3c1f682bb1642e4a153a8373637a9d66fc55414729f45a687035\"}"
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reason": "The described indirect write mechanism is specifically allowed despite the black-box restriction.",
+        "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 1803, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 1745, \"text_view\": \"reading_order\", \"text_view_sha256\": \"d166631a10373419cede2894c0505f2a2067d21c7d2ae1a248d89a3adbc39771\"}"
+      }
+    },
+    "claim_result": "refuted",
+    "citation_errors": [],
+    "locators": {
+      "policy_scope": {
+        "segment_id": "p4",
+        "start": 3260,
+        "end": 3324,
+        "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "86c596b4359ff24b6cc85d02b33fb6d105a51ced6b281b0f4f35b04ed6e2ee54"
+      },
+      "delivery": {
+        "segment_id": "p18",
+        "start": 3843,
+        "end": 3928,
+        "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "98da4b76535c3c1f682bb1642e4a153a8373637a9d66fc55414729f45a687035"
+      },
+      "refutation": {
+        "segment_id": "p6",
+        "start": 1745,
+        "end": 1803,
+        "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "d166631a10373419cede2894c0505f2a2067d21c7d2ae1a248d89a3adbc39771"
+      },
+      "declaration": {
+        "segment_id": "p6",
+        "start": 1702,
+        "end": 1803,
+        "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "d166631a10373419cede2894c0505f2a2067d21c7d2ae1a248d89a3adbc39771"
+      },
+      "implementation": {
+        "segment_id": "p26",
+        "start": 599,
+        "end": 688,
+        "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+        "match": "normalized_exact",
+        "text_view": "reading_order",
+        "text_view_sha256": "f93e648e2a1c3cb8106407d343a946a9f27b5bbcf0f1ce2b21b584f0d98342f2"
+      }
+    },
+    "semantic_review": {
+      "index": 2,
+      "supported": true,
+      "policy_kind": "attacker_knowledge_constraint",
+      "policy_application": "applicable",
+      "delivery": "confirmed",
+      "refutation": "explicit_permission",
+      "reason": "p6, p18 and p26 describe DPI-induced poisoned plans entering memory through agent history storage, specifically permitted under the black-box contract. p28 identifies stored task, plan and tool information. This supports the described mechanism, without proving all white-box access absent or future evaluation-query access."
+    }
+  }
+]
+```
+
+#### 备注
+
+```json
+[
+  "Evidence consists solely of supplied paper text; no code, saved requests or independent runtime traces were supplied.",
+  "Paper attack examples and simulated tool-success outputs do not independently establish prohibited construction inputs or real-world exfiltration.",
+  "Specific unanswered suspicions remain: trigger-generation tasks versus evaluation tasks, and memory-poisoning source tasks versus subsequent evaluation tasks.",
+  "Only supplied paper procedures and examples support delivery; no code or independent runtime records were supplied.",
+  "Construction evidence does not establish causal behavioral impact. Simulated tool outputs do not establish real-world exfiltration, and successful attacks do not themselves violate attacker-knowledge assumptions."
+]
+```
+
+#### 完整论文记录 JSON
+
+```json
+{
+  "id": "asb",
+  "title": "ASB information-budget audit",
+  "source": "https://proceedings.iclr.cc/paper_files/paper/2025/file/5750f91d8fb9d5c02bd8ad2c3b44456b-Paper-Conference.pdf",
+  "status": "completed",
+  "has_confirmed_inconsistency": false,
+  "stages": [
+    {
+      "stage": "ingestion",
+      "status": "completed",
+      "segments": 36,
+      "characters": 187606,
+      "coverage": {
+        "complete": true,
+        "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+      },
+      "source_links": [
+        "https://arxiv.org/abs/",
+        "https://artificialanalysis.ai/",
+        "https://www.anthropic.com/news/",
+        "https://arxiv.org/abs/2211.14719",
+        "https://www",
+        "https://rapidapi.com/hub",
+        "https://www.alignmentforum.org/posts/pNcFYZnPdXyL2RfgA/",
+        "https://aclanthology.org/2024",
+        "https://aclanthology.org/2025.coling-main.37/",
+        "https://arxiv.org/abs/2307",
+        "https://learnprompting.org/docs/",
+        "https://learnprompting.org/docs/prompt_",
+        "https://www.usenix.org/conference/usenixsecurity24/",
+        "https://arxiv.org/abs/2311.10813",
+        "https://arxiv.org/abs/2403.16971",
+        "https://chatgpt.com/gpts",
+        "https://openai.com/index/",
+        "https://owasp.org/www-",
+        "https://arxiv.org/abs/2305.15334",
+        "https://arxiv",
+        "https://openreview.net/forum?id=dHng2O0Jjr",
+        "https://research.nccgroup.com/2022/",
+        "https://arxiv.org/abs/2409.07429",
+        "https://simonwillison.net/",
+        "https://simonwillison",
+        "https://arxiv.org/abs/2406.14598",
+        "https://arxiv.org/abs/2502.14662",
+        "https://arxiv.org/abs/2402",
+        "https://aclanthology.org/2024.findings-acl.624",
+        "https://openreview.net/forum?id=8FgdMHbW27",
+        "https://python.langchain.com/docs/integrations/vectorstores/",
+        "https://platform.openai.com/docs/api-reference/chat/create",
+        "https://github.com/agiresearch/ASB/blob/main/aios/llm_core/llm_",
+        "https://github.com/agiresearch/ASB/blob/main/pyopenagi/agents/react_",
+        "https://github.com/agiresearch/ASB/blob/main/data/all_normal_tools",
+        "https://github.com/agiresearch/ASB/blob/main/data/all_attack_tools",
+        "https://github.com/agiresearch/ASB/blob/main/pyopenagi/tools/"
+      ],
+      "sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9"
+    },
+    {
+      "stage": "extraction",
+      "status": "completed",
+      "applicability": "in_scope",
+      "flow_count": 3
+    },
+    {
+      "stage": "semantic_review",
+      "status": "completed",
+      "applicability": "in_scope"
+    },
+    {
+      "stage": "citation_validation_and_decision",
+      "status": "completed",
+      "verdict": "insufficient_evidence",
+      "reason": "unresolved_checks"
+    },
+    {
+      "stage": "decision_replay",
+      "status": "completed",
+      "inference_calls": 0,
+      "same_pdf_bytes": true,
+      "same_primary_model_input": true,
+      "additional_reading_order_view": true,
+      "previous_verdict": "insufficient_evidence",
+      "verdict": "insufficient_evidence"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "asb_claim_1",
+      "source_group": "paper_text",
+      "description": "Task text reaches the trigger generator according to the paper procedure. Its exact evaluation-instance relationship remains unknown.",
+      "scope": {
+        "paper_version": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+        "experiment_arm": "The supplied paper describes IPI and related attack arms. No prohibited attacker information flow is established. Trigger generation receives task text, but the tasks' relationship to evaluation instances remains unresolved; user-prompt access is explicitly permitted in the backdoor threat model.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "attacker's trigger-generation LLM",
+        "phase": "PoT trigger construction",
+        "source": "attacker-supplied task collection",
+        "representation": "task query text in a trigger-generation prompt",
+        "operation": "condition phrase generation on supplied tasks",
+        "query_form": "full_query"
+      },
+      "verdict": "consistent_within_scope",
+      "reason": "claim_refuted_explicit_permission",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "attacker's trigger-generation LLM",
+            "phase": "PoT trigger construction",
+            "source": "attacker-supplied task collection",
+            "representation": "task query text in a trigger-generation prompt",
+            "operation": "condition phrase generation on supplied tasks",
+            "query_form": "full_query"
+          },
+          "permission": "allow",
+          "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 2818, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2752, \"text_view\": \"reading_order\", \"text_view_sha256\": \"86c596b4359ff24b6cc85d02b33fb6d105a51ced6b281b0f4f35b04ed6e2ee54\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "attacker's trigger-generation LLM",
+            "phase": "PoT trigger construction",
+            "source": "attacker-supplied task collection",
+            "representation": "task query text in a trigger-generation prompt",
+            "operation": "condition phrase generation on supplied tasks",
+            "query_form": "full_query"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 801, \"match\": \"normalized_exact\", \"segment_id\": \"p28\", \"start\": 718, \"text_view\": \"reading_order\", \"text_view_sha256\": \"87ccfb501f0147cebaa144a5ffafdb568fe0f010ed74f920e9f6611ed1f3745f\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Trigger-generation task access: the attacker supplies task queries to GPT-4o when constructing a phrase trigger.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "exact_query",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "The explicit user-prompt permission concerns the backdoor attacker, matching this construction arm.",
+          "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 2691, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2625, \"text_view\": \"reading_order\", \"text_view_sha256\": \"86c596b4359ff24b6cc85d02b33fb6d105a51ced6b281b0f4f35b04ed6e2ee54\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "unknown",
+          "reason": "The paper supplies the task-conditioned construction prompt, but does not identify its tasks as evaluation queries.",
+          "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 4352, \"match\": \"normalized_exact\", \"segment_id\": \"p7\", \"start\": 4283, \"text_view\": \"reading_order\", \"text_view_sha256\": \"a32880084dbd23fa1605220e0e63405e0590bd6a4f17f7de940f506dc7d60287\"}"
+        },
+        "refutation": {
+          "basis": "explicit_permission",
+          "reason": "Prompt access is explicitly permitted for the backdoor attacker; this access alone is not an inconsistency.",
+          "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 2818, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2752, \"text_view\": \"reading_order\", \"text_view_sha256\": \"86c596b4359ff24b6cc85d02b33fb6d105a51ced6b281b0f4f35b04ed6e2ee54\"}"
+        }
+      },
+      "claim_result": "refuted",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p4",
+          "start": 2625,
+          "end": 2691,
+          "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "86c596b4359ff24b6cc85d02b33fb6d105a51ced6b281b0f4f35b04ed6e2ee54"
+        },
+        "delivery": {
+          "segment_id": "p7",
+          "start": 4283,
+          "end": 4352,
+          "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "a32880084dbd23fa1605220e0e63405e0590bd6a4f17f7de940f506dc7d60287"
+        },
+        "refutation": {
+          "segment_id": "p4",
+          "start": 2752,
+          "end": 2818,
+          "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "86c596b4359ff24b6cc85d02b33fb6d105a51ced6b281b0f4f35b04ed6e2ee54"
+        },
+        "declaration": {
+          "segment_id": "p4",
+          "start": 2752,
+          "end": 2818,
+          "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "86c596b4359ff24b6cc85d02b33fb6d105a51ced6b281b0f4f35b04ed6e2ee54"
+        },
+        "implementation": {
+          "segment_id": "p28",
+          "start": 718,
+          "end": 801,
+          "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "87ccfb501f0147cebaa144a5ffafdb568fe0f010ed74f920e9f6611ed1f3745f"
+        }
+      },
+      "semantic_review": {
+        "index": 0,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "confirmed",
+        "refutation": "explicit_permission",
+        "reason": "p7 and p28 establish task text reaching the attacker's phrase generator. p4 explicitly permits user-prompt access for this backdoor arm. Whether generation tasks include evaluation queries remains unresolved; no prohibited access or causal performance effect is established."
+      }
+    },
+    {
+      "id": "asb_claim_2",
+      "source_group": "paper_text",
+      "description": "This separation does not establish which tasks were supplied to the separate trigger-generation prompt.",
+      "scope": {
+        "paper_version": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+        "experiment_arm": "The supplied paper describes IPI and related attack arms. No prohibited attacker information flow is established. Trigger generation receives task text, but the tasks' relationship to evaluation instances remains unresolved; user-prompt access is explicitly permitted in the backdoor threat model.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "PoT demonstration constructor",
+        "phase": "backdoor demonstration construction",
+        "source": "selected demonstrative tasks",
+        "representation": "task-and-plan in-context demonstrations",
+        "operation": "construct poisoned demonstrations",
+        "query_form": "full_query"
+      },
+      "verdict": "insufficient_evidence",
+      "reason": "refutation_not_supported_by_scoped_evidence",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "PoT demonstration constructor",
+            "phase": "backdoor demonstration construction",
+            "source": "selected demonstrative tasks",
+            "representation": "task-and-plan in-context demonstrations",
+            "operation": "construct poisoned demonstrations",
+            "query_form": "full_query"
+          },
+          "permission": "allow",
+          "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 2094, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2017, \"text_view\": \"reading_order\", \"text_view_sha256\": \"86c596b4359ff24b6cc85d02b33fb6d105a51ced6b281b0f4f35b04ed6e2ee54\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "PoT demonstration constructor",
+            "phase": "backdoor demonstration construction",
+            "source": "selected demonstrative tasks",
+            "representation": "task-and-plan in-context demonstrations",
+            "operation": "construct poisoned demonstrations",
+            "query_form": "full_query"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 1572, \"match\": \"normalized_exact\", \"segment_id\": \"p26\", \"start\": 1494, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f93e648e2a1c3cb8106407d343a946a9f27b5bbcf0f1ce2b21b584f0d98342f2\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "PoT demonstration overlap control: demonstration tasks are distinct from the selected testing tasks.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "exact_query",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "The PoT arm explicitly permits attacker-created system-prompt demonstrations.",
+          "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 2094, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 2017, \"text_view\": \"reading_order\", \"text_view_sha256\": \"86c596b4359ff24b6cc85d02b33fb6d105a51ced6b281b0f4f35b04ed6e2ee54\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "different_instance",
+          "reason": "The paper affirmatively separates demonstration tasks from testing tasks.",
+          "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 1678, \"match\": \"normalized_exact\", \"segment_id\": \"p26\", \"start\": 1583, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f93e648e2a1c3cb8106407d343a946a9f27b5bbcf0f1ce2b21b584f0d98342f2\"}"
+        },
+        "refutation": {
+          "basis": "different_instance",
+          "reason": "This counters a suspicion that the selected demonstrations contain the identical testing tasks.",
+          "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 1678, \"match\": \"normalized_exact\", \"segment_id\": \"p26\", \"start\": 1633, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f93e648e2a1c3cb8106407d343a946a9f27b5bbcf0f1ce2b21b584f0d98342f2\"}"
+        }
+      },
+      "claim_result": "unresolved",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p4",
+          "start": 2017,
+          "end": 2094,
+          "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "86c596b4359ff24b6cc85d02b33fb6d105a51ced6b281b0f4f35b04ed6e2ee54"
+        },
+        "delivery": {
+          "segment_id": "p26",
+          "start": 1583,
+          "end": 1678,
+          "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "f93e648e2a1c3cb8106407d343a946a9f27b5bbcf0f1ce2b21b584f0d98342f2"
+        },
+        "refutation": {
+          "segment_id": "p26",
+          "start": 1633,
+          "end": 1678,
+          "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "f93e648e2a1c3cb8106407d343a946a9f27b5bbcf0f1ce2b21b584f0d98342f2"
+        },
+        "declaration": {
+          "segment_id": "p4",
+          "start": 2017,
+          "end": 2094,
+          "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "86c596b4359ff24b6cc85d02b33fb6d105a51ced6b281b0f4f35b04ed6e2ee54"
+        },
+        "implementation": {
+          "segment_id": "p26",
+          "start": 1494,
+          "end": 1572,
+          "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "f93e648e2a1c3cb8106407d343a946a9f27b5bbcf0f1ce2b21b584f0d98342f2"
+        }
+      },
+      "semantic_review": {
+        "index": 1,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "confirmed",
+        "refutation": "different_instance",
+        "reason": "p4 permits attacker-crafted system prompts, and p26 confirms ICL demonstrations with tasks distinct from the selected testing tasks. This affirmatively refutes identical demonstration/testing instances, but does not resolve the separate trigger-generator inputs."
+      }
+    },
+    {
+      "id": "asb_claim_3",
+      "source_group": "paper_text",
+      "description": "Poisoned history storage does not itself demonstrate white-box knowledge or access to a future target query.",
+      "scope": {
+        "paper_version": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+        "experiment_arm": "The supplied paper describes IPI and related attack arms. No prohibited attacker information flow is established. Trigger generation receives task text, but the tasks' relationship to evaluation instances remains unresolved; user-prompt access is explicitly permitted in the backdoor threat model.",
+        "artifact_revision": "supplied document only; no execution artifact",
+        "configuration": "v3 typed policy, applicability and delivery review"
+      },
+      "target": {
+        "role": "memory-poisoning attacker",
+        "phase": "poison construction",
+        "source": "DPI-compromised agent execution",
+        "representation": "task, generated plan and tool information",
+        "operation": "induce agent-mediated history storage"
+      },
+      "verdict": "consistent_within_scope",
+      "reason": "claim_refuted_explicit_permission",
+      "matching_rules": [
+        {
+          "edge": {
+            "role": "memory-poisoning attacker",
+            "phase": "poison construction",
+            "source": "DPI-compromised agent execution",
+            "representation": "task, generated plan and tool information",
+            "operation": "induce agent-mediated history storage"
+          },
+          "permission": "allow",
+          "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 1803, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 1702, \"text_view\": \"reading_order\", \"text_view_sha256\": \"d166631a10373419cede2894c0505f2a2067d21c7d2ae1a248d89a3adbc39771\"}"
+        }
+      ],
+      "matching_observations": [
+        {
+          "edge": {
+            "role": "memory-poisoning attacker",
+            "phase": "poison construction",
+            "source": "DPI-compromised agent execution",
+            "representation": "task, generated plan and tool information",
+            "operation": "induce agent-mediated history storage"
+          },
+          "status": "present",
+          "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 688, \"match\": \"normalized_exact\", \"segment_id\": \"p26\", \"start\": 599, \"text_view\": \"reading_order\", \"text_view_sha256\": \"f93e648e2a1c3cb8106407d343a946a9f27b5bbcf0f1ce2b21b584f0d98342f2\"}"
+        }
+      ],
+      "other_observation_count": 0,
+      "validation_mode": "scope_review_v3",
+      "claim": "Memory-poisoning boundary: poisoned execution history enters memory through DPI rather than a described white-box database modification.",
+      "issue_type": "information_boundary",
+      "assessment": {
+        "information_level": "runtime_trace",
+        "policy_application": {
+          "policy_kind": "attacker_knowledge_constraint",
+          "status": "applicable",
+          "reason": "The black-box restriction applies to the memory-poisoning attacker; indirect poisoning is specifically permitted.",
+          "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 3324, \"match\": \"normalized_exact\", \"segment_id\": \"p4\", \"start\": 3260, \"text_view\": \"reading_order\", \"text_view_sha256\": \"86c596b4359ff24b6cc85d02b33fb6d105a51ced6b281b0f4f35b04ed6e2ee54\"}"
+        },
+        "delivery": {
+          "status": "confirmed",
+          "evidence_kind": "paper_procedure",
+          "task_relation": "unknown",
+          "reason": "The described path delivers poisoned plans into memory through agent history storage. It does not establish attacker access to internal database structure.",
+          "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 3928, \"match\": \"normalized_exact\", \"segment_id\": \"p18\", \"start\": 3843, \"text_view\": \"reading_order\", \"text_view_sha256\": \"98da4b76535c3c1f682bb1642e4a153a8373637a9d66fc55414729f45a687035\"}"
+        },
+        "refutation": {
+          "basis": "explicit_permission",
+          "reason": "The described indirect write mechanism is specifically allowed despite the black-box restriction.",
+          "reference": "{\"document_sha256\": \"e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9\", \"end\": 1803, \"match\": \"normalized_exact\", \"segment_id\": \"p6\", \"start\": 1745, \"text_view\": \"reading_order\", \"text_view_sha256\": \"d166631a10373419cede2894c0505f2a2067d21c7d2ae1a248d89a3adbc39771\"}"
+        }
+      },
+      "claim_result": "refuted",
+      "citation_errors": [],
+      "locators": {
+        "policy_scope": {
+          "segment_id": "p4",
+          "start": 3260,
+          "end": 3324,
+          "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "86c596b4359ff24b6cc85d02b33fb6d105a51ced6b281b0f4f35b04ed6e2ee54"
+        },
+        "delivery": {
+          "segment_id": "p18",
+          "start": 3843,
+          "end": 3928,
+          "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "98da4b76535c3c1f682bb1642e4a153a8373637a9d66fc55414729f45a687035"
+        },
+        "refutation": {
+          "segment_id": "p6",
+          "start": 1745,
+          "end": 1803,
+          "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "d166631a10373419cede2894c0505f2a2067d21c7d2ae1a248d89a3adbc39771"
+        },
+        "declaration": {
+          "segment_id": "p6",
+          "start": 1702,
+          "end": 1803,
+          "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "d166631a10373419cede2894c0505f2a2067d21c7d2ae1a248d89a3adbc39771"
+        },
+        "implementation": {
+          "segment_id": "p26",
+          "start": 599,
+          "end": 688,
+          "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+          "match": "normalized_exact",
+          "text_view": "reading_order",
+          "text_view_sha256": "f93e648e2a1c3cb8106407d343a946a9f27b5bbcf0f1ce2b21b584f0d98342f2"
+        }
+      },
+      "semantic_review": {
+        "index": 2,
+        "supported": true,
+        "policy_kind": "attacker_knowledge_constraint",
+        "policy_application": "applicable",
+        "delivery": "confirmed",
+        "refutation": "explicit_permission",
+        "reason": "p6, p18 and p26 describe DPI-induced poisoned plans entering memory through agent history storage, specifically permitted under the black-box contract. p28 identifies stored task, plan and tool information. This supports the described mechanism, without proving all white-box access absent or future evaluation-query access."
+      }
+    }
+  ],
+  "document_sha256": "e2505f8632bfcb6a64a4390a3170b3ca1dfd3f9916d7c3cf9ba2b89887b3a0c9",
+  "schema_version": 3,
+  "applicability": "in_scope",
+  "scope": "The supplied paper describes IPI and related attack arms. No prohibited attacker information flow is established. Trigger generation receives task text, but the tasks' relationship to evaluation instances remains unresolved; user-prompt access is explicitly permitted in the backdoor threat model.",
+  "review_status": "model_reviewed_not_human_verified",
+  "evidence_scope": "listed_claims_document_only",
+  "notes": [
+    "Evidence consists solely of supplied paper text; no code, saved requests or independent runtime traces were supplied.",
+    "Paper attack examples and simulated tool-success outputs do not independently establish prohibited construction inputs or real-world exfiltration.",
+    "Specific unanswered suspicions remain: trigger-generation tasks versus evaluation tasks, and memory-poisoning source tasks versus subsequent evaluation tasks.",
+    "Only supplied paper procedures and examples support delivery; no code or independent runtime records were supplied.",
+    "Construction evidence does not establish causal behavioral impact. Simulated tool outputs do not establish real-world exfiltration, and successful attacks do not themselves violate attacker-knowledge assumptions."
+  ],
+  "unresolved_questions": [
+    "Which task queries were supplied to the phrase-trigger generator, and did they include the selected evaluation tasks?",
+    "How were memory-poisoning source tasks selected relative to subsequent evaluation tasks?"
+  ],
+  "verdict": "insufficient_evidence",
+  "reason": "unresolved_checks",
+  "coverage_complete": false,
+  "claim_result_counts": {
+    "refuted": 2,
+    "unresolved": 1
+  },
+  "input_mode": "document_only",
+  "prompt_sha256": "dd80afd03660a2128242d06873b82a37c4c1ac043952e83a8a380e71835af55e",
+  "duration_seconds": 66.99,
+  "cohort": "previously_suspected_control",
+  "expected": null,
+  "expected_basis": "pending_independent_adjudication",
+  "comparison_note": "A suspected false positive is not assumed clean; resolve against source evidence.",
+  "matches_gold": null,
+  "previous_verdict": "insufficient_evidence",
+  "model_output_hashes": {
+    "extraction.json": "4d771aae4825c70a55263ae2520c3c7210699712eab8ce6c357f9688be978dbc",
+    "review.json": "d5af4a76bb6f1ef51138af2371d065fd4eb9ececa3d2b7d54c79ad6a53460da1"
+  }
+}
+```

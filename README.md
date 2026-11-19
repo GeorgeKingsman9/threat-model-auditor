@@ -1,5 +1,10 @@
 # Threat Model Auditor
 
+**当前版本已完成一次源证据重审和真实误报测试。** 原 11 篇的严格范围判定从旧 7／1／3 改为 4 篇确认不一致、1 篇范围内一致、6 篇证据不足；四个新增域内控制另有有限范围反证。
+18 篇 PDF 测试保留所有状态，四篇曾被怀疑误报的工作已实际重测。
+结果、错因和代码改动见 [全部重审结果](docs/SOURCE_REVIEW_RESULTS_ZH.md)、[逐篇 TeX 对照](docs/TEX_ALGORITHM_COMPARISON_ZH.md)、[V3 中文注释](docs/V3_CHANGES_ZH.md)。
+
+
 A small, deterministic checker for consistency between paper-declared information
 access and manually normalized implementation evidence. One final row per paper.
 
@@ -46,8 +51,7 @@ python3 -B benchmark.py --mode scan --prepared-dir outputs/documents --output ou
 每次运行使用一个新目录。**失败、访问受阻、尚未运行的文章仍保留一行**；不会把它们算成“没有不一致”。
 无关论文应为 `not_applicable`（该领域审计不适用），用于测适用性筛选；不能和域内已核实一致的论文混算。
 
-**实际进度和逐篇结果**见 [docs/RESULTS_ZH.md](docs/RESULTS_ZH.md)：旧记录回归已完成；新文档入口已读取 13 份 PDF，
-1 个来源被验证页阻挡，Codex 真正推理链路尚未成功，不能声称已经自动测完 14 篇。
+**最新实际进度**见 [重审结果](docs/SOURCE_REVIEW_RESULTS_ZH.md)：Codex 子进程继承已有系统代理后已完成真实文档测试；17 篇完成、1 篇来源阻挡。早先未运行的记录保留在历史结果页。
 
 ## 快速运行
 
@@ -84,7 +88,7 @@ python3 -B -m unittest discover -s tests -v
 
 ```text
 paper   confirmed_inconsistency   status
-aspi    yes                       有已确认的不一致
+aspi    no                        证据不足
 muzzle  no                        证据不足
 ```
 
@@ -128,7 +132,7 @@ python3 -B audit.py evaluate my_paper \
 
 ## 可复现性和证据边界
 
-随仓库提供的是当前研究者整理的 11 篇论文、15 条内部证据记录及预设标签。
+默认集合是经原始资料重审的 15 篇论文、25 个限定怀疑及分离保存的裁定标签；旧 11 篇集合用 `--legacy` 保留。
 它们用于演示和回归检查，已参与规则设计；标签一致率不能当作未见论文的检测准确率。
 
 核心 `checker.py` 只检查格式、字段匹配和判定规则，不联网。

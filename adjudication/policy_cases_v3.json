@@ -1,0 +1,850 @@
+[
+  {
+    "id": "adaptools_final_black_box_online_task_access",
+    "source_group": "paper_text",
+    "description": "Check whether the final paper establishes a held-out black-box online input flow for the case-specific user task.",
+    "scope": {
+      "paper_version": "AdapTools EMNLP 2026 final §§4.1, 4.3 and 4.5",
+      "experiment_arm": "Third-party black-box online condition",
+      "artifact_revision": "EMNLP 2026 proceedings and archived implementation audit",
+      "configuration": "Held-out online task, separate from offline strategy generation and grey-box MCP access"
+    },
+    "target": {
+      "role": "third-party black-box adversary",
+      "phase": "held-out online prompt construction",
+      "source": "current user task",
+      "representation": "case-specific task details",
+      "operation": "receive as generation input"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "third-party black-box adversary",
+          "phase": "held-out online prompt construction",
+          "source": "current user task",
+          "representation": "case-specific task details",
+          "operation": "receive as generation input"
+        },
+        "permission": "deny",
+        "reference": "§4.1, https://aclanthology.org/2026.emnlp-main.2055.pdf#page=4"
+      }
+    ],
+    "observations": [],
+    "note": "§4.3 and Fig. 2 disclose task-conditioned strategy generation and failure reasoning during library construction (https://aclanthology.org/2026.emnlp-main.2055.pdf#page=5). §4.5 describes the library as prebuilt offline and describes online context inference from MCP interactions (https://aclanthology.org/2026.emnlp-main.2055.pdf#page=6). Available evidence does not bind the strategy-generation inputs to the held-out black-box online condition. See papers/AdapTools/METHODOLOGY_COMPARISON.md:12–17.",
+    "schema_version": 3,
+    "claim": "The held-out online black-box constructor receives the current evaluated user task in breach of the final paper’s black-box knowledge restriction.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "status": "applicable",
+        "reference": "https://aclanthology.org/2026.emnlp-main.2055.pdf#page=4",
+        "reason": "§4.1 excludes current task/state information for the third-party black-box actor. This check is limited to that online arm, rather than the grey-box MCP actor or offline library development.",
+        "policy_kind": "attacker_knowledge_constraint"
+      },
+      "delivery": {
+        "status": "unresolved",
+        "evidence_kind": "possible_path",
+        "task_relation": "unknown",
+        "reference": "",
+        "reason": "§4.3 describes task-conditioned offline development, while §4.5 describes a prebuilt library and online inference. No bound input path ties those development inputs to the current held-out black-box task."
+      },
+      "refutation": {
+        "basis": "none",
+        "reference": "",
+        "reason": "No positive counterevidence refutes this scoped suspicion."
+      }
+    }
+  },
+  {
+    "id": "muzzle_offline_task_spec",
+    "source_group": "paper_text",
+    "description": "Check the disclosure of operator-provided benign task text in offline discovery.",
+    "scope": {
+      "paper_version": "MUZZLE USENIX Security 2026 final §§2.3, 3.1 and 3.3",
+      "experiment_arm": "Offline discovery for the configured benign task",
+      "artifact_revision": "USENIX Security 2026 proceedings, documented input",
+      "configuration": "Operator supplies the benign task in the task specification"
+    },
+    "target": {
+      "role": "offline discovery framework",
+      "phase": "operator task specification intake",
+      "source": "operator-provided benign task",
+      "representation": "benign task text",
+      "operation": "receive as discovery input",
+      "query_form": "full_query"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "offline discovery framework",
+          "phase": "operator task specification intake",
+          "source": "operator-provided benign task",
+          "representation": "benign task text",
+          "operation": "receive as discovery input",
+          "query_form": "full_query"
+        },
+        "permission": "allow",
+        "reference": "§3.1, https://www.usenix.org/system/files/usenixsecurity26-syros.pdf#page=5"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "offline discovery framework",
+          "phase": "operator task specification intake",
+          "source": "operator-provided benign task",
+          "representation": "benign task text",
+          "operation": "receive as discovery input",
+          "query_form": "full_query"
+        },
+        "status": "present",
+        "reference": "§3.3, https://www.usenix.org/system/files/usenixsecurity26-syros.pdf#page=6"
+      }
+    ],
+    "note": "The paper discloses the operator-provided task for offline discovery. This scope is distinct from online observation.",
+    "schema_version": 3,
+    "claim": "Using the operator-supplied benign task in offline discovery exceeds MUZZLE’s declared discovery-stage permissions.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "status": "applicable",
+        "reference": "https://www.usenix.org/system/files/usenixsecurity26-syros.pdf#page=5",
+        "reason": "§§2.3 and 3.1 specifically disclose local discovery and the operator-provided task specification; this is a positive entitlement for the scoped discovery stage.",
+        "policy_kind": "attacker_knowledge_constraint"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "training_instance",
+        "reference": "https://www.usenix.org/system/files/usenixsecurity26-syros.pdf#page=6",
+        "reason": "§3.3 supplies the configured benign task to offline discovery. This concerns the operator-defined development instance, not an arbitrary future victim."
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reference": "https://www.usenix.org/system/files/usenixsecurity26-syros.pdf#page=5",
+        "reason": "The paper specifically authorizes this offline task input. That permission refutes the claim that this disclosed input alone violates the discovery-stage model."
+      }
+    }
+  },
+  {
+    "id": "muzzle_online_task_provenance",
+    "source_group": "paper_text",
+    "description": "Check whether the stated online website privileges establish access to an arbitrary future victim's exact task.",
+    "scope": {
+      "paper_version": "MUZZLE USENIX Security 2026 final §2.3",
+      "experiment_arm": "Online deployment under standard user-level website privileges",
+      "artifact_revision": "USENIX Security 2026 proceedings, online task provenance unestablished",
+      "configuration": "Separate future victim task, as distinct from the operator-specified lab task"
+    },
+    "target": {
+      "role": "standard-privilege online attacker",
+      "phase": "online attack execution",
+      "source": "future victim task",
+      "representation": "victim's exact task text",
+      "operation": "receive as request input",
+      "query_form": "full_query"
+    },
+    "rules": [],
+    "observations": [],
+    "input_provenance_gap": {
+      "description": "The lab operator supplies the full task during offline discovery. The paper leaves open how a standard-privilege website user would obtain an equivalent task for a future online victim.",
+      "reference": "MUZZLE §2.3 (https://www.usenix.org/system/files/usenixsecurity26-syros.pdf#page=4) and §3.3 (https://www.usenix.org/system/files/usenixsecurity26-syros.pdf#page=6)"
+    },
+    "note": "§2.3 states online website privileges without a specific entitlement to an arbitrary future task. The documented offline input is scoped to a task supplied by the lab operator.",
+    "schema_version": 3,
+    "claim": "Standard online website privileges establish how an attacker obtains an arbitrary future victim’s exact task.",
+    "issue_type": "acquisition_gap",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "status": "uncertain",
+        "reference": "https://www.usenix.org/system/files/usenixsecurity26-syros.pdf#page=4",
+        "reason": "§2.3 specifies ordinary online website privileges but does not establish a permission or acquisition mechanism for an arbitrary future task. The offline grant cannot be extended to this different stage.",
+        "policy_kind": "unspecified"
+      },
+      "delivery": {
+        "status": "unresolved",
+        "evidence_kind": "not_applicable",
+        "task_relation": "unknown",
+        "reference": "",
+        "reason": "No future-task acquisition path or corresponding online request boundary was established in the reviewed paper evidence."
+      },
+      "refutation": {
+        "basis": "none",
+        "reference": "",
+        "reason": "No positive counterevidence refutes this scoped suspicion."
+      }
+    }
+  },
+  {
+    "id": "fha_direct_exact_query",
+    "source_group": "paper_text",
+    "description": "Check construction-side access to the exact evaluation query in the paper-described direct single-query FHA experiment.",
+    "scope": {
+      "paper_version": "Breaking MCP with Function Hijacking Attacks, arXiv:2604.20994v2, §§4 and 6.1, Appendix B.1",
+      "experiment_arm": "Direct single-query FHA",
+      "artifact_revision": "Fixed arXiv v2 text only",
+      "configuration": "Same benchmark query is used in the documented direct construction and its evaluation"
+    },
+    "target": {
+      "role": "attacker-side construction procedure",
+      "phase": "offline construction for direct evaluation",
+      "source": "benchmark evaluation case",
+      "representation": "exact evaluated user query",
+      "operation": "receive as construction input",
+      "query_form": "full_query"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "attacker-side construction procedure",
+          "phase": "offline construction for direct evaluation",
+          "source": "benchmark evaluation case",
+          "representation": "exact evaluated user query",
+          "operation": "receive as construction input",
+          "query_form": "full_query"
+        },
+        "permission": "deny",
+        "reference": "§4 Threat model and objectives, https://arxiv.org/html/2604.20994v2#S4"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "attacker-side construction procedure",
+          "phase": "offline construction for direct evaluation",
+          "source": "benchmark evaluation case",
+          "representation": "exact evaluated user query",
+          "operation": "receive as construction input",
+          "query_form": "full_query"
+        },
+        "status": "present",
+        "reference": "§6.1 Direct FHAs and Appendix B.1 documented input, https://arxiv.org/html/2604.20994v2#S6.SS1 and https://arxiv.org/html/2604.20994v2#A2.SS1"
+      }
+    ],
+    "note": "Re-adjudicated after automated document review surfaced the explicit diagnostic qualification. The input flow remains confirmed; the normative scope is unresolved. Do not infer that every fixed-query condition inherits this diagnostic exception.",
+    "schema_version": 3,
+    "claim": "Whether the disclosed single-payload diagnostic violates an applicable no-query budget, rather than merely using a query.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "status": "uncertain",
+        "reference": "https://arxiv.org/pdf/2604.20994v2#page=6; https://arxiv.org/pdf/2604.20994v2#page=7",
+        "reason": "The paper explicitly calls the §6 single-payload experiment an initial diagnostic rather than a deployable attack. Query delivery is confirmed, but the old generic denial does not establish the budget applicable to this diagnostic.",
+        "policy_kind": "attacker_knowledge_constraint"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reference": "https://arxiv.org/html/2604.20994v2#S6.SS1 and https://arxiv.org/html/2604.20994v2#A2.SS1",
+        "reason": "The direct procedure and Appendix B.1 describe the evaluated query as a construction input. This is paper-method evidence, not a captured historical generator request."
+      },
+      "refutation": {
+        "basis": "none",
+        "reference": "",
+        "reason": "No positive counterevidence refutes this scoped suspicion."
+      }
+    }
+  },
+  {
+    "id": "agentcon_same_request_conditioned_optimization",
+    "schema_version": 3,
+    "source_group": "paper_text",
+    "claim": "The original-request benchmark constructs its image using a request-conditioned intermediate plan and loss, despite §3 excluding access to intermediate agent outputs and exact requests.",
+    "issue_type": "information_boundary",
+    "description": "Compare the original same-request construction procedure with the stated input restrictions without claiming literal query delivery to an auxiliary generation LLM.",
+    "scope": {
+      "paper_version": "AGENTCON, ICLR 2026 submission, hash-identified PDF a7b8365a80d58906740ac477248926c6c6a43640, §§3, 4.1, 4.3 and 5.2",
+      "experiment_arm": "Original-request construction and evaluation before user-request-variability transfer",
+      "artifact_revision": "Fixed OpenReview submission URL, read through indexed paper text; no newly downloaded local PDF bytes",
+      "configuration": "Simulated same-request benchmark; distinct from fixed-image evaluation on later request variants"
+    },
+    "target": {
+      "role": "attacker-side construction optimizer",
+      "phase": "offline construction for the original-request benchmark",
+      "source": "original benchmark request and its first-stage intermediate plan",
+      "representation": "query-conditioned construction loss and intermediate plan",
+      "operation": "condition construction updates"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "attacker-side construction optimizer",
+          "phase": "offline construction for the original-request benchmark",
+          "source": "original benchmark request and its first-stage intermediate plan",
+          "representation": "query-conditioned construction loss and intermediate plan",
+          "operation": "condition construction updates"
+        },
+        "permission": "deny",
+        "reference": "https://openreview.net/pdf/a7b8365a80d58906740ac477248926c6c6a43640.pdf#page=4"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "attacker-side construction optimizer",
+          "phase": "offline construction for the original-request benchmark",
+          "source": "original benchmark request and its first-stage intermediate plan",
+          "representation": "query-conditioned construction loss and intermediate plan",
+          "operation": "condition construction updates"
+        },
+        "status": "present",
+        "reference": "https://openreview.net/pdf/a7b8365a80d58906740ac477248926c6c6a43640.pdf#page=6 and https://openreview.net/pdf/a7b8365a80d58906740ac477248926c6c6a43640.pdf#page=9"
+      }
+    ],
+    "assessment": {
+      "information_level": "runtime_trace",
+      "policy_application": {
+        "status": "applicable",
+        "reference": "https://openreview.net/pdf/a7b8365a80d58906740ac477248926c6c6a43640.pdf#page=4",
+        "reason": "§3 excludes exact user requests and intermediate outputs. §4.1 expressly places the proposed attack under §3, and the original-request benchmark is not separately declared an exempt stronger-baseline arm. The later request-variation condition is separate.",
+        "policy_kind": "attacker_knowledge_constraint"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reference": "https://openreview.net/pdf/a7b8365a80d58906740ac477248926c6c6a43640.pdf#page=6 and https://openreview.net/pdf/a7b8365a80d58906740ac477248926c6c6a43640.pdf#page=9",
+        "reason": "§4.3 obtains the request-conditioned plan before construction; Eq. 5 conditions the construction objective on the request and plan, and Implementation Considerations propagates that objective into construction updates. §5.2 later replaces the original request while fixing the image from the preceding successful task. This establishes construction dependence for that original-request arm, not merely evaluator-side scoring."
+      },
+      "refutation": {
+        "basis": "none",
+        "reference": "",
+        "reason": "No positive counterevidence refutes this scoped suspicion."
+      }
+    },
+    "note": "Paper-text inconsistency for the original same-request benchmark. The representation records query-conditioned construction and a first-stage plan; it does not assert raw request text was sent to an auxiliary payload-generation LLM. Historical code execution, production traces and future-query access are not established. In this paper p denotes the request and q denotes HTML.",
+    "input_provenance_gap": {
+      "description": "The procedure establishes original-request benchmark construction. How a marketplace seller obtains a specific future target request or live intermediate plan remains unresolved and is not part of the confirmed same-request finding.",
+      "reference": "https://openreview.net/pdf/a7b8365a80d58906740ac477248926c6c6a43640.pdf#page=4 and https://openreview.net/pdf/a7b8365a80d58906740ac477248926c6c6a43640.pdf#page=6"
+    }
+  },
+  {
+    "id": "retrieval_barrier_declared_query",
+    "source_group": "paper_text",
+    "description": "Check the use of a supplied target query inside the paper's explicitly query-conditioned retrieval evaluation.",
+    "scope": {
+      "paper_version": "Overcoming the Retrieval Barrier, USENIX Security 2026 proceedings, §§2.1 and 4.1",
+      "experiment_arm": "Given-query retrieval benchmark",
+      "artifact_revision": "Fixed USENIX proceedings PDF only",
+      "configuration": "Selected dataset queries supplied as target inputs under the paper's retrieval procedure"
+    },
+    "target": {
+      "role": "attacker-side retrieval construction procedure",
+      "phase": "offline construction for retrieval evaluation",
+      "source": "benchmark-selected target query",
+      "representation": "exact selected query",
+      "operation": "receive as construction input",
+      "query_form": "full_query"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "attacker-side retrieval construction procedure",
+          "phase": "offline construction for retrieval evaluation",
+          "source": "benchmark-selected target query",
+          "representation": "exact selected query",
+          "operation": "receive as construction input",
+          "query_form": "full_query"
+        },
+        "permission": "allow",
+        "reference": "§2.1 Problem Definition 1 states that the query is given (proceedings p. 1569), https://www.usenix.org/system/files/usenixsecurity26-chang-hongyan.pdf#page=4"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "attacker-side retrieval construction procedure",
+          "phase": "offline construction for retrieval evaluation",
+          "source": "benchmark-selected target query",
+          "representation": "exact selected query",
+          "operation": "receive as construction input",
+          "query_form": "full_query"
+        },
+        "status": "present",
+        "reference": "§4.1 benchmark sampling and reported per-target-query evaluation (proceedings pp. 1571–1572), https://www.usenix.org/system/files/usenixsecurity26-chang-hongyan.pdf#page=6"
+      }
+    ],
+    "input_provenance_gap": {
+      "description": "The benchmark assumes the query is given. The query-conditioned result leaves open how an external actor obtains an exact future query in deployment.",
+      "reference": "Overcoming the Retrieval Barrier §2.1 (https://www.usenix.org/system/files/usenixsecurity26-chang-hongyan.pdf#page=4) and §5.2 (https://www.usenix.org/system/files/usenixsecurity26-chang-hongyan.pdf#page=12)"
+    },
+    "note": "The documented black-box restrictions concern the external corpus and model parameters. §5.2 separately reports retrospective FAQ construction and possible agent-side rewrites.",
+    "schema_version": 3,
+    "claim": "Using the supplied target query in the given-query retrieval benchmark violates its black-box access restrictions.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "status": "applicable",
+        "reference": "https://www.usenix.org/system/files/usenixsecurity26-chang-hongyan.pdf#page=4",
+        "reason": "§2.1 explicitly gives the query to the scoped construction procedure. Its black-box limitations concern corpus contents and model parameters, rather than withholding this query.",
+        "policy_kind": "attacker_knowledge_constraint"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reference": "https://www.usenix.org/system/files/usenixsecurity26-chang-hongyan.pdf#page=6",
+        "reason": "§4.1 samples and supplies target queries for the documented query-conditioned evaluation."
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reference": "https://www.usenix.org/system/files/usenixsecurity26-chang-hongyan.pdf#page=4",
+        "reason": "The explicit given-query entitlement refutes the claim that use of that supplied query itself violates the benchmark restrictions. It does not establish future query acquisition at deployment."
+      }
+    }
+  },
+  {
+    "id": "liar_same_benchmark_source_kb",
+    "source_group": "paper_text",
+    "description": "Apply the specific source-training grant to the disclosed source subset; do not infer target access from the benchmark name.",
+    "scope": {
+      "paper_version": "Glue pizza and eat rocks (LIAR), EMNLP 2024 proceedings, ACL Anthology 2024.emnlp-main.96",
+      "experiment_arm": "Table 1, Natural Questions as both source and target database",
+      "artifact_revision": "Final published paper. Implementation and historical run artifacts were outside this evidence review.",
+      "configuration": "Offline construction using the disclosed training subset of the same named benchmark corpus as evaluation"
+    },
+    "target": {
+      "role": "attacker-side training procedure",
+      "phase": "offline construction",
+      "source": "Natural Questions source knowledge-base training subset in the NQ-to-NQ condition",
+      "representation": "documents from the knowledge base",
+      "operation": "read as training input"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "attacker-side training procedure",
+          "phase": "offline construction",
+          "source": "Natural Questions source knowledge-base training subset in the NQ-to-NQ condition",
+          "representation": "documents from the knowledge base",
+          "operation": "read as training input"
+        },
+        "permission": "allow",
+        "reference": "https://aclanthology.org/2024.emnlp-main.96.pdf#page=5"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "attacker-side training procedure",
+          "phase": "offline construction",
+          "source": "Natural Questions source knowledge-base training subset in the NQ-to-NQ condition",
+          "representation": "documents from the knowledge base",
+          "operation": "read as training input"
+        },
+        "status": "present",
+        "reference": "https://aclanthology.org/2024.emnlp-main.96.pdf#page=5 (§5.2) and https://aclanthology.org/2024.emnlp-main.96.pdf#page=7 (Table 1)"
+      }
+    ],
+    "note": "The source-training entitlement refutes this specific access allegation. Target database reads and source/target document overlap remain separate unresolved checks. No implementation or historical-run evidence was reviewed for these identity questions.",
+    "schema_version": 3,
+    "claim": "Reading the explicitly supplied source knowledge-base training subset in LIAR’s same-named-benchmark condition violates the paper’s access restrictions.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "document_content",
+      "policy_application": {
+        "status": "applicable",
+        "reference": "https://aclanthology.org/2024.emnlp-main.96.pdf#page=5",
+        "reason": "§5.2 specifically authorizes a training subset of a source knowledge base. That specific source-stage entitlement must be applied rather than substituting §3.1’s general target-access limitation.",
+        "policy_kind": "attacker_knowledge_constraint"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "training_instance",
+        "reference": "https://aclanthology.org/2024.emnlp-main.96.pdf#page=5 and https://aclanthology.org/2024.emnlp-main.96.pdf#page=7",
+        "reason": "§5.2 discloses source training documents; Table 1 identifies the same benchmark name in some source/target conditions. The latter does not prove document or live-index identity."
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reference": "https://aclanthology.org/2024.emnlp-main.96.pdf#page=5",
+        "reason": "Specific source-training access is an explicit entitlement. This refutes the scoped allegation against the disclosed source subset, without proving target-access or document-disjointness claims."
+      }
+    }
+  },
+  {
+    "id": "liar_target_kb_direct_access",
+    "schema_version": 3,
+    "source_group": "paper_text",
+    "claim": "The construction procedure directly reads the restricted target knowledge base rather than the expressly authorized source training subset.",
+    "issue_type": "information_boundary",
+    "description": "Check direct target access separately from disclosed source access.",
+    "scope": {
+      "paper_version": "Glue pizza and eat rocks (LIAR), EMNLP 2024 proceedings, ACL Anthology 2024.emnlp-main.96",
+      "experiment_arm": "Same-named source/target benchmark condition, with target object identity unestablished",
+      "artifact_revision": "Final published paper. Implementation and historical run artifacts were outside this evidence review.",
+      "configuration": "Distinguish authorized source training subset from the restricted target database or index"
+    },
+    "target": {
+      "role": "attacker-side training procedure",
+      "phase": "offline construction",
+      "source": "restricted target knowledge base or live target index",
+      "representation": "target database documents",
+      "operation": "read directly as construction input"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "attacker-side training procedure",
+          "phase": "offline construction",
+          "source": "restricted target knowledge base or live target index",
+          "representation": "target database documents",
+          "operation": "read directly as construction input"
+        },
+        "permission": "deny",
+        "reference": "https://aclanthology.org/2024.emnlp-main.96.pdf#page=3"
+      }
+    ],
+    "observations": [],
+    "assessment": {
+      "information_level": "document_content",
+      "policy_application": {
+        "status": "applicable",
+        "reference": "https://aclanthology.org/2024.emnlp-main.96.pdf#page=3",
+        "reason": "§3.1 restricts direct access to target knowledge-base contents. §5.2’s narrower grant concerns source training data and does not itself authorize a direct read of the target object.",
+        "policy_kind": "attacker_knowledge_constraint"
+      },
+      "delivery": {
+        "status": "unresolved",
+        "evidence_kind": "not_applicable",
+        "task_relation": "unknown",
+        "reference": "",
+        "reason": "The paper evidence identifies a source subset and benchmark names, but does not bind a construction read to the restricted target database or its live index."
+      },
+      "refutation": {
+        "basis": "none",
+        "reference": "",
+        "reason": "No positive counterevidence refutes this scoped suspicion."
+      }
+    },
+    "note": "No direct target-read observation is inferred from the same benchmark name; no absence is asserted."
+  },
+  {
+    "id": "liar_source_target_document_overlap",
+    "schema_version": 3,
+    "source_group": "paper_text",
+    "claim": "The same benchmark label establishes that LIAR’s construction documents overlap the restricted target documents.",
+    "issue_type": "acquisition_gap",
+    "description": "Keep document-level identity unresolved instead of converting benchmark-name equality into an observed target read.",
+    "scope": {
+      "paper_version": "Glue pizza and eat rocks (LIAR), EMNLP 2024 proceedings, ACL Anthology 2024.emnlp-main.96",
+      "experiment_arm": "Same-named source/target benchmark condition, with target object identity unestablished",
+      "artifact_revision": "Final published paper. Implementation and historical run artifacts were outside this evidence review.",
+      "configuration": "Distinguish authorized source training subset from the restricted target database or index"
+    },
+    "target": {
+      "role": "attacker-side training procedure",
+      "phase": "offline source-data selection",
+      "source": "source and target benchmark corpus objects",
+      "representation": "document-level source/target identity or overlap",
+      "operation": "use target-identical documents in construction"
+    },
+    "rules": [],
+    "observations": [],
+    "assessment": {
+      "information_level": "document_content",
+      "policy_application": {
+        "status": "uncertain",
+        "reference": "https://aclanthology.org/2024.emnlp-main.96.pdf#page=5 and https://aclanthology.org/2024.emnlp-main.96.pdf#page=7",
+        "reason": "Applying the target restriction requires identity and scope evidence for the particular documents. The source entitlement and same-name table do not supply that binding. No independent universal disjointness rule is invented.",
+        "policy_kind": "unspecified"
+      },
+      "delivery": {
+        "status": "unresolved",
+        "evidence_kind": "document_presence",
+        "task_relation": "unknown",
+        "reference": "",
+        "reason": "Table 1 identifies benchmark names, not document-level membership, splitting or live-index identity. No object-level overlap evidence was established."
+      },
+      "refutation": {
+        "basis": "none",
+        "reference": "",
+        "reason": "No positive counterevidence refutes this scoped suspicion."
+      }
+    },
+    "note": "This record does not assert that overlap is absent or intrinsically prohibited. It records the unresolved object-identity premise needed for the target-access allegation."
+  },
+  {
+    "id": "icoa_direct_system_read",
+    "source_group": "paper_text",
+    "description": "Check for a direct read of the system prompt by the ICoA content constructor.",
+    "scope": {
+      "paper_version": "ICoA, EMNLP 2026 proceedings, ACL Anthology 2026.emnlp-main.2035",
+      "experiment_arm": "AgentDojo 0.1.34 benchmark identity framing",
+      "artifact_revision": "Author repository commit e333be8e1c319be3deb6942692aaed8e640a3954",
+      "configuration": "Static source and configuration for the released AgentDojo benchmark setup"
+    },
+    "target": {
+      "role": "attacker-side content constructor",
+      "phase": "content construction",
+      "source": "victim system prompt",
+      "representation": "system prompt content",
+      "operation": "read directly"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "attacker-side content constructor",
+          "phase": "content construction",
+          "source": "victim system prompt",
+          "representation": "system prompt content",
+          "operation": "read directly"
+        },
+        "permission": "deny",
+        "reference": "https://aclanthology.org/2026.emnlp-main.2035.pdf#page=3"
+      }
+    ],
+    "observations": [],
+    "note": "Published threat model and pinned static source. The §4.1 identity requirement and the code constant establish identity matching from a separate source. They provide no direct-read observation for the system-prompt edge. See https://aclanthology.org/2026.emnlp-main.2035.pdf#page=5 and https://github.com/yslmoment/ICoA/blob/e333be8e1c319be3deb6942692aaed8e640a3954/src/agentdojo/attacks/icoa.py#L41-L49.",
+    "schema_version": 3,
+    "claim": "The ICoA content constructor directly reads the victim system prompt to obtain its user identity.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "user_identity",
+      "policy_application": {
+        "status": "applicable",
+        "reference": "https://aclanthology.org/2026.emnlp-main.2035.pdf#page=3",
+        "reason": "§2 denies access to the system prompt for the content constructor. A same-valued benchmark constant is a separate source and is not automatically a direct read of that prompt.",
+        "policy_kind": "attacker_knowledge_constraint"
+      },
+      "delivery": {
+        "status": "unresolved",
+        "evidence_kind": "not_applicable",
+        "task_relation": "unknown",
+        "reference": "",
+        "reason": "The reviewed evidence identifies a matching identity constant but no direct system-prompt read at the construction boundary. Matching values neither establish such a read nor prove its absence."
+      },
+      "refutation": {
+        "basis": "none",
+        "reference": "",
+        "reason": "No positive counterevidence refutes this scoped suspicion."
+      }
+    }
+  },
+  {
+    "id": "icoa_benchmark_identity_source",
+    "source_group": "paper_text",
+    "description": "Determine whether the stated threat model covers the fixed benchmark identity used by the released implementation.",
+    "scope": {
+      "paper_version": "ICoA, EMNLP 2026 proceedings, ACL Anthology 2026.emnlp-main.2035",
+      "experiment_arm": "AgentDojo 0.1.34 benchmark identity framing",
+      "artifact_revision": "Author repository commit e333be8e1c319be3deb6942692aaed8e640a3954",
+      "configuration": "Static source and configuration for the released AgentDojo benchmark setup"
+    },
+    "target": {
+      "role": "attacker-side content constructor",
+      "phase": "content construction",
+      "source": "fixed benchmark code constant",
+      "representation": "benchmark user identity matching the victim system prompt",
+      "operation": "use to format content"
+    },
+    "rules": [],
+    "observations": [
+      {
+        "edge": {
+          "role": "attacker-side content constructor",
+          "phase": "content construction",
+          "source": "fixed benchmark code constant",
+          "representation": "benchmark user identity matching the victim system prompt",
+          "operation": "use to format content"
+        },
+        "status": "present",
+        "reference": "https://github.com/yslmoment/ICoA/blob/e333be8e1c319be3deb6942692aaed8e640a3954/src/agentdojo/attacks/icoa.py#L41-L49 and https://github.com/yslmoment/ICoA/blob/e333be8e1c319be3deb6942692aaed8e640a3954/src/agentdojo/data/system_messages.yaml#L3"
+      }
+    ],
+    "input_provenance_gap": {
+      "description": "The benchmark uses a matching identity constant. The paper leaves open how an attacker obtains that identity under the stated access constraints.",
+      "reference": "ICoA §2 (https://aclanthology.org/2026.emnlp-main.2035.pdf#page=3) and §4.1 (https://aclanthology.org/2026.emnlp-main.2035.pdf#page=5)"
+    },
+    "note": "Published method and pinned static source. §2 restricts system-prompt access and leaves the rules for knowing the same identity through other means unspecified. The two pinned code/configuration constants have the same value.",
+    "schema_version": 3,
+    "claim": "The matching benchmark identity constant is established to be an unauthorized source of user identity under ICoA’s declared access model.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "user_identity",
+      "policy_application": {
+        "status": "uncertain",
+        "reference": "https://aclanthology.org/2026.emnlp-main.2035.pdf#page=3 and https://aclanthology.org/2026.emnlp-main.2035.pdf#page=5",
+        "reason": "§2 excludes system-prompt access and §4.1 requires a matching identity, but the paper does not specify whether this separately sourced benchmark identity is permitted or prohibited.",
+        "policy_kind": "attacker_knowledge_constraint"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "static_bound_path",
+        "task_relation": "same_evaluated_instance",
+        "reference": "https://github.com/yslmoment/ICoA/blob/e333be8e1c319be3deb6942692aaed8e640a3954/src/agentdojo/attacks/icoa.py#L41-L49 and https://github.com/yslmoment/ICoA/blob/e333be8e1c319be3deb6942692aaed8e640a3954/src/agentdojo/data/system_messages.yaml#L3",
+        "reason": "The cited fixed implementation audit binds the construction constant and configured system-prompt identity to matching values. This is static-source evidence for use of the separate constant, not a captured runtime request or a direct prompt read."
+      },
+      "refutation": {
+        "basis": "none",
+        "reference": "",
+        "reason": "No positive counterevidence refutes this scoped suspicion."
+      }
+    }
+  },
+  {
+    "id": "agentdojo_utility_only_information_inference",
+    "schema_version": 3,
+    "source_group": "paper_text",
+    "claim": "The reported task-critical-content overwrite or utility change by itself establishes prohibited private-query delivery to an attack constructor.",
+    "issue_type": "task_integrity",
+    "description": "Exclude the particular inference from task-integrity outcomes to an information-boundary finding; do not declare the paper globally free of information issues.",
+    "scope": {
+      "paper_version": "AgentDojo, NeurIPS 2024 final; arXiv:2406.13352v3 body cross-check, §§3.3–3.4",
+      "experiment_arm": "Logical control for a reported task-utility perturbation, not a reproduced experiment",
+      "artifact_revision": "Fixed conference PDF and arXiv v3; attachment report is not an independently verified run",
+      "configuration": "Assess only whether a reported content-overwrite/utility phenomenon by itself proves unauthorized private-query delivery"
+    },
+    "target": {
+      "role": "attacker-side content constructor",
+      "phase": "content construction",
+      "source": "victim private request",
+      "representation": "exact private user-request text",
+      "operation": "receive as construction input"
+    },
+    "rules": [],
+    "observations": [],
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "status": "uncertain",
+        "reference": "https://arxiv.org/html/2406.13352v3#S3.SS3",
+        "reason": "§3.3 allows varying attacker knowledge and §3.4 defines distinct utility and targeted-success outcomes. Those definitions do not bind a particular prohibited private-query flow for the phenomenon in this control.",
+        "policy_kind": "protocol_requirement"
+      },
+      "delivery": {
+        "status": "unresolved",
+        "evidence_kind": "not_applicable",
+        "task_relation": "unknown",
+        "reference": "",
+        "reason": "No corresponding raw construction request or private-query delivery evidence was supplied for this reported phenomenon."
+      },
+      "refutation": {
+        "basis": "different_issue_type",
+        "reference": "https://arxiv.org/html/2406.13352v3#S3.SS4",
+        "reason": "Content integrity and task utility concern task completion and outcome interpretation. Those outcomes alone do not establish prohibited information receipt; this refutes only the claimed sufficiency of that inference."
+      }
+    },
+    "note": "The attachment’s reported 60.87→72.19 utility figures have not been independently checked against configuration, denominator or raw runs. No content-overwrite defect or effect size is recorded as confirmed. This is an issue-type inference control, not a whole-paper negative.",
+    "unverified_report": {
+      "reference": "user-provided-classification[sha256=6bcd416a830f7be28d13098e53b04a243d0b1a4de6feaad20b7aea9538280ed4]:34–47; SHA-256 6bcd416a830f7be28d13098e53b04a243d0b1a4de6feaad20b7aea9538280ed4",
+      "status": "unverified",
+      "reason": "No matching raw run and denominator were independently established in this review."
+    }
+  },
+  {
+    "id": "asb_forced_tool_only_information_inference",
+    "schema_version": 3,
+    "source_group": "paper_text",
+    "claim": "The reported harness-forced tool execution or ASR change by itself establishes prohibited private-query delivery to an attack constructor.",
+    "issue_type": "experimental_protocol",
+    "description": "Exclude the particular inference from action-attribution/measurement issues to an information-boundary finding.",
+    "scope": {
+      "paper_version": "Agent Security Bench (ASB), ICLR 2025 final, §3.2, Table 4 and Appendix C.2.3/C.2.5",
+      "experiment_arm": "Logical control for reported harness-forced tool execution, not a reproduced experiment",
+      "artifact_revision": "Fixed conference PDF; no corresponding pinned local execution audit or raw run established",
+      "configuration": "Assess only whether a reported forced-action/ASR phenomenon by itself proves unauthorized private-query delivery"
+    },
+    "target": {
+      "role": "attacker-side content constructor",
+      "phase": "content construction",
+      "source": "victim private request",
+      "representation": "exact private user-request text",
+      "operation": "receive as construction input"
+    },
+    "rules": [],
+    "observations": [],
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "status": "uncertain",
+        "reference": "https://proceedings.iclr.cc/paper_files/paper/2025/file/5750f91d8fb9d5c02bd8ad2c3b44456b-Paper-Conference.pdf#page=4 and https://proceedings.iclr.cc/paper_files/paper/2025/file/5750f91d8fb9d5c02bd8ad2c3b44456b-Paper-Conference.pdf#page=8",
+        "reason": "§3.2 defines attack goals/capabilities and Table 4 defines outcome metrics. The report of an externally selected action does not by itself bind an applicable private-query prohibition and delivery edge.",
+        "policy_kind": "protocol_requirement"
+      },
+      "delivery": {
+        "status": "unresolved",
+        "evidence_kind": "not_applicable",
+        "task_relation": "unknown",
+        "reference": "",
+        "reason": "No raw construction input, model action, harness rewrite and scored-event chain was independently established for the reported phenomenon."
+      },
+      "refutation": {
+        "basis": "different_issue_type",
+        "reference": "https://proceedings.iclr.cc/paper_files/paper/2025/file/5750f91d8fb9d5c02bd8ad2c3b44456b-Paper-Conference.pdf#page=26 and https://proceedings.iclr.cc/paper_files/paper/2025/file/5750f91d8fb9d5c02bd8ad2c3b44456b-Paper-Conference.pdf#page=28",
+        "reason": "Appendix C.2.3 defines outcome metrics and C.2.5 distinguishes parsing model output and executing simulated tools. A forced action is an execution-attribution/protocol allegation; it does not itself prove unauthorized information receipt. Only that claimed implication is refuted."
+      }
+    },
+    "note": "The attachment’s reported 73.58%→9.25% ASR figures and the alleged forced-action defect remain unverified. This case does not affirm that ASB is otherwise conformant or that its whole information model is problem-free.",
+    "unverified_report": {
+      "reference": "user-provided-classification[sha256=6bcd416a830f7be28d13098e53b04a243d0b1a4de6feaad20b7aea9538280ed4]:51–65; SHA-256 6bcd416a830f7be28d13098e53b04a243d0b1a4de6feaad20b7aea9538280ed4",
+      "status": "unverified",
+      "reason": "No matching pinned implementation, raw run and denominator were independently established in this review."
+    }
+  },
+  {
+    "id": "fha_fixed_query_robustness",
+    "source_group": "paper_text",
+    "description": "Separate the primary fixed-query robustness configuration from the earlier single-payload diagnostic.",
+    "scope": {
+      "paper_version": "FHA arXiv:2604.20994v2 §§4 and 7, PDF pp. 6 and 14–15",
+      "experiment_arm": "Primary fixed-query multi-payload robustness configuration; separate from §6 single-payload diagnostics",
+      "artifact_revision": "Fixed arXiv v2 text only",
+      "configuration": "A fixed query conditions construction and candidate evaluation; its scope relative to the general no-user-prompt statement remains unsettled"
+    },
+    "target": {
+      "role": "attacker-side construction procedure",
+      "phase": "fixed-query robustness construction",
+      "source": "benchmark evaluation case",
+      "representation": "exact evaluated user query",
+      "operation": "receive as construction input",
+      "query_form": "full_query"
+    },
+    "rules": [],
+    "observations": [
+      {
+        "edge": {
+          "role": "attacker-side construction procedure",
+          "phase": "fixed-query robustness construction",
+          "source": "benchmark evaluation case",
+          "representation": "exact evaluated user query",
+          "operation": "receive as construction input",
+          "query_form": "full_query"
+        },
+        "status": "present",
+        "reference": "https://arxiv.org/pdf/2604.20994v2#page=14; https://arxiv.org/pdf/2604.20994v2#page=15"
+      }
+    ],
+    "note": "Additional question identified by the automatic review and independently checked against the fixed paper. No deployable or historical leakage is asserted.",
+    "schema_version": 3,
+    "claim": "Whether the fixed-query multi-payload robustness construction uses a query forbidden by its own applicable budget.",
+    "issue_type": "information_boundary",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "status": "uncertain",
+        "reference": "https://arxiv.org/pdf/2604.20994v2#page=6; https://arxiv.org/pdf/2604.20994v2#page=14",
+        "reason": "This primary configuration is distinct from the explicit §6 diagnostic exception. A specific applicability argument is still required; do not invent an exception or assume the earlier one applies.",
+        "policy_kind": "attacker_knowledge_constraint"
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "paper_procedure",
+        "task_relation": "same_evaluated_instance",
+        "reference": "https://arxiv.org/pdf/2604.20994v2#page=14; https://arxiv.org/pdf/2604.20994v2#page=15",
+        "reason": "The documented fixed-query construction and optimization contexts are query-conditioned. This is an optimizer boundary, not proof of raw query text delivered to a separate generator LLM."
+      },
+      "refutation": {
+        "basis": "none",
+        "reference": "",
+        "reason": "No positive counterevidence refutes this scoped suspicion."
+      }
+    }
+  }
+]

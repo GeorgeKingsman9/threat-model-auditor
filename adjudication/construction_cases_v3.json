@@ -1,0 +1,506 @@
+[
+  {
+    "schema_version": 3,
+    "id": "aspi_stage1_designer_task",
+    "source_group": "archived",
+    "claim": "The Stage 1 benchmark designer's read of the original task constitutes a prohibited information flow.",
+    "issue_type": "information_boundary",
+    "description": "Check the original task prompt used by the benchmark designer during Stage 1 dataset construction.",
+    "scope": {
+      "paper_version": "ASPI arXiv:2605.17324v1, §§4.1–4.2 and Appendix B.1",
+      "experiment_arm": "Released Stage 1 benchmark construction",
+      "artifact_revision": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+      "configuration": "Official dataset pipeline, original task to ambiguous task"
+    },
+    "target": {
+      "role": "benchmark designer",
+      "phase": "dataset construction",
+      "source": "original benchmark task",
+      "representation": "original task prompt",
+      "operation": "read to construct ambiguous task",
+      "query_form": "full_query"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "benchmark designer",
+          "phase": "dataset construction",
+          "source": "original benchmark task",
+          "representation": "original task prompt",
+          "operation": "read to construct ambiguous task",
+          "query_form": "full_query"
+        },
+        "permission": "allow",
+        "reference": "repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi-paper-v1.html:1196–1257; repository/aspi-matched-context-pilot-v1/papers/ASPI/v2/THREAT_MODEL_REAUDIT_V2.md:8"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "benchmark designer",
+          "phase": "dataset construction",
+          "source": "original benchmark task",
+          "representation": "original task prompt",
+          "operation": "read to construct ambiguous task",
+          "query_form": "full_query"
+        },
+        "status": "present",
+        "reference": "repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi/src/aspi/dataset/pipeline.py:106–121,429–436"
+      }
+    ],
+    "note": "The paper specifies the designer's use in Stage 1. Permission for the external attacker or Stage 2 is a separate question.",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "status": "applicable",
+        "policy_kind": "attacker_knowledge_constraint",
+        "reference": "repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi-paper-v1.html:1196–1257; repository/aspi-matched-context-pilot-v1/papers/ASPI/v2/THREAT_MODEL_REAUDIT_V2.md:8",
+        "reason": "The paper specifies the benchmark designer's original-task input during Stage 1 construction. This permission is scoped to that designer and stage."
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "static_bound_path",
+        "task_relation": "same_evaluated_instance",
+        "reference": "repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi/src/aspi/dataset/pipeline.py:106–121,429–436",
+        "reason": "The original task for the benchmark pair enters Stage 1 to produce its ambiguous variant."
+      },
+      "refutation": {
+        "basis": "explicit_permission",
+        "reference": "repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi-paper-v1.html:1196–1257; repository/aspi-matched-context-pilot-v1/papers/ASPI/v2/THREAT_MODEL_REAUDIT_V2.md:8",
+        "reason": "The scoped original-task read is an explicitly described and permitted benchmark-construction input."
+      }
+    },
+    "behavioral_impact": {
+      "status": "not_tested",
+      "reference": "analysis/threat_model_auditor/adjudication/construction_sources.md:17",
+      "description": "This case concerns the designer's access entitlement. No behavioral effect is required for that question."
+    }
+  },
+  {
+    "schema_version": 3,
+    "id": "aspi_released_stage2_partial_query",
+    "source_group": "archived",
+    "claim": "The released offline Stage 2 task-conditioned reply construction violates its applicable knowledge budget, conditional on §3's external-adversary restriction governing the stronger clarif_user baseline.",
+    "issue_type": "information_boundary",
+    "description": "Compare the task-derived base prompt supplied to the released Stage 2 reply generator with the external attacker’s task access in §3.",
+    "scope": {
+      "paper_version": "ASPI arXiv:2605.17324v1, §3, §4.2, §5.1 and Appendix B",
+      "experiment_arm": "Released Stage 2 dataset authoring for the clarif_user direct-user baseline",
+      "artifact_revision": "Vendored ASPI upstream e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+      "configuration": "Offline Stage 2 partial-task input in the disclosed clarif_user direct-user baseline; applicability of the §3 external-adversary knowledge restriction is unresolved"
+    },
+    "target": {
+      "role": "attacker-side reply generator",
+      "phase": "offline Stage 2 construction",
+      "source": "Stage 1 transformation of the original benchmark task",
+      "representation": "slot-deleted base prompt with retained task-specific wording",
+      "operation": "receive as generation input",
+      "query_form": "partial_query"
+    },
+    "rules": [],
+    "observations": [
+      {
+        "edge": {
+          "role": "attacker-side reply generator",
+          "phase": "offline Stage 2 construction",
+          "source": "Stage 1 transformation of the original benchmark task",
+          "representation": "slot-deleted base prompt with retained task-specific wording",
+          "operation": "receive as generation input",
+          "query_form": "partial_query"
+        },
+        "status": "present",
+        "reference": "repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi/src/aspi/dataset/pipeline.py:125–139; repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi/src/aspi/prompts/dataset.py:165–173; repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi/src/aspi/eval/runner.py:1575–1585,1797–1812"
+      }
+    ],
+    "note": "Task-conditioned partial-query input is confirmed. A mismatch relative to a strict external-adversary budget remains a conditional comparison. The published direct-user baseline and offline construction role require an applicability decision before assigning that external deny rule to this edge. The stronger-baseline disclosure does not itself grant every task field. The actual-question and tool-return branches have separate scope.",
+    "assessment": {
+      "information_level": "partial_query",
+      "policy_application": {
+        "status": "uncertain",
+        "policy_kind": "attacker_knowledge_constraint",
+        "reference": "repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi-paper-v1.html:494–500,1196–1200,1263–1310; analysis/threat_model_auditor/adjudication/construction_sources.md:25",
+        "reason": "Section 3 limits an external adversary and explicitly includes direct-user turns as a stronger baseline. Appendix B discloses offline task-aware construction. Whether the same external knowledge restriction governs this construction role and stronger baseline is unresolved, so no unconditional deny is normalized onto the edge."
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "static_bound_path",
+        "task_relation": "same_evaluated_instance",
+        "reference": "repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi/src/aspi/dataset/pipeline.py:125–139; repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi/src/aspi/prompts/dataset.py:165–173; repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi/src/aspi/eval/runner.py:1575–1585,1797–1812",
+        "reason": "Stage 2 receives the slot-deleted base prompt for the same benchmark pair, and its saved reply is used by the released clarif_user branch."
+      },
+      "refutation": {
+        "basis": "none",
+        "reference": "repository/aspi-matched-context-pilot-v1/papers/ASPI/upstream/aspi-paper-v1.html:494–500; analysis/threat_model_auditor/adjudication/construction_sources.md:33",
+        "reason": "Confirmed task-conditioned authoring remains. Neither the role ambiguity nor the stronger-baseline disclosure supplies an explicit permission that definitively refutes every reading of the claim."
+      }
+    },
+    "behavioral_impact": {
+      "status": "inconclusive",
+      "reference": "repository/aspi-matched-context-pilot-v1/papers/ASPI/v3/CONTROLLED_ABLATION_REPORT.md:7–25",
+      "description": "The archived nine-pair matched pilot shows no FULL-context ASR advantage and has limited precision. This effect result does not determine policy applicability or negate the confirmed partial-task input."
+    }
+  },
+  {
+    "schema_version": 3,
+    "id": "blind_spots_exp1_document_access",
+    "source_group": "archived",
+    "claim": "The archived Exp. 1 generator receives the evaluated target document despite §2's restriction on knowing that document.",
+    "issue_type": "information_boundary",
+    "description": "Compare the target-document access implemented in the archived Exp1 generation condition with §2’s stated knowledge boundary.",
+    "scope": {
+      "paper_version": "Blind Spots in the Guard arXiv:2605.22001v1, §2 and §4.2",
+      "experiment_arm": "Exp1 FULL_CONTEXT generation path in the local public-source archive",
+      "artifact_revision": "Source archive revision 9a21b5a230cbcc92ec66987aa7814c188881108a",
+      "configuration": "Target-document field used with the archived corpus, compared specifically with the §2 boundary"
+    },
+    "target": {
+      "role": "attacker-side generator",
+      "phase": "content generation",
+      "source": "target document for the evaluated case",
+      "representation": "clean target document text",
+      "operation": "receive as generation input"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "attacker-side generator",
+          "phase": "content generation",
+          "source": "target document for the evaluated case",
+          "representation": "clean target document text",
+          "operation": "receive as generation input"
+        },
+        "permission": "deny",
+        "reference": "https://arxiv.org/html/2605.22001v1#S2; https://arxiv.org/html/2605.22001v1#S4.SS2"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "attacker-side generator",
+          "phase": "content generation",
+          "source": "target document for the evaluated case",
+          "representation": "clean target document text",
+          "operation": "receive as generation input"
+        },
+        "status": "present",
+        "reference": "src/attacks/camouflage_generator.py:211–215; experiments/exp1_static_vs_camouflage_single.py:196–219; results/context_ablation_asr_full_llama31/RUN_PROVENANCE.md:3–14; analysis/casebook_2026-11-05/BLIND_SPOTS_CASES_ZH.md:9"
+      }
+    ],
+    "note": "Introduction and §4.2 independently disclose generation with the target document, so the mismatch concerns the §2 formulation. Logs for the original paper’s historical generation run remain unverified. This edge is document content: it says nothing about receipt of the separate user instruction.",
+    "assessment": {
+      "information_level": "document_content",
+      "policy_application": {
+        "status": "applicable",
+        "policy_kind": "attacker_knowledge_constraint",
+        "reference": "https://arxiv.org/html/2605.22001v1#S2; https://arxiv.org/html/2605.22001v1#S4.SS2",
+        "reason": "Section 2 expressly excludes the exact clean target document for this attack. Section 4.2 discloses the richer document-conditioned method without defining a separate stronger document-visible arm."
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "static_bound_path",
+        "task_relation": "same_evaluated_instance",
+        "reference": "src/attacks/camouflage_generator.py:211–215; experiments/exp1_static_vs_camouflage_single.py:196–219; results/context_ablation_asr_full_llama31/RUN_PROVENANCE.md:3–14; analysis/casebook_2026-11-05/BLIND_SPOTS_CASES_ZH.md:9",
+        "reason": "The Exp. 1 driver passes the case's clean_context to the generator. The generator includes its first 2000 characters, covering the full documents in this archived task bank."
+      },
+      "refutation": {
+        "basis": "none",
+        "reference": "https://arxiv.org/html/2605.22001v1#S4.SS2; analysis/casebook_2026-11-05/BLIND_SPOTS_CASES_ZH.md:3–11",
+        "reason": "The method's disclosure confirms the document-conditioned construction. No separate permission or different-instance explanation resolves the §2 restriction for the scoped arm."
+      }
+    },
+    "behavioral_impact": {
+      "status": "confounded",
+      "reference": "results/context_ablation_asr_full_llama31/summary.json:10–21,49–63; analysis/casebook_2026-11-05/BLIND_SPOTS_CASES_ZH.md:208–212",
+      "description": "The archived comparison reports FULL 24/121 versus NO_CONTEXT 15/121. Paired and task-clustered bootstrap intervals use different resampling units. Prompt wording changes and clustered variants limit a single-field causal interpretation."
+    }
+  },
+  {
+    "schema_version": 3,
+    "id": "obli_released_optimizer_full_target_query",
+    "source_group": "archived",
+    "claim": "The released HotpotQA optimizer receives the full evaluation-matched target question beyond the documented question-type-driven surrogate construction.",
+    "issue_type": "information_boundary",
+    "description": "Check if the released HotpotQA optimizer uses the complete question used by evaluation for the same selected case.",
+    "scope": {
+      "paper_version": "ObliInjection arXiv:2512.09321v3, §§III-B, IV and V-A, Appendix Table XI",
+      "experiment_arm": "Released HotpotQA optimization and evaluation data flow",
+      "artifact_revision": "Public release b1f6a3f48c0cf121534374cbcef453832594867b",
+      "configuration": "Released HotpotQA JSON prepared by the shipped loader, with the same selected case for optimization and evaluation"
+    },
+    "target": {
+      "role": "attacker-side optimizer",
+      "phase": "optimization before evaluation",
+      "source": "selected target-question record in the released HotpotQA evaluation data",
+      "representation": "full evaluation-matched target question",
+      "operation": "read as optimization input",
+      "query_form": "full_query"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "attacker-side optimizer",
+          "phase": "optimization before evaluation",
+          "source": "selected target-question record in the released HotpotQA evaluation data",
+          "representation": "full evaluation-matched target question",
+          "operation": "read as optimization input",
+          "query_form": "full_query"
+        },
+        "permission": "deny",
+        "reference": "papers/ObliInjection/reproduction/pilot_15/obliinjection_paper.txt:209–214; papers/ObliInjection/reproduction/pilot_15/obliinjection_paper.txt:245–255; papers/ObliInjection/reproduction/pilot_15/obliinjection_paper.txt:655–665; papers/ObliInjection/reproduction/pilot_15/obliinjection_paper.txt:1164–1173"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "attacker-side optimizer",
+          "phase": "optimization before evaluation",
+          "source": "selected target-question record in the released HotpotQA evaluation data",
+          "representation": "full evaluation-matched target question",
+          "operation": "read as optimization input",
+          "query_form": "full_query"
+        },
+        "status": "present",
+        "reference": "papers/ObliInjection/upstream/ObliInjection/configs/task_configs/hotpotqa_config.json:23–26; papers/ObliInjection/upstream/ObliInjection/obliinjection.py:33–47; papers/ObliInjection/audit/dataflow/dataflow.md:12–34; repository/obli-gpt4o-ac-transfer-20261031/papers/ObliInjection/reproduction/three_arm_pilot_15_v1/REPORT.md:47–53"
+      }
+    ],
+    "note": "This confirms full evaluation-matched question text in the released source path. The archived offline report separately verifies the official HotpotQA match after Unicode normalization and outer-whitespace removal. Historical Table XI generator inputs are assessed separately and remain unverified.",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "status": "applicable",
+        "policy_kind": "attacker_knowledge_constraint",
+        "reference": "papers/ObliInjection/reproduction/pilot_15/obliinjection_paper.txt:209–214; papers/ObliInjection/reproduction/pilot_15/obliinjection_paper.txt:245–255; papers/ObliInjection/reproduction/pilot_15/obliinjection_paper.txt:655–665; papers/ObliInjection/reproduction/pilot_15/obliinjection_paper.txt:1164–1173",
+        "reason": "The scoped method constructs a surrogate from question-type metadata. Full text of the question used in the same target evaluation exceeds that described construction."
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "static_bound_path",
+        "task_relation": "same_evaluated_instance",
+        "reference": "papers/ObliInjection/upstream/ObliInjection/configs/task_configs/hotpotqa_config.json:23–26; papers/ObliInjection/upstream/ObliInjection/obliinjection.py:33–47; papers/ObliInjection/audit/dataflow/dataflow.md:12–34; repository/obli-gpt4o-ac-transfer-20261031/papers/ObliInjection/reproduction/three_arm_pilot_15_v1/REPORT.md:47–53",
+        "reason": "The shipped HotpotQA configuration and selected indices route the question field into optimization and evaluation. Archived offline provenance verifies the matching original benchmark question and answer."
+      },
+      "refutation": {
+        "basis": "none",
+        "reference": "papers/ObliInjection/audit/dataflow/dataflow.md:10–34; papers/ObliInjection/audit/provenance/PROVENANCE.md:32–53",
+        "reason": "The optimizer input is a complete evaluation-matched question. The missing historical generator does not refute this released-code input path."
+      }
+    },
+    "behavioral_impact": {
+      "status": "confounded",
+      "reference": "repository/obli-gpt4o-ac-transfer-20261031/papers/ObliInjection/reproduction/gpt4o_aux_mistral_joint_matched_v2_20261031/report.md:30–39; analysis/casebook_2026-11-05/ObliInjection_evidence.md:13–20,109–121",
+      "description": "Archived formal answers exist. A/UQ differ by 16.6 percentage points, while C exceeds A and A/C also change source documents. Ten targets and one joint optimized artifact per arm limit broader causal claims. Remote archive closeout is a separate process status."
+    }
+  },
+  {
+    "schema_version": 3,
+    "id": "obli_table_xi_historical_question",
+    "source_group": "archived",
+    "claim": "The author's historical Table XI question-type-only shadow generator received the verbatim evaluation question.",
+    "issue_type": "information_boundary",
+    "description": "Determine whether the historical HotpotQA Table XI shadow generator received a verbatim test question as a generation input.",
+    "scope": {
+      "paper_version": "ObliInjection arXiv:2512.09321v3, Appendix Table XI",
+      "experiment_arm": "Historical metadata-conditioned HotpotQA shadow generation",
+      "artifact_revision": "Historical run revision unverified; public release b1f6a3f48c0cf121534374cbcef453832594867b inspected separately",
+      "configuration": "Paper-described question-type-only procedure; matching historical request and generator unavailable in the reviewed archive"
+    },
+    "target": {
+      "role": "shadow-data generator",
+      "phase": "historical metadata-conditioned construction",
+      "source": "original HotpotQA test item",
+      "representation": "verbatim test question",
+      "operation": "receive as generation input",
+      "query_form": "full_query"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "shadow-data generator",
+          "phase": "historical metadata-conditioned construction",
+          "source": "original HotpotQA test item",
+          "representation": "verbatim test question",
+          "operation": "receive as generation input",
+          "query_form": "full_query"
+        },
+        "permission": "deny",
+        "reference": "repository/obli-gpt4o-ac-transfer-20261031/papers/ObliInjection/reproduction/pilot_15/obliinjection_paper.txt:1164–1173"
+      }
+    ],
+    "observations": [],
+    "note": "Scope is the question-type-only procedure described in Table XI. The report on the public optimizer and missing Table XI generator is papers/ObliInjection/audit/provenance/PROVENANCE.md:32–56. Neither establishes the historical run's inputs.",
+    "assessment": {
+      "information_level": "exact_query",
+      "policy_application": {
+        "status": "applicable",
+        "policy_kind": "attacker_knowledge_constraint",
+        "reference": "repository/obli-gpt4o-ac-transfer-20261031/papers/ObliInjection/reproduction/pilot_15/obliinjection_paper.txt:1164–1173",
+        "reason": "This claim is explicitly scoped to the paper-described question-type-only historical procedure. A verbatim target question would exceed the inputs described for that procedure."
+      },
+      "delivery": {
+        "status": "unresolved",
+        "evidence_kind": "not_applicable",
+        "task_relation": "unknown",
+        "reference": "papers/ObliInjection/audit/dataflow/table_xi_audit.md:3–24; papers/ObliInjection/audit/provenance/PROVENANCE.md:50–57",
+        "reason": "No matching historical generator or request is available in the reviewed archive. Released optimizer inputs cannot establish that historical generator's request."
+      },
+      "refutation": {
+        "basis": "none",
+        "reference": "papers/ObliInjection/audit/dataflow/table_xi_audit.md:3–24",
+        "reason": "Missing historical evidence leaves the claim unresolved and provides no explicit permission or demonstrated excluded delivery."
+      }
+    },
+    "behavioral_impact": {
+      "status": "not_tested",
+      "reference": "papers/ObliInjection/audit/dataflow/table_xi_audit.md:26–31",
+      "description": "Local surrogate reconstructions and released-code comparisons do not identify the effect of the author's unobserved historical Table XI input."
+    }
+  },
+  {
+    "schema_version": 3,
+    "id": "webtrap_original_internal_path",
+    "source_group": "archived",
+    "claim": "The saved ORIGINAL final generator requests receive the case-specific restricted-area path despite the stated restricted-area knowledge boundary.",
+    "issue_type": "information_boundary",
+    "description": "Determine whether the exact restricted-area relative path reached the final generator in the saved ORIGINAL requests.",
+    "scope": {
+      "paper_version": "WebTrap arXiv:2605.08310v1, §§4.1–4.2",
+      "experiment_arm": "PSAA file-browser ORIGINAL",
+      "artifact_revision": "Upstream f8255c83d4a569fc374198b67717fcbee17af1fb; archived paired Pro requests",
+      "configuration": "Saved final generation requests for case_0001 and case_0004"
+    },
+    "target": {
+      "role": "attacker-side generator",
+      "phase": "final content generation",
+      "source": "internal goal manifest",
+      "representation": "case-specific exact restricted-area relative path",
+      "operation": "receive as request input"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "attacker-side generator",
+          "phase": "final content generation",
+          "source": "internal goal manifest",
+          "representation": "case-specific exact restricted-area relative path",
+          "operation": "receive as request input"
+        },
+        "permission": "deny",
+        "reference": "https://arxiv.org/html/2605.08310v1#S4.SS1; https://arxiv.org/html/2605.08310v1#A1.SS1; papers/WebTrap/replication/THREAT_MODEL_CODE_ALIGNMENT.md:7–11"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "attacker-side generator",
+          "phase": "final content generation",
+          "source": "internal goal manifest",
+          "representation": "case-specific exact restricted-area relative path",
+          "operation": "receive as request input"
+        },
+        "status": "present",
+        "reference": "papers/WebTrap/replication/THREAT_MODEL_CODE_ALIGNMENT.md:53–71; papers/WebTrap/replication/CONTEXT_EFFECT_ASSESSMENT.md:3–11"
+      }
+    ],
+    "note": "Evidence concerns the specified public revision and saved requests. Author-run configuration and effect on success rate are separate unverified claims.",
+    "assessment": {
+      "information_level": "resource_metadata",
+      "policy_application": {
+        "status": "applicable",
+        "policy_kind": "attacker_knowledge_constraint",
+        "reference": "https://arxiv.org/html/2605.08310v1#S4.SS1; https://arxiv.org/html/2605.08310v1#A1.SS1; papers/WebTrap/replication/THREAT_MODEL_CODE_ALIGNMENT.md:7–11",
+        "reason": "The scoped PSAA condition limits construction to visible user-area information and excludes restricted-area internal structure. The target is the selected exact internal path."
+      },
+      "delivery": {
+        "status": "confirmed",
+        "evidence_kind": "saved_request",
+        "task_relation": "same_evaluated_instance",
+        "reference": "papers/WebTrap/replication/THREAT_MODEL_CODE_ALIGNMENT.md:53–71; papers/WebTrap/replication/CONTEXT_EFFECT_ASSESSMENT.md:3–11",
+        "reason": "The saved case_0001 and case_0004 final requests include the selected internal relative-path field from the case manifest."
+      },
+      "refutation": {
+        "basis": "none",
+        "reference": "papers/WebTrap/replication/THREAT_MODEL_CODE_ALIGNMENT.md:53–71; papers/WebTrap/replication/CONTEXT_EFFECT_ASSESSMENT.md:3–11",
+        "reason": "The selected path is additional internal metadata, as distinguished from the permitted objective and visible entrance information."
+      }
+    },
+    "behavioral_impact": {
+      "status": "inconclusive",
+      "reference": "papers/WebTrap/replication/CONTEXT_EFFECT_ASSESSMENT.md:3–27",
+      "description": "The archived two-case study confirms changed target binding in generation. Neither arm completes the attack, and exposure varies across cases. No ASR increase is established."
+    }
+  },
+  {
+    "schema_version": 3,
+    "id": "webtrap_limited_internal_path",
+    "source_group": "archived",
+    "claim": "The saved LIMITED_CONTEXT final generator requests receive the selected case-specific restricted-area path despite the stated restricted-area knowledge boundary.",
+    "issue_type": "information_boundary",
+    "description": "Check the same exact path input in the saved requests for the local LIMITED_CONTEXT comparison arm.",
+    "scope": {
+      "paper_version": "WebTrap arXiv:2605.08310v1, §§4.1–4.2",
+      "experiment_arm": "PSAA file-browser LIMITED_CONTEXT (local comparison)",
+      "artifact_revision": "Archived paired Pro requests, upstream comparison base f8255c83d4a569fc374198b67717fcbee17af1fb",
+      "configuration": "Saved final generation requests for case_0001 and case_0004"
+    },
+    "target": {
+      "role": "attacker-side generator",
+      "phase": "final content generation",
+      "source": "internal goal manifest",
+      "representation": "case-specific exact restricted-area relative path",
+      "operation": "receive as request input"
+    },
+    "rules": [
+      {
+        "edge": {
+          "role": "attacker-side generator",
+          "phase": "final content generation",
+          "source": "internal goal manifest",
+          "representation": "case-specific exact restricted-area relative path",
+          "operation": "receive as request input"
+        },
+        "permission": "deny",
+        "reference": "https://arxiv.org/html/2605.08310v1#S4.SS1; https://arxiv.org/html/2605.08310v1#A1.SS1; papers/WebTrap/replication/THREAT_MODEL_CODE_ALIGNMENT.md:7–11"
+      }
+    ],
+    "observations": [
+      {
+        "edge": {
+          "role": "attacker-side generator",
+          "phase": "final content generation",
+          "source": "internal goal manifest",
+          "representation": "case-specific exact restricted-area relative path",
+          "operation": "receive as request input"
+        },
+        "status": "absent",
+        "reference": "papers/WebTrap/replication/THREAT_MODEL_CODE_ALIGNMENT.md:63–70; papers/WebTrap/replication/CONTEXT_EFFECT_ASSESSMENT.md:3–7"
+      }
+    ],
+    "note": "The saved final requests establish absence of the selected path input in these two cases. Generic template vocabulary remains in the comparison arm.",
+    "assessment": {
+      "information_level": "resource_metadata",
+      "policy_application": {
+        "status": "applicable",
+        "policy_kind": "attacker_knowledge_constraint",
+        "reference": "https://arxiv.org/html/2605.08310v1#S4.SS1; https://arxiv.org/html/2605.08310v1#A1.SS1; papers/WebTrap/replication/THREAT_MODEL_CODE_ALIGNMENT.md:7–11",
+        "reason": "The scoped PSAA condition limits construction to visible user-area information and excludes restricted-area internal structure. The target is the selected exact internal path."
+      },
+      "delivery": {
+        "status": "excluded",
+        "evidence_kind": "saved_request",
+        "task_relation": "same_evaluated_instance",
+        "reference": "papers/WebTrap/replication/THREAT_MODEL_CODE_ALIGNMENT.md:63–70; papers/WebTrap/replication/CONTEXT_EFFECT_ASSESSMENT.md:3–7",
+        "reason": "The saved case_0001 and case_0004 final requests establish absence of the selected internal relative-path field at the generator boundary. Generic template vocabulary remains."
+      },
+      "refutation": {
+        "basis": "excluded_delivery",
+        "reference": "papers/WebTrap/replication/THREAT_MODEL_CODE_ALIGNMENT.md:63–70; papers/WebTrap/replication/CONTEXT_EFFECT_ASSESSMENT.md:3–7",
+        "reason": "The exact alleged input is absent in the two saved LIMITED_CONTEXT requests, refuting the selected field-level delivery claim within this scope."
+      }
+    },
+    "behavioral_impact": {
+      "status": "inconclusive",
+      "reference": "papers/WebTrap/replication/CONTEXT_EFFECT_ASSESSMENT.md:3–27",
+      "description": "The archived two-case study confirms changed target binding in generation. Neither arm completes the attack, and exposure varies across cases. No ASR increase is established."
+    }
+  }
+]

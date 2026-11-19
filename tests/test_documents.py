@@ -42,7 +42,8 @@ class DocumentTests(unittest.TestCase):
         self.assertEqual(result["links"], ["https://example.org/source"])
 
     def test_arxiv_abstract_converts_to_pdf_and_keeps_pages(self):
-        with patch.object(documents, "_validate_url"), patch.object(documents, "_fetch_url", return_value=(b"%PDF-test", "https://arxiv.org/pdf/1234.56789v2", "application/pdf")) as fetch, patch.object(documents, "_pdf_pages", return_value=["First page", "Second page"]):
+        views = [{"id": "p1", "text": "First page"}, {"id": "p2", "text": "Second page"}]
+        with patch.object(documents, "_validate_url"), patch.object(documents, "_fetch_url", return_value=(b"%PDF-test", "https://arxiv.org/pdf/1234.56789v2", "application/pdf")) as fetch, patch.object(documents, "pdf_text_views", return_value=views):
             result = documents.load_document("https://arxiv.org/abs/1234.56789v2")
         fetch.assert_called_once_with("https://arxiv.org/pdf/1234.56789v2")
         self.assertEqual([part["id"] for part in result["segments"]], ["p1", "p2"])
@@ -51,7 +52,7 @@ class DocumentTests(unittest.TestCase):
     def test_landing_page_follows_one_citation_pdf_url(self):
         page = b'<html><head><meta name="citation_pdf_url" content="/paper.pdf"></head><body>Abstract</body></html>'
         responses = [(page, "https://example.org/landing", "text/html"), (b"%PDF-test", "https://example.org/paper.pdf", "application/pdf")]
-        with patch.object(documents, "_validate_url"), patch.object(documents, "_fetch_url", side_effect=responses) as fetch, patch.object(documents, "_pdf_pages", return_value=["Full paper"]):
+        with patch.object(documents, "_validate_url"), patch.object(documents, "_fetch_url", side_effect=responses) as fetch, patch.object(documents, "pdf_text_views", return_value=[{"id": "p1", "text": "Full paper"}]):
             result = documents.load_document("https://example.org/landing")
         self.assertEqual(fetch.call_count, 2)
         self.assertEqual(fetch.call_args.args, ("https://example.org/paper.pdf",))
@@ -61,7 +62,7 @@ class DocumentTests(unittest.TestCase):
     def test_landing_page_accepts_pdf_link_class(self):
         page = b'<html><a class="download pdf_link" href="/download/123">Download</a></html>'
         responses = [(page, "https://example.org/landing", "text/html"), (b"%PDF-test", "https://example.org/download/123", "application/pdf")]
-        with patch.object(documents, "_validate_url"), patch.object(documents, "_fetch_url", side_effect=responses) as fetch, patch.object(documents, "_pdf_pages", return_value=["Full paper"]):
+        with patch.object(documents, "_validate_url"), patch.object(documents, "_fetch_url", side_effect=responses) as fetch, patch.object(documents, "pdf_text_views", return_value=[{"id": "p1", "text": "Full paper"}]):
             documents.load_document("https://example.org/landing")
         self.assertEqual(fetch.call_args.args, ("https://example.org/download/123",))
 
@@ -110,13 +111,15 @@ class DocumentTests(unittest.TestCase):
 
     def test_textless_pdf_requires_ocr_instead_of_succeeding(self):
         path = self.local_document("scan.pdf", b"%PDF-test")
-        with patch.object(documents, "_pdf_pages", return_value=["", ""]):
+        views = [{"id": "p1", "text": ""}, {"id": "p2", "text": ""}]
+        with patch.object(documents, "pdf_text_views", return_value=views):
             with self.assertRaisesRegex(documents.DocumentError, "OCR is not provided"):
                 documents.load_document(str(path))
 
     def test_partial_pdf_preserves_empty_page_and_marks_incomplete(self):
         path = self.local_document("mixed.pdf", b"%PDF-test")
-        with patch.object(documents, "_pdf_pages", return_value=["Text", "", "More text"]):
+        views = [{"id": "p1", "text": "Text"}, {"id": "p2", "text": ""}, {"id": "p3", "text": "More text"}]
+        with patch.object(documents, "pdf_text_views", return_value=views):
             result = documents.load_document(str(path))
         self.assertFalse(result["coverage"]["complete"])
         self.assertEqual(result["segments"][1], {"id": "p2", "text": ""})
@@ -131,6 +134,108 @@ class DocumentTests(unittest.TestCase):
             return SimpleNamespace(returncode=0)
         with patch.object(documents.subprocess, "run", side_effect=extract):
             self.assertEqual(documents._pdf_pages(b"%PDF-test"), ["First page", ""])
+
+    def test_two_column_reading_order_preserves_primary_text_and_original_hash(self):
+        data = b"%PDF-two-column-test"
+        path = self.local_document("columns.pdf", data)
+        layout_pages = [
+            "The attacker cannot access   Right column begins.\nthe exact document.          Other research.",
+            "Second page layout.",
+        ]
+        reading_pages = [
+            "The attacker cannot access the exact document.\nRight column begins. Other research.",
+            "Second page reading order.",
+        ]
+        calls = []
+
+        def extract(command, **kwargs):
+            self.assertEqual(kwargs["input"], data)
+            self.assertNotIn("shell", kwargs)
+            self.assertEqual(kwargs["timeout"], documents.TIMEOUT_SECONDS)
+            calls.append(command[:-1])
+            pages = layout_pages if "-layout" in command else reading_pages
+            Path(command[-1]).write_text("\f".join(pages) + "\f", encoding="utf-8")
+            return SimpleNamespace(returncode=0)
+
+        with patch.object(documents.subprocess, "run", side_effect=extract):
+            result = documents.load_document(str(path))
+        self.assertEqual(calls, [
+            ["pdftotext", "-layout", "-enc", "UTF-8", "-"],
+            ["pdftotext", "-enc", "UTF-8", "-"],
+        ])
+        self.assertEqual(result["sha256"], hashlib.sha256(data).hexdigest())
+        self.assertEqual(result["text"], "\n\n".join(layout_pages))
+        self.assertEqual([segment["text"] for segment in result["segments"]], layout_pages)
+        self.assertEqual([segment["reading_order_text"] for segment in result["segments"]], reading_pages)
+        self.assertEqual([segment["id"] for segment in result["segments"]], ["p1", "p2"])
+        self.assertTrue(result["coverage"]["complete"])
+        for segment in result["segments"]:
+            self.assertEqual(segment["source_extraction_version"], "pdftotext-reading-order-v1")
+        quote = "The attacker cannot access the exact document."
+        self.assertIn(quote, result["segments"][0]["reading_order_text"])
+        self.assertNotIn(quote, result["segments"][0]["text"])
+
+    def test_page_count_mismatch_discards_alternate_view_for_every_page(self):
+        path = self.local_document("mismatch.pdf", b"%PDF-test")
+        for reading_text in ("Only one page\f", "One\fTwo\fThree\f"):
+            with self.subTest(reading_text=reading_text):
+                def extract(command, **kwargs):
+                    text = "First layout\fSecond layout\f" if "-layout" in command else reading_text
+                    Path(command[-1]).write_text(text, encoding="utf-8")
+                    return SimpleNamespace(returncode=0)
+
+                with patch.object(documents.subprocess, "run", side_effect=extract):
+                    result = documents.load_document(str(path))
+                self.assertEqual(result["text"], "First layout\n\nSecond layout")
+                self.assertEqual(result["segments"], [
+                    {"id": "p1", "text": "First layout"},
+                    {"id": "p2", "text": "Second layout"},
+                ])
+
+    def test_pdf_views_keep_blank_page_alignment(self):
+        def extract(command, **kwargs):
+            text = "First layout\f\fLast layout\f" if "-layout" in command else "First reading\f\fLast reading\f"
+            Path(command[-1]).write_text(text, encoding="utf-8")
+            return SimpleNamespace(returncode=0)
+
+        with patch.object(documents.subprocess, "run", side_effect=extract):
+            views = documents.pdf_text_views(b"%PDF-test")
+        self.assertEqual([view["id"] for view in views], ["p1", "p2", "p3"])
+        self.assertEqual(views[1]["text"], "")
+        self.assertEqual(views[1]["layout_text"], "")
+        self.assertEqual(views[2]["text"], "Last reading")
+
+    def test_missing_poppler_returns_only_the_existing_fallback_text(self):
+        fake = SimpleNamespace(PdfReader=lambda stream: SimpleNamespace(pages=[SimpleNamespace(extract_text=lambda: "Fallback page")]))
+        with patch.object(documents.subprocess, "run", side_effect=FileNotFoundError) as run, patch.object(documents.importlib, "import_module", return_value=fake):
+            views = documents.pdf_text_views(b"%PDF-test")
+        self.assertEqual(run.call_count, 1)
+        self.assertEqual(views, [{"id": "p1", "text": "Fallback page"}])
+
+    def test_alternate_extraction_failure_preserves_valid_layout_text(self):
+        for failure in ("nonzero", "timeout"):
+            with self.subTest(failure=failure):
+                def extract(command, **kwargs):
+                    if "-layout" in command:
+                        Path(command[-1]).write_text("Original layout\f", encoding="utf-8")
+                        return SimpleNamespace(returncode=0)
+                    if failure == "timeout":
+                        raise subprocess.TimeoutExpired("pdftotext", 30)
+                    return SimpleNamespace(returncode=1)
+
+                with patch.object(documents.subprocess, "run", side_effect=extract):
+                    views = documents.pdf_text_views(b"%PDF-test")
+                self.assertEqual(views, [{"id": "p1", "text": "Original layout"}])
+
+    def test_reading_view_does_not_override_the_primary_ocr_requirement(self):
+        path = self.local_document("empty-layout.pdf", b"%PDF-test")
+        views = [{
+            "id": "p1", "text": "Alternate extraction text", "layout_text": "",
+            "source_extraction_version": "pdftotext-reading-order-v1",
+        }]
+        with patch.object(documents, "pdf_text_views", return_value=views):
+            with self.assertRaisesRegex(documents.DocumentError, "OCR is not provided"):
+                documents.load_document(str(path))
 
     def test_pdf_falls_back_to_optional_pypdf(self):
         fake = SimpleNamespace(PdfReader=lambda stream: SimpleNamespace(pages=[SimpleNamespace(extract_text=lambda: "Fallback page")]))
