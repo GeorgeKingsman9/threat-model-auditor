@@ -1,0 +1,717 @@
+{
+  "run_type": "document_input_pilot_attempt",
+  "created_at": "2026-11-19T07:50:28.010903+00:00",
+  "summary": {
+    "paper_count": 14,
+    "statuses": {
+      "pending": 12,
+      "failed": 2
+    },
+    "verdicts": {
+      "not_run": 12,
+      "technical_failure": 2
+    },
+    "interpretation": "14 papers remain visible: 12 prepared but inference not run, 1 document blocked, 1 attempted Codex inference with no accepted output. No automatic detection accuracy can be computed."
+  },
+  "papers": [
+    {
+      "id": "adaptools",
+      "title": "adaptools",
+      "source": "https://aclanthology.org/2026.emnlp-main.2055.pdf",
+      "status": "pending",
+      "has_confirmed_inconsistency": null,
+      "stages": [
+        {
+          "stage": "ingestion",
+          "status": "completed",
+          "segments": 22,
+          "characters": 117911,
+          "coverage": {
+            "complete": true,
+            "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+          },
+          "source_links": [],
+          "sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05"
+        },
+        {
+          "stage": "extraction",
+          "status": "not_run"
+        }
+      ],
+      "evidence": [],
+      "document_sha256": "b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05",
+      "verdict": "not_run",
+      "reason": "document_prepared_inference_not_run",
+      "duration_seconds": 0.002,
+      "cohort": "curated_ipi",
+      "expected": "insufficient_evidence",
+      "expected_basis": "prior_curated_evidence",
+      "comparison_note": "Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error.",
+      "matches_gold": null
+    },
+    {
+      "id": "blind_spots",
+      "title": "blind_spots",
+      "source": "https://arxiv.org/pdf/2605.22001v1",
+      "status": "pending",
+      "has_confirmed_inconsistency": null,
+      "stages": [
+        {
+          "stage": "ingestion",
+          "status": "completed",
+          "segments": 8,
+          "characters": 45116,
+          "coverage": {
+            "complete": true,
+            "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+          },
+          "source_links": [],
+          "sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455"
+        },
+        {
+          "stage": "extraction",
+          "status": "not_run"
+        }
+      ],
+      "evidence": [],
+      "document_sha256": "0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455",
+      "verdict": "not_run",
+      "reason": "document_prepared_inference_not_run",
+      "duration_seconds": 0.002,
+      "cohort": "curated_ipi",
+      "expected": "inconsistent",
+      "expected_basis": "prior_curated_evidence",
+      "comparison_note": "Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error.",
+      "matches_gold": null
+    },
+    {
+      "id": "aspi",
+      "title": "aspi",
+      "source": "https://arxiv.org/pdf/2605.17324v1",
+      "status": "pending",
+      "has_confirmed_inconsistency": null,
+      "stages": [
+        {
+          "stage": "ingestion",
+          "status": "completed",
+          "segments": 34,
+          "characters": 149931,
+          "coverage": {
+            "complete": true,
+            "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+          },
+          "source_links": [
+            "https://github.com/scaleapi/aspi",
+            "https://arxiv.org/abs/2009.11352",
+            "https://arxiv.org/",
+            "https://doi.org/10.1145/3733799.3762982",
+            "https://openreview.net/forum?id=",
+            "https://proceedings",
+            "https://openreview.net/",
+            "https://arxiv",
+            "https://www.usenix.org/conference/",
+            "https://arxiv.org/abs/2603.15714",
+            "https://arxiv.org/abs/2603.26233",
+            "https://aclanthology.org/2020.emnlp-main.466/",
+            "https://huggingface.co/",
+            "https://doi.org/10.1145/3605764.3623985",
+            "https://arxiv.org/abs/2602.10525",
+            "https://openreview.net/forum",
+            "https://arxiv.org/abs/2507.22034",
+            "https://arxiv.org/abs/2603.10749",
+            "https://arxiv.org/abs/2511",
+            "https://doi.org/10.1145/3690624.3709179",
+            "https://openreview.net/forum?id=X2yzXtH4wp",
+            "https://aclanthology.org/2024",
+            "https://arxiv.org/abs/2508.09124",
+            "https://arxiv.org/abs/2407.19056",
+            "https://simonwillison.net/",
+            "https://arxiv.org/abs/2403.04960",
+            "https://arxiv.org/abs/2603.01357",
+            "https://openreview.net/forum?id=oKn9c6ytLx",
+            "https://deepmind.google/models/gemini/pro/",
+            "https://www.litellm.ai"
+          ],
+          "sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893"
+        },
+        {
+          "stage": "extraction",
+          "status": "not_run"
+        }
+      ],
+      "evidence": [],
+      "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+      "verdict": "not_run",
+      "reason": "document_prepared_inference_not_run",
+      "duration_seconds": 0.002,
+      "cohort": "curated_ipi",
+      "expected": "inconsistent",
+      "expected_basis": "prior_curated_evidence",
+      "comparison_note": "Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error.",
+      "matches_gold": null
+    },
+    {
+      "id": "muzzle",
+      "title": "muzzle",
+      "source": "https://www.usenix.org/system/files/usenixsecurity26-syros.pdf",
+      "status": "pending",
+      "has_confirmed_inconsistency": null,
+      "stages": [
+        {
+          "stage": "ingestion",
+          "status": "completed",
+          "segments": 21,
+          "characters": 124184,
+          "coverage": {
+            "complete": true,
+            "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+          },
+          "source_links": [
+            "https://www.usenix.org/conference/usenixsecurity26/presentation/syros",
+            "https://arxiv.org/abs/2602.09222",
+            "https://github.com/gsi",
+            "https://github.com/bgrins/the_zoo",
+            "http://gitea.zoo/alice/hello-zoo/issues",
+            "https://doi.org/10.5281/zeno",
+            "https://arxi",
+            "https://claude.com",
+            "https://browser-use.com/",
+            "https://search.google/ways",
+            "https://www.search.google/ways-to-sea",
+            "https://arxiv.org/",
+            "https://huggin",
+            "https://github.com/microso",
+            "https://www.mi",
+            "https://openai.com",
+            "https://op",
+            "https://huggingface.co/m",
+            "https://huggingface.co",
+            "https://huggingface.co/P",
+            "https://huggingfac",
+            "https://www.diabrowser.c",
+            "https://arxiv.org/abs/2404.13208",
+            "https://arxiv.org/abs/2505.05849",
+            "https://html",
+            "http://www.w3.org/TR/2004/REC",
+            "https://www.dobrowser.io/",
+            "https://www.w3.org/Security/",
+            "https://arxiv.org/abs/2307.15043",
+            "https://adnanthekhan.com/posts/clinejection/"
+          ],
+          "sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0"
+        },
+        {
+          "stage": "extraction",
+          "status": "not_run"
+        }
+      ],
+      "evidence": [],
+      "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+      "verdict": "not_run",
+      "reason": "document_prepared_inference_not_run",
+      "duration_seconds": 0.002,
+      "cohort": "curated_ipi",
+      "expected": "insufficient_evidence",
+      "expected_basis": "prior_curated_evidence",
+      "comparison_note": "Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error.",
+      "matches_gold": null
+    },
+    {
+      "id": "fha",
+      "title": "fha",
+      "source": "https://arxiv.org/pdf/2604.20994v2",
+      "status": "pending",
+      "has_confirmed_inconsistency": null,
+      "stages": [
+        {
+          "stage": "ingestion",
+          "status": "completed",
+          "segments": 41,
+          "characters": 145552,
+          "coverage": {
+            "complete": true,
+            "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+          },
+          "source_links": [
+            "https://github.com/GraySwanAI/nanoGCG",
+            "https://github.com/modelcontextprotocol/servers-archived/",
+            "https://jmlr.org/tmlr/ethics.html",
+            "https://arxiv.org/abs/2407.00121",
+            "https://arxiv.org/abs/2406.13352",
+            "https://doi.org/10.24963/ijcai.2024/890",
+            "https://arxiv.org/abs/2402.12329",
+            "https://arxiv.org/abs/2407.19354",
+            "https://arxiv.org/abs/2503.23278",
+            "https://www.ibm.com/downloads/",
+            "https://adversa.ai/",
+            "https://invariantlabs",
+            "https://arxiv.org/abs/2310.06825",
+            "https://arxiv.org/abs/2504.19277",
+            "https://doi.org/10.1007/",
+            "https://www.usenix.org/conference/usenixsecurity18/presentation/kumar",
+            "https://arxiv.org/abs/2310.04451",
+            "https://arxiv.org/abs/2410.18890",
+            "https://arxiv",
+            "https://arxiv.org/abs/2303.08774",
+            "https://arxiv.org/abs/2305.15334",
+            "https://arxiv.org/abs/2505.09388",
+            "https://arxiv.org/abs/2409.15398",
+            "https://arxiv.org/abs/2302.04761",
+            "https://arxiv.org/abs/2302.13971",
+            "https://nvlpubs.nist.gov/",
+            "http://dx.doi.org/10.1007/s11704-024-40231-1",
+            "https://arxiv.org/abs/2410",
+            "https://arxiv.org/abs/2407.17915",
+            "https://arxiv.org/abs/2210.03629",
+            "https://arxiv.org/abs/2407.04295",
+            "https://arxiv.org/abs/2403",
+            "https://arxiv.org/abs/2407.20859",
+            "https://arxiv.org/abs/2307",
+            "https://arxiv.org/abs/2406.04313",
+            "https://github.com/hanbaoergogo/MPMA.git"
+          ],
+          "sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc"
+        },
+        {
+          "stage": "extraction",
+          "status": "not_run"
+        }
+      ],
+      "evidence": [],
+      "document_sha256": "a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc",
+      "verdict": "not_run",
+      "reason": "document_prepared_inference_not_run",
+      "duration_seconds": 0.002,
+      "cohort": "curated_ipi",
+      "expected": "inconsistent",
+      "expected_basis": "prior_curated_evidence",
+      "comparison_note": "Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error.",
+      "matches_gold": null
+    },
+    {
+      "id": "agentcon",
+      "title": "agentcon",
+      "source": "https://openreview.net/pdf/a7b8365a80d58906740ac477248926c6c6a43640.pdf",
+      "status": "failed",
+      "has_confirmed_inconsistency": null,
+      "stages": [
+        {
+          "stage": "ingestion",
+          "status": "failed",
+          "error": "prepared document source does not match the requested paper"
+        }
+      ],
+      "evidence": [],
+      "verdict": "technical_failure",
+      "error": "prepared document source does not match the requested paper",
+      "duration_seconds": 0.0,
+      "cohort": "curated_ipi",
+      "expected": "inconsistent",
+      "expected_basis": "prior_curated_evidence",
+      "comparison_note": "Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error.",
+      "matches_gold": null,
+      "notes": [
+        "The cached URL response is an OpenReview access-challenge HTML page, not the paper PDF. The cached source mismatch correctly prevented inference."
+      ]
+    },
+    {
+      "id": "retrieval_barrier",
+      "title": "retrieval_barrier",
+      "source": "https://www.usenix.org/system/files/usenixsecurity26-chang-hongyan.pdf",
+      "status": "pending",
+      "has_confirmed_inconsistency": null,
+      "stages": [
+        {
+          "stage": "ingestion",
+          "status": "completed",
+          "segments": 21,
+          "characters": 142451,
+          "coverage": {
+            "complete": true,
+            "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+          },
+          "source_links": [
+            "https://www.usenix.org/conference/usenixsecurity26/presentation/chang-hongyan",
+            "https://docs.weaviate.io/",
+            "https://zenodo.org/records/",
+            "https://genai.owasp.org/resource/owasp-",
+            "https://www.aim",
+            "https://bailian.console.aliyun",
+            "https://www",
+            "https://azure.microsoft.com/en-",
+            "https://web.stanford.edu/",
+            "https://cursor",
+            "https://arxiv.org/abs/2508.12175",
+            "https://arxiv.org/",
+            "https://learn.microsoft.com/en-",
+            "https://blog"
+          ],
+          "sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285"
+        },
+        {
+          "stage": "extraction",
+          "status": "not_run"
+        }
+      ],
+      "evidence": [],
+      "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+      "verdict": "not_run",
+      "reason": "document_prepared_inference_not_run",
+      "duration_seconds": 0.003,
+      "cohort": "curated_ipi",
+      "expected": "consistent_within_scope",
+      "expected_basis": "prior_curated_evidence",
+      "comparison_note": "Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error.",
+      "matches_gold": null
+    },
+    {
+      "id": "liar",
+      "title": "liar",
+      "source": "https://aclanthology.org/2024.emnlp-main.96.pdf",
+      "status": "pending",
+      "has_confirmed_inconsistency": null,
+      "stages": [
+        {
+          "stage": "ingestion",
+          "status": "completed",
+          "segments": 17,
+          "characters": 89373,
+          "coverage": {
+            "complete": true,
+            "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+          },
+          "source_links": [
+            "https://www.bbc.com/news/articles/cd11gzejgz4o/",
+            "https://www.reddit.com/r/Pizza/comments/1a19s0/",
+            "https://www.washingtonpost.com/google-halt-ai-search/",
+            "https://huggingface.co/datasets/Salesforce/wikitext/",
+            "https://python.langchain.com/google_search/"
+          ],
+          "sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0"
+        },
+        {
+          "stage": "extraction",
+          "status": "not_run"
+        }
+      ],
+      "evidence": [],
+      "document_sha256": "4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0",
+      "verdict": "not_run",
+      "reason": "document_prepared_inference_not_run",
+      "duration_seconds": 0.002,
+      "cohort": "curated_ipi",
+      "expected": "inconsistent",
+      "expected_basis": "prior_curated_evidence",
+      "comparison_note": "Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error.",
+      "matches_gold": null
+    },
+    {
+      "id": "obliinjection",
+      "title": "obliinjection",
+      "source": "https://arxiv.org/pdf/2512.09321v3",
+      "status": "pending",
+      "has_confirmed_inconsistency": null,
+      "stages": [
+        {
+          "stage": "ingestion",
+          "status": "completed",
+          "segments": 18,
+          "characters": 136067,
+          "coverage": {
+            "complete": true,
+            "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+          },
+          "source_links": [
+            "https://github.com/ReachalWang/ObliInjection",
+            "https://dx.doi.org/10.14722/ndss.2026.240702",
+            "https://www.aboutamazon.com/news/amazon-ai/",
+            "https://blog.google/products/search/",
+            "https://github",
+            "https://github.com/GraySwanAI/nanoGCG",
+            "https://twitter.com/yoheinakajima/",
+            "https://github.com/tatsu-lab/stanford"
+          ],
+          "sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e"
+        },
+        {
+          "stage": "extraction",
+          "status": "not_run"
+        }
+      ],
+      "evidence": [],
+      "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+      "verdict": "not_run",
+      "reason": "document_prepared_inference_not_run",
+      "duration_seconds": 0.002,
+      "cohort": "curated_ipi",
+      "expected": "inconsistent",
+      "expected_basis": "prior_curated_evidence",
+      "comparison_note": "Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error.",
+      "matches_gold": null
+    },
+    {
+      "id": "webtrap",
+      "title": "webtrap",
+      "source": "https://arxiv.org/pdf/2605.08310v1",
+      "status": "pending",
+      "has_confirmed_inconsistency": null,
+      "stages": [
+        {
+          "stage": "ingestion",
+          "status": "completed",
+          "segments": 31,
+          "characters": 143482,
+          "coverage": {
+            "complete": true,
+            "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+          },
+          "source_links": [
+            "https://github.com/liuyaojialiuyaojia/WebTrap",
+            "https://openreview.net/forum?id=lIVRgt4nLv",
+            "https://proceedings.mlr.press/v267/",
+            "https://aclanthology.org/2025.emnlp-main.372/",
+            "https://aclanthology.org/2025.acl-long.890/",
+            "https://aclanthology.org/2025.acl-long.897/",
+            "https://proceedings.neurips.cc/paper_files/paper/2024/hash/",
+            "https://arxiv.org/abs/2412.19437",
+            "https://papers.nips.cc/paper_",
+            "https://proceedings.mlr.press/",
+            "https://openreview.net/forum?id=Ip1cCUAllL",
+            "https://arxiv.org/abs/2507.06261",
+            "https://arxiv.org/abs/2508",
+            "https://doi.org/10.1145/3605764",
+            "https://doi.org/10.1007/978-3-031-73113-6_10",
+            "https://arxiv.org/abs/2507.20534",
+            "https://aclanthology.org/2024.acl-long.50/",
+            "https://openreview",
+            "https://aclanthology.org/2024.tacl-1.9/",
+            "https://openreview.net/forum?id=zAdUB0aCTQ",
+            "https://www.usenix.org/conference/usenixsecurity24/presentation/liu-yupei",
+            "https://proceedings.mlr.press/v235/lu24e.html",
+            "https://arxiv.org/abs/2505.09388",
+            "https://doi.org/10.1145/3690624.3709179",
+            "https://aclanthology",
+            "https://aclanthology.org/2024.findings-acl.624/",
+            "https://openreview.net/forum?id=V4y0CpX4hK",
+            "https://aclanthology.org/2025.acl-long",
+            "https://openreview.net/forum?id=oKn9c6ytLx"
+          ],
+          "sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a"
+        },
+        {
+          "stage": "extraction",
+          "status": "not_run"
+        }
+      ],
+      "evidence": [],
+      "document_sha256": "00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a",
+      "verdict": "not_run",
+      "reason": "document_prepared_inference_not_run",
+      "duration_seconds": 0.002,
+      "cohort": "curated_ipi",
+      "expected": "inconsistent",
+      "expected_basis": "prior_curated_evidence",
+      "comparison_note": "Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error.",
+      "matches_gold": null
+    },
+    {
+      "id": "icoa",
+      "title": "icoa",
+      "source": "https://aclanthology.org/2026.emnlp-main.2035.pdf",
+      "status": "pending",
+      "has_confirmed_inconsistency": null,
+      "stages": [
+        {
+          "stage": "ingestion",
+          "status": "completed",
+          "segments": 19,
+          "characters": 116646,
+          "coverage": {
+            "complete": true,
+            "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+          },
+          "source_links": [
+            "https://yslmoment.github.io/ICoA",
+            "https://www.lake"
+          ],
+          "sha256": "4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2"
+        },
+        {
+          "stage": "extraction",
+          "status": "not_run"
+        }
+      ],
+      "evidence": [],
+      "document_sha256": "4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2",
+      "verdict": "not_run",
+      "reason": "document_prepared_inference_not_run",
+      "duration_seconds": 0.004,
+      "cohort": "curated_ipi",
+      "expected": "insufficient_evidence",
+      "expected_basis": "prior_curated_evidence",
+      "comparison_note": "Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error.",
+      "matches_gold": null
+    },
+    {
+      "id": "attention",
+      "title": "attention",
+      "source": "https://papers.nips.cc/paper_files/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf",
+      "status": "failed",
+      "has_confirmed_inconsistency": null,
+      "stages": [
+        {
+          "stage": "ingestion",
+          "status": "completed",
+          "segments": 11,
+          "characters": 38171,
+          "coverage": {
+            "complete": true,
+            "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+          },
+          "source_links": [
+            "https://github.com/"
+          ],
+          "sha256": "d87d482d5ae7960e2e43d7dd6d21377e60e73e8fce1bf2a01aff7aca8a08c537"
+        },
+        {
+          "stage": "extraction",
+          "status": "failed",
+          "error": "Codex CLI failed (authentication_error); no retry or fallback attempted"
+        }
+      ],
+      "evidence": [],
+      "document_sha256": "d87d482d5ae7960e2e43d7dd6d21377e60e73e8fce1bf2a01aff7aca8a08c537",
+      "verdict": "technical_failure",
+      "error": "Codex CLI failed (authentication_error); no retry or fallback attempted",
+      "duration_seconds": 128.946,
+      "cohort": "out_of_domain",
+      "expected": "not_applicable",
+      "expected_basis": "domain_selection",
+      "comparison_note": "Unrelated topic control for applicability screening. not_applicable does not assert global paper consistency.",
+      "matches_gold": null,
+      "notes": [
+        "No accepted structured model output was obtained. The original wrapper category is retained, but does not prove a failed login.",
+        "A separate minimal Codex test reported stream resets and reconnect attempts. No Claude/OpenAI API-key backend was used."
+      ]
+    },
+    {
+      "id": "resnet",
+      "title": "resnet",
+      "source": "https://arxiv.org/pdf/1512.03385v1",
+      "status": "pending",
+      "has_confirmed_inconsistency": null,
+      "stages": [
+        {
+          "stage": "ingestion",
+          "status": "completed",
+          "segments": 12,
+          "characters": 97713,
+          "coverage": {
+            "complete": true,
+            "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+          },
+          "source_links": [
+            "http://image-net.org/challenges/LSVRC/2015/",
+            "http://mscoco.org/dataset/",
+            "http://host.robots.ox.ac.uk:8080/leaderboard/",
+            "http://host.robots.ox.ac.uk:8080/anonymous/3OJ4OJ.html"
+          ],
+          "sha256": "1e0651b6810ecba34a3dbc5b5b0209226f889004607c1f203540a48d64e5a93a"
+        },
+        {
+          "stage": "extraction",
+          "status": "not_run"
+        }
+      ],
+      "evidence": [],
+      "document_sha256": "1e0651b6810ecba34a3dbc5b5b0209226f889004607c1f203540a48d64e5a93a",
+      "verdict": "not_run",
+      "reason": "document_prepared_inference_not_run",
+      "duration_seconds": 0.001,
+      "cohort": "out_of_domain",
+      "expected": "not_applicable",
+      "expected_basis": "domain_selection",
+      "comparison_note": "Unrelated topic control for applicability screening. not_applicable does not assert global paper consistency.",
+      "matches_gold": null
+    },
+    {
+      "id": "adam",
+      "title": "adam",
+      "source": "https://arxiv.org/pdf/1412.6980v1",
+      "status": "pending",
+      "has_confirmed_inconsistency": null,
+      "stages": [
+        {
+          "stage": "ingestion",
+          "status": "completed",
+          "segments": 9,
+          "characters": 41440,
+          "coverage": {
+            "complete": true,
+            "reason": "Text extracted from every PDF page; OCR and visual content are not inspected"
+          },
+          "source_links": [],
+          "sha256": "935a5a15616961aff21529d86a754570028843407adfe858f1d18584b84293a7"
+        },
+        {
+          "stage": "extraction",
+          "status": "not_run"
+        }
+      ],
+      "evidence": [],
+      "document_sha256": "935a5a15616961aff21529d86a754570028843407adfe858f1d18584b84293a7",
+      "verdict": "not_run",
+      "reason": "document_prepared_inference_not_run",
+      "duration_seconds": 0.001,
+      "cohort": "out_of_domain",
+      "expected": "not_applicable",
+      "expected_basis": "domain_selection",
+      "comparison_note": "Unrelated topic control for applicability screening. not_applicable does not assert global paper consistency.",
+      "matches_gold": null
+    }
+  ],
+  "inference": {
+    "provider": "codex",
+    "authentication": "chatgpt",
+    "model": "gpt-6.1-sol",
+    "max_calls": 2,
+    "calls": [
+      {
+        "provider": "codex",
+        "authentication": "chatgpt",
+        "requested_model": "gpt-6.1-sol",
+        "actual_model": null,
+        "actual_models": [],
+        "usage": {
+          "input_tokens": 19690,
+          "cached_input_tokens": 0,
+          "output_tokens": 153,
+          "reasoning_output_tokens": 0
+        },
+        "request_sha256": "82585cf8b68a1568b8b8c6909c9a8eb869ac74c2bbc0000b096a2f22de65e903",
+        "status": "authentication_error"
+      }
+    ],
+    "usage": {
+      "input_tokens": 19690,
+      "cached_input_tokens": 0,
+      "output_tokens": 153,
+      "reasoning_output_tokens": 0
+    },
+    "usage_reporting_complete": true,
+    "preflight_failures": [],
+    "account_usage_note": "Uses the existing ChatGPT/Codex account's access, limits and possible credits; not a guarantee of free usage. The wrapper does not retry or fall back. max_calls counts CLI invocations, not CLI-internal transport attempts. Usage totals sum only reported events; missing usage is not proof of zero use. Actual model remains null when the CLI events do not expose it."
+  },
+  "setup_checks": [
+    {
+      "status": "failed",
+      "check": "sandbox_initialization",
+      "detail": "Codex could not initialize its app-server client in the restricted sandbox."
+    },
+    {
+      "status": "failed",
+      "check": "host_minimal_inference_diagnostic",
+      "detail": "A separate simple prompt encountered stream resets; this was not a paper audit result."
+    }
+  ]
+}

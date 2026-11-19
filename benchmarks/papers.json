@@ -1,0 +1,131 @@
+{
+  "description": "14-paper document-input pilot: 11 curated IPI scopes plus 3 unrelated topic-screening negatives. Expected labels are evaluation metadata only and must never enter extraction prompts. The 11 curated labels are copied unchanged from paper_pilot_gold.json and may rely on code or archived evidence beyond the linked PDF; compare them as historical full-evidence targets, not as ground truth for PDF-only detection accuracy. The three out-of-domain labels mean the IPI-specific audit is not applicable, not that the paper is globally consistent or free of flaws. Retrieval Barrier is the existing narrow in-domain consistent example, not an additional independent negative. These development papers are not a held-out test set.",
+  "papers": [
+    {
+      "id": "adaptools",
+      "title": "AdapTools",
+      "source": "https://aclanthology.org/2026.emnlp-main.2055.pdf",
+      "cohort": "curated_ipi",
+      "expected": "insufficient_evidence",
+      "expected_basis": "prior_curated_evidence",
+      "comparison_note": "Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error."
+    },
+    {
+      "id": "blind_spots",
+      "title": "Blind Spots in the Guard",
+      "source": "https://arxiv.org/pdf/2605.22001v1",
+      "cohort": "curated_ipi",
+      "expected": "inconsistent",
+      "expected_basis": "prior_curated_evidence",
+      "comparison_note": "Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error."
+    },
+    {
+      "id": "aspi",
+      "title": "ASPI",
+      "source": "https://arxiv.org/pdf/2605.17324v1",
+      "cohort": "curated_ipi",
+      "expected": "inconsistent",
+      "expected_basis": "prior_curated_evidence",
+      "comparison_note": "Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error."
+    },
+    {
+      "id": "muzzle",
+      "title": "MUZZLE",
+      "source": "https://www.usenix.org/system/files/usenixsecurity26-syros.pdf",
+      "cohort": "curated_ipi",
+      "expected": "insufficient_evidence",
+      "expected_basis": "prior_curated_evidence",
+      "comparison_note": "Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error."
+    },
+    {
+      "id": "fha",
+      "title": "Breaking MCP with Function Hijacking Attacks (FHA)",
+      "source": "https://arxiv.org/pdf/2604.20994v2",
+      "cohort": "curated_ipi",
+      "expected": "inconsistent",
+      "expected_basis": "prior_curated_evidence",
+      "comparison_note": "Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error."
+    },
+    {
+      "id": "agentcon",
+      "title": "AGENTCON",
+      "source": "https://openreview.net/pdf/a7b8365a80d58906740ac477248926c6c6a43640.pdf",
+      "cohort": "curated_ipi",
+      "expected": "inconsistent",
+      "expected_basis": "prior_curated_evidence",
+      "comparison_note": "Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error."
+    },
+    {
+      "id": "retrieval_barrier",
+      "title": "Overcoming the Retrieval Barrier",
+      "source": "https://www.usenix.org/system/files/usenixsecurity26-chang-hongyan.pdf",
+      "cohort": "curated_ipi",
+      "expected": "consistent_within_scope",
+      "expected_basis": "prior_curated_evidence",
+      "comparison_note": "Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error."
+    },
+    {
+      "id": "liar",
+      "title": "Glue Pizza and Eat Rocks (LIAR)",
+      "source": "https://aclanthology.org/2024.emnlp-main.96.pdf",
+      "cohort": "curated_ipi",
+      "expected": "inconsistent",
+      "expected_basis": "prior_curated_evidence",
+      "comparison_note": "Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error."
+    },
+    {
+      "id": "obliinjection",
+      "title": "ObliInjection",
+      "source": "https://arxiv.org/pdf/2512.09321v3",
+      "cohort": "curated_ipi",
+      "expected": "inconsistent",
+      "expected_basis": "prior_curated_evidence",
+      "comparison_note": "Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error."
+    },
+    {
+      "id": "webtrap",
+      "title": "WebTrap",
+      "source": "https://arxiv.org/pdf/2605.08310v1",
+      "cohort": "curated_ipi",
+      "expected": "inconsistent",
+      "expected_basis": "prior_curated_evidence",
+      "comparison_note": "Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error."
+    },
+    {
+      "id": "icoa",
+      "title": "ICoA",
+      "source": "https://aclanthology.org/2026.emnlp-main.2035.pdf",
+      "cohort": "curated_ipi",
+      "expected": "insufficient_evidence",
+      "expected_basis": "prior_curated_evidence",
+      "comparison_note": "Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error."
+    },
+    {
+      "id": "attention",
+      "title": "Attention Is All You Need",
+      "source": "https://papers.nips.cc/paper_files/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf",
+      "cohort": "out_of_domain",
+      "expected": "not_applicable",
+      "expected_basis": "domain_selection",
+      "comparison_note": "Unrelated topic control for applicability screening. not_applicable does not assert global paper consistency."
+    },
+    {
+      "id": "resnet",
+      "title": "Deep Residual Learning for Image Recognition",
+      "source": "https://arxiv.org/pdf/1512.03385v1",
+      "cohort": "out_of_domain",
+      "expected": "not_applicable",
+      "expected_basis": "domain_selection",
+      "comparison_note": "Unrelated topic control for applicability screening. not_applicable does not assert global paper consistency."
+    },
+    {
+      "id": "adam",
+      "title": "Adam: A Method for Stochastic Optimization",
+      "source": "https://arxiv.org/pdf/1412.6980v1",
+      "cohort": "out_of_domain",
+      "expected": "not_applicable",
+      "expected_basis": "domain_selection",
+      "comparison_note": "Unrelated topic control for applicability screening. not_applicable does not assert global paper consistency."
+    }
+  ]
+}

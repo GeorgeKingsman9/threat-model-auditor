@@ -1,0 +1,1040 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<title>论文审计：测试过程与结果</title>
+<style>
+:root{color-scheme:light;--ink:#172638;--muted:#526377;--border:#d9e1e9;--surface:#f4f7fa}
+*{box-sizing:border-box}body{margin:0;background:var(--surface);color:var(--ink);font:16px/1.6 system-ui,sans-serif}
+main{max-width:1250px;margin:auto;padding:32px 24px 60px}h1{font-size:30px;line-height:1.25;margin:0 0 12px}
+h2{margin:28px 0 12px}h3{font-size:17px;margin:20px 0 8px}p{margin:10px 0}.metadata,small{color:var(--muted)}
+small{display:block;font-weight:normal;margin-top:4px}a{color:#145a9a;text-decoration:underline;text-underline-offset:3px}
+.table-scroll{overflow-x:auto;background:white;border:1px solid var(--border);border-radius:8px}
+table{border-collapse:collapse;width:100%;text-align:left}th,td{padding:13px 14px;border-bottom:1px solid var(--border);vertical-align:top;overflow-wrap:anywhere}
+thead{background:#eaf0f6}tbody tr:last-child>*{border-bottom:0}th{font-weight:600}.stages td:last-child{min-width:260px}
+.badge{display:inline-block;padding:3px 9px;border-radius:5px;font-size:14px;white-space:nowrap}.attention{background:#ffe5df;color:#8c2b18}
+.complete{background:#e0f1e6;color:#1f6643}.pending{background:#fff0cf;color:#735013}
+details{background:white;border:1px solid var(--border);border-radius:8px;padding:14px 18px;margin:12px 0}
+summary{cursor:pointer;font-weight:600}pre{background:#f1f4f8;border:1px solid var(--border);border-radius:6px;padding:12px;white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.55 ui-monospace,monospace;margin:8px 0}
+td pre{max-height:360px;overflow:auto}code{font-family:ui-monospace,monospace}.explanation{color:var(--muted);max-width:88ch}
+@media(max-width:650px){main{padding:24px 12px}h1{font-size:25px}th,td{padding:10px}details{padding:12px}}
+@media print{body{background:white}main{max-width:none}.table-scroll{overflow:visible}pre,td pre{max-height:none;overflow:visible}}
+</style>
+</head><body><main>
+<h1>论文审计：测试过程与结果</h1>
+<p class="metadata">运行类型：document_input_pilot_attempt · 生成时间：2026-11-19T07:50:28.010903+00:00 · 论文记录：14</p><p class="explanation">主表每篇论文一行，展开下方记录查看执行步骤和证据。“未确认”表示本次记录没有确认发现，需结合运行状态和审计范围阅读。运行错误、待运行与证据不足分别显示。</p><details><summary>本次运行汇总</summary><pre>{
+  &quot;paper_count&quot;: 14,
+  &quot;statuses&quot;: {
+    &quot;pending&quot;: 12,
+    &quot;failed&quot;: 2
+  },
+  &quot;verdicts&quot;: {
+    &quot;not_run&quot;: 12,
+    &quot;technical_failure&quot;: 2
+  },
+  &quot;interpretation&quot;: &quot;14 papers remain visible: 12 prepared but inference not run, 1 document blocked, 1 attempted Codex inference with no accepted output. No automatic detection accuracy can be computed.&quot;
+}</pre></details><h2>论文结果</h2><div class="table-scroll"><table id="paper-results"><thead><tr><th>论文</th><th>运行 / 判定</th><th>已确认不一致</th><th>标签对照</th><th>来源</th></tr></thead><tbody><tr class="paper-summary" data-paper-id="adaptools"><th scope="row"><a href="#paper-0">adaptools</a><small>adaptools</small></th><td><span class="badge pending">待运行</span></td><td>未给出</td><td>未评分；预期：证据不足</td><td>https://aclanthology.org/2026.emnlp-main.2055.pdf</td></tr><tr class="paper-summary" data-paper-id="blind_spots"><th scope="row"><a href="#paper-1">blind_spots</a><small>blind_spots</small></th><td><span class="badge pending">待运行</span></td><td>未给出</td><td>未评分；预期：有已确认的不一致</td><td>https://arxiv.org/pdf/2605.22001v1</td></tr><tr class="paper-summary" data-paper-id="aspi"><th scope="row"><a href="#paper-2">aspi</a><small>aspi</small></th><td><span class="badge pending">待运行</span></td><td>未给出</td><td>未评分；预期：有已确认的不一致</td><td>https://arxiv.org/pdf/2605.17324v1</td></tr><tr class="paper-summary" data-paper-id="muzzle"><th scope="row"><a href="#paper-3">muzzle</a><small>muzzle</small></th><td><span class="badge pending">待运行</span></td><td>未给出</td><td>未评分；预期：证据不足</td><td>https://www.usenix.org/system/files/usenixsecurity26-syros.pdf</td></tr><tr class="paper-summary" data-paper-id="fha"><th scope="row"><a href="#paper-4">fha</a><small>fha</small></th><td><span class="badge pending">待运行</span></td><td>未给出</td><td>未评分；预期：有已确认的不一致</td><td>https://arxiv.org/pdf/2604.20994v2</td></tr><tr class="paper-summary" data-paper-id="agentcon"><th scope="row"><a href="#paper-5">agentcon</a><small>agentcon</small></th><td><span class="badge attention">运行失败</span></td><td>未给出</td><td>未评分；预期：有已确认的不一致</td><td>https://openreview.net/pdf/a7b8365a80d58906740ac477248926c6c6a43640.pdf</td></tr><tr class="paper-summary" data-paper-id="retrieval_barrier"><th scope="row"><a href="#paper-6">retrieval_barrier</a><small>retrieval_barrier</small></th><td><span class="badge pending">待运行</span></td><td>未给出</td><td>未评分；预期：审计范围内一致</td><td>https://www.usenix.org/system/files/usenixsecurity26-chang-hongyan.pdf</td></tr><tr class="paper-summary" data-paper-id="liar"><th scope="row"><a href="#paper-7">liar</a><small>liar</small></th><td><span class="badge pending">待运行</span></td><td>未给出</td><td>未评分；预期：有已确认的不一致</td><td>https://aclanthology.org/2024.emnlp-main.96.pdf</td></tr><tr class="paper-summary" data-paper-id="obliinjection"><th scope="row"><a href="#paper-8">obliinjection</a><small>obliinjection</small></th><td><span class="badge pending">待运行</span></td><td>未给出</td><td>未评分；预期：有已确认的不一致</td><td>https://arxiv.org/pdf/2512.09321v3</td></tr><tr class="paper-summary" data-paper-id="webtrap"><th scope="row"><a href="#paper-9">webtrap</a><small>webtrap</small></th><td><span class="badge pending">待运行</span></td><td>未给出</td><td>未评分；预期：有已确认的不一致</td><td>https://arxiv.org/pdf/2605.08310v1</td></tr><tr class="paper-summary" data-paper-id="icoa"><th scope="row"><a href="#paper-10">icoa</a><small>icoa</small></th><td><span class="badge pending">待运行</span></td><td>未给出</td><td>未评分；预期：证据不足</td><td>https://aclanthology.org/2026.emnlp-main.2035.pdf</td></tr><tr class="paper-summary" data-paper-id="attention"><th scope="row"><a href="#paper-11">attention</a><small>attention</small></th><td><span class="badge attention">运行失败</span></td><td>未给出</td><td>未评分；预期：不适用（非 IPI 论文）</td><td>https://papers.nips.cc/paper_files/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf</td></tr><tr class="paper-summary" data-paper-id="resnet"><th scope="row"><a href="#paper-12">resnet</a><small>resnet</small></th><td><span class="badge pending">待运行</span></td><td>未给出</td><td>未评分；预期：不适用（非 IPI 论文）</td><td>https://arxiv.org/pdf/1512.03385v1</td></tr><tr class="paper-summary" data-paper-id="adam"><th scope="row"><a href="#paper-13">adam</a><small>adam</small></th><td><span class="badge pending">待运行</span></td><td>未给出</td><td>未评分；预期：不适用（非 IPI 论文）</td><td>https://arxiv.org/pdf/1412.6980v1</td></tr></tbody></table></div><h2>逐篇测试过程</h2><details class="paper-detail" id="paper-0"><summary>adaptools · 待运行</summary><p>论文 ID：<code>adaptools</code></p><h3>测试过程</h3><div class="table-scroll"><table class="stages"><thead><tr><th>步骤</th><th>状态</th><th>记录</th></tr></thead><tbody><tr><th scope="row">ingestion</th><td><span class="badge complete">已完成</span></td><td><pre>{
+  &quot;stage&quot;: &quot;ingestion&quot;,
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;segments&quot;: 22,
+  &quot;characters&quot;: 117911,
+  &quot;coverage&quot;: {
+    &quot;complete&quot;: true,
+    &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+  },
+  &quot;source_links&quot;: [],
+  &quot;sha256&quot;: &quot;b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05&quot;
+}</pre></td></tr><tr><th scope="row">extraction</th><td><span class="badge pending">尚未运行</span></td><td><pre>{
+  &quot;stage&quot;: &quot;extraction&quot;,
+  &quot;status&quot;: &quot;not_run&quot;
+}</pre></td></tr></tbody></table></div><h3>证据</h3><pre>[]</pre><h3>备注</h3><pre>[]</pre><details><summary>完整论文记录 JSON</summary><pre>{
+  &quot;id&quot;: &quot;adaptools&quot;,
+  &quot;title&quot;: &quot;adaptools&quot;,
+  &quot;source&quot;: &quot;https://aclanthology.org/2026.emnlp-main.2055.pdf&quot;,
+  &quot;status&quot;: &quot;pending&quot;,
+  &quot;has_confirmed_inconsistency&quot;: null,
+  &quot;stages&quot;: [
+    {
+      &quot;stage&quot;: &quot;ingestion&quot;,
+      &quot;status&quot;: &quot;completed&quot;,
+      &quot;segments&quot;: 22,
+      &quot;characters&quot;: 117911,
+      &quot;coverage&quot;: {
+        &quot;complete&quot;: true,
+        &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+      },
+      &quot;source_links&quot;: [],
+      &quot;sha256&quot;: &quot;b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05&quot;
+    },
+    {
+      &quot;stage&quot;: &quot;extraction&quot;,
+      &quot;status&quot;: &quot;not_run&quot;
+    }
+  ],
+  &quot;evidence&quot;: [],
+  &quot;document_sha256&quot;: &quot;b46cc0e65f08e44205e0ac5dfd53528fcfe2b77ae75ece013e5b51c8f6e95a05&quot;,
+  &quot;verdict&quot;: &quot;not_run&quot;,
+  &quot;reason&quot;: &quot;document_prepared_inference_not_run&quot;,
+  &quot;duration_seconds&quot;: 0.002,
+  &quot;cohort&quot;: &quot;curated_ipi&quot;,
+  &quot;expected&quot;: &quot;insufficient_evidence&quot;,
+  &quot;expected_basis&quot;: &quot;prior_curated_evidence&quot;,
+  &quot;comparison_note&quot;: &quot;Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error.&quot;,
+  &quot;matches_gold&quot;: null
+}</pre></details></details><details class="paper-detail" id="paper-1"><summary>blind_spots · 待运行</summary><p>论文 ID：<code>blind_spots</code></p><h3>测试过程</h3><div class="table-scroll"><table class="stages"><thead><tr><th>步骤</th><th>状态</th><th>记录</th></tr></thead><tbody><tr><th scope="row">ingestion</th><td><span class="badge complete">已完成</span></td><td><pre>{
+  &quot;stage&quot;: &quot;ingestion&quot;,
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;segments&quot;: 8,
+  &quot;characters&quot;: 45116,
+  &quot;coverage&quot;: {
+    &quot;complete&quot;: true,
+    &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+  },
+  &quot;source_links&quot;: [],
+  &quot;sha256&quot;: &quot;0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455&quot;
+}</pre></td></tr><tr><th scope="row">extraction</th><td><span class="badge pending">尚未运行</span></td><td><pre>{
+  &quot;stage&quot;: &quot;extraction&quot;,
+  &quot;status&quot;: &quot;not_run&quot;
+}</pre></td></tr></tbody></table></div><h3>证据</h3><pre>[]</pre><h3>备注</h3><pre>[]</pre><details><summary>完整论文记录 JSON</summary><pre>{
+  &quot;id&quot;: &quot;blind_spots&quot;,
+  &quot;title&quot;: &quot;blind_spots&quot;,
+  &quot;source&quot;: &quot;https://arxiv.org/pdf/2605.22001v1&quot;,
+  &quot;status&quot;: &quot;pending&quot;,
+  &quot;has_confirmed_inconsistency&quot;: null,
+  &quot;stages&quot;: [
+    {
+      &quot;stage&quot;: &quot;ingestion&quot;,
+      &quot;status&quot;: &quot;completed&quot;,
+      &quot;segments&quot;: 8,
+      &quot;characters&quot;: 45116,
+      &quot;coverage&quot;: {
+        &quot;complete&quot;: true,
+        &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+      },
+      &quot;source_links&quot;: [],
+      &quot;sha256&quot;: &quot;0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455&quot;
+    },
+    {
+      &quot;stage&quot;: &quot;extraction&quot;,
+      &quot;status&quot;: &quot;not_run&quot;
+    }
+  ],
+  &quot;evidence&quot;: [],
+  &quot;document_sha256&quot;: &quot;0e674fdc3fe80b7af7c69bfd54f00907f9beded3e122cbda76f20fe33f168455&quot;,
+  &quot;verdict&quot;: &quot;not_run&quot;,
+  &quot;reason&quot;: &quot;document_prepared_inference_not_run&quot;,
+  &quot;duration_seconds&quot;: 0.002,
+  &quot;cohort&quot;: &quot;curated_ipi&quot;,
+  &quot;expected&quot;: &quot;inconsistent&quot;,
+  &quot;expected_basis&quot;: &quot;prior_curated_evidence&quot;,
+  &quot;comparison_note&quot;: &quot;Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error.&quot;,
+  &quot;matches_gold&quot;: null
+}</pre></details></details><details class="paper-detail" id="paper-2"><summary>aspi · 待运行</summary><p>论文 ID：<code>aspi</code></p><h3>测试过程</h3><div class="table-scroll"><table class="stages"><thead><tr><th>步骤</th><th>状态</th><th>记录</th></tr></thead><tbody><tr><th scope="row">ingestion</th><td><span class="badge complete">已完成</span></td><td><pre>{
+  &quot;stage&quot;: &quot;ingestion&quot;,
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;segments&quot;: 34,
+  &quot;characters&quot;: 149931,
+  &quot;coverage&quot;: {
+    &quot;complete&quot;: true,
+    &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+  },
+  &quot;source_links&quot;: [
+    &quot;https://github.com/scaleapi/aspi&quot;,
+    &quot;https://arxiv.org/abs/2009.11352&quot;,
+    &quot;https://arxiv.org/&quot;,
+    &quot;https://doi.org/10.1145/3733799.3762982&quot;,
+    &quot;https://openreview.net/forum?id=&quot;,
+    &quot;https://proceedings&quot;,
+    &quot;https://openreview.net/&quot;,
+    &quot;https://arxiv&quot;,
+    &quot;https://www.usenix.org/conference/&quot;,
+    &quot;https://arxiv.org/abs/2603.15714&quot;,
+    &quot;https://arxiv.org/abs/2603.26233&quot;,
+    &quot;https://aclanthology.org/2020.emnlp-main.466/&quot;,
+    &quot;https://huggingface.co/&quot;,
+    &quot;https://doi.org/10.1145/3605764.3623985&quot;,
+    &quot;https://arxiv.org/abs/2602.10525&quot;,
+    &quot;https://openreview.net/forum&quot;,
+    &quot;https://arxiv.org/abs/2507.22034&quot;,
+    &quot;https://arxiv.org/abs/2603.10749&quot;,
+    &quot;https://arxiv.org/abs/2511&quot;,
+    &quot;https://doi.org/10.1145/3690624.3709179&quot;,
+    &quot;https://openreview.net/forum?id=X2yzXtH4wp&quot;,
+    &quot;https://aclanthology.org/2024&quot;,
+    &quot;https://arxiv.org/abs/2508.09124&quot;,
+    &quot;https://arxiv.org/abs/2407.19056&quot;,
+    &quot;https://simonwillison.net/&quot;,
+    &quot;https://arxiv.org/abs/2403.04960&quot;,
+    &quot;https://arxiv.org/abs/2603.01357&quot;,
+    &quot;https://openreview.net/forum?id=oKn9c6ytLx&quot;,
+    &quot;https://deepmind.google/models/gemini/pro/&quot;,
+    &quot;https://www.litellm.ai&quot;
+  ],
+  &quot;sha256&quot;: &quot;cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893&quot;
+}</pre></td></tr><tr><th scope="row">extraction</th><td><span class="badge pending">尚未运行</span></td><td><pre>{
+  &quot;stage&quot;: &quot;extraction&quot;,
+  &quot;status&quot;: &quot;not_run&quot;
+}</pre></td></tr></tbody></table></div><h3>证据</h3><pre>[]</pre><h3>备注</h3><pre>[]</pre><details><summary>完整论文记录 JSON</summary><pre>{
+  &quot;id&quot;: &quot;aspi&quot;,
+  &quot;title&quot;: &quot;aspi&quot;,
+  &quot;source&quot;: &quot;https://arxiv.org/pdf/2605.17324v1&quot;,
+  &quot;status&quot;: &quot;pending&quot;,
+  &quot;has_confirmed_inconsistency&quot;: null,
+  &quot;stages&quot;: [
+    {
+      &quot;stage&quot;: &quot;ingestion&quot;,
+      &quot;status&quot;: &quot;completed&quot;,
+      &quot;segments&quot;: 34,
+      &quot;characters&quot;: 149931,
+      &quot;coverage&quot;: {
+        &quot;complete&quot;: true,
+        &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+      },
+      &quot;source_links&quot;: [
+        &quot;https://github.com/scaleapi/aspi&quot;,
+        &quot;https://arxiv.org/abs/2009.11352&quot;,
+        &quot;https://arxiv.org/&quot;,
+        &quot;https://doi.org/10.1145/3733799.3762982&quot;,
+        &quot;https://openreview.net/forum?id=&quot;,
+        &quot;https://proceedings&quot;,
+        &quot;https://openreview.net/&quot;,
+        &quot;https://arxiv&quot;,
+        &quot;https://www.usenix.org/conference/&quot;,
+        &quot;https://arxiv.org/abs/2603.15714&quot;,
+        &quot;https://arxiv.org/abs/2603.26233&quot;,
+        &quot;https://aclanthology.org/2020.emnlp-main.466/&quot;,
+        &quot;https://huggingface.co/&quot;,
+        &quot;https://doi.org/10.1145/3605764.3623985&quot;,
+        &quot;https://arxiv.org/abs/2602.10525&quot;,
+        &quot;https://openreview.net/forum&quot;,
+        &quot;https://arxiv.org/abs/2507.22034&quot;,
+        &quot;https://arxiv.org/abs/2603.10749&quot;,
+        &quot;https://arxiv.org/abs/2511&quot;,
+        &quot;https://doi.org/10.1145/3690624.3709179&quot;,
+        &quot;https://openreview.net/forum?id=X2yzXtH4wp&quot;,
+        &quot;https://aclanthology.org/2024&quot;,
+        &quot;https://arxiv.org/abs/2508.09124&quot;,
+        &quot;https://arxiv.org/abs/2407.19056&quot;,
+        &quot;https://simonwillison.net/&quot;,
+        &quot;https://arxiv.org/abs/2403.04960&quot;,
+        &quot;https://arxiv.org/abs/2603.01357&quot;,
+        &quot;https://openreview.net/forum?id=oKn9c6ytLx&quot;,
+        &quot;https://deepmind.google/models/gemini/pro/&quot;,
+        &quot;https://www.litellm.ai&quot;
+      ],
+      &quot;sha256&quot;: &quot;cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893&quot;
+    },
+    {
+      &quot;stage&quot;: &quot;extraction&quot;,
+      &quot;status&quot;: &quot;not_run&quot;
+    }
+  ],
+  &quot;evidence&quot;: [],
+  &quot;document_sha256&quot;: &quot;cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893&quot;,
+  &quot;verdict&quot;: &quot;not_run&quot;,
+  &quot;reason&quot;: &quot;document_prepared_inference_not_run&quot;,
+  &quot;duration_seconds&quot;: 0.002,
+  &quot;cohort&quot;: &quot;curated_ipi&quot;,
+  &quot;expected&quot;: &quot;inconsistent&quot;,
+  &quot;expected_basis&quot;: &quot;prior_curated_evidence&quot;,
+  &quot;comparison_note&quot;: &quot;Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error.&quot;,
+  &quot;matches_gold&quot;: null
+}</pre></details></details><details class="paper-detail" id="paper-3"><summary>muzzle · 待运行</summary><p>论文 ID：<code>muzzle</code></p><h3>测试过程</h3><div class="table-scroll"><table class="stages"><thead><tr><th>步骤</th><th>状态</th><th>记录</th></tr></thead><tbody><tr><th scope="row">ingestion</th><td><span class="badge complete">已完成</span></td><td><pre>{
+  &quot;stage&quot;: &quot;ingestion&quot;,
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;segments&quot;: 21,
+  &quot;characters&quot;: 124184,
+  &quot;coverage&quot;: {
+    &quot;complete&quot;: true,
+    &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+  },
+  &quot;source_links&quot;: [
+    &quot;https://www.usenix.org/conference/usenixsecurity26/presentation/syros&quot;,
+    &quot;https://arxiv.org/abs/2602.09222&quot;,
+    &quot;https://github.com/gsi&quot;,
+    &quot;https://github.com/bgrins/the_zoo&quot;,
+    &quot;http://gitea.zoo/alice/hello-zoo/issues&quot;,
+    &quot;https://doi.org/10.5281/zeno&quot;,
+    &quot;https://arxi&quot;,
+    &quot;https://claude.com&quot;,
+    &quot;https://browser-use.com/&quot;,
+    &quot;https://search.google/ways&quot;,
+    &quot;https://www.search.google/ways-to-sea&quot;,
+    &quot;https://arxiv.org/&quot;,
+    &quot;https://huggin&quot;,
+    &quot;https://github.com/microso&quot;,
+    &quot;https://www.mi&quot;,
+    &quot;https://openai.com&quot;,
+    &quot;https://op&quot;,
+    &quot;https://huggingface.co/m&quot;,
+    &quot;https://huggingface.co&quot;,
+    &quot;https://huggingface.co/P&quot;,
+    &quot;https://huggingfac&quot;,
+    &quot;https://www.diabrowser.c&quot;,
+    &quot;https://arxiv.org/abs/2404.13208&quot;,
+    &quot;https://arxiv.org/abs/2505.05849&quot;,
+    &quot;https://html&quot;,
+    &quot;http://www.w3.org/TR/2004/REC&quot;,
+    &quot;https://www.dobrowser.io/&quot;,
+    &quot;https://www.w3.org/Security/&quot;,
+    &quot;https://arxiv.org/abs/2307.15043&quot;,
+    &quot;https://adnanthekhan.com/posts/clinejection/&quot;
+  ],
+  &quot;sha256&quot;: &quot;d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0&quot;
+}</pre></td></tr><tr><th scope="row">extraction</th><td><span class="badge pending">尚未运行</span></td><td><pre>{
+  &quot;stage&quot;: &quot;extraction&quot;,
+  &quot;status&quot;: &quot;not_run&quot;
+}</pre></td></tr></tbody></table></div><h3>证据</h3><pre>[]</pre><h3>备注</h3><pre>[]</pre><details><summary>完整论文记录 JSON</summary><pre>{
+  &quot;id&quot;: &quot;muzzle&quot;,
+  &quot;title&quot;: &quot;muzzle&quot;,
+  &quot;source&quot;: &quot;https://www.usenix.org/system/files/usenixsecurity26-syros.pdf&quot;,
+  &quot;status&quot;: &quot;pending&quot;,
+  &quot;has_confirmed_inconsistency&quot;: null,
+  &quot;stages&quot;: [
+    {
+      &quot;stage&quot;: &quot;ingestion&quot;,
+      &quot;status&quot;: &quot;completed&quot;,
+      &quot;segments&quot;: 21,
+      &quot;characters&quot;: 124184,
+      &quot;coverage&quot;: {
+        &quot;complete&quot;: true,
+        &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+      },
+      &quot;source_links&quot;: [
+        &quot;https://www.usenix.org/conference/usenixsecurity26/presentation/syros&quot;,
+        &quot;https://arxiv.org/abs/2602.09222&quot;,
+        &quot;https://github.com/gsi&quot;,
+        &quot;https://github.com/bgrins/the_zoo&quot;,
+        &quot;http://gitea.zoo/alice/hello-zoo/issues&quot;,
+        &quot;https://doi.org/10.5281/zeno&quot;,
+        &quot;https://arxi&quot;,
+        &quot;https://claude.com&quot;,
+        &quot;https://browser-use.com/&quot;,
+        &quot;https://search.google/ways&quot;,
+        &quot;https://www.search.google/ways-to-sea&quot;,
+        &quot;https://arxiv.org/&quot;,
+        &quot;https://huggin&quot;,
+        &quot;https://github.com/microso&quot;,
+        &quot;https://www.mi&quot;,
+        &quot;https://openai.com&quot;,
+        &quot;https://op&quot;,
+        &quot;https://huggingface.co/m&quot;,
+        &quot;https://huggingface.co&quot;,
+        &quot;https://huggingface.co/P&quot;,
+        &quot;https://huggingfac&quot;,
+        &quot;https://www.diabrowser.c&quot;,
+        &quot;https://arxiv.org/abs/2404.13208&quot;,
+        &quot;https://arxiv.org/abs/2505.05849&quot;,
+        &quot;https://html&quot;,
+        &quot;http://www.w3.org/TR/2004/REC&quot;,
+        &quot;https://www.dobrowser.io/&quot;,
+        &quot;https://www.w3.org/Security/&quot;,
+        &quot;https://arxiv.org/abs/2307.15043&quot;,
+        &quot;https://adnanthekhan.com/posts/clinejection/&quot;
+      ],
+      &quot;sha256&quot;: &quot;d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0&quot;
+    },
+    {
+      &quot;stage&quot;: &quot;extraction&quot;,
+      &quot;status&quot;: &quot;not_run&quot;
+    }
+  ],
+  &quot;evidence&quot;: [],
+  &quot;document_sha256&quot;: &quot;d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0&quot;,
+  &quot;verdict&quot;: &quot;not_run&quot;,
+  &quot;reason&quot;: &quot;document_prepared_inference_not_run&quot;,
+  &quot;duration_seconds&quot;: 0.002,
+  &quot;cohort&quot;: &quot;curated_ipi&quot;,
+  &quot;expected&quot;: &quot;insufficient_evidence&quot;,
+  &quot;expected_basis&quot;: &quot;prior_curated_evidence&quot;,
+  &quot;comparison_note&quot;: &quot;Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error.&quot;,
+  &quot;matches_gold&quot;: null
+}</pre></details></details><details class="paper-detail" id="paper-4"><summary>fha · 待运行</summary><p>论文 ID：<code>fha</code></p><h3>测试过程</h3><div class="table-scroll"><table class="stages"><thead><tr><th>步骤</th><th>状态</th><th>记录</th></tr></thead><tbody><tr><th scope="row">ingestion</th><td><span class="badge complete">已完成</span></td><td><pre>{
+  &quot;stage&quot;: &quot;ingestion&quot;,
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;segments&quot;: 41,
+  &quot;characters&quot;: 145552,
+  &quot;coverage&quot;: {
+    &quot;complete&quot;: true,
+    &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+  },
+  &quot;source_links&quot;: [
+    &quot;https://github.com/GraySwanAI/nanoGCG&quot;,
+    &quot;https://github.com/modelcontextprotocol/servers-archived/&quot;,
+    &quot;https://jmlr.org/tmlr/ethics.html&quot;,
+    &quot;https://arxiv.org/abs/2407.00121&quot;,
+    &quot;https://arxiv.org/abs/2406.13352&quot;,
+    &quot;https://doi.org/10.24963/ijcai.2024/890&quot;,
+    &quot;https://arxiv.org/abs/2402.12329&quot;,
+    &quot;https://arxiv.org/abs/2407.19354&quot;,
+    &quot;https://arxiv.org/abs/2503.23278&quot;,
+    &quot;https://www.ibm.com/downloads/&quot;,
+    &quot;https://adversa.ai/&quot;,
+    &quot;https://invariantlabs&quot;,
+    &quot;https://arxiv.org/abs/2310.06825&quot;,
+    &quot;https://arxiv.org/abs/2504.19277&quot;,
+    &quot;https://doi.org/10.1007/&quot;,
+    &quot;https://www.usenix.org/conference/usenixsecurity18/presentation/kumar&quot;,
+    &quot;https://arxiv.org/abs/2310.04451&quot;,
+    &quot;https://arxiv.org/abs/2410.18890&quot;,
+    &quot;https://arxiv&quot;,
+    &quot;https://arxiv.org/abs/2303.08774&quot;,
+    &quot;https://arxiv.org/abs/2305.15334&quot;,
+    &quot;https://arxiv.org/abs/2505.09388&quot;,
+    &quot;https://arxiv.org/abs/2409.15398&quot;,
+    &quot;https://arxiv.org/abs/2302.04761&quot;,
+    &quot;https://arxiv.org/abs/2302.13971&quot;,
+    &quot;https://nvlpubs.nist.gov/&quot;,
+    &quot;http://dx.doi.org/10.1007/s11704-024-40231-1&quot;,
+    &quot;https://arxiv.org/abs/2410&quot;,
+    &quot;https://arxiv.org/abs/2407.17915&quot;,
+    &quot;https://arxiv.org/abs/2210.03629&quot;,
+    &quot;https://arxiv.org/abs/2407.04295&quot;,
+    &quot;https://arxiv.org/abs/2403&quot;,
+    &quot;https://arxiv.org/abs/2407.20859&quot;,
+    &quot;https://arxiv.org/abs/2307&quot;,
+    &quot;https://arxiv.org/abs/2406.04313&quot;,
+    &quot;https://github.com/hanbaoergogo/MPMA.git&quot;
+  ],
+  &quot;sha256&quot;: &quot;a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc&quot;
+}</pre></td></tr><tr><th scope="row">extraction</th><td><span class="badge pending">尚未运行</span></td><td><pre>{
+  &quot;stage&quot;: &quot;extraction&quot;,
+  &quot;status&quot;: &quot;not_run&quot;
+}</pre></td></tr></tbody></table></div><h3>证据</h3><pre>[]</pre><h3>备注</h3><pre>[]</pre><details><summary>完整论文记录 JSON</summary><pre>{
+  &quot;id&quot;: &quot;fha&quot;,
+  &quot;title&quot;: &quot;fha&quot;,
+  &quot;source&quot;: &quot;https://arxiv.org/pdf/2604.20994v2&quot;,
+  &quot;status&quot;: &quot;pending&quot;,
+  &quot;has_confirmed_inconsistency&quot;: null,
+  &quot;stages&quot;: [
+    {
+      &quot;stage&quot;: &quot;ingestion&quot;,
+      &quot;status&quot;: &quot;completed&quot;,
+      &quot;segments&quot;: 41,
+      &quot;characters&quot;: 145552,
+      &quot;coverage&quot;: {
+        &quot;complete&quot;: true,
+        &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+      },
+      &quot;source_links&quot;: [
+        &quot;https://github.com/GraySwanAI/nanoGCG&quot;,
+        &quot;https://github.com/modelcontextprotocol/servers-archived/&quot;,
+        &quot;https://jmlr.org/tmlr/ethics.html&quot;,
+        &quot;https://arxiv.org/abs/2407.00121&quot;,
+        &quot;https://arxiv.org/abs/2406.13352&quot;,
+        &quot;https://doi.org/10.24963/ijcai.2024/890&quot;,
+        &quot;https://arxiv.org/abs/2402.12329&quot;,
+        &quot;https://arxiv.org/abs/2407.19354&quot;,
+        &quot;https://arxiv.org/abs/2503.23278&quot;,
+        &quot;https://www.ibm.com/downloads/&quot;,
+        &quot;https://adversa.ai/&quot;,
+        &quot;https://invariantlabs&quot;,
+        &quot;https://arxiv.org/abs/2310.06825&quot;,
+        &quot;https://arxiv.org/abs/2504.19277&quot;,
+        &quot;https://doi.org/10.1007/&quot;,
+        &quot;https://www.usenix.org/conference/usenixsecurity18/presentation/kumar&quot;,
+        &quot;https://arxiv.org/abs/2310.04451&quot;,
+        &quot;https://arxiv.org/abs/2410.18890&quot;,
+        &quot;https://arxiv&quot;,
+        &quot;https://arxiv.org/abs/2303.08774&quot;,
+        &quot;https://arxiv.org/abs/2305.15334&quot;,
+        &quot;https://arxiv.org/abs/2505.09388&quot;,
+        &quot;https://arxiv.org/abs/2409.15398&quot;,
+        &quot;https://arxiv.org/abs/2302.04761&quot;,
+        &quot;https://arxiv.org/abs/2302.13971&quot;,
+        &quot;https://nvlpubs.nist.gov/&quot;,
+        &quot;http://dx.doi.org/10.1007/s11704-024-40231-1&quot;,
+        &quot;https://arxiv.org/abs/2410&quot;,
+        &quot;https://arxiv.org/abs/2407.17915&quot;,
+        &quot;https://arxiv.org/abs/2210.03629&quot;,
+        &quot;https://arxiv.org/abs/2407.04295&quot;,
+        &quot;https://arxiv.org/abs/2403&quot;,
+        &quot;https://arxiv.org/abs/2407.20859&quot;,
+        &quot;https://arxiv.org/abs/2307&quot;,
+        &quot;https://arxiv.org/abs/2406.04313&quot;,
+        &quot;https://github.com/hanbaoergogo/MPMA.git&quot;
+      ],
+      &quot;sha256&quot;: &quot;a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc&quot;
+    },
+    {
+      &quot;stage&quot;: &quot;extraction&quot;,
+      &quot;status&quot;: &quot;not_run&quot;
+    }
+  ],
+  &quot;evidence&quot;: [],
+  &quot;document_sha256&quot;: &quot;a418013dac0ff58898aa832f682702b1cf1c605f8edc2f05446b2035c2bbcccc&quot;,
+  &quot;verdict&quot;: &quot;not_run&quot;,
+  &quot;reason&quot;: &quot;document_prepared_inference_not_run&quot;,
+  &quot;duration_seconds&quot;: 0.002,
+  &quot;cohort&quot;: &quot;curated_ipi&quot;,
+  &quot;expected&quot;: &quot;inconsistent&quot;,
+  &quot;expected_basis&quot;: &quot;prior_curated_evidence&quot;,
+  &quot;comparison_note&quot;: &quot;Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error.&quot;,
+  &quot;matches_gold&quot;: null
+}</pre></details></details><details class="paper-detail" id="paper-5"><summary>agentcon · 运行失败</summary><p>论文 ID：<code>agentcon</code></p><h3>测试过程</h3><div class="table-scroll"><table class="stages"><thead><tr><th>步骤</th><th>状态</th><th>记录</th></tr></thead><tbody><tr><th scope="row">ingestion</th><td><span class="badge attention">运行失败</span></td><td><pre>{
+  &quot;stage&quot;: &quot;ingestion&quot;,
+  &quot;status&quot;: &quot;failed&quot;,
+  &quot;error&quot;: &quot;prepared document source does not match the requested paper&quot;
+}</pre></td></tr></tbody></table></div><h3>证据</h3><pre>[]</pre><h3>备注</h3><pre>[
+  &quot;The cached URL response is an OpenReview access-challenge HTML page, not the paper PDF. The cached source mismatch correctly prevented inference.&quot;
+]</pre><details><summary>完整论文记录 JSON</summary><pre>{
+  &quot;id&quot;: &quot;agentcon&quot;,
+  &quot;title&quot;: &quot;agentcon&quot;,
+  &quot;source&quot;: &quot;https://openreview.net/pdf/a7b8365a80d58906740ac477248926c6c6a43640.pdf&quot;,
+  &quot;status&quot;: &quot;failed&quot;,
+  &quot;has_confirmed_inconsistency&quot;: null,
+  &quot;stages&quot;: [
+    {
+      &quot;stage&quot;: &quot;ingestion&quot;,
+      &quot;status&quot;: &quot;failed&quot;,
+      &quot;error&quot;: &quot;prepared document source does not match the requested paper&quot;
+    }
+  ],
+  &quot;evidence&quot;: [],
+  &quot;verdict&quot;: &quot;technical_failure&quot;,
+  &quot;error&quot;: &quot;prepared document source does not match the requested paper&quot;,
+  &quot;duration_seconds&quot;: 0.0,
+  &quot;cohort&quot;: &quot;curated_ipi&quot;,
+  &quot;expected&quot;: &quot;inconsistent&quot;,
+  &quot;expected_basis&quot;: &quot;prior_curated_evidence&quot;,
+  &quot;comparison_note&quot;: &quot;Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error.&quot;,
+  &quot;matches_gold&quot;: null,
+  &quot;notes&quot;: [
+    &quot;The cached URL response is an OpenReview access-challenge HTML page, not the paper PDF. The cached source mismatch correctly prevented inference.&quot;
+  ]
+}</pre></details></details><details class="paper-detail" id="paper-6"><summary>retrieval_barrier · 待运行</summary><p>论文 ID：<code>retrieval_barrier</code></p><h3>测试过程</h3><div class="table-scroll"><table class="stages"><thead><tr><th>步骤</th><th>状态</th><th>记录</th></tr></thead><tbody><tr><th scope="row">ingestion</th><td><span class="badge complete">已完成</span></td><td><pre>{
+  &quot;stage&quot;: &quot;ingestion&quot;,
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;segments&quot;: 21,
+  &quot;characters&quot;: 142451,
+  &quot;coverage&quot;: {
+    &quot;complete&quot;: true,
+    &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+  },
+  &quot;source_links&quot;: [
+    &quot;https://www.usenix.org/conference/usenixsecurity26/presentation/chang-hongyan&quot;,
+    &quot;https://docs.weaviate.io/&quot;,
+    &quot;https://zenodo.org/records/&quot;,
+    &quot;https://genai.owasp.org/resource/owasp-&quot;,
+    &quot;https://www.aim&quot;,
+    &quot;https://bailian.console.aliyun&quot;,
+    &quot;https://www&quot;,
+    &quot;https://azure.microsoft.com/en-&quot;,
+    &quot;https://web.stanford.edu/&quot;,
+    &quot;https://cursor&quot;,
+    &quot;https://arxiv.org/abs/2508.12175&quot;,
+    &quot;https://arxiv.org/&quot;,
+    &quot;https://learn.microsoft.com/en-&quot;,
+    &quot;https://blog&quot;
+  ],
+  &quot;sha256&quot;: &quot;618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285&quot;
+}</pre></td></tr><tr><th scope="row">extraction</th><td><span class="badge pending">尚未运行</span></td><td><pre>{
+  &quot;stage&quot;: &quot;extraction&quot;,
+  &quot;status&quot;: &quot;not_run&quot;
+}</pre></td></tr></tbody></table></div><h3>证据</h3><pre>[]</pre><h3>备注</h3><pre>[]</pre><details><summary>完整论文记录 JSON</summary><pre>{
+  &quot;id&quot;: &quot;retrieval_barrier&quot;,
+  &quot;title&quot;: &quot;retrieval_barrier&quot;,
+  &quot;source&quot;: &quot;https://www.usenix.org/system/files/usenixsecurity26-chang-hongyan.pdf&quot;,
+  &quot;status&quot;: &quot;pending&quot;,
+  &quot;has_confirmed_inconsistency&quot;: null,
+  &quot;stages&quot;: [
+    {
+      &quot;stage&quot;: &quot;ingestion&quot;,
+      &quot;status&quot;: &quot;completed&quot;,
+      &quot;segments&quot;: 21,
+      &quot;characters&quot;: 142451,
+      &quot;coverage&quot;: {
+        &quot;complete&quot;: true,
+        &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+      },
+      &quot;source_links&quot;: [
+        &quot;https://www.usenix.org/conference/usenixsecurity26/presentation/chang-hongyan&quot;,
+        &quot;https://docs.weaviate.io/&quot;,
+        &quot;https://zenodo.org/records/&quot;,
+        &quot;https://genai.owasp.org/resource/owasp-&quot;,
+        &quot;https://www.aim&quot;,
+        &quot;https://bailian.console.aliyun&quot;,
+        &quot;https://www&quot;,
+        &quot;https://azure.microsoft.com/en-&quot;,
+        &quot;https://web.stanford.edu/&quot;,
+        &quot;https://cursor&quot;,
+        &quot;https://arxiv.org/abs/2508.12175&quot;,
+        &quot;https://arxiv.org/&quot;,
+        &quot;https://learn.microsoft.com/en-&quot;,
+        &quot;https://blog&quot;
+      ],
+      &quot;sha256&quot;: &quot;618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285&quot;
+    },
+    {
+      &quot;stage&quot;: &quot;extraction&quot;,
+      &quot;status&quot;: &quot;not_run&quot;
+    }
+  ],
+  &quot;evidence&quot;: [],
+  &quot;document_sha256&quot;: &quot;618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285&quot;,
+  &quot;verdict&quot;: &quot;not_run&quot;,
+  &quot;reason&quot;: &quot;document_prepared_inference_not_run&quot;,
+  &quot;duration_seconds&quot;: 0.003,
+  &quot;cohort&quot;: &quot;curated_ipi&quot;,
+  &quot;expected&quot;: &quot;consistent_within_scope&quot;,
+  &quot;expected_basis&quot;: &quot;prior_curated_evidence&quot;,
+  &quot;comparison_note&quot;: &quot;Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error.&quot;,
+  &quot;matches_gold&quot;: null
+}</pre></details></details><details class="paper-detail" id="paper-7"><summary>liar · 待运行</summary><p>论文 ID：<code>liar</code></p><h3>测试过程</h3><div class="table-scroll"><table class="stages"><thead><tr><th>步骤</th><th>状态</th><th>记录</th></tr></thead><tbody><tr><th scope="row">ingestion</th><td><span class="badge complete">已完成</span></td><td><pre>{
+  &quot;stage&quot;: &quot;ingestion&quot;,
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;segments&quot;: 17,
+  &quot;characters&quot;: 89373,
+  &quot;coverage&quot;: {
+    &quot;complete&quot;: true,
+    &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+  },
+  &quot;source_links&quot;: [
+    &quot;https://www.bbc.com/news/articles/cd11gzejgz4o/&quot;,
+    &quot;https://www.reddit.com/r/Pizza/comments/1a19s0/&quot;,
+    &quot;https://www.washingtonpost.com/google-halt-ai-search/&quot;,
+    &quot;https://huggingface.co/datasets/Salesforce/wikitext/&quot;,
+    &quot;https://python.langchain.com/google_search/&quot;
+  ],
+  &quot;sha256&quot;: &quot;4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0&quot;
+}</pre></td></tr><tr><th scope="row">extraction</th><td><span class="badge pending">尚未运行</span></td><td><pre>{
+  &quot;stage&quot;: &quot;extraction&quot;,
+  &quot;status&quot;: &quot;not_run&quot;
+}</pre></td></tr></tbody></table></div><h3>证据</h3><pre>[]</pre><h3>备注</h3><pre>[]</pre><details><summary>完整论文记录 JSON</summary><pre>{
+  &quot;id&quot;: &quot;liar&quot;,
+  &quot;title&quot;: &quot;liar&quot;,
+  &quot;source&quot;: &quot;https://aclanthology.org/2024.emnlp-main.96.pdf&quot;,
+  &quot;status&quot;: &quot;pending&quot;,
+  &quot;has_confirmed_inconsistency&quot;: null,
+  &quot;stages&quot;: [
+    {
+      &quot;stage&quot;: &quot;ingestion&quot;,
+      &quot;status&quot;: &quot;completed&quot;,
+      &quot;segments&quot;: 17,
+      &quot;characters&quot;: 89373,
+      &quot;coverage&quot;: {
+        &quot;complete&quot;: true,
+        &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+      },
+      &quot;source_links&quot;: [
+        &quot;https://www.bbc.com/news/articles/cd11gzejgz4o/&quot;,
+        &quot;https://www.reddit.com/r/Pizza/comments/1a19s0/&quot;,
+        &quot;https://www.washingtonpost.com/google-halt-ai-search/&quot;,
+        &quot;https://huggingface.co/datasets/Salesforce/wikitext/&quot;,
+        &quot;https://python.langchain.com/google_search/&quot;
+      ],
+      &quot;sha256&quot;: &quot;4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0&quot;
+    },
+    {
+      &quot;stage&quot;: &quot;extraction&quot;,
+      &quot;status&quot;: &quot;not_run&quot;
+    }
+  ],
+  &quot;evidence&quot;: [],
+  &quot;document_sha256&quot;: &quot;4a8138a9eaa1bce8fc300cdeaa9c83ce64f4440c99b596b5687c4e54d2cfd0e0&quot;,
+  &quot;verdict&quot;: &quot;not_run&quot;,
+  &quot;reason&quot;: &quot;document_prepared_inference_not_run&quot;,
+  &quot;duration_seconds&quot;: 0.002,
+  &quot;cohort&quot;: &quot;curated_ipi&quot;,
+  &quot;expected&quot;: &quot;inconsistent&quot;,
+  &quot;expected_basis&quot;: &quot;prior_curated_evidence&quot;,
+  &quot;comparison_note&quot;: &quot;Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error.&quot;,
+  &quot;matches_gold&quot;: null
+}</pre></details></details><details class="paper-detail" id="paper-8"><summary>obliinjection · 待运行</summary><p>论文 ID：<code>obliinjection</code></p><h3>测试过程</h3><div class="table-scroll"><table class="stages"><thead><tr><th>步骤</th><th>状态</th><th>记录</th></tr></thead><tbody><tr><th scope="row">ingestion</th><td><span class="badge complete">已完成</span></td><td><pre>{
+  &quot;stage&quot;: &quot;ingestion&quot;,
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;segments&quot;: 18,
+  &quot;characters&quot;: 136067,
+  &quot;coverage&quot;: {
+    &quot;complete&quot;: true,
+    &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+  },
+  &quot;source_links&quot;: [
+    &quot;https://github.com/ReachalWang/ObliInjection&quot;,
+    &quot;https://dx.doi.org/10.14722/ndss.2026.240702&quot;,
+    &quot;https://www.aboutamazon.com/news/amazon-ai/&quot;,
+    &quot;https://blog.google/products/search/&quot;,
+    &quot;https://github&quot;,
+    &quot;https://github.com/GraySwanAI/nanoGCG&quot;,
+    &quot;https://twitter.com/yoheinakajima/&quot;,
+    &quot;https://github.com/tatsu-lab/stanford&quot;
+  ],
+  &quot;sha256&quot;: &quot;deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e&quot;
+}</pre></td></tr><tr><th scope="row">extraction</th><td><span class="badge pending">尚未运行</span></td><td><pre>{
+  &quot;stage&quot;: &quot;extraction&quot;,
+  &quot;status&quot;: &quot;not_run&quot;
+}</pre></td></tr></tbody></table></div><h3>证据</h3><pre>[]</pre><h3>备注</h3><pre>[]</pre><details><summary>完整论文记录 JSON</summary><pre>{
+  &quot;id&quot;: &quot;obliinjection&quot;,
+  &quot;title&quot;: &quot;obliinjection&quot;,
+  &quot;source&quot;: &quot;https://arxiv.org/pdf/2512.09321v3&quot;,
+  &quot;status&quot;: &quot;pending&quot;,
+  &quot;has_confirmed_inconsistency&quot;: null,
+  &quot;stages&quot;: [
+    {
+      &quot;stage&quot;: &quot;ingestion&quot;,
+      &quot;status&quot;: &quot;completed&quot;,
+      &quot;segments&quot;: 18,
+      &quot;characters&quot;: 136067,
+      &quot;coverage&quot;: {
+        &quot;complete&quot;: true,
+        &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+      },
+      &quot;source_links&quot;: [
+        &quot;https://github.com/ReachalWang/ObliInjection&quot;,
+        &quot;https://dx.doi.org/10.14722/ndss.2026.240702&quot;,
+        &quot;https://www.aboutamazon.com/news/amazon-ai/&quot;,
+        &quot;https://blog.google/products/search/&quot;,
+        &quot;https://github&quot;,
+        &quot;https://github.com/GraySwanAI/nanoGCG&quot;,
+        &quot;https://twitter.com/yoheinakajima/&quot;,
+        &quot;https://github.com/tatsu-lab/stanford&quot;
+      ],
+      &quot;sha256&quot;: &quot;deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e&quot;
+    },
+    {
+      &quot;stage&quot;: &quot;extraction&quot;,
+      &quot;status&quot;: &quot;not_run&quot;
+    }
+  ],
+  &quot;evidence&quot;: [],
+  &quot;document_sha256&quot;: &quot;deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e&quot;,
+  &quot;verdict&quot;: &quot;not_run&quot;,
+  &quot;reason&quot;: &quot;document_prepared_inference_not_run&quot;,
+  &quot;duration_seconds&quot;: 0.002,
+  &quot;cohort&quot;: &quot;curated_ipi&quot;,
+  &quot;expected&quot;: &quot;inconsistent&quot;,
+  &quot;expected_basis&quot;: &quot;prior_curated_evidence&quot;,
+  &quot;comparison_note&quot;: &quot;Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error.&quot;,
+  &quot;matches_gold&quot;: null
+}</pre></details></details><details class="paper-detail" id="paper-9"><summary>webtrap · 待运行</summary><p>论文 ID：<code>webtrap</code></p><h3>测试过程</h3><div class="table-scroll"><table class="stages"><thead><tr><th>步骤</th><th>状态</th><th>记录</th></tr></thead><tbody><tr><th scope="row">ingestion</th><td><span class="badge complete">已完成</span></td><td><pre>{
+  &quot;stage&quot;: &quot;ingestion&quot;,
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;segments&quot;: 31,
+  &quot;characters&quot;: 143482,
+  &quot;coverage&quot;: {
+    &quot;complete&quot;: true,
+    &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+  },
+  &quot;source_links&quot;: [
+    &quot;https://github.com/liuyaojialiuyaojia/WebTrap&quot;,
+    &quot;https://openreview.net/forum?id=lIVRgt4nLv&quot;,
+    &quot;https://proceedings.mlr.press/v267/&quot;,
+    &quot;https://aclanthology.org/2025.emnlp-main.372/&quot;,
+    &quot;https://aclanthology.org/2025.acl-long.890/&quot;,
+    &quot;https://aclanthology.org/2025.acl-long.897/&quot;,
+    &quot;https://proceedings.neurips.cc/paper_files/paper/2024/hash/&quot;,
+    &quot;https://arxiv.org/abs/2412.19437&quot;,
+    &quot;https://papers.nips.cc/paper_&quot;,
+    &quot;https://proceedings.mlr.press/&quot;,
+    &quot;https://openreview.net/forum?id=Ip1cCUAllL&quot;,
+    &quot;https://arxiv.org/abs/2507.06261&quot;,
+    &quot;https://arxiv.org/abs/2508&quot;,
+    &quot;https://doi.org/10.1145/3605764&quot;,
+    &quot;https://doi.org/10.1007/978-3-031-73113-6_10&quot;,
+    &quot;https://arxiv.org/abs/2507.20534&quot;,
+    &quot;https://aclanthology.org/2024.acl-long.50/&quot;,
+    &quot;https://openreview&quot;,
+    &quot;https://aclanthology.org/2024.tacl-1.9/&quot;,
+    &quot;https://openreview.net/forum?id=zAdUB0aCTQ&quot;,
+    &quot;https://www.usenix.org/conference/usenixsecurity24/presentation/liu-yupei&quot;,
+    &quot;https://proceedings.mlr.press/v235/lu24e.html&quot;,
+    &quot;https://arxiv.org/abs/2505.09388&quot;,
+    &quot;https://doi.org/10.1145/3690624.3709179&quot;,
+    &quot;https://aclanthology&quot;,
+    &quot;https://aclanthology.org/2024.findings-acl.624/&quot;,
+    &quot;https://openreview.net/forum?id=V4y0CpX4hK&quot;,
+    &quot;https://aclanthology.org/2025.acl-long&quot;,
+    &quot;https://openreview.net/forum?id=oKn9c6ytLx&quot;
+  ],
+  &quot;sha256&quot;: &quot;00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a&quot;
+}</pre></td></tr><tr><th scope="row">extraction</th><td><span class="badge pending">尚未运行</span></td><td><pre>{
+  &quot;stage&quot;: &quot;extraction&quot;,
+  &quot;status&quot;: &quot;not_run&quot;
+}</pre></td></tr></tbody></table></div><h3>证据</h3><pre>[]</pre><h3>备注</h3><pre>[]</pre><details><summary>完整论文记录 JSON</summary><pre>{
+  &quot;id&quot;: &quot;webtrap&quot;,
+  &quot;title&quot;: &quot;webtrap&quot;,
+  &quot;source&quot;: &quot;https://arxiv.org/pdf/2605.08310v1&quot;,
+  &quot;status&quot;: &quot;pending&quot;,
+  &quot;has_confirmed_inconsistency&quot;: null,
+  &quot;stages&quot;: [
+    {
+      &quot;stage&quot;: &quot;ingestion&quot;,
+      &quot;status&quot;: &quot;completed&quot;,
+      &quot;segments&quot;: 31,
+      &quot;characters&quot;: 143482,
+      &quot;coverage&quot;: {
+        &quot;complete&quot;: true,
+        &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+      },
+      &quot;source_links&quot;: [
+        &quot;https://github.com/liuyaojialiuyaojia/WebTrap&quot;,
+        &quot;https://openreview.net/forum?id=lIVRgt4nLv&quot;,
+        &quot;https://proceedings.mlr.press/v267/&quot;,
+        &quot;https://aclanthology.org/2025.emnlp-main.372/&quot;,
+        &quot;https://aclanthology.org/2025.acl-long.890/&quot;,
+        &quot;https://aclanthology.org/2025.acl-long.897/&quot;,
+        &quot;https://proceedings.neurips.cc/paper_files/paper/2024/hash/&quot;,
+        &quot;https://arxiv.org/abs/2412.19437&quot;,
+        &quot;https://papers.nips.cc/paper_&quot;,
+        &quot;https://proceedings.mlr.press/&quot;,
+        &quot;https://openreview.net/forum?id=Ip1cCUAllL&quot;,
+        &quot;https://arxiv.org/abs/2507.06261&quot;,
+        &quot;https://arxiv.org/abs/2508&quot;,
+        &quot;https://doi.org/10.1145/3605764&quot;,
+        &quot;https://doi.org/10.1007/978-3-031-73113-6_10&quot;,
+        &quot;https://arxiv.org/abs/2507.20534&quot;,
+        &quot;https://aclanthology.org/2024.acl-long.50/&quot;,
+        &quot;https://openreview&quot;,
+        &quot;https://aclanthology.org/2024.tacl-1.9/&quot;,
+        &quot;https://openreview.net/forum?id=zAdUB0aCTQ&quot;,
+        &quot;https://www.usenix.org/conference/usenixsecurity24/presentation/liu-yupei&quot;,
+        &quot;https://proceedings.mlr.press/v235/lu24e.html&quot;,
+        &quot;https://arxiv.org/abs/2505.09388&quot;,
+        &quot;https://doi.org/10.1145/3690624.3709179&quot;,
+        &quot;https://aclanthology&quot;,
+        &quot;https://aclanthology.org/2024.findings-acl.624/&quot;,
+        &quot;https://openreview.net/forum?id=V4y0CpX4hK&quot;,
+        &quot;https://aclanthology.org/2025.acl-long&quot;,
+        &quot;https://openreview.net/forum?id=oKn9c6ytLx&quot;
+      ],
+      &quot;sha256&quot;: &quot;00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a&quot;
+    },
+    {
+      &quot;stage&quot;: &quot;extraction&quot;,
+      &quot;status&quot;: &quot;not_run&quot;
+    }
+  ],
+  &quot;evidence&quot;: [],
+  &quot;document_sha256&quot;: &quot;00dedf8131efd61f11ece27e6087310a7c0aa675003ce9942eeea6b05a75766a&quot;,
+  &quot;verdict&quot;: &quot;not_run&quot;,
+  &quot;reason&quot;: &quot;document_prepared_inference_not_run&quot;,
+  &quot;duration_seconds&quot;: 0.002,
+  &quot;cohort&quot;: &quot;curated_ipi&quot;,
+  &quot;expected&quot;: &quot;inconsistent&quot;,
+  &quot;expected_basis&quot;: &quot;prior_curated_evidence&quot;,
+  &quot;comparison_note&quot;: &quot;Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error.&quot;,
+  &quot;matches_gold&quot;: null
+}</pre></details></details><details class="paper-detail" id="paper-10"><summary>icoa · 待运行</summary><p>论文 ID：<code>icoa</code></p><h3>测试过程</h3><div class="table-scroll"><table class="stages"><thead><tr><th>步骤</th><th>状态</th><th>记录</th></tr></thead><tbody><tr><th scope="row">ingestion</th><td><span class="badge complete">已完成</span></td><td><pre>{
+  &quot;stage&quot;: &quot;ingestion&quot;,
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;segments&quot;: 19,
+  &quot;characters&quot;: 116646,
+  &quot;coverage&quot;: {
+    &quot;complete&quot;: true,
+    &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+  },
+  &quot;source_links&quot;: [
+    &quot;https://yslmoment.github.io/ICoA&quot;,
+    &quot;https://www.lake&quot;
+  ],
+  &quot;sha256&quot;: &quot;4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2&quot;
+}</pre></td></tr><tr><th scope="row">extraction</th><td><span class="badge pending">尚未运行</span></td><td><pre>{
+  &quot;stage&quot;: &quot;extraction&quot;,
+  &quot;status&quot;: &quot;not_run&quot;
+}</pre></td></tr></tbody></table></div><h3>证据</h3><pre>[]</pre><h3>备注</h3><pre>[]</pre><details><summary>完整论文记录 JSON</summary><pre>{
+  &quot;id&quot;: &quot;icoa&quot;,
+  &quot;title&quot;: &quot;icoa&quot;,
+  &quot;source&quot;: &quot;https://aclanthology.org/2026.emnlp-main.2035.pdf&quot;,
+  &quot;status&quot;: &quot;pending&quot;,
+  &quot;has_confirmed_inconsistency&quot;: null,
+  &quot;stages&quot;: [
+    {
+      &quot;stage&quot;: &quot;ingestion&quot;,
+      &quot;status&quot;: &quot;completed&quot;,
+      &quot;segments&quot;: 19,
+      &quot;characters&quot;: 116646,
+      &quot;coverage&quot;: {
+        &quot;complete&quot;: true,
+        &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+      },
+      &quot;source_links&quot;: [
+        &quot;https://yslmoment.github.io/ICoA&quot;,
+        &quot;https://www.lake&quot;
+      ],
+      &quot;sha256&quot;: &quot;4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2&quot;
+    },
+    {
+      &quot;stage&quot;: &quot;extraction&quot;,
+      &quot;status&quot;: &quot;not_run&quot;
+    }
+  ],
+  &quot;evidence&quot;: [],
+  &quot;document_sha256&quot;: &quot;4da820429fd4d07f8832c6d2ee8f588688f3d507b3601275dd92bff09d411ee2&quot;,
+  &quot;verdict&quot;: &quot;not_run&quot;,
+  &quot;reason&quot;: &quot;document_prepared_inference_not_run&quot;,
+  &quot;duration_seconds&quot;: 0.004,
+  &quot;cohort&quot;: &quot;curated_ipi&quot;,
+  &quot;expected&quot;: &quot;insufficient_evidence&quot;,
+  &quot;expected_basis&quot;: &quot;prior_curated_evidence&quot;,
+  &quot;comparison_note&quot;: &quot;Historical label for the version and audit scope in paper_pilot.json; its source-code or archived evidence may not be present in this PDF. A different PDF-only result is not automatically a detection error.&quot;,
+  &quot;matches_gold&quot;: null
+}</pre></details></details><details class="paper-detail" id="paper-11"><summary>attention · 运行失败</summary><p>论文 ID：<code>attention</code></p><h3>测试过程</h3><div class="table-scroll"><table class="stages"><thead><tr><th>步骤</th><th>状态</th><th>记录</th></tr></thead><tbody><tr><th scope="row">ingestion</th><td><span class="badge complete">已完成</span></td><td><pre>{
+  &quot;stage&quot;: &quot;ingestion&quot;,
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;segments&quot;: 11,
+  &quot;characters&quot;: 38171,
+  &quot;coverage&quot;: {
+    &quot;complete&quot;: true,
+    &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+  },
+  &quot;source_links&quot;: [
+    &quot;https://github.com/&quot;
+  ],
+  &quot;sha256&quot;: &quot;d87d482d5ae7960e2e43d7dd6d21377e60e73e8fce1bf2a01aff7aca8a08c537&quot;
+}</pre></td></tr><tr><th scope="row">extraction</th><td><span class="badge attention">运行失败</span></td><td><pre>{
+  &quot;stage&quot;: &quot;extraction&quot;,
+  &quot;status&quot;: &quot;failed&quot;,
+  &quot;error&quot;: &quot;Codex CLI failed (authentication_error); no retry or fallback attempted&quot;
+}</pre></td></tr></tbody></table></div><h3>证据</h3><pre>[]</pre><h3>备注</h3><pre>[
+  &quot;No accepted structured model output was obtained. The original wrapper category is retained, but does not prove a failed login.&quot;,
+  &quot;A separate minimal Codex test reported stream resets and reconnect attempts. No Claude/OpenAI API-key backend was used.&quot;
+]</pre><details><summary>完整论文记录 JSON</summary><pre>{
+  &quot;id&quot;: &quot;attention&quot;,
+  &quot;title&quot;: &quot;attention&quot;,
+  &quot;source&quot;: &quot;https://papers.nips.cc/paper_files/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf&quot;,
+  &quot;status&quot;: &quot;failed&quot;,
+  &quot;has_confirmed_inconsistency&quot;: null,
+  &quot;stages&quot;: [
+    {
+      &quot;stage&quot;: &quot;ingestion&quot;,
+      &quot;status&quot;: &quot;completed&quot;,
+      &quot;segments&quot;: 11,
+      &quot;characters&quot;: 38171,
+      &quot;coverage&quot;: {
+        &quot;complete&quot;: true,
+        &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+      },
+      &quot;source_links&quot;: [
+        &quot;https://github.com/&quot;
+      ],
+      &quot;sha256&quot;: &quot;d87d482d5ae7960e2e43d7dd6d21377e60e73e8fce1bf2a01aff7aca8a08c537&quot;
+    },
+    {
+      &quot;stage&quot;: &quot;extraction&quot;,
+      &quot;status&quot;: &quot;failed&quot;,
+      &quot;error&quot;: &quot;Codex CLI failed (authentication_error); no retry or fallback attempted&quot;
+    }
+  ],
+  &quot;evidence&quot;: [],
+  &quot;document_sha256&quot;: &quot;d87d482d5ae7960e2e43d7dd6d21377e60e73e8fce1bf2a01aff7aca8a08c537&quot;,
+  &quot;verdict&quot;: &quot;technical_failure&quot;,
+  &quot;error&quot;: &quot;Codex CLI failed (authentication_error); no retry or fallback attempted&quot;,
+  &quot;duration_seconds&quot;: 128.946,
+  &quot;cohort&quot;: &quot;out_of_domain&quot;,
+  &quot;expected&quot;: &quot;not_applicable&quot;,
+  &quot;expected_basis&quot;: &quot;domain_selection&quot;,
+  &quot;comparison_note&quot;: &quot;Unrelated topic control for applicability screening. not_applicable does not assert global paper consistency.&quot;,
+  &quot;matches_gold&quot;: null,
+  &quot;notes&quot;: [
+    &quot;No accepted structured model output was obtained. The original wrapper category is retained, but does not prove a failed login.&quot;,
+    &quot;A separate minimal Codex test reported stream resets and reconnect attempts. No Claude/OpenAI API-key backend was used.&quot;
+  ]
+}</pre></details></details><details class="paper-detail" id="paper-12"><summary>resnet · 待运行</summary><p>论文 ID：<code>resnet</code></p><h3>测试过程</h3><div class="table-scroll"><table class="stages"><thead><tr><th>步骤</th><th>状态</th><th>记录</th></tr></thead><tbody><tr><th scope="row">ingestion</th><td><span class="badge complete">已完成</span></td><td><pre>{
+  &quot;stage&quot;: &quot;ingestion&quot;,
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;segments&quot;: 12,
+  &quot;characters&quot;: 97713,
+  &quot;coverage&quot;: {
+    &quot;complete&quot;: true,
+    &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+  },
+  &quot;source_links&quot;: [
+    &quot;http://image-net.org/challenges/LSVRC/2015/&quot;,
+    &quot;http://mscoco.org/dataset/&quot;,
+    &quot;http://host.robots.ox.ac.uk:8080/leaderboard/&quot;,
+    &quot;http://host.robots.ox.ac.uk:8080/anonymous/3OJ4OJ.html&quot;
+  ],
+  &quot;sha256&quot;: &quot;1e0651b6810ecba34a3dbc5b5b0209226f889004607c1f203540a48d64e5a93a&quot;
+}</pre></td></tr><tr><th scope="row">extraction</th><td><span class="badge pending">尚未运行</span></td><td><pre>{
+  &quot;stage&quot;: &quot;extraction&quot;,
+  &quot;status&quot;: &quot;not_run&quot;
+}</pre></td></tr></tbody></table></div><h3>证据</h3><pre>[]</pre><h3>备注</h3><pre>[]</pre><details><summary>完整论文记录 JSON</summary><pre>{
+  &quot;id&quot;: &quot;resnet&quot;,
+  &quot;title&quot;: &quot;resnet&quot;,
+  &quot;source&quot;: &quot;https://arxiv.org/pdf/1512.03385v1&quot;,
+  &quot;status&quot;: &quot;pending&quot;,
+  &quot;has_confirmed_inconsistency&quot;: null,
+  &quot;stages&quot;: [
+    {
+      &quot;stage&quot;: &quot;ingestion&quot;,
+      &quot;status&quot;: &quot;completed&quot;,
+      &quot;segments&quot;: 12,
+      &quot;characters&quot;: 97713,
+      &quot;coverage&quot;: {
+        &quot;complete&quot;: true,
+        &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+      },
+      &quot;source_links&quot;: [
+        &quot;http://image-net.org/challenges/LSVRC/2015/&quot;,
+        &quot;http://mscoco.org/dataset/&quot;,
+        &quot;http://host.robots.ox.ac.uk:8080/leaderboard/&quot;,
+        &quot;http://host.robots.ox.ac.uk:8080/anonymous/3OJ4OJ.html&quot;
+      ],
+      &quot;sha256&quot;: &quot;1e0651b6810ecba34a3dbc5b5b0209226f889004607c1f203540a48d64e5a93a&quot;
+    },
+    {
+      &quot;stage&quot;: &quot;extraction&quot;,
+      &quot;status&quot;: &quot;not_run&quot;
+    }
+  ],
+  &quot;evidence&quot;: [],
+  &quot;document_sha256&quot;: &quot;1e0651b6810ecba34a3dbc5b5b0209226f889004607c1f203540a48d64e5a93a&quot;,
+  &quot;verdict&quot;: &quot;not_run&quot;,
+  &quot;reason&quot;: &quot;document_prepared_inference_not_run&quot;,
+  &quot;duration_seconds&quot;: 0.001,
+  &quot;cohort&quot;: &quot;out_of_domain&quot;,
+  &quot;expected&quot;: &quot;not_applicable&quot;,
+  &quot;expected_basis&quot;: &quot;domain_selection&quot;,
+  &quot;comparison_note&quot;: &quot;Unrelated topic control for applicability screening. not_applicable does not assert global paper consistency.&quot;,
+  &quot;matches_gold&quot;: null
+}</pre></details></details><details class="paper-detail" id="paper-13"><summary>adam · 待运行</summary><p>论文 ID：<code>adam</code></p><h3>测试过程</h3><div class="table-scroll"><table class="stages"><thead><tr><th>步骤</th><th>状态</th><th>记录</th></tr></thead><tbody><tr><th scope="row">ingestion</th><td><span class="badge complete">已完成</span></td><td><pre>{
+  &quot;stage&quot;: &quot;ingestion&quot;,
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;segments&quot;: 9,
+  &quot;characters&quot;: 41440,
+  &quot;coverage&quot;: {
+    &quot;complete&quot;: true,
+    &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+  },
+  &quot;source_links&quot;: [],
+  &quot;sha256&quot;: &quot;935a5a15616961aff21529d86a754570028843407adfe858f1d18584b84293a7&quot;
+}</pre></td></tr><tr><th scope="row">extraction</th><td><span class="badge pending">尚未运行</span></td><td><pre>{
+  &quot;stage&quot;: &quot;extraction&quot;,
+  &quot;status&quot;: &quot;not_run&quot;
+}</pre></td></tr></tbody></table></div><h3>证据</h3><pre>[]</pre><h3>备注</h3><pre>[]</pre><details><summary>完整论文记录 JSON</summary><pre>{
+  &quot;id&quot;: &quot;adam&quot;,
+  &quot;title&quot;: &quot;adam&quot;,
+  &quot;source&quot;: &quot;https://arxiv.org/pdf/1412.6980v1&quot;,
+  &quot;status&quot;: &quot;pending&quot;,
+  &quot;has_confirmed_inconsistency&quot;: null,
+  &quot;stages&quot;: [
+    {
+      &quot;stage&quot;: &quot;ingestion&quot;,
+      &quot;status&quot;: &quot;completed&quot;,
+      &quot;segments&quot;: 9,
+      &quot;characters&quot;: 41440,
+      &quot;coverage&quot;: {
+        &quot;complete&quot;: true,
+        &quot;reason&quot;: &quot;Text extracted from every PDF page; OCR and visual content are not inspected&quot;
+      },
+      &quot;source_links&quot;: [],
+      &quot;sha256&quot;: &quot;935a5a15616961aff21529d86a754570028843407adfe858f1d18584b84293a7&quot;
+    },
+    {
+      &quot;stage&quot;: &quot;extraction&quot;,
+      &quot;status&quot;: &quot;not_run&quot;
+    }
+  ],
+  &quot;evidence&quot;: [],
+  &quot;document_sha256&quot;: &quot;935a5a15616961aff21529d86a754570028843407adfe858f1d18584b84293a7&quot;,
+  &quot;verdict&quot;: &quot;not_run&quot;,
+  &quot;reason&quot;: &quot;document_prepared_inference_not_run&quot;,
+  &quot;duration_seconds&quot;: 0.001,
+  &quot;cohort&quot;: &quot;out_of_domain&quot;,
+  &quot;expected&quot;: &quot;not_applicable&quot;,
+  &quot;expected_basis&quot;: &quot;domain_selection&quot;,
+  &quot;comparison_note&quot;: &quot;Unrelated topic control for applicability screening. not_applicable does not assert global paper consistency.&quot;,
+  &quot;matches_gold&quot;: null
+}</pre></details></details></main></body></html>

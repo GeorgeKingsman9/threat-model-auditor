@@ -3,11 +3,55 @@
 A small, deterministic checker for consistency between paper-declared information
 access and manually normalized implementation evidence. One final row per paper.
 
-把论文声明和实际信息流整理成 JSON，再检查二者是否一致。**目前是人工整理证据、程序判定；不会自动读取 PDF、分析任意 GitHub 源码，也不会运行原论文的攻击实验。**
+支持两种入口：`audit.py` 复核已经人工整理的 JSON；新增的实验性 `scan.py` 接收 PDF/论文网址，调用模型抽取并复核原文依据，再交给规则引擎判断。每篇仍只输出一条结果。
+
+`scan.py` 默认接现有 Codex CLI 的 ChatGPT 登录，使用该账号的 Codex 额度；不要求另配 Claude API。
+模型判断尚需人工复核，文档入口目前只审提供的论文文本，不会自动运行攻击、证明历史实验输入，或完整审计任意源码仓库。
+
+## 输入 PDF 或论文网址
+
+需要已安装且以 ChatGPT 登录的 Codex CLI。PDF 提取需要 Poppler 的 `pdftotext`，或可选的 `pypdf` 包。
+
+```bash
+# 如本机没有 pdftotext，可在自己的 Python 环境安装 PDF 读取依赖
+python3 -m pip install pypdf
+
+# 本地上传的 PDF：将文件路径作为输入
+python3 -B scan.py paper.pdf --output outputs/my-paper
+
+# 论文网址（支持 arXiv abstract/PDF、普通 PDF 和部分论文 landing page）
+python3 -B scan.py https://arxiv.org/abs/2605.17324v1 --output outputs/aspi-document
+
+# 只读取文档、保留页码，不使用任何模型额度
+python3 -B scan.py paper.pdf --prepare-only --output outputs/prepared-paper
+```
+
+输出目录包含原始文档文本提取、抽取结果、模型复核、规则判定、JSON 报告，以及可直接打开的 `report.html` / `report.md`。
+过程和设置详见 [docs/DOCUMENT_AUDIT_ZH.md](docs/DOCUMENT_AUDIT_ZH.md)。
+逐段中文注释讲解见 [docs/CODE_WALKTHROUGH_ZH.md](docs/CODE_WALKTHROUGH_ZH.md)。
+
+## 展示所有文章的过程和结果
+
+```bash
+# 已有 11 篇的规则回归；另外 3 篇无关负例显示为尚未在此模式运行
+python3 -B benchmark.py --mode regression --output outputs/regression
+
+# 读取完整 14 篇清单，含 Attention、ResNet、Adam 三篇无关论文
+python3 -B benchmark.py --mode prepare --output outputs/documents
+
+# 用现有 Codex 登录做文档自动审计；沿用已提取的文档
+python3 -B benchmark.py --mode scan --prepared-dir outputs/documents --output outputs/document-audit
+```
+
+每次运行使用一个新目录。**失败、访问受阻、尚未运行的文章仍保留一行**；不会把它们算成“没有不一致”。
+无关论文应为 `not_applicable`（该领域审计不适用），用于测适用性筛选；不能和域内已核实一致的论文混算。
+
+**实际进度和逐篇结果**见 [docs/RESULTS_ZH.md](docs/RESULTS_ZH.md)：旧记录回归已完成；新文档入口已读取 13 份 PDF，
+1 个来源被验证页阻挡，Codex 真正推理链路尚未成功，不能声称已经自动测完 14 篇。
 
 ## 快速运行
 
-需要 Python 3.10+ 和可选的 Bash，无第三方 Python 依赖，不需要 API key、GPU 或模型调用。
+需要 Python 3.10+ 和可选的 Bash。下面的已有 JSON 回归入口无第三方依赖，也不调用模型。
 进入本仓库目录后：
 
 ```bash
@@ -87,7 +131,8 @@ python3 -B audit.py evaluate my_paper \
 随仓库提供的是当前研究者整理的 11 篇论文、15 条内部证据记录及预设标签。
 它们用于演示和回归检查，已参与规则设计；标签一致率不能当作未见论文的检测准确率。
 
-核心代码只检查格式、字段匹配和判定规则，不验证引用内容是否真实、是否足够，也不联网。
+核心 `checker.py` 只检查格式、字段匹配和判定规则，不联网。
+新增文档入口还会进行原文子串定位和模型语义复核；这仍不是独立人工核验证据。
 `paper_text` 的实现证据可能来自论文对实验过程的描述，不能等同于实际运行日志。
 `archived` 记录中部分引用指向整理时的本地审计材料；这些历史路径不是本仓库中的文件。
 详见 [docs/PROVENANCE.md](docs/PROVENANCE.md)。本仓库可重放给定记录的判定；对底层材料的独立核验需要对应来源。
