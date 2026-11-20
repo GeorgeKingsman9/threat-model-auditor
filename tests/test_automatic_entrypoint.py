@@ -98,7 +98,7 @@ class AutomaticEntrypointTests(unittest.TestCase):
 
     def run_main(self, arguments):
         with redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):
-            return scan.main(list(map(str, arguments)))
+            return scan.main([*map(str, arguments), "--engine-version", "4"])
 
     def test_url_alone_selects_source_aware_audit_without_curated_cases_or_labels(self):
         output = self.directory / "automatic source run"
@@ -377,7 +377,7 @@ class AutomaticEntrypointTests(unittest.TestCase):
                 patch.object(scan, "discover_repository", side_effect=choose_source), \
                 patch("source_bundle.load_repository", return_value=copy.deepcopy(self.repository)) as load:
             with redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):
-                code = benchmark.main(["--mode", "scan", "--manifest", str(manifest), "--output", str(output)])
+                code = benchmark.main(["--mode", "scan", "--manifest", str(manifest), "--output", str(output), "--engine-version", "4"])
         self.assertEqual(code, 0)
         load.assert_called_once()
         self.assertEqual(len(self.client.calls), 4)

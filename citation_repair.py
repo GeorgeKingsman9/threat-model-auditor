@@ -47,6 +47,13 @@ def _targets(extraction):
                 yield f"{prefix}.scope_resolution.{field}", scope[field], "paper", scope["reason"], index
         for step_index, step in enumerate(flow["code_path"]):
             yield f"{prefix}.code_path.{step_index}.citation", step["citation"], "code", step["explanation"], index
+        if "binding" in flow:
+            binding = flow["binding"]
+            for field in ("recipient_citation", "exclusion_citation"):
+                if binding[field] is not None:
+                    yield f"{prefix}.binding.{field}", binding[field], "code", binding["reason"], index
+            for cite_index, citation in enumerate(binding["instance_citations"]):
+                yield f"{prefix}.binding.instance_citations.{cite_index}", citation, "code", binding["reason"], index
 
 
 def citation_issues(extraction, document):

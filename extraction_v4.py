@@ -118,7 +118,7 @@ def _unbound_model_content(document):
         "source_type": document["media_type"],
         "segments": [{"id": part["id"], "text": part.get("reading_order_text", part["text"])}
                      for part in document["segments"]],
-        "repository": copy.deepcopy(document["repository"]),
+        "repository": copy.deepcopy(document.get("model_repository", document["repository"])),
         "paper_sha256": document["paper_sha256"],
     }
 
@@ -132,7 +132,7 @@ def _binding_material(document):
     # stable across text budgets. They cannot alone identify the selected model
     # input. Bind that ordered payload AND every citation view and coverage field.
     # Neither document.sha256 nor input_binding enters this hash recursively.
-    return {
+    material = {
         "version": INPUT_BINDING_VERSION,
         "model_content": _unbound_model_content(document),
         "citation_segments": document["segments"],
@@ -142,6 +142,9 @@ def _binding_material(document):
         "links": document["links"],
         "text": document["text"],
     }
+    if "model_repository" in document:
+        material["full_repository_provenance"] = document["repository"]
+    return material
 
 
 def validate_input_binding(document):
@@ -223,8 +226,21 @@ def _locate(citation, document, kind=None):
     locator["source_kind"] = part["source_kind"]
     if part["source_kind"] == "code":
         locator.update(path=part["path"], file_sha256=part["sha256"],
+                       repository_source=document["repository"].get("source"),
                        repository_revision=document["repository"]["revision"],
                        repository_manifest_sha256=document["repository"]["manifest_sha256"])
+        origin = part.get("dependency_origin")
+        if origin is not None:
+            matches = [item for item in document["repository"].get("dependencies", [])
+                       if item.get("mount_path") == origin.get("mount_path")
+                       and item.get("source") == origin.get("source")
+                       and item.get("revision") == origin.get("revision")
+                       and item.get("manifest_sha256") == origin.get("manifest_sha256")]
+            if len(matches) != 1:
+                raise ValueError("dependency locator has no validated source identity")
+            locator.update(repository_source=origin["source"], repository_revision=origin["revision"],
+                           repository_manifest_sha256=origin["manifest_sha256"],
+                           original_path=origin["original_path"])
         text = part["text"]
         locator["line_start"] = part["line_start"] + text[:locator["start"]].count("\n")
         locator["line_end"] = part["line_start"] + text[:max(locator["start"], locator["end"] - 1)].count("\n")
@@ -283,7 +299,8 @@ def _path_check(flow, document):
     return not errors, locators, errors
 
 
-def decide_extraction(extraction, review, document, paper_id="uploaded_paper"):
+def decide_extraction(extraction, review, document, paper_id="uploaded_paper",
+                      flow_bindings=None, path_validator=None):
     validate_input_binding(document)
     validate_shape(extraction, EXTRACTION_SCHEMA)
     validate_shape(review, REVIEW_SCHEMA)
@@ -308,7 +325,7 @@ def decide_extraction(extraction, review, document, paper_id="uploaded_paper"):
             flow.pop(key)
         vote = by_index[index]
         scope_ok, scope_locators, errors = _scope_check(original, document)
-        path_ok, path_locators, path_errors = _path_check(original, document)
+        path_ok, path_locators, path_errors = (path_validator or _path_check)(original, document)
         # A positive code receipt needs a connected code boundary. A policy-only
         # control may remain useful even when no code receipt is established.
         policy_ok = (vote["declaration_supported"] and vote["scope_resolution_supported"] and scope_ok
@@ -343,7 +360,8 @@ def decide_extraction(extraction, review, document, paper_id="uploaded_paper"):
         diagnostics.append({"policy_supported": bool(policy_ok), "delivery_supported": bool(delivery_ok),
                             "scope_locators": scope_locators, "code_path_locators": path_locators,
                             "validation_errors": errors + path_errors})
-    result = v3.decide_extraction(proposal, normalized_review, document, paper_id)
+    result = v3.decide_extraction(proposal, normalized_review, document, paper_id,
+                                  flow_bindings=flow_bindings)
     rows = {}
     for index, row in enumerate(result.get("evidence", [])):
         row["normalization_review"] = row.pop("semantic_review", None)

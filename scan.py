@@ -15,10 +15,17 @@ from extraction_v3 import (EXTRACTION_SCHEMA, REVIEW_SCHEMA, EXTRACT_PROMPT, REV
 from providers import ModelClient
 from reports import write_reports
 from source_discovery import discover_repository
+from findings import project_result
 
 
 def now():
     return datetime.now(timezone.utc).isoformat()
+
+
+def default_output_directory(source):
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S.%fZ")
+    identity = hashlib.sha256(source.encode()).hexdigest()[:8]
+    return Path(__file__).resolve().parent / "outputs" / f"auto-{stamp}-{identity}"
 
 
 def save_json(path, data):
@@ -38,7 +45,7 @@ def checked_payload_size(content, limit):
 def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="uploaded_paper",
                 prepared=None, extraction=None, review=None, max_input_chars=600000,
                 repository=None, repo_revision=None, max_code_chars=320000, repair_citations=True,
-                auto_repository=True, source_fetch="auto", require_source=False):
+                auto_repository=True, source_fetch="auto", require_source=False, engine_version=4):
     """One document produces one result, including failures and pending stages."""
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=False)
@@ -62,9 +69,9 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
         explicit_repository = repository is not None
         if repo_revision and not explicit_repository:
             raise ValueError("repo_revision requires an explicit repository")
-        if explicit_repository and extraction is not None and extraction.get("schema_version") != 4:
-            raise ValueError("paper-plus-source replay requires V4 outputs from the same source snapshot")
-        if not explicit_repository and extraction is not None and extraction.get("schema_version") == 4:
+        if explicit_repository and extraction is not None and extraction.get("schema_version") not in {4, 5}:
+            raise ValueError("paper-plus-source replay requires V4/V5 outputs from the same source snapshot")
+        if not explicit_repository and extraction is not None and extraction.get("schema_version") in {4, 5}:
             raise ValueError("V4 replay requires the repository snapshot as well as the paper")
         if isinstance(prepared, (str, Path)):
             prepared = json.loads(Path(prepared).read_text(encoding="utf-8"))
@@ -144,7 +151,11 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
         if require_source and source_snapshot is None:
             raise ValueError("A verified source snapshot is required; model inference was not started")
         if source_snapshot is not None:
-            import extraction_v4 as engine
+            selected_version = extraction.get("schema_version") if extraction is not None else engine_version
+            if selected_version == 5:
+                import extraction_v5 as engine
+            else:
+                import extraction_v4 as engine
         elif extraction is not None and extraction.get("schema_version", 2) == 2:
             import extraction as engine
         else:
@@ -212,7 +223,7 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
                 max_calls = getattr(client, "max_calls", None)
                 calls = getattr(client, "calls", [])
                 remaining = max_calls - len(calls) if type(max_calls) is int and isinstance(calls, list) else 0
-                if issues and repair_citations and review is None and client is not None and remaining >= 2:
+                if issues and len(issues) <= 24 and repair_citations and review is None and client is not None and remaining >= 2:
                     stage = "citation_repair"
                     repair_input = choice_request(extraction, evidence_document, issues)
                     checked_payload_size(repair_input, max_input_chars)
@@ -260,6 +271,7 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
         ledger = client.ledger()
         if isinstance(ledger, dict):
             save_json(output_dir / "inference.json", ledger)
+    project_result(row)
     save_json(output_dir / "result.json", row)
     return row
 
@@ -296,7 +308,9 @@ def get_client(args):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("source", help="Local PDF/HTML/TXT path or HTTP(S) paper URL")
-    parser.add_argument("--output", type=Path, required=True, help="New output directory")
+    parser.add_argument("--output", type=Path, help="Optional new output directory; generated automatically when omitted")
+    parser.add_argument("--engine-version", type=int, choices=[4, 5], default=5,
+                        help="Default: recipient/instance-aware V5; V4 retained for historical comparisons")
     parser.add_argument("--prepare-only", action="store_true", help="Read document without model calls")
     parser.add_argument("--paper-only", action="store_true",
                         help="Disable automatic associated-source discovery; audit the supplied paper text only")
@@ -318,6 +332,8 @@ def main(argv=None):
     add_engine_arguments(parser)
     args = parser.parse_args(argv)
     try:
+        if args.output is None:
+            args.output = default_output_directory(args.source)
         if bool(args.extraction) != bool(args.review):
             raise ValueError("replay requires both --extraction and --review")
         if args.proposal and (args.extraction or args.review or not args.repo):
@@ -338,14 +354,17 @@ def main(argv=None):
                           extraction=extraction, review=review, max_input_chars=args.max_input_chars,
                           repository=args.repo, repo_revision=args.repo_revision, max_code_chars=args.max_code_chars,
                           repair_citations=not args.no_citation_repair, auto_repository=not args.paper_only,
-                          source_fetch=args.source_fetch, require_source=args.require_source)
+                          source_fetch=args.source_fetch, require_source=args.require_source,
+                          engine_version=args.engine_version)
         mode = "paper_source_audit" if args.repo else "document_audit" if args.paper_only else "automatic_paper_audit"
         report = make_report([row], "document_preparation" if args.prepare_only else mode)
         if client:
             report["inference"] = client.ledger()
         save_json(args.output / "report.json", report)
         paths = write_reports(report, args.output)
-        print(json.dumps({"verdict": row["verdict"], "status": row["status"],
+        print(json.dumps({"inconsistency": row["inconsistency"], "verdict": row["verdict"],
+                          "status": row["status"], "findings": row["findings"],
+                          "unresolved": row["unresolved_findings"],
                           "report": str(paths["html"])}, ensure_ascii=False))
         return int(row["status"] == "failed")
     except (OSError, ValueError, KeyError, TypeError) as error:

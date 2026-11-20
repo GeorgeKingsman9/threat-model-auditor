@@ -57,6 +57,7 @@ def main(argv=None):
     parser.add_argument("--workers", type=int, choices=[1, 2, 3], default=1,
                         help="Concurrent documents; metered API backends require 1")
     parser.add_argument("--paper-only", action="store_true", help="Disable automatic associated-source discovery")
+    parser.add_argument("--engine-version", type=int, choices=[4, 5], default=5)
     parser.add_argument("--max-input-chars", type=int, default=600000)
     parser.add_argument("--max-code-chars", type=int, default=320000)
     add_engine_arguments(parser)
@@ -92,6 +93,7 @@ def main(argv=None):
             "workers": args.workers,
             "max_input_chars": args.max_input_chars,
             "max_code_chars": args.max_code_chars,
+            "engine_version": args.engine_version,
         })
         if args.mode == "regression":
             available = {row["id"]: row for row in regression_rows(args.legacy)}
@@ -114,7 +116,7 @@ def main(argv=None):
                 row = scan_source(spec["source"], args.output / spec["id"], client,
                                   args.mode == "prepare", spec["id"], prepared=prepared,
                                   max_input_chars=args.max_input_chars, max_code_chars=args.max_code_chars,
-                                  auto_repository=not args.paper_only)
+                                  auto_repository=not args.paper_only, engine_version=args.engine_version)
                 print(f"{spec['id']}: {row['status']} / {row['verdict']}", file=sys.stderr, flush=True)
                 return row
             with ThreadPoolExecutor(max_workers=args.workers) as pool:

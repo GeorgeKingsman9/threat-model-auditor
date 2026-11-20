@@ -2,6 +2,8 @@
 
 Version 2 records remain reproducible legacy replays. Version 3 records explicitly
 adjudicate an enumerated claim; a refuted claim is not a whole-paper clean bill.
+Only new records with flow_binding opt into recipient-bound semantics v1. Existing
+V3 records without this binding retain their complete original decision path.
 References are grounded upstream (for model extraction) or curated by an auditor.
 This module checks their presence and the consistency of the structured evidence;
 it does not pretend that a nonempty reference independently proves its semantics.
@@ -23,6 +25,14 @@ TASK_RELATIONS = {
     "same_evaluated_instance", "training_instance", "topic_only", "different_instance", "unknown",
 }
 REFUTATION_BASES = {"none", "explicit_permission", "different_instance", "excluded_delivery", "different_issue_type"}
+RECIPIENT_ROLES = {"attacker_constructor", "attacker_optimizer", "evaluator", "simulator", "other", "unknown"}
+ATTACKER_DELIVERY_STATES = {"confirmed", "excluded", "unresolved"}
+INSTANCE_REQUIREMENTS = {"same_evaluated_instance", "any_instance", "unspecified"}
+INSTANCE_RELATIONS = {"same", "different", "unknown"}
+FLOW_BINDING_FIELDS = (
+    "semantics_version", "recipient_role", "observation_target", "attacker_delivery",
+    "instance_requirement", "instance_relation", "alignment_verified", "exclusion_verified",
+)
 
 
 def _object(value, fields, name):
@@ -69,6 +79,131 @@ def _validate_assessment(case):
     return assessment, policy, delivery, refutation
 
 
+def _validate_flow_binding(case):
+    """Validate the opt-in binding supplied after citation and independent review.
+
+    Verification flags are upstream attestations, not facts inferred by this
+    module. In particular, recipient alignment does not establish query identity
+    or exclusion from a separate attacker input.
+    """
+    binding = _object(case["flow_binding"], FLOW_BINDING_FIELDS, "flow_binding")
+    if type(binding["semantics_version"]) is not int or binding["semantics_version"] != 1:
+        raise ValueError("flow_binding.semantics_version must be 1")
+    for field, values in (
+        ("recipient_role", RECIPIENT_ROLES),
+        ("observation_target", {"matched_edge"}),
+        ("attacker_delivery", ATTACKER_DELIVERY_STATES),
+        ("instance_requirement", INSTANCE_REQUIREMENTS),
+        ("instance_relation", INSTANCE_RELATIONS),
+    ):
+        _enum(binding, field, values, "flow_binding")
+    for field in ("alignment_verified", "exclusion_verified"):
+        if type(binding[field]) is not bool:
+            raise ValueError(f"flow_binding.{field} must be a boolean")
+    return binding
+
+
+def _assess_bound_claim(case, verdict, permissions, observations, assessment, policy, delivery, refutation):
+    """Adjudicate only the verified recipient edge, using opt-in semantics v1.
+
+    V5 supplies canonical target roles and independently checked flow bindings.
+    A present observation belongs to that edge; attacker delivery is a separate
+    axis. An applicable permission refutes the named prohibition without needing
+    to show that anyone exercised the permission.
+    """
+    binding = _validate_flow_binding(case)
+    base = {
+        "validation_mode": "flow_binding_v1", "claim": case["claim"],
+        "issue_type": case["issue_type"], "assessment": assessment,
+        "flow_binding": binding,
+    }
+
+    def result(state, why):
+        return {
+            **base, "claim_result": state,
+            "verdict": {"confirmed": "inconsistent", "refuted": "consistent_within_scope", "unresolved": "insufficient_evidence"}[state],
+            "reason": why,
+        }
+
+    target = case.get("target")
+    if isinstance(target, dict) and "query_form" in target:
+        expected_level = {"full_query": "exact_query", "partial_query": "partial_query"}.get(target["query_form"])
+        if expected_level is None:
+            raise ValueError("target.query_form must be full_query or partial_query when specified")
+        if assessment["information_level"] != expected_level:
+            return result("unresolved", "bound_query_form_information_level_conflict")
+    if not binding["alignment_verified"]:
+        return result("unresolved", "flow_binding_alignment_unverified")
+    if (not isinstance(target, dict) or target.get("role") != binding["recipient_role"]
+            or binding["recipient_role"] == "unknown"):
+        return result("unresolved", "flow_recipient_target_not_aligned")
+    if len(permissions) > 1:
+        return result("unresolved", "bound_conflicting_policy")
+    if {"present", "absent"} <= observations:
+        return result("unresolved", "bound_conflicting_observations")
+
+    attacker_edge = binding["recipient_role"] in {"attacker_constructor", "attacker_optimizer"}
+    # Compare attacker delivery only with observations at the attacker edge.
+    # Evaluator present says nothing, in either direction, about that delivery.
+    if attacker_edge and binding["attacker_delivery"] == "excluded" and "present" in observations:
+        return result("unresolved", "bound_attacker_exclusion_conflicts_with_present")
+    if attacker_edge and binding["attacker_delivery"] == "confirmed" and "absent" in observations:
+        return result("unresolved", "bound_attacker_confirmation_conflicts_with_absent")
+    if attacker_edge and ((binding["attacker_delivery"] == "excluded" and delivery["status"] == "confirmed")
+                          or (binding["attacker_delivery"] == "confirmed" and delivery["status"] in {"excluded", "evaluator_only"})):
+        return result("unresolved", "bound_attacker_delivery_states_conflict")
+
+    policy_cited = bool(policy["reference"].strip())
+    boundary_evidence = bool(delivery["reference"].strip()) and delivery["evidence_kind"] in BOUNDARY_EVIDENCE
+    if policy["status"] != "uncertain" and not policy_cited:
+        return result("unresolved", "bound_policy_scope_evidence_missing")
+    if (case["issue_type"] == "information_boundary"
+            and policy["policy_kind"] == "attacker_knowledge_constraint"
+            and policy["status"] == "applicable" and permissions == {"allow"}):
+        return result("refuted", "bound_claim_refuted_explicit_permission")
+
+    basis = refutation["basis"]
+    if basis == "different_issue_type":
+        if (refutation["reference"].strip() and case["issue_type"] != "information_boundary"
+                and policy["policy_kind"] in {"victim_security_goal", "protocol_requirement"}):
+            return result("refuted", "bound_claim_refuted_different_issue_type")
+        return result("unresolved", "bound_refutation_not_supported")
+    if case["issue_type"] != "information_boundary":
+        return result("unresolved", "bound_information_boundary_issue_not_established")
+    if policy["policy_kind"] != "attacker_knowledge_constraint":
+        return result("unresolved", "bound_policy_is_not_attacker_knowledge_constraint")
+
+    if not attacker_edge:
+        if (binding["recipient_role"] == "evaluator" and policy["status"] == "not_applicable"
+                and "present" in observations and boundary_evidence):
+            return result("refuted", "bound_claim_refuted_evaluator_policy_inapplicable")
+        return result("unresolved", "bound_attacker_delivery_not_established")
+    if (binding["attacker_delivery"] == "excluded" and binding["exclusion_verified"]
+            and boundary_evidence):
+        return result("refuted", "bound_claim_refuted_verified_exclusion")
+    if (basis == "different_instance" and refutation["reference"].strip()
+            and binding["instance_requirement"] == "same_evaluated_instance"
+            and binding["instance_relation"] == "different"
+            and policy["status"] == "not_applicable" and boundary_evidence):
+        return result("refuted", "bound_claim_refuted_different_instance")
+    if policy["status"] != "applicable":
+        return result("unresolved", "bound_policy_scope_not_established")
+    if binding["instance_requirement"] == "unspecified":
+        return result("unresolved", "bound_instance_scope_not_established")
+    if (binding["instance_requirement"] == "same_evaluated_instance"
+            and binding["instance_relation"] != "same"):
+        return result("unresolved", "bound_evaluated_instance_alignment_not_established")
+    if (delivery["task_relation"] == "topic_only"
+            and assessment["information_level"] in {"exact_query", "partial_query"}):
+        return result("unresolved", "bound_topic_information_is_not_instance_query")
+    if (binding["attacker_delivery"] != "confirmed" or delivery["status"] != "confirmed"
+            or not boundary_evidence):
+        return result("unresolved", "bound_attacker_delivery_not_established")
+    if verdict == "inconsistent" and permissions == {"deny"} and "present" in observations:
+        return result("confirmed", "bound_scoped_forbidden_delivery_confirmed")
+    return result("unresolved", "bound_base_rule_does_not_confirm_forbidden_delivery")
+
+
 def assess_claim(case, verdict, reason, permissions, observations):
     """Return a compatible verdict plus confirmed/refuted/unresolved claim status.
 
@@ -77,9 +212,11 @@ def assess_claim(case, verdict, reason, permissions, observations):
     raises ValueError. Well-formed but absent, conflicting or inapplicable
     evidence produces insufficient_evidence rather than a confirmation.
 
-    A different-instance refutation requires that no matching present observation
-    contradict it. An explicit-permission refutation requires an actual matching
-    present observation and evidence at the receiving input boundary.
+    Without flow_binding, a different-instance refutation requires that no matching
+    present observation contradict it; explicit permission requires matching present
+    and receiving-boundary evidence. New independently verified bindings use
+    _assess_bound_claim: applicable allow can refute without actual delivery, and
+    present/exclusion conflicts are checked only at the same recipient edge.
     """
     if not isinstance(case, dict):
         raise ValueError("case must be an object")
@@ -101,6 +238,8 @@ def assess_claim(case, verdict, reason, permissions, observations):
         raise ValueError("permissions must be a set of allow/deny values")
     if not isinstance(observations, (set, frozenset)) or not observations <= {"present", "absent", "possible"}:
         raise ValueError("observations must be a set of present/absent/possible values")
+    if "flow_binding" in case:
+        return _assess_bound_claim(case, verdict, permissions, observations, assessment, policy, delivery, refutation)
     base = {
         "validation_mode": "scope_review_v3", "claim": case["claim"],
         "issue_type": case["issue_type"], "assessment": assessment,

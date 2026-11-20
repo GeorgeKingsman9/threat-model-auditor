@@ -169,7 +169,7 @@ def overlapping_locators(left, right):
     return left["start"] < right["end"] and right["start"] < left["end"]
 
 
-def decide_extraction(extraction, review, document, paper_id="uploaded_paper"):
+def decide_extraction(extraction, review, document, paper_id="uploaded_paper", flow_bindings=None):
     validate_shape(extraction, EXTRACTION_SCHEMA)
     validate_shape(review, REVIEW_SCHEMA)
     if len(extraction["flows"]) > 6:
@@ -265,8 +265,11 @@ def decide_extraction(extraction, review, document, paper_id="uploaded_paper"):
                 delivery["status"] = "unresolved"
                 delivery["reference"] = ""
                 errors.append("policy_sentence_cannot_establish_delivery_boundary")
-        if delivery["status"] == "unresolved" and refutation["basis"] in {
-                "different_instance", "excluded_delivery", "explicit_permission"}:
+        if flow_bindings is not None:
+            case["flow_binding"] = flow_bindings[index]
+        if delivery["status"] == "unresolved" and (refutation["basis"] in {
+                "different_instance", "excluded_delivery"} or
+                (flow_bindings is None and refutation["basis"] == "explicit_permission")):
             refutation["basis"] = "none"
         result = audit_case(case)
         result.update(citation_errors=errors, locators=locators, semantic_review=verdict_review)

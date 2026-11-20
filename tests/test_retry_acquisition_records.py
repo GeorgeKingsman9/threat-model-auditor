@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 import extraction_v3
 import extraction_v4
+import extraction_v5
 import scan
 import source_bundle
 import source_discovery
@@ -202,10 +203,10 @@ class RetryAcquisitionRecordTests(unittest.TestCase):
         self.assertEqual(content["input_binding"], request["input_sha256"])
         self.assertEqual(combined["sha256"], request["input_sha256"])
         self.assertEqual(request["model_content_sha256"], combined["model_content_sha256"])
-        self.assertEqual(request["prompt_sha256"], extraction_v4.prompt_hash())
+        self.assertEqual(request["prompt_sha256"], extraction_v5.prompt_hash())
         self.assertEqual(request["evidence_scope"], "supplied_paper_and_source")
         self.assertEqual(request["model_data_characters"], len(json.dumps(content, ensure_ascii=False, sort_keys=True)))
-        self.assertEqual(content["repository"]["source_acquisition"], acquisition)
+        self.assertEqual(combined["repository"]["source_acquisition"], acquisition)
         self.assertEqual([part["text"] for part in content["segments"] if part["id"].startswith("repo:")], [CODE.decode()])
         for forbidden in ("gold", "expected", "matches_gold", "curated_cases"):
             self.assertNotIn(forbidden, content)
@@ -255,9 +256,9 @@ class RetryAcquisitionRecordTests(unittest.TestCase):
         content = extraction_v4.model_content(combined)
         request = self.load_json(output, "request.json")
         self.assertEqual(content["input_binding"], request["input_sha256"])
-        self.assertEqual(content["repository"]["source_acquisition"], acquisition)
+        self.assertEqual(combined["repository"]["source_acquisition"], acquisition)
         self.assertEqual(request["model_content_sha256"], combined["model_content_sha256"])
-        self.assertEqual(request["prompt_sha256"], extraction_v4.prompt_hash())
+        self.assertEqual(request["prompt_sha256"], extraction_v5.prompt_hash())
         self.assertEqual([part["text"] for part in content["segments"] if part["id"].startswith("repo:")], [CODE.decode()])
 
     def test_exhausted_partial_archive_and_fallback_preserve_failure_records_without_a_source_snapshot(self):

@@ -1,8 +1,9 @@
-"""Export the stable V2/V3 decision inventory without running an audit or a model.
+"""Export legacy and opt-in binding decisions without running an audit or a model.
 
 This is documentation of the owning modules, not a second implementation of
 their decisions. Counts are derived from the entries below. Source validation
 is counted separately from the stable core decisions and V3 extraction gates.
+Recipient-bound semantics v1 are also separate, preserving historical counts.
 """
 
 import argparse
@@ -17,6 +18,7 @@ _FUNCTIONS = {
     "paper": ["checker.summarize_paper"],
     "extraction_v3": ["extraction_v3.decide_extraction"],
     "source_validation": ["extraction_v4.decide_extraction"],
+    "flow_binding": ["scope_review._assess_bound_claim"],
 }
 
 
@@ -125,6 +127,73 @@ _RULES = [
     _entry("P03", "paper", {"paper": [3]},
            "既不满足 P01，也不满足 P02。", "insufficient_evidence",
            ["unresolved_checks", "audit_scope_not_fully_covered"], "缺失/不足的必要检查用 unresolved_checks，否则覆盖未闭合用 audit_scope_not_fully_covered。", "有确认发现时由 P01 优先决定论文结果。"),
+]
+
+
+_FLOW_BINDING_RULES = [
+    _entry("FB01", "flow_binding", {"flow_binding": [1]},
+           "新绑定目标的 query_form 与 information_level 不一致。", "unresolved",
+           ["bound_query_form_information_level_conflict"], "full_query 与 task_category 不可互换。", "full_query 对应 exact_query。"),
+    _entry("FB02", "flow_binding", {"flow_binding": [2, 3]},
+           "接收边未通过引用与独立复核，或 target.role 与 recipient_role 不相同，或接收者 unknown。", "unresolved",
+           ["flow_binding_alignment_unverified", "flow_recipient_target_not_aligned"], "固定目标为 attacker_constructor，却只证明 evaluator 收到。", "角色与阶段的接收绑定已核验，target.role 为相同规范角色。"),
+    _entry("FB03", "flow_binding", {"flow_binding": [4]},
+           "已对齐的同一目标边同时有适用 allow/deny。", "unresolved",
+           ["bound_conflicting_policy"], "同范围政策互相冲突。", "另一角色的授权不与本边禁令冲突。"),
+    _entry("FB04", "flow_binding", {"flow_binding": [5]},
+           "已对齐的同一目标边同时有 present/absent。", "unresolved",
+           ["bound_conflicting_observations"], "同一输入边既声称包含又排除目标信息。", "evaluator present 不与 attacker absent 冲突。"),
+    _entry("FB05", "flow_binding", {"flow_binding": [6, 7, 8]},
+           "目标接收者是 attacker_constructor/attacker_optimizer，且该攻击者的排除与 present、确认与 absent、或两条交付状态矛盾。", "unresolved",
+           ["bound_attacker_exclusion_conflicts_with_present", "bound_attacker_confirmation_conflicts_with_absent", "bound_attacker_delivery_states_conflict"], "attacker present 同时 attacker_delivery=excluded。", "evaluator present 与独立的 attacker excluded 属不同接收边。"),
+    _entry("FB06", "flow_binding", {"flow_binding": [9]},
+           "政策声称 applicable/not_applicable，却没有范围引用。", "unresolved",
+           ["bound_policy_scope_evidence_missing"], "没有引用就断言禁令不适用评分器。", "定位与复核通过的政策引用已传入。"),
+    _entry("FB07", "flow_binding", {"flow_binding": [10]},
+           "怀疑为 information_boundary，攻击者知识规则有据适用，且匹配权限仅为 allow。", "refuted，仅排除所列禁止访问怀疑",
+           ["bound_claim_refuted_explicit_permission"], "明确允许此角色使用任务，即使路径只是 possible，仍排除该禁止访问指控。", "权限 uncertain 或 allow/deny 冲突不能排除。"),
+    _entry("FB08", "flow_binding", {"flow_binding": [11]},
+           "有引用的 different_issue_type 反证，issue_type 非 information_boundary，policy_kind 为安全目标或协议规则。", "refuted，仅排除本类推论",
+           ["bound_claim_refuted_different_issue_type"], "成功攻击安全目标不能自行证明违反论文的攻击者知识约束。", "政策仍属攻击者知识约束。"),
+    _entry("FB09", "flow_binding", {"flow_binding": [12]},
+           "提出 different_issue_type，但必要类型与反证引用不齐。", "unresolved",
+           ["bound_refutation_not_supported"], "只有类型名称，没有支持区分的证据。", "FB08 的反证齐备。"),
+    _entry("FB10", "flow_binding", {"flow_binding": [13]},
+           "没有已成立的反证，且 issue_type 非 information_boundary。", "unresolved",
+           ["bound_information_boundary_issue_not_established"], "只有实验协议问题。", "怀疑指向信息边界。"),
+    _entry("FB11", "flow_binding", {"flow_binding": [14]},
+           "政策不属于 attacker_knowledge_constraint。", "unresolved",
+           ["bound_policy_is_not_attacker_knowledge_constraint"], "不能把受害者安全规则直接当成论文知识禁令。", "政策明确约束攻击者可见信息。"),
+    _entry("FB12", "flow_binding", {"flow_binding": [15]},
+           "经核验的目标就是 evaluator 边，边界 present 已建立，且攻击者禁令有据 not_applicable 于此边。", "refuted，仅排除该限定边误套用攻击者禁令",
+           ["bound_claim_refuted_evaluator_policy_inapplicable"], "评分器读取任务不违反限定攻击构造者的知识禁令，attacker_delivery 可仍 unresolved。", "固定 claim 目标是 attacker，却只找到 evaluator 边，必须 unresolved。"),
+    _entry("FB13", "flow_binding", {"flow_binding": [16, 23]},
+           "尚未建立攻击者接收：接收者不是攻击者且不满足 FB12，或攻击者交付未 confirmed，或缺少 confirmed 边界证据。", "unresolved",
+           ["bound_attacker_delivery_not_established"], "evaluator present 既不证明攻击者收到，也不证明其没收到。", "攻击者接收绑定和同边交付均已核验。"),
+    _entry("FB14", "flow_binding", {"flow_binding": [17]},
+           "目标是攻击者边，attacker_delivery=excluded，正面边界排除已独立核验，且有边界引用。", "refuted",
+           ["bound_claim_refuted_verified_exclusion"], "已证明目标输入排除了该信息。", "只有 evaluator_only 或未找到代码，不能自动 excluded。"),
+    _entry("FB15", "flow_binding", {"flow_binding": [18]},
+           "有据 different_instance 反证，禁令只管同评测实例，instance_relation=different 已独立核实，政策为 not_applicable，且有边界证据。", "refuted",
+           ["bound_claim_refuted_different_instance"], "实例映射证明读取的确实是另一实例。", "文件名写 train 不证明实例不同；any_instance 禁令也不能这样排除。"),
+    _entry("FB16", "flow_binding", {"flow_binding": [19]},
+           "进入禁止交付确认路径时，政策并未确定 applicable。", "unresolved",
+           ["bound_policy_scope_not_established"], "构造输入交付已证明，但共同知识合同适用性仍有争议。", "适用禁令已经独立核验。"),
+    _entry("FB17", "flow_binding", {"flow_binding": [20]},
+           "进入确认路径时，禁令的实例覆盖范围仍 unspecified。", "unresolved",
+           ["bound_instance_scope_not_established"], "不能猜禁令究竟只管评测实例还是所有实例。", "论文和复核明确支持 any_instance。"),
+    _entry("FB18", "flow_binding", {"flow_binding": [21]},
+           "禁令仅管同评测实例，但 instance_relation 未有据确定为 same。", "unresolved",
+           ["bound_evaluated_instance_alignment_not_established"], "角色对齐已经核验，仍缺同实例映射证据。", "类别或全实例禁令 any_instance 不额外要求 same。"),
+    _entry("FB19", "flow_binding", {"flow_binding": [22]},
+           "只有 topic_only 关系，却声称交付 exact_query/partial_query。", "unresolved",
+           ["bound_topic_information_is_not_instance_query"], "话题标签不等于逐字任务输入。", "task_category 禁令可以对主题信息适用。"),
+    _entry("FB20", "flow_binding", {"flow_binding": [24]},
+           "同接收边适用 deny、present、confirmed 攻击者输入交付均成立，并满足禁令要求的实例范围。", "confirmed",
+           ["bound_scoped_forbidden_delivery_confirmed"], "any_instance 类别禁令可被训练输入违反，不因 training 名称免责。", "同实例禁令但身份未知不能确认。"),
+    _entry("FB21", "flow_binding", {"flow_binding": [25]},
+           "其余门虽通过，但基础边仍未建立匹配的 deny+present。", "unresolved",
+           ["bound_base_rule_does_not_confirm_forbidden_delivery"], "只有 possible 路径不能确认禁止交付。", "FB20 的所有条件齐备。"),
 ]
 
 
@@ -250,6 +319,8 @@ _VALIDATION_GROUPS = [
      "check": "自动抽取与复核输出严格符合各自 schema，每次最多六条怀疑，复核索引恰好覆盖每条一次。", "failure": "ValueError，不把不合格式的模型输出当研究结论。"},
     {"id": "V11", "functions": ["extraction_v3.locate", "extraction_v3.normalized_with_offsets", "extraction_v3.overlapping_locators"],
      "check": "引文非空且不超过 300 字符，指定片段存在，仅进行 Unicode NFKD/空白规范化后的唯一精确匹配，优先同页 reading_order_text 再 primary。同页跨文本视图无法证明独立，按重叠处理。", "failure": "引用失败进入 X02/X06。同一文档 SHA 与具体文本视图 SHA 记入定位结果，不能靠编辑距离或语义近似补齐。"},
+    {"id": "V12", "functions": ["scope_review._validate_flow_binding"],
+     "check": "仅新输入的 flow_binding 精确包含八字段，semantics_version 为整数 1，角色、观察目标、攻击者交付、实例要求与关系属于允许枚举，两项 verification 为布尔。", "failure": "ValueError；未核验的有效绑定保持 unresolved，不降回旧语义。"},
 ]
 
 
@@ -269,7 +340,13 @@ _VALUE_OPTIONS = {
     "delivery.evidence_kind": ["paper_procedure", "static_bound_path", "saved_request", "runtime", "document_presence", "possible_path", "not_applicable"],
     "delivery.task_relation": ["same_evaluated_instance", "training_instance", "topic_only", "different_instance", "unknown"],
     "refutation.basis": ["none", "explicit_permission", "different_instance", "excluded_delivery", "different_issue_type"],
-    "validation_mode": ["legacy_v2", "scope_review_v3"],
+    "validation_mode": ["legacy_v2", "scope_review_v3", "flow_binding_v1"],
+    "flow_binding.semantics_version": [1],
+    "flow_binding.recipient_role": ["attacker_constructor", "attacker_optimizer", "evaluator", "simulator", "other", "unknown"],
+    "flow_binding.observation_target": ["matched_edge"],
+    "flow_binding.attacker_delivery": ["confirmed", "excluded", "unresolved"],
+    "flow_binding.instance_requirement": ["same_evaluated_instance", "any_instance", "unspecified"],
+    "flow_binding.instance_relation": ["same", "different", "unknown"],
     "extraction_v3.applicability": ["in_scope", "out_of_scope", "uncertain"],
     "extraction_v3.permission": ["allow", "deny", "unspecified"],
     "extraction_v3.observation": ["present", "absent", "possible", "unspecified"],
@@ -287,8 +364,8 @@ def catalog():
     """Return a fresh JSON-serializable inventory; no model or audit is invoked."""
     groups = Counter(rule["group"] for rule in _RULES)
     return deepcopy({
-        "catalog_version": 1,
-        "scope": "Core checker/scope_review, V3 extraction gates, and grouped V4/source_bundle evidence acceptance requirements.",
+        "catalog_version": 2,
+        "scope": "Unchanged legacy V2/V3 core, opt-in recipient-bound semantics v1, V3 extraction gates, and grouped V4/source_bundle evidence acceptance requirements.",
         "counts": {
             "business_rules": len(_RULES),
             "business_by_group": dict(groups),
@@ -297,6 +374,7 @@ def catalog():
             "structural_validation_groups": len(_VALIDATION_GROUPS),
             "value_option_groups": len(_VALUE_OPTIONS),
             "v4_included": True,
+            "flow_binding_rules": len(_FLOW_BINDING_RULES),
         },
         "counting_method": [
             "核心业务规则只数 B/S/P 清单条目，同一语义检查在多个位置复用不重复计数。",
@@ -306,8 +384,10 @@ def catalog():
             "SRC 是论文加源码路径的证据验收规则，按职责归并后单列，不按每个 if 或每个状态值计数。",
             "citation-only repair 是失败引文的候选修复步骤，最终仍满足原有引用标准，不新增核心规则或 SRC 验收规则。",
             "状态值、模型提示中的工作步骤、测试数量和 golden 标签均不算业务规则。",
+            "旧 B/S/P 保持原 30 条与重放行为；仅含 flow_binding.semantics_version=1 的新 V3 case 改走 FB 接收边语义，FB 单列，不追改旧记录。",
         ],
         "rules": _RULES,
+        "flow_binding_rules": _FLOW_BINDING_RULES,
         "source_validation_rules": _SOURCE_VALIDATION_RULES,
         "value_options": _VALUE_OPTIONS,
         "validation_summary": {
@@ -316,6 +396,7 @@ def catalog():
             "boundary_evidence_kinds": ["paper_procedure", "static_bound_path", "saved_request", "runtime"],
             "matching_contract": "role/phase/source/representation/operation 及可选 query_form 全部精确相同才连接权限与观察，不用模糊匹配。",
             "legacy_adapter": "schema_version 缺省或为 2 时保留基础 verdict/reason，只映射 claim_result，validation_mode=legacy_v2，不声称通过 V3 范围审查。",
+            "flow_binding_adapter": "V5 仅在引文落点与独立复核后传入 flow_binding；无该字段的 V3 case 完整沿用 S。新 case 的 target.role 使用与 recipient_role 相同的规范枚举，角色不一致或 alignment_verified=false 必须 unresolved。present 只绑定目标接收边，evaluator 可见不自动设置 attacker_delivery=excluded。instance_relation 的 same/different 另需实例映射证据；alignment_verified 不替代实例证据。any_instance 仅在论文与独立复核明确支持跨实例限制时使用。",
             "model_workflow": [
                 "从提供的文档形成至多六个明确且有界的怀疑和必要的允许对照。",
                 "抽取角色、阶段、实验臂、信息对象、权限、交付与反证，并提供原文短引。",
@@ -348,11 +429,11 @@ def markdown():
     lines = [
         "# 判定规则与源码证据验收说明书", "",
         "讲解或快速理解先看 [核心判定简版](RULES_SUMMARY_ZH.md)：三个关键判断和一个独立的效果问题。以下保留完整工程规则供实现回查。", "",
-        f"当前核心业务判定有 **{counts['business_rules']} 条**：基础边判定 {groups['base']} 条、V3 范围与反证新增 {groups['scope']} 条、论文汇总 {groups['paper']} 条。论文加源码路径另外有 **{counts['source_validation_rules']} 条证据验收规则（SRC）**。还有 **{counts['extraction_v3_gate_groups']} 项自动抽取 V3 验收/分流条件（X）**与 **{counts['structural_validation_groups']} 组结构校验（V）**。这些数量分别统计，不把状态值、模型步骤或测试数加进核心规则数。", "",
+        f"旧 V2/V3 核心业务判定保持 **{counts['business_rules']} 条**：基础边判定 {groups['base']} 条、V3 范围与反证新增 {groups['scope']} 条、论文汇总 {groups['paper']} 条。新输入另有 **{counts['flow_binding_rules']} 条接收边绑定语义规则（FB）**，只对显式 opt-in case 生效。论文加源码路径另外有 **{counts['source_validation_rules']} 条证据验收规则（SRC）**。还有 **{counts['extraction_v3_gate_groups']} 项自动抽取 V3 验收/分流条件（X）**与 **{counts['structural_validation_groups']} 组结构校验（V）**。这些数量分别统计，不把状态值、模型步骤或测试数加进核心规则数。", "",
         "本说明由 `rule_catalog.py` 的 `catalog()` 生成。它描述现有程序，自己不作裁定、不调用模型，也不读取 gold。可用 `python rule_catalog.py` 导出 JSON，用 `python rule_catalog.py --format markdown` 重建本文件。", "",
         "## 计数和执行顺序", "",
         *[f"- {item}" for item in data["counting_method"]], "",
-        "基础层先执行 B01–B08。同一层按优先序检查，先满足者返回。V3 再按 scope 优先序复核基础结果，最后按 P01–P03 汇总 required_checks。优先序是代码位置，不是严重程度。所有例子均假定更早的门已通过。", "",
+        "基础层先执行 B01–B08。同一层按优先序检查，先满足者返回。旧 V3 再按 scope 优先序复核基础结果，新 V3 case 若有 flow_binding 则走 FB，最后按 P01–P03 汇总 required_checks。优先序是代码位置，不是严重程度。所有例子均假定更早的门已通过。", "",
         data["validation_summary"]["matching_contract"] + " 每个 case 的版本、实验臂、修订和配置需明确填写。程序不会仅凭这些非空字符串独立核实引用是否真的属于该范围。完整查询禁令也不会自动变成部分查询禁令。", "",
         "`conflicting_policy` 与 `conflicting_observations` 在两层共用 B02/B03。S04 与 S06 虽有重复落点，各只算一条。P03 的两种 reason code 都表达同一个未闭合范围的汇总规则。按 reason 字符串机械相加会得到另一数量，因此本清单按去重后的判定条件计数。", "",
         "输出对应关系为 confirmed → inconsistent、refuted → consistent_within_scope、unresolved → insufficient_evidence。V2 只保留旧基础结果并标记 legacy_v2，不能当作已通过 V3 证据门。", "",
@@ -364,6 +445,11 @@ def markdown():
         for rule in data["rules"]:
             if rule["group"] == group:
                 lines += _markdown_entry(rule)
+    lines += ["## 新输入的接收边绑定语义", "",
+              data["validation_summary"]["flow_binding_adapter"], "",
+              "以下 FB 规则替代新 case 的 S 范围分支，不改写历史 V2/V3 输出。明确且适用的 allow 足以排除所列禁止访问怀疑，无须再证明该授权已被实际行使。评分器收到任务与攻击者收到或排除任务是独立事实；训练名称不能自动证明实例隔离，也不能豁免明确的全实例禁令。", ""]
+    for rule in data["flow_binding_rules"]:
+        lines += _markdown_entry(rule)
     gates = data["validation_summary"]["extraction_v3_gates"]
     lines += ["## 自动抽取 V3 的验收与域分流", "",
               f"以下 {len(gates)} 项是自动输入进入核心规则前的条件分组，单列统计。X01–X04 直接决定域分流，X05–X09 限制可接纳证据，X10 准备覆盖标记。X05/X07/X08 的代码写入 citation_errors，其余部分条件没有专用 reason code。它们不是新增的人工审定业务规则。", ""]
