@@ -46,6 +46,16 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
            "status": "running", "has_confirmed_inconsistency": None, "stages": [], "evidence": []}
     stage = "ingestion"
     started = time.monotonic()
+
+    def generate_model(prompt, content, schema):
+        # A later paper/transport failure must not erase completed model calls.
+        # Persist the provider's safe ledger even when this particular call fails.
+        try:
+            return client.generate(prompt, content, schema)
+        finally:
+            ledger = client.ledger() if callable(getattr(client, "ledger", None)) else None
+            if isinstance(ledger, dict):
+                save_json(output_dir / f"inference.{stage}.json", ledger)
     try:
         # Fixed historical outputs must never trigger a fresh source search or
         # acquire new evidence behind a saved model proposal's back.
@@ -170,7 +180,7 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
             if extraction is None:
                 if client is None:
                     raise ValueError("choose an inference engine, or supply extraction and review JSON for replay")
-                extraction = client.generate(engine.EXTRACT_PROMPT, content, engine.EXTRACTION_SCHEMA)
+                extraction = generate_model(engine.EXTRACT_PROMPT, content, engine.EXTRACTION_SCHEMA)
             save_json(output_dir / "extraction.json", extraction)
             validate_shape(extraction, engine.EXTRACTION_SCHEMA)
             row["title"] = extraction["title"]
@@ -192,7 +202,7 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
                     repair_input = choice_request(extraction, evidence_document, issues)
                     checked_payload_size(repair_input, max_input_chars)
                     save_json(output_dir / "citation_repair.request.json", repair_input)
-                    response = client.generate(REPAIR_PROMPT, repair_input, CHOICE_SCHEMA)
+                    response = generate_model(REPAIR_PROMPT, repair_input, CHOICE_SCHEMA)
                     save_json(output_dir / "citation_repair.response.json", response)
                     extraction, accepted = apply_choices(extraction, response, evidence_document, issues, repair_input)
                     save_json(output_dir / "extraction.repaired.json", extraction)
@@ -209,7 +219,7 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
                     raise ValueError("replay requires a separate review JSON")
                 review_input = {**content, "proposal": extraction}
                 checked_payload_size(review_input, max_input_chars)
-                review = client.generate(engine.REVIEW_PROMPT, review_input, engine.REVIEW_SCHEMA)
+                review = generate_model(engine.REVIEW_PROMPT, review_input, engine.REVIEW_SCHEMA)
             save_json(output_dir / "review.json", review)
             validate_shape(review, engine.REVIEW_SCHEMA)
             row["stages"].append({"stage": stage, "status": "completed",
@@ -223,11 +233,18 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
                        prompt_sha256=engine.prompt_hash())
             row["stages"].append({"stage": stage, "status": "completed",
                                   "verdict": row["verdict"], "reason": row["reason"]})
-    except (OSError, ValueError, KeyError, TypeError, AttributeError) as error:
+    except Exception as error:
+        # This is the per-paper boundary. Preserve programming/transport errors
+        # as failed rows so one paper cannot discard the rest of a batch.
+        # BaseException (including user interruption) still propagates.
         row.update(status="failed", verdict="technical_failure", error=str(error),
-                   has_confirmed_inconsistency=None)
+                   error_type=type(error).__name__, has_confirmed_inconsistency=None)
         row["stages"].append({"stage": stage, "status": "failed", "error": str(error)})
     row["duration_seconds"] = round(time.monotonic() - started, 3)
+    if client is not None and callable(getattr(client, "ledger", None)):
+        ledger = client.ledger()
+        if isinstance(ledger, dict):
+            save_json(output_dir / "inference.json", ledger)
     save_json(output_dir / "result.json", row)
     return row
 

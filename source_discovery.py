@@ -11,12 +11,13 @@ reader as an immutable revision. No repository content is executed.
 from __future__ import annotations
 
 import hashlib
+from http.client import HTTPException
 from html.parser import HTMLParser
 import json
 import re
 import time
 from urllib.error import HTTPError, URLError
-from urllib.parse import quote, urlsplit, urlunsplit
+from urllib.parse import parse_qsl, quote, urlencode, urlsplit, urlunsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 from documents import DocumentError, _http_link, _validate_url
@@ -197,7 +198,7 @@ class _Fetcher:
                 data = b"".join(chunks)
                 entry.update(status="completed", final_url=final, bytes=len(data), sha256=hashlib.sha256(data).hexdigest())
                 return data, final
-        except (HTTPError, URLError, OSError, TimeoutError, DocumentError) as error:
+        except (HTTPError, URLError, OSError, TimeoutError, HTTPException, DocumentError) as error:
             entry.update(status="unavailable", error=type(error).__name__)
             raise DiscoveryError("public source-discovery endpoint unavailable") from None
         except DiscoveryError:
@@ -396,12 +397,24 @@ def discover_repository(document, source):
     selected = accepted[0]
     try:
         owner, name = urlsplit(selected["repository"]).path.strip("/").split("/")
-        ref = selected.get("revision") or "HEAD"
-        api = f"https://api.github.com/repos/{quote(owner, safe='')}/{quote(name, safe='')}/commits/{ref}"
+        # The one-item list returns the same immutable identity without the
+        # potentially large file patches included by the single-commit API.
+        query = [("per_page", "1")]
+        if selected.get("revision"):
+            query.append(("sha", selected["revision"]))
+        api = f"https://api.github.com/repos/{quote(owner, safe='')}/{quote(name, safe='')}/commits?{urlencode(query)}"
         data, final_api = fetcher.fetch(api, "application/vnd.github+json")
-        if urlsplit(final_api).hostname != "api.github.com" or urlsplit(final_api).scheme != "https":
+        final_parts = urlsplit(final_api)
+        if (final_parts.hostname != "api.github.com" or final_parts.scheme != "https"
+                or final_parts.username is not None or final_parts.password is not None
+                or final_parts.port not in {None, 443} or final_parts.fragment):
             raise DiscoveryError("GitHub commit resolution left the authoritative API host")
-        metadata = json.loads(data.decode("utf-8"))
+        if sorted(parse_qsl(final_parts.query, keep_blank_values=True, strict_parsing=True)) != sorted(query):
+            raise DiscoveryError("GitHub commit resolution changed the bounded revision query")
+        commits = json.loads(data.decode("utf-8"))
+        if not isinstance(commits, list) or len(commits) != 1 or not isinstance(commits[0], dict):
+            raise DiscoveryError("GitHub did not return exactly one commit identity")
+        metadata = commits[0]
         revision = metadata.get("sha")
         if not isinstance(revision, str) or SHA.fullmatch(revision) is None:
             raise DiscoveryError("GitHub did not return a full commit identity")
@@ -410,7 +423,7 @@ def discover_repository(document, source):
         canonical = _github_repository(metadata.get("html_url", ""))
         if canonical is None or canonical["revision"] != revision.lower():
             raise DiscoveryError("GitHub metadata lacks the verified commit URL")
-        api_match = re.fullmatch(r"/repos/([A-Za-z0-9_.-]+)/([A-Za-z0-9_.-]+)/commits/[^/]+", urlsplit(final_api).path)
+        api_match = re.fullmatch(r"/repos/([A-Za-z0-9_.-]+)/([A-Za-z0-9_.-]+)/commits", final_parts.path)
         if api_match is None:
             raise DiscoveryError("GitHub commit response has an unverified repository path")
         api_repository = f"https://github.com/{api_match.group(1)}/{api_match.group(2)}"

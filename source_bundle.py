@@ -15,6 +15,7 @@ metadata when constructing a model request.
 from __future__ import annotations
 
 import hashlib
+from http.client import HTTPException
 import io
 import json
 import os
@@ -326,7 +327,7 @@ def _download_archive(url):
                 if size > MAX_DOWNLOAD_BYTES:
                     raise RepositoryError("Source archive exceeds its download limit")
             return b"".join(chunks)
-    except (HTTPError, URLError, OSError, TimeoutError) as error:
+    except (HTTPError, URLError, OSError, TimeoutError, HTTPException) as error:
         raise RepositoryError("Could not download the pinned GitHub source archive") from error
 
 

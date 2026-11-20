@@ -16,6 +16,7 @@ import subprocess
 import tempfile
 import time
 from html.parser import HTMLParser
+from http.client import HTTPException
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.parse import urljoin, urlsplit, urlunsplit
@@ -127,7 +128,7 @@ def _fetch_url(url: str) -> tuple[bytes, str, str]:
                     raise DocumentError("Document exceeds the 20 MiB size limit")
             media_type = response.headers.get("Content-Type", "").split(";", 1)[0].strip().lower()
             return b"".join(chunks), final_url, media_type
-    except (HTTPError, URLError, OSError, TimeoutError) as error:
+    except (HTTPError, URLError, OSError, TimeoutError, HTTPException) as error:
         raise DocumentError("Could not download the paper document") from error
 
 

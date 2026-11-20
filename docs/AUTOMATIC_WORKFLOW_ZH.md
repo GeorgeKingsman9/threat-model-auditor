@@ -81,10 +81,13 @@ PDF 输入由 Poppler 的 `pdftotext` 或可选 `pypdf` 处理。后续推理默
 | `repository.json` / `combined_input.json` | 取得源码时保存其版本/清单/覆盖信息，以及本次论文＋源码绑定输入。 |
 | `request.json` | 提示版本、实际输入身份和限制。 |
 | `extraction.json`、可选引文恢复文件、`review.json` | 对应实际完成的模型步骤；文件存在仍需结合格式/验收状态阅读。 |
+| `inference.<阶段>.json` / `inference.json` | 每次模型步骤结束即保存调用账本；后续论文或下载失败不应抹掉已完成调用。 |
 | `result.json` | 单篇终态、范围、证据、原因、失败或未解决项。 |
 | `report.json`、`report.html`、`report.md` | 一行汇总和可展开的测试过程；HTML 可直接打开。 |
 
 网络、解析、模型或限额错误应显示为失败，不得变成“没有不一致”。未运行模型时显示 `not_run`；模型调用用量没有报告时，也不能假定零用量。
+
+仓库版本解析使用 GitHub [单条提交列表](https://docs.github.com/en/rest/commits/commits#list-commits)固定 SHA，避免为取得版本号下载整份提交 diff。HTTP 正文截断会被记录为材料不可用，不能接收残缺内容；每篇的最终异常边界保留失败记录，避免一篇中断整个批次。
 
 `inconsistent` 是限定发现；`consistent_within_scope` 要有命名怀疑的具体反证；`insufficient_evidence` 是尚不能确认；`not_applicable` 是领域不适用。这几类与技术失败、未运行分别展示。
 

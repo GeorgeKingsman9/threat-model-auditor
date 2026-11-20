@@ -1,6 +1,7 @@
 """Offline source discovery: self-association and immutable resolution are distinct."""
 
 import io
+from http.client import HTTPException, IncompleteRead
 import json
 import unittest
 from unittest.mock import patch
@@ -18,7 +19,7 @@ def paper(text, links=None, **extra):
 
 
 def api_bytes(repo="owner/study", sha=COMMIT):
-    return json.dumps({"sha": sha, "html_url": f"https://github.com/{repo}/commit/{sha}"}).encode()
+    return json.dumps([{"sha": sha, "html_url": f"https://github.com/{repo}/commit/{sha}"}]).encode()
 
 
 class SourceDiscoveryTests(unittest.TestCase):
@@ -33,7 +34,7 @@ class SourceDiscoveryTests(unittest.TestCase):
             if value is not None:
                 return value, url
             if url.startswith("https://api.github.com/repos/"):
-                repository = url.split("/repos/", 1)[1].split("/commits/", 1)[0]
+                repository = url.split("/repos/", 1)[1].split("/commits?", 1)[0]
                 return api_bytes(repository), url
             raise discovery.DiscoveryError("fixture endpoint unavailable")
 
@@ -48,7 +49,7 @@ class SourceDiscoveryTests(unittest.TestCase):
         self.assertEqual(result["status"], "selected")
         self.assertEqual(result["repository"], "https://github.com/owner/study")
         self.assertEqual(result["revision"], COMMIT)
-        self.assertEqual(calls, ["https://api.github.com/repos/owner/study/commits/HEAD"])
+        self.assertEqual(calls, ["https://api.github.com/repos/owner/study/commits?per_page=1"])
         self.assertEqual(len(result["candidates"]), 2)
         self.assertFalse(next(c for c in result["candidates"] if c["repository"].endswith("baseline"))["accepted"])
         self.assertIn("our data and source code", result["evidence"][0]["context"])
@@ -77,13 +78,13 @@ class SourceDiscoveryTests(unittest.TestCase):
         result, calls = self.resolve(paper(text))
         self.assertEqual(result["status"], "selected")
         self.assertEqual(result["revision"], COMMIT)
-        self.assertEqual(calls[-1], "https://api.github.com/repos/owner/study/commits/HEAD")
+        self.assertEqual(calls[-1], "https://api.github.com/repos/owner/study/commits?per_page=1")
 
     def test_explicit_full_commit_is_verified_and_conflicting_versions_stay_ambiguous(self):
         text = f"Our code is available at https://github.com/owner/study/tree/{COMMIT}."
         result, calls = self.resolve(paper(text))
         self.assertEqual(result["revision"], COMMIT)
-        self.assertTrue(calls[0].endswith(COMMIT))
+        self.assertEqual(calls[0], "https://api.github.com/repos/owner/study/commits?per_page=1&sha=" + COMMIT)
         text += f"\n\nOur code is available at https://github.com/owner/study/tree/{OLDER}."
         result, calls = self.resolve(paper(text))
         self.assertEqual(result["status"], "ambiguous")
@@ -132,9 +133,9 @@ class SourceDiscoveryTests(unittest.TestCase):
 
     def test_metadata_cannot_switch_the_paper_associated_repository_or_hide_commit_url(self):
         document = paper("Code: https://github.com/owner/study.")
-        endpoint = "https://api.github.com/repos/owner/study/commits/HEAD"
-        for response in [api_bytes("other/unrelated"), json.dumps({"sha": COMMIT}).encode(),
-                         json.dumps({"sha": COMMIT, "html_url": "https://example.org/commit/" + COMMIT}).encode()]:
+        endpoint = "https://api.github.com/repos/owner/study/commits?per_page=1"
+        for response in [api_bytes("other/unrelated"), json.dumps([{"sha": COMMIT}]).encode(),
+                         json.dumps([{"sha": COMMIT, "html_url": "https://example.org/commit/" + COMMIT}]).encode()]:
             with self.subTest(response=response):
                 result, _ = self.resolve(document, responses={endpoint: response})
                 self.assertEqual(result["status"], "unavailable")
@@ -172,12 +173,80 @@ class SourceDiscoveryTests(unittest.TestCase):
 
     def test_repository_resolution_failure_is_unavailable_not_a_guessed_revision(self):
         document = paper("Code: https://github.com/owner/study.")
-        for response in [discovery.DiscoveryError("rate limit"), b'{}', api_bytes(sha="short")]:
+        for response in [discovery.DiscoveryError("rate limit"), b'{}', b'[]', b'[null]',
+                         json.dumps([{}, {}]).encode(), api_bytes(sha="short")]:
             with self.subTest(response=response):
-                result, _ = self.resolve(document, responses={"https://api.github.com/repos/owner/study/commits/HEAD": response})
+                result, _ = self.resolve(document, responses={"https://api.github.com/repos/owner/study/commits?per_page=1": response})
                 self.assertEqual(result["status"], "unavailable")
                 self.assertIsNone(result["revision"])
                 self.assertTrue(result["evidence"])
+
+    def test_resolution_rejects_changed_api_host_path_or_bounded_revision_query(self):
+        endpoint = "https://api.github.com/repos/owner/study/commits"
+        final_urls = [
+            endpoint.replace("api.github.com", "example.org") + "?per_page=1",
+            endpoint + "/HEAD?per_page=1",
+            endpoint + "?per_page=2",
+            endpoint,
+            endpoint + "?per_page=1&per_page=1",
+            endpoint + "?per_page=1&sha=" + OLDER,
+            endpoint + "?per_page=1&path=unrelated",
+            endpoint + "?per_page=1#unverified",
+        ]
+        for final_url in final_urls:
+            with self.subTest(final_url=final_url):
+                def fetch(fetcher, url, accept=None):
+                    return api_bytes(), final_url
+                with patch.object(discovery._Fetcher, "fetch", new=fetch):
+                    result = discovery.discover_repository(paper("Code: https://github.com/owner/study."), "paper.pdf")
+                self.assertEqual(result["status"], "unavailable")
+                self.assertIsNone(result["revision"])
+
+    def test_repository_rename_requires_the_matching_authoritative_api_redirect(self):
+        final_url = "https://api.github.com/repos/newowner/renamed/commits?per_page=1"
+        for redirected in (False, True):
+            with self.subTest(redirected=redirected):
+                def fetch(fetcher, url, accept=None):
+                    if redirected:
+                        fetcher.requests.append({"url": final_url, "status": "redirect"})
+                    return api_bytes("newowner/renamed"), final_url
+                with patch.object(discovery._Fetcher, "fetch", new=fetch):
+                    result = discovery.discover_repository(paper("Code: https://github.com/owner/study."), "paper.pdf")
+                self.assertEqual(result["status"], "selected" if redirected else "unavailable")
+                self.assertEqual(result["repository"], "https://github.com/newowner/renamed" if redirected else None)
+
+    def test_paper_linked_commit_cannot_be_changed_by_the_list_response_or_redirect_query(self):
+        document = paper(f"Code: https://github.com/owner/study/tree/{COMMIT}.")
+        endpoint = "https://api.github.com/repos/owner/study/commits?per_page=1&sha=" + COMMIT
+        result, _ = self.resolve(document, responses={endpoint: api_bytes(sha=OLDER)})
+        self.assertEqual(result["status"], "unavailable")
+        for query in ("per_page=1", "per_page=1&sha=" + OLDER, "per_page=1&sha=" + COMMIT + "&sha=" + COMMIT):
+            with self.subTest(query=query):
+                def fetch(fetcher, url, accept=None):
+                    return api_bytes(), endpoint.split("?", 1)[0] + "?" + query
+                with patch.object(discovery._Fetcher, "fetch", new=fetch):
+                    result = discovery.discover_repository(document, "paper.pdf")
+                self.assertEqual(result["status"], "unavailable")
+
+    def test_http_protocol_and_read_timeout_failures_are_recorded_without_aborting_discovery(self):
+        class Response(io.BytesIO):
+            headers = {}
+            def geturl(self):
+                return "https://api.github.com/repos/owner/study/commits?per_page=1"
+            def read(self, *args):
+                raise failure
+        class Opener:
+            def open(self, *args, **kwargs):
+                return Response(b"")
+        for failure in (IncompleteRead(b"partial", 10), HTTPException("protocol"), TimeoutError("timeout")):
+            with self.subTest(error=type(failure).__name__):
+                with patch.object(discovery, "_validate_url"), patch.object(discovery, "build_opener", return_value=Opener()):
+                    result = discovery.discover_repository(paper("Code: https://github.com/owner/study."), "paper.pdf")
+                self.assertEqual(result["status"], "unavailable")
+                self.assertIsNone(result["revision"])
+                self.assertEqual(result["requests"][0]["status"], "unavailable")
+                self.assertEqual(result["requests"][0]["error"], type(failure).__name__)
+                self.assertNotIn("bytes", result["requests"][0])
 
     def test_fetcher_rejects_private_urls_and_over_budget_without_reading_any_response(self):
         fetcher = discovery._Fetcher()
