@@ -1,0 +1,160 @@
+{
+  "created_at": "2026-11-20T09:42:54.313451+00:00",
+  "unique_papers": 2,
+  "final_cli_calls": 6,
+  "all_audit_cli_calls": 10,
+  "attempts": [
+    {
+      "attempt": "audits",
+      "paper": "muzzle",
+      "status": "completed",
+      "verdict": "insufficient_evidence",
+      "input_mode": "document_only",
+      "source_status": "unavailable",
+      "reason": "Source archive download timed out",
+      "cli_calls": 2,
+      "artifacts": [
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/audits/muzzle/result.json",
+          "sha256": "342a36034e1446917e62faab0f3a4629ae394abcbf4530587e89378438091443",
+          "bytes": 41686
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/audits/muzzle/source_acquisition.json",
+          "sha256": "b34622398c965e25ba7c7adf6958a9266cf10717a7a43e1a183f07697665a257",
+          "bytes": 3914
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/audits/muzzle/inference.json",
+          "sha256": "1314122374423ce2b0b9d80c3dcac9a1e2f89667f53c61f89422e2be106d75f1",
+          "bytes": 1980
+        }
+      ]
+    },
+    {
+      "attempt": "audits",
+      "paper": "obliinjection",
+      "status": "completed",
+      "verdict": "insufficient_evidence",
+      "input_mode": "document_only",
+      "source_status": "unavailable",
+      "reason": "Source archive download timed out",
+      "cli_calls": 2,
+      "artifacts": [
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/audits/obliinjection/result.json",
+          "sha256": "77cd341c0dcfb65fc3e28bc3155626d0366b9eec99bdfe4e553409cdf1a84bc3",
+          "bytes": 46449
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/audits/obliinjection/source_acquisition.json",
+          "sha256": "27c001908e55ba562a4f9e8fc72121b7afe7d90f399548af99bb505f15e83fef",
+          "bytes": 3558
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/audits/obliinjection/inference.json",
+          "sha256": "913f578dc6c78ecbdb486c60ad48ebe22dc3379b9dc53863e41afb3b4c0166ea",
+          "bytes": 1980
+        }
+      ]
+    },
+    {
+      "attempt": "verified-files-audits",
+      "paper": "muzzle",
+      "status": "completed",
+      "verdict": "insufficient_evidence",
+      "input_mode": "paper_and_source",
+      "source_status": "loaded",
+      "reason": null,
+      "cli_calls": 3,
+      "artifacts": [
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/muzzle/result.json",
+          "sha256": "8ef3dfe148d335bb8fe5d83a77cd2a7dcfa3af73cc3bc57b84a9d1f9a0f81210",
+          "bytes": 238745
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/muzzle/source_acquisition.json",
+          "sha256": "a171f8113f966f3cb5656fa43bfe9a57209458eaf547e681c66de3f4e07b21c5",
+          "bytes": 33223
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/muzzle/inference.json",
+          "sha256": "eed016428887e7a2874fbe1f4db2ff42f1d0ea98dcce14740332d5cda60ba283",
+          "bytes": 2608
+        }
+      ]
+    },
+    {
+      "attempt": "verified-files-audits",
+      "paper": "obliinjection",
+      "status": "completed",
+      "verdict": "insufficient_evidence",
+      "input_mode": "paper_and_source",
+      "source_status": "loaded",
+      "reason": null,
+      "cli_calls": 3,
+      "artifacts": [
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/obliinjection/result.json",
+          "sha256": "554930df107b7cca61da01ef90eeb669ebb835de0bd7966d1a774c21746614bd",
+          "bytes": 97581
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/obliinjection/source_acquisition.json",
+          "sha256": "3c4523bcab82b1e73a1fec8c1cc519b1edf56891b746a8640d4f2a9eed3bce07",
+          "bytes": 7804
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/obliinjection/inference.json",
+          "sha256": "c659faa8cf1b22323fbbce1d135bf88331341a13cd7ec7ff3d297360410da23a",
+          "bytes": 2607
+        }
+      ]
+    }
+  ],
+  "diagnostics": [
+    {
+      "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/obli-recognition-preflight/result.json",
+      "sha256": "50e4102dc16ce62f790537d54269a17045ca28ef8e8f8f57c9f52e7ceaf5c6b9",
+      "bytes": 22897
+    },
+    {
+      "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/raw_proxy_route_probe.json",
+      "sha256": "6ff7c2630687d30ad23892a552a10deefe84ea7f725849ffea4df47ea6432d1e",
+      "bytes": 693
+    },
+    {
+      "path": "outputs/2026-11-20-source-retry-download/diagnostic-01.json",
+      "sha256": "4d89ab45340e73c4347060cbe1223ddc1874f7c0750ef91392841c3da9c80a43",
+      "bytes": 502
+    },
+    {
+      "path": "outputs/2026-11-20-source-retry-download/diagnostic-source-only.json",
+      "sha256": "c593fe4597db121f2c2309c2b36284bc5e9133e4bae3706454f501b8ff521fe0",
+      "bytes": 56411
+    }
+  ],
+  "configs": [
+    {
+      "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/request.json",
+      "sha256": "9da9807519c1930c2131cfae8a3eb773719fbf1b86556a28566786e23f706448",
+      "bytes": 821
+    },
+    {
+      "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/frozen_config.json",
+      "sha256": "a9519df42e292e506c28b43eea74a9a9bfc8410cd07cc50d02155cfe291fe5dc",
+      "bytes": 1848
+    },
+    {
+      "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified_files_retry_config.json",
+      "sha256": "61c60e101a5151f6ea352f4d298f9bd79871e7fd78d168da4f619ecd83b7d031",
+      "bytes": 2085
+    }
+  ],
+  "notes": [
+    "The first full retry incorrectly put the raw source CDN in the direct route, differing from the successful proxy diagnostic; both fell back to paper text. These outputs are retained.",
+    "Final retry uses the verified proxy for raw source files, skips the slow archive and requires verified source before model inference.",
+    "Diagnostics made no model calls and are not counted as paper audit successes."
+  ]
+}

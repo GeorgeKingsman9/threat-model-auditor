@@ -1,0 +1,1793 @@
+{
+  "created_at": "2026-11-20T09:42:54.313451+00:00",
+  "code_commit": "08440d0",
+  "input_contract": "Original paper URLs only; source automatically associated and version-pinned. No --repo, cases, gold, old proposal or reviewed evidence in model inputs.",
+  "source_fetch": "files",
+  "require_source": true,
+  "max_calls_per_paper": 3,
+  "max_input_chars": 800000,
+  "max_code_chars": 500000,
+  "summary": {
+    "paper_count": 2,
+    "statuses": {
+      "completed": 2
+    },
+    "verdicts": {
+      "insufficient_evidence": 2
+    },
+    "cli_calls": 6,
+    "source_loaded_papers": 2
+  },
+  "inference_runs": [
+    {
+      "provider": "codex",
+      "authentication": "chatgpt",
+      "model": "gpt-6.1-sol",
+      "max_calls": 3,
+      "calls": [
+        {
+          "provider": "codex",
+          "authentication": "chatgpt",
+          "requested_model": "gpt-6.1-sol",
+          "actual_model": null,
+          "actual_models": [],
+          "usage": {
+            "input_tokens": 191043,
+            "cached_input_tokens": 0,
+            "output_tokens": 3072,
+            "reasoning_output_tokens": 482
+          },
+          "request_sha256": "5a9211eb20ed1ad489d01822d4b0f44a2034a0331ecc20129db5077a43742615",
+          "status": "completed",
+          "diagnostics": [],
+          "execution": {
+            "returncode": 0,
+            "turn_completed": true,
+            "fatal_error_count": 0,
+            "error_notification_count": 0
+          }
+        },
+        {
+          "provider": "codex",
+          "authentication": "chatgpt",
+          "requested_model": "gpt-6.1-sol",
+          "actual_model": null,
+          "actual_models": [],
+          "usage": {
+            "input_tokens": 13391,
+            "cached_input_tokens": 0,
+            "output_tokens": 94,
+            "reasoning_output_tokens": 32
+          },
+          "request_sha256": "0539fa6d71f4ee3a5b55290e39bed5a15cfb3f6d154d37846f7805e33f437082",
+          "status": "completed",
+          "diagnostics": [],
+          "execution": {
+            "returncode": 0,
+            "turn_completed": true,
+            "fatal_error_count": 0,
+            "error_notification_count": 0
+          }
+        },
+        {
+          "provider": "codex",
+          "authentication": "chatgpt",
+          "requested_model": "gpt-6.1-sol",
+          "actual_model": null,
+          "actual_models": [],
+          "usage": {
+            "input_tokens": 192420,
+            "cached_input_tokens": 0,
+            "output_tokens": 610,
+            "reasoning_output_tokens": 76
+          },
+          "request_sha256": "ba60ad41c40f1166175e0e261c45fd907505b74dca3a29a041f121fea0c544fc",
+          "status": "completed",
+          "diagnostics": [],
+          "execution": {
+            "returncode": 0,
+            "turn_completed": true,
+            "fatal_error_count": 0,
+            "error_notification_count": 0
+          }
+        }
+      ],
+      "usage": {
+        "input_tokens": 396854,
+        "cached_input_tokens": 0,
+        "output_tokens": 3776,
+        "reasoning_output_tokens": 590
+      },
+      "usage_reporting_complete": true,
+      "preflight_failures": [],
+      "account_usage_note": "Uses the existing ChatGPT/Codex account's access, limits and possible credits; not a guarantee of free usage. The wrapper does not retry or fall back. max_calls counts CLI invocations, not CLI-internal transport attempts. Usage totals sum only reported events; missing usage is not proof of zero use. Actual model remains null when the CLI events do not expose it."
+    },
+    {
+      "provider": "codex",
+      "authentication": "chatgpt",
+      "model": "gpt-6.1-sol",
+      "max_calls": 3,
+      "calls": [
+        {
+          "provider": "codex",
+          "authentication": "chatgpt",
+          "requested_model": "gpt-6.1-sol",
+          "actual_model": null,
+          "actual_models": [],
+          "usage": {
+            "input_tokens": 82561,
+            "cached_input_tokens": 0,
+            "output_tokens": 3600,
+            "reasoning_output_tokens": 279
+          },
+          "request_sha256": "148f2b517e91d99df781a1797e66b8ee788d43b35914aa24be98e54b40c5bcba",
+          "status": "completed",
+          "diagnostics": [],
+          "execution": {
+            "returncode": 0,
+            "turn_completed": true,
+            "fatal_error_count": 0,
+            "error_notification_count": 0
+          }
+        },
+        {
+          "provider": "codex",
+          "authentication": "chatgpt",
+          "requested_model": "gpt-6.1-sol",
+          "actual_model": null,
+          "actual_models": [],
+          "usage": {
+            "input_tokens": 24588,
+            "cached_input_tokens": 0,
+            "output_tokens": 278,
+            "reasoning_output_tokens": 88
+          },
+          "request_sha256": "1637b05bda64d34cdebcc8e60fd4a72875323ac20643e0247ae533987840e83f",
+          "status": "completed",
+          "diagnostics": [],
+          "execution": {
+            "returncode": 0,
+            "turn_completed": true,
+            "fatal_error_count": 0,
+            "error_notification_count": 0
+          }
+        },
+        {
+          "provider": "codex",
+          "authentication": "chatgpt",
+          "requested_model": "gpt-6.1-sol",
+          "actual_model": null,
+          "actual_models": [],
+          "usage": {
+            "input_tokens": 84683,
+            "cached_input_tokens": 0,
+            "output_tokens": 618,
+            "reasoning_output_tokens": 32
+          },
+          "request_sha256": "1716bb5f9684854220e3757fbbcf8078a4c4b30ff5451b85473d27e35b5cba9b",
+          "status": "completed",
+          "diagnostics": [],
+          "execution": {
+            "returncode": 0,
+            "turn_completed": true,
+            "fatal_error_count": 0,
+            "error_notification_count": 0
+          }
+        }
+      ],
+      "usage": {
+        "input_tokens": 191832,
+        "cached_input_tokens": 0,
+        "output_tokens": 4496,
+        "reasoning_output_tokens": 399
+      },
+      "usage_reporting_complete": true,
+      "preflight_failures": [],
+      "account_usage_note": "Uses the existing ChatGPT/Codex account's access, limits and possible credits; not a guarantee of free usage. The wrapper does not retry or fall back. max_calls counts CLI invocations, not CLI-internal transport attempts. Usage totals sum only reported events; missing usage is not proof of zero use. Actual model remains null when the CLI events do not expose it."
+    }
+  ],
+  "papers": [
+    {
+      "id": "muzzle",
+      "status": "completed",
+      "verdict": "insufficient_evidence",
+      "reason": "unresolved_checks",
+      "input_mode": "paper_and_source",
+      "source": "https://github.com/gsiros/muzzle",
+      "revision": "9f3effa1668fa29dcba8f2454e711ddf9ef3c038",
+      "source_coverage": {
+        "complete": true,
+        "inventory_complete": true,
+        "scope": "eligible UTF-8 source files only; excluded documents, datasets, tests, labels, credentials and dependencies are not audited",
+        "reason": "All eligible source files supplied",
+        "eligible_files": 81,
+        "included_files": 81,
+        "omitted_files": 0,
+        "excluded_entries": 154,
+        "characters": 424384,
+        "max_characters": 500000
+      },
+      "source_bytes": 424481,
+      "manifest_sha256": "2c5ca47ebaf8e371af93396d1064f1a8d78794180300164489168db5042160cd",
+      "commit_binding": "github_commit_tree_raw_blobs",
+      "source_acquisition": {
+        "requested_fetch_mode": "files",
+        "method": "github_commit_tree_raw_blobs",
+        "attempts": [],
+        "archive_skipped": true,
+        "fallback": {
+          "method": "github_commit_tree_raw_blobs",
+          "max_source_files": 128,
+          "max_workers": 4,
+          "timeout_seconds": 160,
+          "request_timeout_seconds": 20,
+          "download_byte_limit": 41943040,
+          "attempts": [
+            {
+              "resource_kind": "commit",
+              "attempt": 1,
+              "bytes_received": 1099,
+              "http_status": 200,
+              "content_length": 1099,
+              "status": "succeeded",
+              "elapsed_seconds": 0.703,
+              "sha256": "a8ad71ea824ab20dd6201453a4d13debe96de3646c96e3ecf300ea964c3c3f69"
+            },
+            {
+              "resource_kind": "tree",
+              "attempt": 1,
+              "bytes_received": 75132,
+              "http_status": 200,
+              "content_length": null,
+              "status": "succeeded",
+              "elapsed_seconds": 1.324,
+              "sha256": "b3fd46ab1cc16297ee839f0e86d42868601c68a85792d6083fe71a6b20f4d8dd"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 15,
+              "path": "__init__.py",
+              "http_status": 200,
+              "content_length": 15,
+              "status": "succeeded",
+              "elapsed_seconds": 0.426,
+              "sha256": "d6212792b7788970e2b0dba068441dae25186c078c06b520048ea8dff933ab75"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 4495,
+              "path": "extras/ablation_scripts/run_rtm_payload_fixed.py",
+              "http_status": 200,
+              "content_length": 4495,
+              "status": "succeeded",
+              "elapsed_seconds": 0.767,
+              "sha256": "63827c30bbcdefa3a2b23c2c0c2580c2b19edd90848118d6c521eb0913a0d189"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 4498,
+              "path": "extras/ablation_scripts/run_rtm_payload_template.py",
+              "http_status": 200,
+              "content_length": 4498,
+              "status": "succeeded",
+              "elapsed_seconds": 0.816,
+              "sha256": "4ecdb91976b7bec81b20d6024b364b0ff8838ba78f0beb7fe5c99e8a7e6dafb8"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 4503,
+              "path": "extras/ablation_scripts/run_rtm_ui_fixed_payload_fixed.py",
+              "http_status": 200,
+              "content_length": 4503,
+              "status": "succeeded",
+              "elapsed_seconds": 0.767,
+              "sha256": "76e42ec94f51f21ec20fdd3cc1b227af6cd8c39b5287aaf28ce255e48666c3ad"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 4495,
+              "path": "extras/ablation_scripts/run_rtm_ui_fixed_payload_opt.py",
+              "http_status": 200,
+              "content_length": 4495,
+              "status": "succeeded",
+              "elapsed_seconds": 0.75,
+              "sha256": "868e4f66632af1bb2de4e3ade30550923ea9fa12f311fcea782d628a8186d8b8"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 4506,
+              "path": "extras/ablation_scripts/run_rtm_ui_fixed_payload_template.py",
+              "http_status": 200,
+              "content_length": 4506,
+              "status": "succeeded",
+              "elapsed_seconds": 0.77,
+              "sha256": "aa0935b7630cfe9de58e6b6190b38980eb96fd8bbeecad33bc82da87408b8c6a"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 4504,
+              "path": "extras/ablation_scripts/run_rtm_ui_random_payload_fixed.py",
+              "http_status": 200,
+              "content_length": 4504,
+              "status": "succeeded",
+              "elapsed_seconds": 0.597,
+              "sha256": "21b19634564eb001dcb75cbda4df3cbcf60059b34dffbae3186296e8a18bbbbc"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 4496,
+              "path": "extras/ablation_scripts/run_rtm_ui_random_payload_opt.py",
+              "http_status": 200,
+              "content_length": 4496,
+              "status": "succeeded",
+              "elapsed_seconds": 0.699,
+              "sha256": "3a60f2516b8ec1780718c28c6b0943bcb07eef9ac5a158b38124e2a00b2fbd42"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 4507,
+              "path": "extras/ablation_scripts/run_rtm_ui_random_payload_template.py",
+              "http_status": 200,
+              "content_length": 4507,
+              "status": "succeeded",
+              "elapsed_seconds": 0.636,
+              "sha256": "b8724065b5fa0d2f71813b2c026a37cd4968976cc9ab044900af477ce309ee10"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 360,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/__init__.py",
+              "http_status": 200,
+              "content_length": 360,
+              "status": "succeeded",
+              "elapsed_seconds": 2.293,
+              "sha256": "02962113ffa69f21f914d0ee42e0dd82669d877407fdc8ab60ea554a91a69c30"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 7906,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/apps/Application.py",
+              "http_status": 200,
+              "content_length": 7906,
+              "status": "succeeded",
+              "elapsed_seconds": 0.691,
+              "sha256": "475de2c00cd6cdde39d0759e6aeac5889d98bdc2aa3c0f6ffd02bc4334ddf8ad"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 1648,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/apps/DataSentinelDetector.py",
+              "http_status": 200,
+              "content_length": 1648,
+              "status": "succeeded",
+              "elapsed_seconds": 0.629,
+              "sha256": "aef256ce5692d5f6e811c5cefea3a193d753e51b344b27766edc6798e97c5dbc"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 13094,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/apps/PromptLocate.py",
+              "http_status": 200,
+              "content_length": 13094,
+              "status": "succeeded",
+              "elapsed_seconds": 0.762,
+              "sha256": "955d827a82ba875986871d80deb35dec6638258711bd40ceccf7b1b845165bfe"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 219,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/apps/__init__.py",
+              "http_status": 200,
+              "content_length": 219,
+              "status": "succeeded",
+              "elapsed_seconds": 0.788,
+              "sha256": "c28eaa0b59b277d57943d680ecce23223196d7050302bf38652d2ed5f035da94"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 6645,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/apps/bpe.py",
+              "http_status": 200,
+              "content_length": 6645,
+              "status": "succeeded",
+              "elapsed_seconds": 0.754,
+              "sha256": "8298758af131865cf31364ce7068185fde9c2c7f6c4da01b824bc5e05abcfffd"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 3602,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/apps/utils.py",
+              "http_status": 200,
+              "content_length": 3602,
+              "status": "succeeded",
+              "elapsed_seconds": 0.712,
+              "sha256": "e6d09738fc46d94063774f986428ff6d0780e2e84b7bff95a777d31bc8f3ce0a"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 434,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/attackers/Attacker.py",
+              "http_status": 200,
+              "content_length": 434,
+              "status": "succeeded",
+              "elapsed_seconds": 0.704,
+              "sha256": "022b1a22f7c940cab5dd2ca9300a0de772c313cf2bef46d0fb1c894d8b92b05c"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 2722,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/attackers/CombineAttacker.py",
+              "http_status": 200,
+              "content_length": 2722,
+              "status": "succeeded",
+              "elapsed_seconds": 0.612,
+              "sha256": "780303e9b3dedd6589b6fab9ccc6daaf84514bc3803e3a7f46e4459da0b04875"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 757,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/attackers/EscapeCharAttacker.py",
+              "http_status": 200,
+              "content_length": 757,
+              "status": "succeeded",
+              "elapsed_seconds": 0.721,
+              "sha256": "f997232152f94b2598a36df00cf4782c4e6fb1c5d09f7469630b936ec8b36191"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 2650,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/attackers/FakeCompAttacker.py",
+              "http_status": 200,
+              "content_length": 2650,
+              "status": "succeeded",
+              "elapsed_seconds": 0.663,
+              "sha256": "e3df076fc45e195fdb0771583a24a42eb4e0c0be4ac39e248aa978ea963fd816"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 812,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/attackers/IgnoreAttacker.py",
+              "http_status": 200,
+              "content_length": 812,
+              "status": "succeeded",
+              "elapsed_seconds": 0.619,
+              "sha256": "2213b81bd990c2880647657209123104e5a0c9f8aa33db1e7883c44de31022f2"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 751,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/attackers/NaiveAttacker.py",
+              "http_status": 200,
+              "content_length": 751,
+              "status": "succeeded",
+              "elapsed_seconds": 0.838,
+              "sha256": "592b10860100350c97451fd498f6be670064302a630d3b5e8458264e6b5f4c2d"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 1068,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/attackers/__init__.py",
+              "http_status": 200,
+              "content_length": 1068,
+              "status": "succeeded",
+              "elapsed_seconds": 0.679,
+              "sha256": "4e0a6bbb0c005e02549ea7784f003e261285d4b1688db19abc3e5846b8cf40a2"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 7059,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/evaluator/Evaluator.py",
+              "http_status": 200,
+              "content_length": 7059,
+              "status": "succeeded",
+              "elapsed_seconds": 0.61,
+              "sha256": "07f37663980dc4ad4f09e9206bdf4f4eae5057079bae1f8a2b87d499f2772a5e"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 351,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/evaluator/__init__.py",
+              "http_status": 200,
+              "content_length": 351,
+              "status": "succeeded",
+              "elapsed_seconds": 0.671,
+              "sha256": "523c7b307291eca59c7a45b9ff700f8ae024cf4d8ca09973ccd29558b59e2191"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 8512,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/evaluator/gleu_utils.py",
+              "http_status": 200,
+              "content_length": 8512,
+              "status": "succeeded",
+              "elapsed_seconds": 0.671,
+              "sha256": "4f67f7e772ca0900765bf78771f3515f7085d6b9212f3b82414ffbaa707858ca"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 5590,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/evaluator/utils.py",
+              "http_status": 200,
+              "content_length": 5590,
+              "status": "succeeded",
+              "elapsed_seconds": 0.821,
+              "sha256": "2d93377c8446b476584d24b36823aa286bbd96af11238a583498f388575cb7b0"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 4672,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/DeepSeek.py",
+              "http_status": 200,
+              "content_length": 4672,
+              "status": "succeeded",
+              "elapsed_seconds": 2.101,
+              "sha256": "a12316631c279620b880055ba41cad85e8eccdf1200642744ee10cbbe341c642"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 852,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Flan.py",
+              "http_status": 200,
+              "content_length": 852,
+              "status": "succeeded",
+              "elapsed_seconds": 0.609,
+              "sha256": "58b5cc59f89c969583a16c71d9d7250f1ef529003de5d1e0e9faa053a7f1626a"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 2611,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/GPT.py",
+              "http_status": 200,
+              "content_length": 2611,
+              "status": "succeeded",
+              "elapsed_seconds": 0.62,
+              "sha256": "758e9c30297e5791f87db1de3bbcd897b35c4af4bb87d8e5c96132b78b9737df"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 702,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Internlm.py",
+              "http_status": 200,
+              "content_length": 702,
+              "status": "succeeded",
+              "elapsed_seconds": 0.739,
+              "sha256": "54b3f94774f85a48ad1c40558516ae85b669927363ca353af342fb1c711cda6c"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 900,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Llama.py",
+              "http_status": 200,
+              "content_length": 900,
+              "status": "succeeded",
+              "elapsed_seconds": 1.47,
+              "sha256": "cbb406d0459e2da4f2f2d86bf34aa4268a54504c2124ad254805c729fbab1ba3"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 4756,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Llama3.py",
+              "http_status": 200,
+              "content_length": 4756,
+              "status": "succeeded",
+              "elapsed_seconds": 0.739,
+              "sha256": "c3787d1bacbf92e56b063187a20357a75a00fd0f632bbff6e71ff6f1165fe7e7"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 1911,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Model.py",
+              "http_status": 200,
+              "content_length": 1911,
+              "status": "succeeded",
+              "elapsed_seconds": 1.47,
+              "sha256": "291e886662278ec4debc1bf3ebf26b4b8cce4a02ec21b224d5a1e7d370c439d8"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 2642,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/PaLM2.py",
+              "http_status": 200,
+              "content_length": 2642,
+              "status": "succeeded",
+              "elapsed_seconds": 0.6,
+              "sha256": "c438fffe45efd9ec2ca1ffbfd7205173536a2be37a881001a395ec2a4fb3780f"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 5751,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/QLoraModel.py",
+              "http_status": 200,
+              "content_length": 5751,
+              "status": "succeeded",
+              "elapsed_seconds": 0.749,
+              "sha256": "9d10b9d80be21f17c8de9d180f98c12547a4b38d6cadbbc3bedfa0710be5e8f1"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 2369,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Vicuna.py",
+              "http_status": 200,
+              "content_length": 2369,
+              "status": "succeeded",
+              "elapsed_seconds": 0.76,
+              "sha256": "4e9a9e9e88e4c7640a8448c536fae92d3b3a07eb8e72bf0f5e23013e8f4f1504"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 1941,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/__init__.py",
+              "http_status": 200,
+              "content_length": 1941,
+              "status": "succeeded",
+              "elapsed_seconds": 1.13,
+              "sha256": "bd68bf07552b842a25fb12c8c33f165a72e53d87951b36e4a088e0175be60935"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 624,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/tasks/CompromiseTask.py",
+              "http_status": 200,
+              "content_length": 624,
+              "status": "succeeded",
+              "elapsed_seconds": 0.768,
+              "sha256": "ec0803d28ca166a3fe8d089ce93271dc649e834ab908459cf1d516754a111e00"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 2475,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/tasks/InjectedTask.py",
+              "http_status": 200,
+              "content_length": 2475,
+              "status": "succeeded",
+              "elapsed_seconds": 0.689,
+              "sha256": "d7f65049111f55ea24527a81f814e454a7b33a57fe0993e66e2297f87890a9f0"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 622,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/tasks/Math500.py",
+              "http_status": 200,
+              "content_length": 622,
+              "status": "succeeded",
+              "elapsed_seconds": 0.589,
+              "sha256": "a6aefc9c99cd1c66b19c027eda516c2a1a9052b7d3ad42a454f4f035718d63c1"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 1356,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/tasks/ReasoningTask.py",
+              "http_status": 200,
+              "content_length": 1356,
+              "status": "succeeded",
+              "elapsed_seconds": 1.902,
+              "sha256": "a9e98c9397f69a777ff26594bcc6a0bd5476ac78576eedef948a201622287a5c"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 2403,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/tasks/TargetTask.py",
+              "http_status": 200,
+              "content_length": 2403,
+              "status": "succeeded",
+              "elapsed_seconds": 0.583,
+              "sha256": "659a1922cd37158172925e4eb9e73b8f71adb3a9808bffbc118fc995384e53bf"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 8710,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/tasks/Task.py",
+              "http_status": 200,
+              "content_length": 8710,
+              "status": "succeeded",
+              "elapsed_seconds": 0.682,
+              "sha256": "3b510dd3ddb589488ea964f75a9eba808f58f0dfcc4898280d841bb854a61ef9"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 773,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/tasks/__init__.py",
+              "http_status": 200,
+              "content_length": 773,
+              "status": "succeeded",
+              "elapsed_seconds": 1.012,
+              "sha256": "458d3e9d333a951d4e7451fdcb70f5c71b0fa3939303b2046d46a746f8760510"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 4779,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/tasks/gigaword.py",
+              "http_status": 200,
+              "content_length": 4779,
+              "status": "succeeded",
+              "elapsed_seconds": 0.649,
+              "sha256": "3be54cdd4ed3b17148fcdeabb283d9c12a3cc90a09e7a315007de12d4a9953c7"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 29325,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/tasks/gleu.py",
+              "http_status": 200,
+              "content_length": 29325,
+              "status": "succeeded",
+              "elapsed_seconds": 0.677,
+              "sha256": "7bf2f2686bca9060b6e429a5bcbda3730a30dc4515fa66b92e0464a2726cfa48"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 3891,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/tasks/hsol.py",
+              "http_status": 200,
+              "content_length": 3891,
+              "status": "succeeded",
+              "elapsed_seconds": 0.77,
+              "sha256": "be10f83d9c3a3aa79c065aca901394020bf00804993a398e110c4e4dcc815e6f"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 6045,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/tasks/jfleg.py",
+              "http_status": 200,
+              "content_length": 6045,
+              "status": "succeeded",
+              "elapsed_seconds": 0.679,
+              "sha256": "22ee95ecbac1abedd6374fe0b369fd64a1750f3a01202f2ae83abf681f219cb0"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 3607,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/tasks/sms_spam.py",
+              "http_status": 200,
+              "content_length": 3607,
+              "status": "succeeded",
+              "elapsed_seconds": 0.72,
+              "sha256": "0c9c5b4c37617a0e3ec1a27dae33051516f450164036112f2b6e15335f6cd875"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 4162,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/tasks/sst2.py",
+              "http_status": 200,
+              "content_length": 4162,
+              "status": "succeeded",
+              "elapsed_seconds": 0.734,
+              "sha256": "dbc2378bc628fe49b5b9cf532fcf12e18d6c8663275fe170f6c64080c81745f8"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 1036,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/tasks/utils.py",
+              "http_status": 200,
+              "content_length": 1036,
+              "status": "succeeded",
+              "elapsed_seconds": 0.72,
+              "sha256": "033f62a9ee7cd8100ce3b85c15bf60746b3a13723e470debaa912a353d0b9086"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 87,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/utils/__init__.py",
+              "http_status": 200,
+              "content_length": 87,
+              "status": "succeeded",
+              "elapsed_seconds": 0.619,
+              "sha256": "03135d1444330f6cc8a21b8a9c5b007cf5661593f5b22880f7b4693e300926ee"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 459,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/utils/process_config.py",
+              "http_status": 200,
+              "content_length": 459,
+              "status": "succeeded",
+              "elapsed_seconds": 0.629,
+              "sha256": "a1e6f3e766ad42a0c19026aa1ad30c9388afa050362dabf4afa474306037ae96"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 326,
+              "path": "extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/utils/process_txt.py",
+              "http_status": 200,
+              "content_length": 326,
+              "status": "succeeded",
+              "elapsed_seconds": 1.073,
+              "sha256": "2cf086d2cde61cec43ef8e0497b0657c3ed56a5bbb8167f5cffbdaf600613991"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 4199,
+              "path": "extras/defense_eval/Open-Prompt-Injection/main.py",
+              "http_status": 200,
+              "content_length": 4199,
+              "status": "succeeded",
+              "elapsed_seconds": 0.721,
+              "sha256": "e43c88f75d1c1fbe3fb36022f1bff70bd0804cac6cbc1d714655eabef0d3fc56"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 488,
+              "path": "extras/defense_eval/Open-Prompt-Injection/pyproject.toml",
+              "http_status": 200,
+              "content_length": 488,
+              "status": "succeeded",
+              "elapsed_seconds": 0.788,
+              "sha256": "460e49ccafbce6059ba478f53ced2c456237549e9a98be99787e6cc7f40bf0cc"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 2776,
+              "path": "extras/defense_eval/Open-Prompt-Injection/run.py",
+              "http_status": 200,
+              "content_length": 2776,
+              "status": "succeeded",
+              "elapsed_seconds": 0.622,
+              "sha256": "e841bdabd50fc8b540babcd8fabe8168e3f7dfe1c424d1a6b5bed0bcb0bf71f9"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 2993,
+              "path": "extras/defense_eval/analysis.py",
+              "http_status": 200,
+              "content_length": 2993,
+              "status": "succeeded",
+              "elapsed_seconds": 0.718,
+              "sha256": "929ca7fa27c978cba061ef289607d8ce00659e85d13f44c9ebeba45a99ab2831"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 10150,
+              "path": "extras/defense_eval/demo.py",
+              "http_status": 200,
+              "content_length": 10150,
+              "status": "succeeded",
+              "elapsed_seconds": 0.615,
+              "sha256": "959b28e805b676a4c0c6d12cfa69036a04a25b9fa00a7cafb6211403be72652f"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 16104,
+              "path": "extras/defense_eval/evaluate_defenses.py",
+              "http_status": 200,
+              "content_length": 16104,
+              "status": "succeeded",
+              "elapsed_seconds": 0.6,
+              "sha256": "a115a1d56da9210a1ff3c192862509fb2f23c70a67183ede54a24cb2b365c2d5"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 502,
+              "path": "extras/defense_eval/pyproject.toml",
+              "http_status": 200,
+              "content_length": 502,
+              "status": "succeeded",
+              "elapsed_seconds": 0.682,
+              "sha256": "2b8f55cb547994957d4feac454d537177b9547f52e86d641528fbe236f3d56e8"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 7959,
+              "path": "extras/defense_eval/utils.py",
+              "http_status": 200,
+              "content_length": 7959,
+              "status": "succeeded",
+              "elapsed_seconds": 0.681,
+              "sha256": "437611773c860ffff90ba86d3db3dff1d99d97ceb52069c68d4f49953c6a1f6a"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 15,
+              "path": "muzzle/__init__.py",
+              "http_status": 200,
+              "content_length": 15,
+              "status": "succeeded",
+              "elapsed_seconds": 0.723,
+              "sha256": "d6212792b7788970e2b0dba068441dae25186c078c06b520048ea8dff933ab75"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 4617,
+              "path": "muzzle/prototype/agents/dispatcher.py",
+              "http_status": 200,
+              "content_length": 4617,
+              "status": "succeeded",
+              "elapsed_seconds": 0.761,
+              "sha256": "240de3d20cab08de5eefbfbe09e137c7d34fe117f30749b4f0a6af72308db737"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 41761,
+              "path": "muzzle/prototype/agents/explorer.py",
+              "http_status": 200,
+              "content_length": 41761,
+              "status": "succeeded",
+              "elapsed_seconds": 0.737,
+              "sha256": "4c9acd02b0c07150d30d7061c4596646bd72ef4e4eefee0472bca38436572ae4"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 3058,
+              "path": "muzzle/prototype/agents/grafter.py",
+              "http_status": 200,
+              "content_length": 3058,
+              "status": "succeeded",
+              "elapsed_seconds": 0.592,
+              "sha256": "9804e66adc1cda9d618de94d1a8d4168f546a9c240f9b6b0d42bf86ac5ad5f05"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 15005,
+              "path": "muzzle/prototype/agents/judge.py",
+              "http_status": 200,
+              "content_length": 15005,
+              "status": "succeeded",
+              "elapsed_seconds": 0.66,
+              "sha256": "0a16ba2c097a508922e38e08b0c2688c9b44c0ed6ab75a6da4adbe6962cfcc68"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 17856,
+              "path": "muzzle/prototype/agents/pair.py",
+              "http_status": 200,
+              "content_length": 17856,
+              "status": "succeeded",
+              "elapsed_seconds": 0.699,
+              "sha256": "d34697a2d00a3ebe806aea12491071a5b9b609eda1ded0d781f6ff7d5780a993"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 3271,
+              "path": "muzzle/prototype/agents/prompter.py",
+              "http_status": 200,
+              "content_length": 3271,
+              "status": "succeeded",
+              "elapsed_seconds": 1.081,
+              "sha256": "f38583c185c5bc5180aa529cea5f869a580d992429347bb1ed45d6370093eea8"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 4942,
+              "path": "muzzle/prototype/agents/summarizer.py",
+              "http_status": 200,
+              "content_length": 4942,
+              "status": "succeeded",
+              "elapsed_seconds": 0.601,
+              "sha256": "3a006cbb86efd32513d7dbab5a9cd40ed6cdb4a0ac97b9b85225d89001645032"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 1697,
+              "path": "muzzle/prototype/agents/utils.py",
+              "http_status": 200,
+              "content_length": 1697,
+              "status": "succeeded",
+              "elapsed_seconds": 0.58,
+              "sha256": "00ec92f814871f269c45d270853c89a45a72c8cfd9000552a9856b31657f41bf"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 109,
+              "path": "muzzle/prototype/types/enumerators.py",
+              "http_status": 200,
+              "content_length": 109,
+              "status": "succeeded",
+              "elapsed_seconds": 0.724,
+              "sha256": "107bdd4af8e169c6ac9c99ad1a4e17aaf121394a50a7aa596aed09e2080aba4b"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 7766,
+              "path": "muzzle/prototype/types/messages.py",
+              "http_status": 200,
+              "content_length": 7766,
+              "status": "succeeded",
+              "elapsed_seconds": 0.616,
+              "sha256": "bcb54dab52c967860f04a674210451f3bae524473c547b997f04590911d3fa34"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 300,
+              "path": "muzzle/prototype/types/topics.py",
+              "http_status": 200,
+              "content_length": 300,
+              "status": "succeeded",
+              "elapsed_seconds": 0.571,
+              "sha256": "dd67e3bcbe6b90bf2051212bec3420b0e9f5a4699cfc39753dd9c624f9ce8173"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 9786,
+              "path": "muzzle/prototype/utils/network/vllm_proxy.py",
+              "http_status": 200,
+              "content_length": 9786,
+              "status": "succeeded",
+              "elapsed_seconds": 0.59,
+              "sha256": "6a8d9de2070303bdb11f01daef7bd333ae16788975c5054f5d64854b0e257331"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 14990,
+              "path": "muzzle/prototype/utils/storage/controller.py",
+              "http_status": 200,
+              "content_length": 14990,
+              "status": "succeeded",
+              "elapsed_seconds": 0.648,
+              "sha256": "f4b98795a2a9fb4e366eeca6287e110a98dc6f7e2d96e0f42b1b3914c6a1468d"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 16963,
+              "path": "muzzle/prototype/utils/zoo/enron.py",
+              "http_status": 200,
+              "content_length": 16963,
+              "status": "succeeded",
+              "elapsed_seconds": 0.74,
+              "sha256": "7547cf09171f54e0af679a7c4f66ee6cfbec47cb362aea6fd6d9084ac24f414a"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 32223,
+              "path": "muzzle/prototype/utils/zoo/seeder.py",
+              "http_status": 200,
+              "content_length": 32223,
+              "status": "succeeded",
+              "elapsed_seconds": 0.711,
+              "sha256": "06e0a57ef08005a5ce30e79440d6e1d44ece911b78d4b79b10b7ea2dba3823a4"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 478,
+              "path": "pyproject.toml",
+              "http_status": 200,
+              "content_length": 478,
+              "status": "succeeded",
+              "elapsed_seconds": 0.58,
+              "sha256": "780db360a05e09fb91f2a849e69ba81843df12199b415d3f976fcf6da0bc3f59"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 4487,
+              "path": "run_rtm.py",
+              "http_status": 200,
+              "content_length": 4487,
+              "status": "succeeded",
+              "elapsed_seconds": 0.701,
+              "sha256": "5ae5c02aa8f734170e6d75b64cdf181c33b6ae41013d29c40b234689fc045f6a"
+            }
+          ],
+          "bytes_received": 500712,
+          "status": "succeeded",
+          "eligible_files": 81,
+          "fetched_files": 81,
+          "tree_sha": "7650c47a6903a74a244343142ad1aec1315fb96c"
+        }
+      },
+      "cli_calls": 3,
+      "manual_reference_after_run": "insufficient_evidence",
+      "matches_reference_label": true,
+      "claims": [
+        {
+          "claim": "Trace context is bound to the standard PAIR bare-LLM probe and scoring branch",
+          "verdict": "consistent_within_scope",
+          "reason": "claim_refuted_explicit_permission",
+          "claim_result": "refuted",
+          "locators": {
+            "policy_scope": {
+              "segment_id": "paper:p5",
+              "start": 111,
+              "end": 179,
+              "document_sha256": "8a61407e3b6bfef0e3784e12a4443675f0e52a8e3e6b1de0340a85dec57cf9c7",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d",
+              "source_kind": "paper",
+              "paper_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0"
+            },
+            "delivery": {
+              "segment_id": "repo:muzzle/prototype/agents/pair.py:L1-L399",
+              "start": 12106,
+              "end": 12173,
+              "document_sha256": "8a61407e3b6bfef0e3784e12a4443675f0e52a8e3e6b1de0340a85dec57cf9c7",
+              "match": "normalized_exact",
+              "text_view": "primary",
+              "text_view_sha256": "d34697a2d00a3ebe806aea12491071a5b9b609eda1ded0d781f6ff7d5780a993",
+              "source_kind": "code",
+              "path": "muzzle/prototype/agents/pair.py",
+              "file_sha256": "d34697a2d00a3ebe806aea12491071a5b9b609eda1ded0d781f6ff7d5780a993",
+              "repository_revision": "9f3effa1668fa29dcba8f2454e711ddf9ef3c038",
+              "repository_manifest_sha256": "2c5ca47ebaf8e371af93396d1064f1a8d78794180300164489168db5042160cd",
+              "line_start": 267,
+              "line_end": 267
+            },
+            "refutation": {
+              "segment_id": "paper:p5",
+              "start": 111,
+              "end": 179,
+              "document_sha256": "8a61407e3b6bfef0e3784e12a4443675f0e52a8e3e6b1de0340a85dec57cf9c7",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d",
+              "source_kind": "paper",
+              "paper_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0"
+            },
+            "declaration": {
+              "segment_id": "paper:p5",
+              "start": 78,
+              "end": 133,
+              "document_sha256": "8a61407e3b6bfef0e3784e12a4443675f0e52a8e3e6b1de0340a85dec57cf9c7",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d",
+              "source_kind": "paper",
+              "paper_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0"
+            },
+            "implementation": {
+              "segment_id": "repo:muzzle/prototype/agents/pair.py:L1-L399",
+              "start": 11920,
+              "end": 11981,
+              "document_sha256": "8a61407e3b6bfef0e3784e12a4443675f0e52a8e3e6b1de0340a85dec57cf9c7",
+              "match": "normalized_exact",
+              "text_view": "primary",
+              "text_view_sha256": "d34697a2d00a3ebe806aea12491071a5b9b609eda1ded0d781f6ff7d5780a993",
+              "source_kind": "code",
+              "path": "muzzle/prototype/agents/pair.py",
+              "file_sha256": "d34697a2d00a3ebe806aea12491071a5b9b609eda1ded0d781f6ff7d5780a993",
+              "repository_revision": "9f3effa1668fa29dcba8f2454e711ddf9ef3c038",
+              "repository_manifest_sha256": "2c5ca47ebaf8e371af93396d1064f1a8d78794180300164489168db5042160cd",
+              "line_start": 263,
+              "line_end": 263
+            }
+          }
+        },
+        {
+          "claim": "Direct benign-task text reaches optimizer initialization; attacker-model receipt remains unresolved",
+          "verdict": "insufficient_evidence",
+          "reason": "policy_scope_not_established",
+          "claim_result": "unresolved",
+          "locators": {
+            "policy_scope": {
+              "segment_id": "paper:p5",
+              "start": 111,
+              "end": 179,
+              "document_sha256": "8a61407e3b6bfef0e3784e12a4443675f0e52a8e3e6b1de0340a85dec57cf9c7",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d",
+              "source_kind": "paper",
+              "paper_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0"
+            },
+            "delivery": {
+              "segment_id": "repo:muzzle/prototype/agents/explorer.py:L1-L973",
+              "start": 33595,
+              "end": 33843,
+              "document_sha256": "8a61407e3b6bfef0e3784e12a4443675f0e52a8e3e6b1de0340a85dec57cf9c7",
+              "match": "normalized_exact",
+              "text_view": "primary",
+              "text_view_sha256": "4c9acd02b0c07150d30d7061c4596646bd72ef4e4eefee0472bca38436572ae4",
+              "source_kind": "code",
+              "path": "muzzle/prototype/agents/explorer.py",
+              "file_sha256": "4c9acd02b0c07150d30d7061c4596646bd72ef4e4eefee0472bca38436572ae4",
+              "repository_revision": "9f3effa1668fa29dcba8f2454e711ddf9ef3c038",
+              "repository_manifest_sha256": "2c5ca47ebaf8e371af93396d1064f1a8d78794180300164489168db5042160cd",
+              "line_start": 793,
+              "line_end": 798
+            },
+            "implementation": {
+              "segment_id": "repo:muzzle/prototype/agents/pair.py:L1-L399",
+              "start": 9554,
+              "end": 9633,
+              "document_sha256": "8a61407e3b6bfef0e3784e12a4443675f0e52a8e3e6b1de0340a85dec57cf9c7",
+              "match": "normalized_exact",
+              "text_view": "primary",
+              "text_view_sha256": "d34697a2d00a3ebe806aea12491071a5b9b609eda1ded0d781f6ff7d5780a993",
+              "source_kind": "code",
+              "path": "muzzle/prototype/agents/pair.py",
+              "file_sha256": "d34697a2d00a3ebe806aea12491071a5b9b609eda1ded0d781f6ff7d5780a993",
+              "repository_revision": "9f3effa1668fa29dcba8f2454e711ddf9ef3c038",
+              "repository_manifest_sha256": "2c5ca47ebaf8e371af93396d1064f1a8d78794180300164489168db5042160cd",
+              "line_start": 217,
+              "line_end": 218
+            }
+          }
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/muzzle/prepared.json",
+          "sha256": "f060fc91a92688baa885a8cd43997ebecaa2a7613e56335d3667ede12175113b",
+          "bytes": 366106
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/muzzle/source_discovery.json",
+          "sha256": "f6e69dae3397a7d457c2abc8926c579bbec94ef47f05009fe50b236f37f663c3",
+          "bytes": 10139
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/muzzle/source_acquisition.json",
+          "sha256": "a171f8113f966f3cb5656fa43bfe9a57209458eaf547e681c66de3f4e07b21c5",
+          "bytes": 33223
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/muzzle/repository.json",
+          "sha256": "cd656e2e7a52abe34a0b0d6aad474c38680e0c1e7f73f69df092e15135097f2d",
+          "bytes": 640640
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/muzzle/combined_input.json",
+          "sha256": "8b884c02704c45556f100879bd28fbed611466495c4ee83768dacdaaf8e5d7cb",
+          "bytes": 1403706
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/muzzle/request.json",
+          "sha256": "f47eade4b29bfa83b6cf8fac3351b08dba7865df9e96e88056f6b78b42a34377",
+          "bytes": 493
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/muzzle/extraction.json",
+          "sha256": "e3a2e392cb01491f8e30a1d3e85a5fdfbcedaf7b6d405b79e8ea87afc29bf570",
+          "bytes": 12349
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/muzzle/extraction.repaired.json",
+          "sha256": "ca08a205717f49717db8cd4ecebd18e6fd4f0f3823e5410dd44571fcb1ef57d1",
+          "bytes": 12568
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/muzzle/review.json",
+          "sha256": "2796d2147d7db6c9b4577ea227273cdbb7885089f0d588593611fafd12787b79",
+          "bytes": 2420
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/muzzle/result.json",
+          "sha256": "8ef3dfe148d335bb8fe5d83a77cd2a7dcfa3af73cc3bc57b84a9d1f9a0f81210",
+          "bytes": 238745
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/muzzle/inference.json",
+          "sha256": "eed016428887e7a2874fbe1f4db2ff42f1d0ea98dcce14740332d5cda60ba283",
+          "bytes": 2608
+        }
+      ]
+    },
+    {
+      "id": "obliinjection",
+      "status": "completed",
+      "verdict": "insufficient_evidence",
+      "reason": "unresolved_checks",
+      "input_mode": "paper_and_source",
+      "source": "https://github.com/ReachalWang/ObliInjection",
+      "revision": "b1f6a3f48c0cf121534374cbcef453832594867b",
+      "source_coverage": {
+        "complete": true,
+        "inventory_complete": true,
+        "scope": "eligible UTF-8 source files only; excluded documents, datasets, tests, labels, credentials and dependencies are not audited",
+        "reason": "All eligible source files supplied",
+        "eligible_files": 19,
+        "included_files": 19,
+        "omitted_files": 0,
+        "excluded_entries": 19,
+        "characters": 140270,
+        "max_characters": 500000
+      },
+      "source_bytes": 140284,
+      "manifest_sha256": "9e2facfe6ffb7ddf7c0591cb65ca20b247f5ea08fbe599614ac43548bb2b083e",
+      "commit_binding": "github_commit_tree_raw_blobs",
+      "source_acquisition": {
+        "requested_fetch_mode": "files",
+        "method": "github_commit_tree_raw_blobs",
+        "attempts": [],
+        "archive_skipped": true,
+        "fallback": {
+          "method": "github_commit_tree_raw_blobs",
+          "max_source_files": 128,
+          "max_workers": 4,
+          "timeout_seconds": 160,
+          "request_timeout_seconds": 20,
+          "download_byte_limit": 41943040,
+          "attempts": [
+            {
+              "resource_kind": "commit",
+              "attempt": 1,
+              "bytes_received": 878,
+              "http_status": 200,
+              "content_length": 878,
+              "status": "succeeded",
+              "elapsed_seconds": 0.666,
+              "sha256": "90c7dc2b9f6310078740ee259a04cba45f20c452010a9d621a3e511fcb4dc67c"
+            },
+            {
+              "resource_kind": "tree",
+              "attempt": 1,
+              "bytes_received": 12569,
+              "http_status": 200,
+              "content_length": 12569,
+              "status": "succeeded",
+              "elapsed_seconds": 0.892,
+              "sha256": "49c447ffd72a80456f312800a99c09e860b26cd6543932d813620504e1353bca"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 38,
+              "path": "attacker/__init__.py",
+              "http_status": 200,
+              "content_length": 38,
+              "status": "succeeded",
+              "elapsed_seconds": 0.448,
+              "sha256": "f1d3934bc7ddfc4fa818bbe46ff2df5f1f8c8a041036ca9feb1ad82cee571a3c"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 5886,
+              "path": "attacker/attacker.py",
+              "http_status": 200,
+              "content_length": 5886,
+              "status": "succeeded",
+              "elapsed_seconds": 1.167,
+              "sha256": "6a52230302997691a9d0d39f1216ab911d2eee6a30b2e100fddc14877bba683d"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 8270,
+              "path": "eval.py",
+              "http_status": 200,
+              "content_length": 8270,
+              "status": "succeeded",
+              "elapsed_seconds": 0.717,
+              "sha256": "0f827aed55a64535da419ecd9253236d7747d23407e347c3822c267f3963e3a2"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 2060,
+              "path": "eval.sh",
+              "http_status": 200,
+              "content_length": 2060,
+              "status": "succeeded",
+              "elapsed_seconds": 0.767,
+              "sha256": "19ab462981ae89c1af245b2976238c05e49d910291375e4da958faddc3c26582"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 101,
+              "path": "evaluator/__init__.py",
+              "http_status": 200,
+              "content_length": 101,
+              "status": "succeeded",
+              "elapsed_seconds": 0.658,
+              "sha256": "a4547464fe3683ce79e14b972c7130764e161f8d4d2bf2253d74eabe59701b8a"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 4181,
+              "path": "evaluator/evaluator.py",
+              "http_status": 200,
+              "content_length": 4181,
+              "status": "succeeded",
+              "elapsed_seconds": 0.66,
+              "sha256": "4c48d341d306cee0fd80dbb8c49bf19c0a08a4f25654c1016a258860ced48867"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 36657,
+              "path": "gcg/gcg.py",
+              "http_status": 200,
+              "content_length": 36657,
+              "status": "succeeded",
+              "elapsed_seconds": 0.66,
+              "sha256": "0a0596100dc82f0ea86909a9b317b4860a58cfa00d8389e394c3e9bbdcf48898"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 7738,
+              "path": "gcg/prefix_suffix_buffer.py",
+              "http_status": 200,
+              "content_length": 7738,
+              "status": "succeeded",
+              "elapsed_seconds": 0.659,
+              "sha256": "dbb868dcf2b7e5029d6516fe2b9605f99b3669fed637241140e2fd40e262b93a"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 6587,
+              "path": "gcg/utils.py",
+              "http_status": 200,
+              "content_length": 6587,
+              "status": "succeeded",
+              "elapsed_seconds": 0.711,
+              "sha256": "b9521236a181c22deba591be3d49e07da1762b9d41fa19f268fe4e9aae9925b7"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 30,
+              "path": "model/__init__.py",
+              "http_status": 200,
+              "content_length": 30,
+              "status": "succeeded",
+              "elapsed_seconds": 0.749,
+              "sha256": "91dca6201bc026e59f0a309553cb1577b11ddf386b94cd26c0e1fccda4bf38d9"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 33225,
+              "path": "model/llm.py",
+              "http_status": 200,
+              "content_length": 33225,
+              "status": "succeeded",
+              "elapsed_seconds": 0.73,
+              "sha256": "d9e47978f2bc0334af6944e7cc354d105fc6d120d9fa830286e272cfb389b5cf"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 9634,
+              "path": "obliinjection.py",
+              "http_status": 200,
+              "content_length": 9634,
+              "status": "succeeded",
+              "elapsed_seconds": 0.712,
+              "sha256": "60edf58d7626f455261b7e42ba777033143ff0b1905def8e85d0c7ae39810f16"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 1248,
+              "path": "run.sh",
+              "http_status": 200,
+              "content_length": 1248,
+              "status": "succeeded",
+              "elapsed_seconds": 0.698,
+              "sha256": "dcda7ef11e393ddadb5f2c23130229d05de912cb61aa54ae1dbae94c3e056634"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 144,
+              "path": "task/__init__.py",
+              "http_status": 200,
+              "content_length": 144,
+              "status": "succeeded",
+              "elapsed_seconds": 0.781,
+              "sha256": "73b361ef339b574ccf9900e1baa016d4a8e93d4e1fd7057d5d1b55c081f10406"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 3742,
+              "path": "task/injected_task.py",
+              "http_status": 200,
+              "content_length": 3742,
+              "status": "succeeded",
+              "elapsed_seconds": 0.659,
+              "sha256": "585db75b6ddbdfc8125f49c362248866ee605c873d2555093e73dd57aeb36c0b"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 15036,
+              "path": "task/target_task.py",
+              "http_status": 200,
+              "content_length": 15036,
+              "status": "succeeded",
+              "elapsed_seconds": 0.737,
+              "sha256": "b06637266d8751f67c49c80b7cf0ddb146421545d6bfa125a94c1764905892a1"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 4175,
+              "path": "task/task.py",
+              "http_status": 200,
+              "content_length": 4175,
+              "status": "succeeded",
+              "elapsed_seconds": 0.634,
+              "sha256": "645e8dc36f8e9bdf5ed33f8d9c48c3a557e3fa6bbec7b04f807ec33c7859d92b"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 70,
+              "path": "utils/__init__.py",
+              "http_status": 200,
+              "content_length": 70,
+              "status": "succeeded",
+              "elapsed_seconds": 0.779,
+              "sha256": "ea2c901857643e31dc8ed539a3fdf585ba16cc1d86bc359d3fa0bea303d10f78"
+            },
+            {
+              "resource_kind": "blob",
+              "attempt": 1,
+              "bytes_received": 1462,
+              "path": "utils/process_config.py",
+              "http_status": 200,
+              "content_length": 1462,
+              "status": "succeeded",
+              "elapsed_seconds": 0.779,
+              "sha256": "655a427e484deb89cfeb272ad591ef772a85551d5ad04932ed99baeb3cae2199"
+            }
+          ],
+          "bytes_received": 153731,
+          "status": "succeeded",
+          "eligible_files": 19,
+          "fetched_files": 19,
+          "tree_sha": "a0f2aaaa249de55d3346f73eee7d80d4035b4750"
+        }
+      },
+      "cli_calls": 3,
+      "manual_reference_after_run": "inconsistent",
+      "matches_reference_label": false,
+      "claims": [
+        {
+          "claim": "HotpotQA training-question text reaches prefix/postfix optimization.",
+          "verdict": "insufficient_evidence",
+          "reason": "policy_scope_not_established",
+          "claim_result": "unresolved",
+          "locators": {
+            "policy_scope": {
+              "segment_id": "paper:p10",
+              "start": 988,
+              "end": 1034,
+              "document_sha256": "36f7e1fcc5456c217e5984fd0a6191505cbe94702989e155f6213958e86a1d9a",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "eac3fcc1290b677c5efdffcf1f64f6f5fc5f2e49829b19b2d52d26bc9532ff41",
+              "source_kind": "paper",
+              "paper_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e"
+            },
+            "delivery": {
+              "segment_id": "repo:gcg/gcg.py:L1-L676",
+              "start": 7648,
+              "end": 7737,
+              "document_sha256": "36f7e1fcc5456c217e5984fd0a6191505cbe94702989e155f6213958e86a1d9a",
+              "match": "normalized_exact",
+              "text_view": "primary",
+              "text_view_sha256": "0a0596100dc82f0ea86909a9b317b4860a58cfa00d8389e394c3e9bbdcf48898",
+              "source_kind": "code",
+              "path": "gcg/gcg.py",
+              "file_sha256": "0a0596100dc82f0ea86909a9b317b4860a58cfa00d8389e394c3e9bbdcf48898",
+              "repository_revision": "b1f6a3f48c0cf121534374cbcef453832594867b",
+              "repository_manifest_sha256": "9e2facfe6ffb7ddf7c0591cb65ca20b247f5ea08fbe599614ac43548bb2b083e",
+              "line_start": 184,
+              "line_end": 184
+            },
+            "implementation": {
+              "segment_id": "repo:gcg/gcg.py:L1-L676",
+              "start": 24223,
+              "end": 24453,
+              "document_sha256": "36f7e1fcc5456c217e5984fd0a6191505cbe94702989e155f6213958e86a1d9a",
+              "match": "normalized_exact",
+              "text_view": "primary",
+              "text_view_sha256": "0a0596100dc82f0ea86909a9b317b4860a58cfa00d8389e394c3e9bbdcf48898",
+              "source_kind": "code",
+              "path": "gcg/gcg.py",
+              "file_sha256": "0a0596100dc82f0ea86909a9b317b4860a58cfa00d8389e394c3e9bbdcf48898",
+              "repository_revision": "b1f6a3f48c0cf121534374cbcef453832594867b",
+              "repository_manifest_sha256": "9e2facfe6ffb7ddf7c0591cb65ca20b247f5ea08fbe599614ac43548bb2b083e",
+              "line_start": 473,
+              "line_end": 475
+            }
+          }
+        },
+        {
+          "claim": "HotpotQA test-question delivery is bound to victim evaluation, without a demonstrated return to payload construction.",
+          "verdict": "insufficient_evidence",
+          "reason": "delivery_exclusion_conflicts_with_present",
+          "claim_result": "unresolved",
+          "locators": {
+            "policy_scope": {
+              "segment_id": "paper:p4",
+              "start": 5625,
+              "end": 5656,
+              "document_sha256": "36f7e1fcc5456c217e5984fd0a6191505cbe94702989e155f6213958e86a1d9a",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "bc9941edd9d94ca84b98a626792bc9e6e71a13c78455a0a94c254b431a5ee77b",
+              "source_kind": "paper",
+              "paper_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e"
+            },
+            "delivery": {
+              "segment_id": "repo:gcg/gcg.py:L1-L676",
+              "start": 32011,
+              "end": 32126,
+              "document_sha256": "36f7e1fcc5456c217e5984fd0a6191505cbe94702989e155f6213958e86a1d9a",
+              "match": "normalized_exact",
+              "text_view": "primary",
+              "text_view_sha256": "0a0596100dc82f0ea86909a9b317b4860a58cfa00d8389e394c3e9bbdcf48898",
+              "source_kind": "code",
+              "path": "gcg/gcg.py",
+              "file_sha256": "0a0596100dc82f0ea86909a9b317b4860a58cfa00d8389e394c3e9bbdcf48898",
+              "repository_revision": "b1f6a3f48c0cf121534374cbcef453832594867b",
+              "repository_manifest_sha256": "9e2facfe6ffb7ddf7c0591cb65ca20b247f5ea08fbe599614ac43548bb2b083e",
+              "line_start": 603,
+              "line_end": 603
+            },
+            "refutation": {
+              "segment_id": "repo:eval.py:L1-L178",
+              "start": 4013,
+              "end": 4079,
+              "document_sha256": "36f7e1fcc5456c217e5984fd0a6191505cbe94702989e155f6213958e86a1d9a",
+              "match": "normalized_exact",
+              "text_view": "primary",
+              "text_view_sha256": "0f827aed55a64535da419ecd9253236d7747d23407e347c3822c267f3963e3a2",
+              "source_kind": "code",
+              "path": "eval.py",
+              "file_sha256": "0f827aed55a64535da419ecd9253236d7747d23407e347c3822c267f3963e3a2",
+              "repository_revision": "b1f6a3f48c0cf121534374cbcef453832594867b",
+              "repository_manifest_sha256": "9e2facfe6ffb7ddf7c0591cb65ca20b247f5ea08fbe599614ac43548bb2b083e",
+              "line_start": 86,
+              "line_end": 87
+            },
+            "implementation": {
+              "segment_id": "repo:eval.py:L1-L178",
+              "start": 4272,
+              "end": 4306,
+              "document_sha256": "36f7e1fcc5456c217e5984fd0a6191505cbe94702989e155f6213958e86a1d9a",
+              "match": "normalized_exact",
+              "text_view": "primary",
+              "text_view_sha256": "0f827aed55a64535da419ecd9253236d7747d23407e347c3822c267f3963e3a2",
+              "source_kind": "code",
+              "path": "eval.py",
+              "file_sha256": "0f827aed55a64535da419ecd9253236d7747d23407e347c3822c267f3963e3a2",
+              "repository_revision": "b1f6a3f48c0cf121534374cbcef453832594867b",
+              "repository_manifest_sha256": "9e2facfe6ffb7ddf7c0591cb65ca20b247f5ea08fbe599614ac43548bb2b083e",
+              "line_start": 91,
+              "line_end": 91
+            }
+          }
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/obliinjection/prepared.json",
+          "sha256": "ffe6f2c2ca149262ad5d9b13c2e7db8a5281bcab2f6812874e3743da40dfed7f",
+          "bytes": 379065
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/obliinjection/source_discovery.json",
+          "sha256": "34a379fffe75c9d35d9444c9b7c025776bc13277c32cd0241755f3b8431d659c",
+          "bytes": 10594
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/obliinjection/source_acquisition.json",
+          "sha256": "3c4523bcab82b1e73a1fec8c1cc519b1edf56891b746a8640d4f2a9eed3bce07",
+          "bytes": 7804
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/obliinjection/repository.json",
+          "sha256": "463268d90e9c4570dd40f838d3572a0c1bc777aee1806e55437f2b18ab7a11e8",
+          "bytes": 179917
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/obliinjection/combined_input.json",
+          "sha256": "dfc3e86cacd4f1f38e8279445089e8a4d123a10bd0633d787b035b17d28f75d1",
+          "bytes": 661891
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/obliinjection/request.json",
+          "sha256": "e696e35f29971471b78deec74df5d3fc6e47658d5fa7835a16843ff48defa8da",
+          "bytes": 493
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/obliinjection/extraction.json",
+          "sha256": "2ee0256071e61ec60a69462ae68998dfce730d7334e63ff5b61efe7741e764df",
+          "bytes": 15808
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/obliinjection/extraction.repaired.json",
+          "sha256": "598559c7a5aed6f5d3e054497b7abd2e5688c99b5ff0fcda3d468843ff2f2df2",
+          "bytes": 16584
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/obliinjection/review.json",
+          "sha256": "2226a105f645150196b78fc9abcd9b16e1b42d1b026edabf6612055bf969483b",
+          "bytes": 2840
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/obliinjection/result.json",
+          "sha256": "554930df107b7cca61da01ef90eeb669ebb835de0bd7966d1a774c21746614bd",
+          "bytes": 97581
+        },
+        {
+          "path": "outputs/2026-11-20-muzzle-obli-source-retry-091205/verified-files-audits/obliinjection/inference.json",
+          "sha256": "c659faa8cf1b22323fbbce1d135bf88331341a13cd7ec7ff3d297360410da23a",
+          "bytes": 2607
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "All eligible source files were read, but configurations, datasets, dependencies and other excluded file types were not audited.",
+    "Both final automatic verdicts remain insufficient_evidence. Source retrieval success is not successful detection of all known issues.",
+    "ObliInjection has an observation/delivery-role structural conflict; it is not a confirmed attacker test-query flow.",
+    "Known development cases and post-hoc reference labels do not establish generalization accuracy."
+  ]
+}
