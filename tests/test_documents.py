@@ -13,6 +13,11 @@ import documents
 
 
 class DocumentTests(unittest.TestCase):
+    def setUp(self):
+        annotations = patch.object(documents, "_pdf_annotation_links", return_value=([], {"status": "unavailable"}))
+        annotations.start()
+        self.addCleanup(annotations.stop)
+
     def local_document(self, name, data):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)

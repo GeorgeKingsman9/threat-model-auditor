@@ -149,6 +149,8 @@ class _PaperHTML(HTMLParser):
         self.links: list[str] = []
         self.pdf_meta: list[str] = []
         self.pdf_anchors: list[str] = []
+        self._anchor_spans: list[dict] = []
+        self._open_anchor: dict | None = None
         self._excluded: list[str] = []
 
     def handle_starttag(self, tag, attrs):
@@ -166,6 +168,7 @@ class _PaperHTML(HTMLParser):
             link = _http_link(attrs["href"], self.base)
             if link:
                 self.links.append(link)
+                self._open_anchor = {"url": link, "start": len(self.parts)}
                 classes = (attrs.get("class") or "").split()
                 if (
                     "pdf_link" in classes
@@ -189,6 +192,11 @@ class _PaperHTML(HTMLParser):
             if tag == self._excluded[-1]:
                 self._excluded.pop()
             return
+        if tag == "a" and self._open_anchor is not None:
+            self._open_anchor["end"] = len(self.parts)
+            if len(self._anchor_spans) < 512:
+                self._anchor_spans.append(self._open_anchor)
+            self._open_anchor = None
         if tag in self._BREAKS:
             self.parts.append("\n")
 
@@ -199,6 +207,47 @@ class _PaperHTML(HTMLParser):
     def text(self) -> str:
         lines = [" ".join(line.split()) for line in "".join(self.parts).splitlines()]
         return "\n".join(line for line in lines if line).strip()
+
+    def link_contexts(self) -> list[dict]:
+        """Keep visible anchor context when the paper body is a linked PDF.
+
+        These contexts help discover a source; they are not paper-body evidence
+        and never enter a model's declaration/implementation citations.
+        """
+        contexts = []
+        for span in self._anchor_spans:
+            anchor = "".join(self.parts[span["start"]:span["end"]]).strip()
+            before = "".join(self.parts[max(0, span["start"] - 4):span["start"]])[-220:]
+            after = "".join(self.parts[span["end"]:span["end"] + 4])[:220]
+            contexts.append({"url": span["url"], "text": before + anchor + after,
+                             "anchor_text": anchor, "source": "landing_page",
+                             "source_url": self.base})
+        return contexts
+
+
+def _pdf_annotation_links(data: bytes) -> tuple[list[dict], dict]:
+    """Read URI annotations with Poppler, without visiting their destinations."""
+    try:
+        with tempfile.TemporaryDirectory(prefix="paper-links-") as directory:
+            output = Path(directory) / "links.txt"
+            with output.open("wb") as stream:
+                result = subprocess.run(["pdfinfo", "-url", "-"], input=data,
+                                        stdout=stream, stderr=subprocess.DEVNULL,
+                                        timeout=TIMEOUT_SECONDS, check=False)
+            if result.returncode:
+                return [], {"status": "unavailable", "reason": "pdfinfo could not read URI annotations"}
+            with output.open("rb") as stream:
+                text = stream.read(2 * 1024 * 1024 + 1)
+            if len(text) > 2 * 1024 * 1024:
+                return [], {"status": "unavailable", "reason": "PDF annotation output exceeds its bound"}
+    except (OSError, subprocess.TimeoutExpired):
+        return [], {"status": "unavailable", "reason": "pdfinfo annotation extraction unavailable"}
+    links = []
+    for line in text.decode("utf-8", errors="replace").splitlines():
+        match = re.fullmatch(r"\s*(\d+)\s+\S+\s+(https?://\S+)\s*", line)
+        if match and (url := _http_link(match[2])):
+            links.append({"url": url, "source": "pdf_annotation", "segment_id": f"p{match[1]}", "text": ""})
+    return links, {"status": "completed", "count": len(links), "reason": "URI annotations only; no destinations fetched"}
 
 
 def _pdftotext_pages(data: bytes, *, layout: bool) -> list[str] | None:
@@ -399,6 +448,9 @@ def load_document(source: str) -> dict:
         raise DocumentError("Document exceeds the 20 MiB size limit")
     media_type = _classify(data, hint, label)
     links: list[str] = []
+    link_contexts: list[dict] = []
+    discovery_documents: list[dict] = []
+    annotation_status = None
     parser = None
     decoded = None
     decoded_cleanly = True
@@ -408,6 +460,10 @@ def load_document(source: str) -> dict:
         parser.feed(decoded)
         _reject_access_challenge(label, parser.text())
         links.extend(parser.links)
+        link_contexts.extend(parser.link_contexts())
+        discovery_documents.append({"source": label, "text": parser.text(),
+                                    "links": list(parser.links), "link_contexts": parser.link_contexts(),
+                                    "sha256": hashlib.sha256(data).hexdigest()})
         candidates = parser.pdf_meta + parser.pdf_anchors
         if is_url and candidates:
             # Exactly one landing-page-to-document hop; no recursive crawling.
@@ -422,6 +478,9 @@ def load_document(source: str) -> dict:
             links.append(label)
 
     if media_type == "application/pdf":
+        annotation_links, annotation_status = _pdf_annotation_links(data)
+        link_contexts.extend(annotation_links)
+        links.extend(link["url"] for link in annotation_links)
         views = pdf_text_views(data)
         segments = []
         for view in views:
@@ -455,7 +514,7 @@ def load_document(source: str) -> dict:
         reason = "The supplied text document was decoded in full" if complete else "Some text could not be decoded exactly"
 
     links.extend(match.rstrip(".,;:!?)］】") for match in _URL_PATTERN.findall(text))
-    return {
+    document = {
         "source": label,
         "sha256": hashlib.sha256(data).hexdigest(),
         "media_type": media_type,
@@ -464,3 +523,10 @@ def load_document(source: str) -> dict:
         "coverage": {"complete": bool(complete), "reason": reason},
         "links": _unique_links(links),
     }
+    if link_contexts:
+        document["link_contexts"] = link_contexts
+    if discovery_documents:
+        document["discovery_documents"] = discovery_documents
+    if annotation_status is not None:
+        document["pdf_link_extraction"] = annotation_status
+    return document

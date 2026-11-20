@@ -14,6 +14,7 @@ from extraction_v3 import (EXTRACTION_SCHEMA, REVIEW_SCHEMA, EXTRACT_PROMPT, REV
                         decide_extraction, prompt_hash, validate_shape)
 from providers import ModelClient
 from reports import write_reports
+from source_discovery import discover_repository
 
 
 def now():
@@ -26,9 +27,18 @@ def save_json(path, data):
         stream.write("\n")
 
 
+def checked_payload_size(content, limit):
+    """Bound JSON data, including source inventories and review proposals."""
+    size = len(json.dumps(content, ensure_ascii=False, sort_keys=True))
+    if size > limit:
+        raise ValueError("model data payload exceeds the configured input limit; not silently truncated")
+    return size
+
+
 def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="uploaded_paper",
-                prepared=None, extraction=None, review=None, max_input_chars=180000,
-                repository=None, repo_revision=None, max_code_chars=240000, repair_citations=True):
+                prepared=None, extraction=None, review=None, max_input_chars=600000,
+                repository=None, repo_revision=None, max_code_chars=320000, repair_citations=True,
+                auto_repository=True):
     """One document produces one result, including failures and pending stages."""
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=False)
@@ -37,18 +47,15 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
     stage = "ingestion"
     started = time.monotonic()
     try:
-        # Historical V2/V3 outputs remain replayable. Live paper/source inference
-        # requests V4 and cannot fall back to curated records or a PDF-only claim.
-        if repository is not None:
-            import extraction_v4 as engine
-            if extraction is not None and extraction.get("schema_version") != 4:
-                raise ValueError("paper-plus-source replay requires V4 outputs from the same source snapshot")
-        elif extraction is not None and extraction.get("schema_version") == 4:
+        # Fixed historical outputs must never trigger a fresh source search or
+        # acquire new evidence behind a saved model proposal's back.
+        explicit_repository = repository is not None
+        if repo_revision and not explicit_repository:
+            raise ValueError("repo_revision requires an explicit repository")
+        if explicit_repository and extraction is not None and extraction.get("schema_version") != 4:
+            raise ValueError("paper-plus-source replay requires V4 outputs from the same source snapshot")
+        if not explicit_repository and extraction is not None and extraction.get("schema_version") == 4:
             raise ValueError("V4 replay requires the repository snapshot as well as the paper")
-        elif extraction is not None and extraction.get("schema_version", 2) == 2:
-            import extraction as engine
-        else:
-            import extraction_v3 as engine
         if isinstance(prepared, (str, Path)):
             prepared = json.loads(Path(prepared).read_text(encoding="utf-8"))
         document = dict(prepared) if prepared is not None else load_document(source)
@@ -73,25 +80,82 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
             "segments": len(document["segments"]), "characters": len(document["text"]),
             "coverage": document["coverage"], "source_links": document["links"],
             "sha256": document["sha256"]})
-        evidence_document = document
+        if len(document["text"]) > max_input_chars:
+            raise ValueError("document exceeds the configured model input limit; not silently truncated")
+        row["requested_workflow"] = (
+            "fixed_output_replay" if extraction is not None else
+            "explicit_paper_and_source" if explicit_repository else
+            "automatic_from_paper" if auto_repository else "paper_only"
+        )
+        row["source_audit"] = {"status": "not_requested"}
+        if not explicit_repository and auto_repository and extraction is None:
+            stage = "source_discovery"
+            discovery = discover_repository(document, source)
+            save_json(output_dir / "source_discovery.json", discovery)
+            row["source_discovery"] = discovery
+            row["stages"].append({"stage": stage, "status": "completed",
+                                  "discovery_status": discovery["status"],
+                                  "reason": discovery.get("reason", "")})
+            if discovery["status"] == "selected":
+                repository, repo_revision = discovery["repository"], discovery["revision"]
+            else:
+                row["source_audit"] = {"status": "unavailable", "reason": discovery.get("reason", discovery["status"])}
+                row.setdefault("notes", []).append(
+                    "Official source was not resolved automatically. This result uses only the paper text; "
+                    "missing source is not evidence of absent information flow or an out-of-scope paper."
+                )
+        source_snapshot = None
         if repository is not None:
             from source_bundle import load_repository
             stage = "repository_ingestion"
-            source_snapshot = load_repository(str(repository), revision=repo_revision, max_chars=max_code_chars)
+            try:
+                source_snapshot = load_repository(str(repository), revision=repo_revision, max_chars=max_code_chars)
+            except (OSError, ValueError) as error:
+                if explicit_repository:
+                    raise
+                # Retain the failed source stage separately from any successful
+                # paper-only audit. Never pass unverified source bytes to V4.
+                row["source_audit"] = {"status": "unavailable", "repository": repository,
+                                       "revision": repo_revision, "reason": str(error)}
+                row["stages"].append({"stage": stage, "status": "failed", "error": str(error)})
+                row.setdefault("notes", []).append(
+                    "An associated source revision was discovered but could not be read. "
+                    "The remaining audit covers paper text only; source verification did not complete."
+                )
+                repository = None
+        if source_snapshot is not None:
+            import extraction_v4 as engine
+        elif extraction is not None and extraction.get("schema_version", 2) == 2:
+            import extraction as engine
+        else:
+            import extraction_v3 as engine
+        evidence_document = document
+        if source_snapshot is not None:
             save_json(output_dir / "repository.json", source_snapshot)
             evidence_document = engine.combine_inputs(document, source_snapshot)
             save_json(output_dir / "combined_input.json", evidence_document)
             row["repository"] = evidence_document["repository"]
+            row["source_audit"] = {"status": "loaded", "repository": str(repository),
+                                   "revision": source_snapshot["revision"], "coverage": source_snapshot["coverage"]}
             row["stages"].append({"stage": stage, "status": "completed",
                 "revision": source_snapshot["revision"], "manifest_sha256": source_snapshot["manifest_sha256"],
                 "source_segments": len(source_snapshot["segments"]), "coverage": source_snapshot["coverage"]})
         if len(evidence_document["text"]) > max_input_chars:
             raise ValueError("document exceeds the configured model input limit; not silently truncated")
+        row["input_mode"] = "paper_and_source" if source_snapshot is not None else "document_only"
+        stage = "model_input_preparation"
+        model_segments = [{"id": part["id"], "text": part.get("reading_order_text", part["text"])}
+                          for part in evidence_document["segments"]]
+        content = {"source_type": evidence_document["media_type"], "segments": model_segments}
+        if source_snapshot is not None:
+            content = engine.model_content(evidence_document)
+        payload_size = checked_payload_size(content, max_input_chars)
         save_json(output_dir / "request.json", {
             "prompt_sha256": engine.prompt_hash(), "input_sha256": evidence_document["sha256"],
             "input_binding_version": evidence_document.get("input_binding_version"),
             "model_content_sha256": evidence_document.get("model_content_sha256"),
             "max_input_chars": max_input_chars,
+            "model_data_characters": payload_size,
             "evidence_scope": "supplied_paper_and_source" if repository is not None else "supplied_document_only",
             "engine": type(client).__name__ if client else "no_model_or_replay",
         })
@@ -101,15 +165,8 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
         else:
             stage = "extraction"
             supplied_extraction = extraction is not None
-            # Use a logical reading-order view for model input when the PDF
-            # reader can supply one. Keep both source views for exact locators.
-            model_segments = [{"id": part["id"], "text": part.get("reading_order_text", part["text"])}
-                              for part in evidence_document["segments"]]
-            content = {"source_type": evidence_document["media_type"], "segments": model_segments}
-            if repository is not None:
-                # Only raw paper/source text and provenance are supplied. Curated
-                # permissions, gold labels and historical reports are not read.
-                content = engine.model_content(evidence_document)
+            # Only paper/source text and provenance enter the checked payload;
+            # curated permissions, gold labels and historical reports are not read.
             if extraction is None:
                 if client is None:
                     raise ValueError("choose an inference engine, or supply extraction and review JSON for replay")
@@ -133,6 +190,7 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
                 if issues and repair_citations and review is None and client is not None and remaining >= 2:
                     stage = "citation_repair"
                     repair_input = choice_request(extraction, evidence_document, issues)
+                    checked_payload_size(repair_input, max_input_chars)
                     save_json(output_dir / "citation_repair.request.json", repair_input)
                     response = client.generate(REPAIR_PROMPT, repair_input, CHOICE_SCHEMA)
                     save_json(output_dir / "citation_repair.response.json", response)
@@ -149,13 +207,18 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
             if review is None:
                 if client is None:
                     raise ValueError("replay requires a separate review JSON")
-                review = client.generate(engine.REVIEW_PROMPT, {**content, "proposal": extraction}, engine.REVIEW_SCHEMA)
+                review_input = {**content, "proposal": extraction}
+                checked_payload_size(review_input, max_input_chars)
+                review = client.generate(engine.REVIEW_PROMPT, review_input, engine.REVIEW_SCHEMA)
             save_json(output_dir / "review.json", review)
             validate_shape(review, engine.REVIEW_SCHEMA)
             row["stages"].append({"stage": stage, "status": "completed",
                                   "applicability": review["applicability"]})
             stage = "citation_validation_and_decision"
+            source_notes = list(row.get("notes", []))
             row.update(engine.decide_extraction(extraction, review, evidence_document, paper_id))
+            if source_notes:
+                row["notes"] = source_notes + [note for note in row.get("notes", []) if note not in source_notes]
             row.update(status="completed", input_mode="paper_and_source" if repository is not None else "document_only",
                        prompt_sha256=engine.prompt_hash())
             row["stages"].append({"stage": stage, "status": "completed",
@@ -203,11 +266,13 @@ def main(argv=None):
     parser.add_argument("source", help="Local PDF/HTML/TXT path or HTTP(S) paper URL")
     parser.add_argument("--output", type=Path, required=True, help="New output directory")
     parser.add_argument("--prepare-only", action="store_true", help="Read document without model calls")
-    parser.add_argument("--max-input-chars", type=int, default=180000,
+    parser.add_argument("--paper-only", action="store_true",
+                        help="Disable automatic associated-source discovery; audit the supplied paper text only")
+    parser.add_argument("--max-input-chars", type=int, default=600000,
                         help="Combined paper/source text limit; oversized inputs fail without truncation")
-    parser.add_argument("--repo", help="Local source directory/Git checkout or public GitHub repository URL")
+    parser.add_argument("--repo", help="Optional override: local source directory/Git checkout or public GitHub repository URL")
     parser.add_argument("--repo-revision", help="Pinned Git commit (required for GitHub URLs)")
-    parser.add_argument("--max-code-chars", type=int, default=240000,
+    parser.add_argument("--max-code-chars", type=int, default=320000,
                         help="Selected source text budget; any omitted files remain explicit in coverage")
     parser.add_argument("--no-citation-repair", action="store_true", help="Disable the optional single citation-only recovery call")
     parser.add_argument("--proposal", type=Path,
@@ -225,6 +290,8 @@ def main(argv=None):
             raise ValueError("choose replay or model inference, not both")
         if args.repo_revision and not args.repo:
             raise ValueError("--repo-revision requires --repo")
+        if args.paper_only and args.repo:
+            raise ValueError("--paper-only cannot be combined with --repo")
         client = get_client(args) if not args.prepare_only and not args.extraction else None
         proposal_path = args.proposal or args.extraction
         extraction = json.loads(proposal_path.read_text()) if proposal_path else None
@@ -232,8 +299,8 @@ def main(argv=None):
         row = scan_source(args.source, args.output, client, args.prepare_only,
                           extraction=extraction, review=review, max_input_chars=args.max_input_chars,
                           repository=args.repo, repo_revision=args.repo_revision, max_code_chars=args.max_code_chars,
-                          repair_citations=not args.no_citation_repair)
-        mode = "paper_source_audit" if args.repo else "document_audit"
+                          repair_citations=not args.no_citation_repair, auto_repository=not args.paper_only)
+        mode = "paper_source_audit" if args.repo else "document_audit" if args.paper_only else "automatic_paper_audit"
         report = make_report([row], "document_preparation" if args.prepare_only else mode)
         if client:
             report["inference"] = client.ledger()

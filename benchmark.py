@@ -56,7 +56,9 @@ def main(argv=None):
     parser.add_argument("--only", nargs="+", help="Optional subset of paper IDs")
     parser.add_argument("--workers", type=int, choices=[1, 2, 3], default=1,
                         help="Concurrent documents; metered API backends require 1")
-    parser.add_argument("--max-input-chars", type=int, default=180000)
+    parser.add_argument("--paper-only", action="store_true", help="Disable automatic associated-source discovery")
+    parser.add_argument("--max-input-chars", type=int, default=600000)
+    parser.add_argument("--max-code-chars", type=int, default=320000)
     add_engine_arguments(parser)
     args = parser.parse_args(argv)
     try:
@@ -77,15 +79,19 @@ def main(argv=None):
             raise ValueError("scan mode requires an explicitly selected inference engine")
         args.output.mkdir(parents=True, exist_ok=False)
         save_json(args.output / "run_config.json", {
-            "mode": args.mode, "prompt_sha256": prompt_hash(),
+            "mode": args.mode, "prompt_sha256": prompt_hash() if args.paper_only else None,
             "manifest_sha256": hashlib.sha256(args.manifest.read_bytes()).hexdigest(),
-            "paper_ids": [spec["id"] for spec in specs], "input_mode": "document_only",
+            "paper_ids": [spec["id"] for spec in specs],
+            "input_mode": "curated_regression" if args.mode == "regression" else
+                          "document_only" if args.paper_only else "automatic_from_paper",
+            "prompt_selection": "per_paper_after_source_discovery; effective hash retained in each paper result",
             "provider": args.provider, "model": args.model,
             "max_cost_usd": args.max_cost_usd, "max_calls": args.max_calls,
             "input_price_per_million": args.input_price, "output_price_per_million": args.output_price,
             "max_output_tokens": args.max_output_tokens,
             "workers": args.workers,
             "max_input_chars": args.max_input_chars,
+            "max_code_chars": args.max_code_chars,
         })
         if args.mode == "regression":
             available = {row["id"]: row for row in regression_rows(args.legacy)}
@@ -107,13 +113,15 @@ def main(argv=None):
                         prepared = path
                 row = scan_source(spec["source"], args.output / spec["id"], client,
                                   args.mode == "prepare", spec["id"], prepared=prepared,
-                                  max_input_chars=args.max_input_chars)
+                                  max_input_chars=args.max_input_chars, max_code_chars=args.max_code_chars,
+                                  auto_repository=not args.paper_only)
                 print(f"{spec['id']}: {row['status']} / {row['verdict']}", file=sys.stderr, flush=True)
                 return row
             with ThreadPoolExecutor(max_workers=args.workers) as pool:
                 rows = list(pool.map(process, enumerate(specs, 1)))
         add_comparisons(rows, specs)
-        report = make_report(rows, "curated_regression" if args.mode == "regression" else "document_" + args.mode)
+        report = make_report(rows, "curated_regression" if args.mode == "regression" else
+                             ("document_" if args.paper_only else "automatic_paper_") + args.mode)
         report["summary"]["reference_label_comparison"] = {
             "matched": sum(row["matches_gold"] is True for row in rows),
             "scored": sum(row["matches_gold"] is not None for row in rows),
