@@ -7,6 +7,7 @@ proposes evidence, exact source locators and an independent review gate its use,
 and a static snapshot never establishes a historical execution.
 """
 
+import ast
 import copy
 import hashlib
 import json
@@ -75,6 +76,12 @@ actual representation (for example an objective, gradient or derived plan), not 
 For a constructor model boundary include its actual generation request. For all claimed present flows
 code_path is a connected, ordered source-to-named-recipient chain with exact code citations and a
 delivery endpoint. No unsupported future dependency may bridge steps. Name the exact experiment_arm.
+Use canonical node identifiers: each step's output_symbol must exactly equal the next step's
+input_symbol, including across wrappers. This naming convention does not prove a semantic connection;
+the cited arguments and transformations must prove it. The final delivery citation, delivery.citation
+and recipient_citation must identify the SAME actual input call boundary, even for a multiline call.
+A function definition is not a receipt boundary. When a caller uses a shared model wrapper, follow
+its bound arguments to the actual wrapper request and cite that terminal boundary consistently.
 
 Derive instance_requirement from the paper's restriction and scope: same_evaluated_instance when
 the ban concerns that evaluated instance, any_instance when it excludes the named category regardless
@@ -91,6 +98,14 @@ nonempty value must occur in an instance citation. For a stable-ID proof configu
 empty. Cite source and evaluation bindings separately, including remapping/reordering/splitting when
 relevant. Unsupported mappings remain unknown even if source and evaluation both mention one corpus.
 Different instances refute only a restriction whose scope actually requires the evaluated instance.
+This is a STATIC audit. An explicit conditional scope (for example, evaluation selecting the
+generated grouped records) can support a static identity theorem using stable IDs, preserved record
+objects, or fully traced aliases/index/slice transformations. Cite both source and evaluation bindings
+plus the serialization/loading or alias chain. Do not require proof that authors historically chose
+that configuration for this conditional theorem; do not claim that they did. If the restriction
+specifically depends on historical run identity, that separate requirement still needs evidence.
+Unknown raw-versus-cache origin or real-versus-synthetic provenance can remain material to policy
+applicability even when a static same-record mapping is proved.
 
 Read the common knowledge contract and specific exceptions. A stronger delivery channel alone does
 not grant knowledge; an offline constructor is not automatically an unrestricted designer. Conversely
@@ -99,6 +114,12 @@ a violation; silence is not deny. scope_resolution must cite paper rules, includ
 of any exception. Ambiguous policy scope must stay uncertain without erasing independently proven
 receipt. A full-query-only prohibition does not automatically prohibit partial queries. Security
 outcomes, protocol requirements and task integrity are separate from attacker knowledge constraints.
+Do not treat a procedure's disclosure of the disputed access as its own knowledge exception. Apply
+a common actor/knowledge rule where it covers the named constructor unless a supported specific
+grant changes it; explain genuine actor/scope ambiguity instead of assuming one from disclosure alone.
+Keep distinct candidate sources as separate claims: an explicitly permitted trace channel does not
+settle a different task-specification or derived-input channel. Unresolved relevant sources remain
+named claims or questions rather than disappearing behind a permitted-background finding.
 
 All citations must be short exact substrings of their supplied segments (whitespace may collapse).
 Paper declarations and policy scope require paper citations; receipt, mapping and exclusion require
@@ -134,6 +155,11 @@ Independently check instance_requirement against the cited paper rule and common
 An any-instance category prohibition does not require proving identical evaluation records; an
 evaluation-instance-only restriction does. A known different instance is not a refutation of a
 category-wide prohibition. Different-instance refutation requires affirmative mapping evidence.
+For a conditional static scope, independently verify source/evaluation record binding and all
+serialization, aliases or index transformations. Historical author-run selection is not required for
+that conditional theorem and cannot be inferred from it. Keep historical run provenance separate.
+Check exact adjacency of canonical path symbols and that terminal delivery, delivery.citation and
+recipient_citation refer to one actual input call, not a function definition or different wrapper.
 
 Common knowledge restrictions apply to their stated actors/channels unless a specific knowledge,
 training or diagnostic exception changes them. A delivery exception is not a knowledge grant. Do not
@@ -345,6 +371,30 @@ def _binding_check(flow, vote, document):
                         "validation_errors": errors}
 
 
+def _same_input_boundary(left, right, document):
+    """Accept Python multiline call spans; unrelated nearby calls stay separate.
+
+    This is syntactic binding only. Independent path/recipient review must still
+    establish the role and argument flow; parsing never executes upstream code.
+    """
+    if (left["path"] != right["path"]
+            or left["repository_revision"] != right["repository_revision"]):
+        return False
+    part = next(p for p in document["segments"] if p["id"] == left["segment_id"])
+    if left["path"].endswith(".py"):
+        try:
+            tree = ast.parse(part["text"])
+        except (SyntaxError, ValueError, RecursionError):
+            return v3.overlapping_locators(left, right)
+        offset = part["line_start"] - 1
+        return any(isinstance(node, ast.Call)
+                   and node.lineno + offset <= min(left["line_start"], right["line_start"])
+                   and node.end_lineno + offset >= max(left["line_end"], right["line_end"])
+                   for node in ast.walk(tree))
+    return (max(left["line_start"], right["line_start"])
+            <= min(left["line_end"], right["line_end"]) + 2)
+
+
 def _path_check(flow, document, binding):
     """Stop at the actual scoped receiver; a restricted optimizer is an endpoint."""
     # Reuse all exact source/continuity/static-source checks. The legacy check
@@ -364,15 +414,8 @@ def _path_check(flow, document, binding):
             endpoint = v4._locate(path[-1]["citation"], document, "code")
             recipient = v4._locate(flow["binding"]["recipient_citation"], document, "code")
             delivery = v4._locate(flow["delivery"]["citation"], document, "code")
-            # A receiver name and its actual argument can be on adjacent lines
-            # of one call. Exact locators plus the independent binding/path
-            # review must support that boundary; proximity alone proves nothing.
-            def same_boundary(left, right):
-                return (left["path"] == right["path"]
-                        and left["repository_revision"] == right["repository_revision"]
-                        and max(left["line_start"], right["line_start"])
-                        <= min(left["line_end"], right["line_end"]) + 2)
-            if not same_boundary(endpoint, recipient) or not same_boundary(endpoint, delivery):
+            if (not _same_input_boundary(endpoint, recipient, document)
+                    or not _same_input_boundary(endpoint, delivery, document)):
                 errors.append("source_path_recipient_delivery_boundary_not_aligned")
         except ValueError as error:
             errors.append("source_recipient_boundary_citation: " + str(error))
@@ -451,7 +494,7 @@ def decide_extraction(extraction, review, document, paper_id="uploaded_paper"):
         # Exact failure reasons remain in binding_validation.validation_errors.
         mapping = extraction["flows"][index]["binding"]["instance_mapping"]
         missing_paths = []
-        needs_instance = (bindings[index]["instance_requirement"] == "same_evaluated_instance"
+        needs_instance = (extraction["flows"][index]["binding"]["instance_requirement"] == "same_evaluated_instance"
                           and bindings[index]["instance_relation"] != "same")
         if needs_instance:
             missing_paths.extend(mapping[side]["path"] for side in (
@@ -460,6 +503,11 @@ def decide_extraction(extraction, review, document, paper_id="uploaded_paper"):
             for locator in diagnostics[index]["locators"].get("instances", []):
                 missing_paths.append(locator["path"])
         row["missing_evidence"] = sorted(set(missing_paths))
+        row["missing_obligations"] = ([{
+            "kind": "same_instance_mapping",
+            "conditional_on_policy_scope": bindings[index]["instance_requirement"] == "unspecified",
+            "reason": "Source/evaluation identity is unproved; an empty path-hint list is not proof closure.",
+        }] if needs_instance else [])
     result.update(schema_version=5, evidence_scope="listed_claims_paper_and_pinned_source",
                   review_status="source_aware_role_instance_reviewed_not_human_verified")
     # Coverage is about the named proof obligations, not every vendor file.

@@ -45,11 +45,25 @@ class DefaultV5Tests(unittest.TestCase):
             self.assertIn("findings", json.loads(console.getvalue()))
             self.assertEqual(len(client.calls), 2)
             self.assertNotIn("expected", json.dumps(client.calls))
+            request = json.loads((output / "request.json").read_text())
+            self.assertEqual(request["max_input_chars"], 1200000)
+            self.assertEqual(request["max_code_chars"], 500000)
 
     def test_uncertainty_and_failure_are_not_false_negative_answers(self):
         for verdict in ["insufficient_evidence", "technical_failure", "not_run", "not_applicable"]:
             self.assertIsNone(project_result({"verdict": verdict})["inconsistency"])
         self.assertIs(project_result({"verdict": "consistent_within_scope"})["inconsistency"], False)
+
+    def test_repeated_grounded_code_location_is_reported_once(self):
+        locator = {"source_kind": "code", "path": "attack.py", "line_start": 7,
+                   "line_end": 9, "repository_source": "https://github.com/owner/source",
+                   "repository_revision": "a" * 40}
+        row = project_result({"verdict": "inconsistent", "evidence": [{
+            "claim_result": "confirmed", "locators": {"implementation": locator},
+            "source_validation": {"code_path_locators": [copy.deepcopy(locator)]}}]})
+        locations = row["findings"][0]["code_locations"]
+        self.assertEqual(len(locations), 1)
+        self.assertTrue(locations[0]["url"].endswith("/attack.py#L7"))
 
 
 if __name__ == "__main__": unittest.main()

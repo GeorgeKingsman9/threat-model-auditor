@@ -21,7 +21,7 @@ def project_result(row):
                 if locator.get("source_kind") == "code" or locator.get("path"):
                     value = {key: locator[key] for key in ("path", "original_path", "line_start", "line_end",
                              "repository_source", "repository_revision", "file_sha256") if key in locator}
-                    if value and value not in code_locations:
+                    if value:
                         source = value.get("repository_source", "") or ""
                         revision = value.get("repository_revision", "")
                         if source.startswith("https://github.com/") and revision:
@@ -29,7 +29,8 @@ def project_result(row):
                             value["url"] = source + "/blob/" + revision + "/" + quote(path, safe="/")
                             if value.get("line_start"):
                                 value["url"] += "#L" + str(value["line_start"])
-                        code_locations.append(value)
+                        if value not in code_locations:
+                            code_locations.append(value)
                 elif locator.get("segment_id"):
                     segment = locator["segment_id"].removeprefix("paper:")
                     value = {"segment_id": locator["segment_id"]}

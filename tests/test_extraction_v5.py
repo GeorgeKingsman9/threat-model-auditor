@@ -120,6 +120,45 @@ class ExtractionV5Tests(unittest.TestCase):
         self.assertNotEqual(v5.prompt_hash(), v4.prompt_hash())
         self.assertEqual(len(v5.prompt_hash()), 64)
 
+    def test_missing_instance_obligation_survives_uncertain_policy_and_empty_path_hints(self):
+        _, _, document, extraction, review = self.fixtures()
+        flow = extraction["flows"][0]
+        flow["scope_resolution"]["basis"] = "unresolved"
+        flow["policy_application"]["status"] = "uncertain"
+        flow["binding"]["instance_relation"] = "unknown"
+        flow["binding"]["instance_citations"] = []
+        flow["binding"]["instance_mapping"] = {
+            "identity_basis": "unresolved", "source_identity": {"configuration": "", "path": "", "record": ""},
+            "evaluation_identity": {"configuration": "", "path": "", "record": ""},
+            "transformation_reason": "The necessary mapping has not been supplied."}
+        review["flow_reviews"][0].update(policy_application="uncertain", scope_resolution_supported=False,
+                                        instance_alignment_supported=False)
+        result = self.decide(extraction, review, document)
+        self.assert_unresolved(result)
+        row = result["evidence"][0]
+        self.assertEqual(row["missing_evidence"], [])
+        self.assertEqual(row["missing_obligations"][0]["kind"], "same_instance_mapping")
+        self.assertTrue(row["missing_obligations"][0]["conditional_on_policy_scope"])
+
+    def test_python_multiline_call_span_and_separate_nearby_calls(self):
+        paper, repository, _, extraction, review = self.fixtures()
+        part = toy.code_segment("call_spans.py", (
+            "def optimize(case, receiver):\n"
+            '    request = case["user_request"]\n'
+            "    return receiver.accept(\n"
+            "        first=1,\n"
+            "        second=2,\n"
+            "        third=3,\n"
+            "        request=request\n"
+            "    )\n"
+            "receiver.other()\n"
+            "receiver.separate()\n"))
+        document = self.add_source(paper, repository, extraction, review, part)
+        locate = lambda quote: v4._locate(cite(part["id"], quote), document, "code")
+        self.assertTrue(v5._same_input_boundary(locate("return receiver.accept("), locate("request=request"), document))
+        self.assertFalse(v5._same_input_boundary(locate("receiver.other()"), locate("receiver.separate()"), document))
+        self.assertFalse(v5._same_input_boundary(locate("def optimize(case, receiver):"), locate("request=request"), document))
+
     def test_missing_role_binding_does_not_destroy_independent_policy(self):
         for damage in ("missing_citation", "paper_citation", "review", "role_conflict"):
             with self.subTest(damage=damage):

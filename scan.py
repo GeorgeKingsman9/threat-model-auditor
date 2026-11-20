@@ -190,6 +190,7 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
             "input_binding_version": evidence_document.get("input_binding_version"),
             "model_content_sha256": evidence_document.get("model_content_sha256"),
             "max_input_chars": max_input_chars,
+            "max_code_chars": max_code_chars,
             "model_data_characters": payload_size,
             "source_fetch": source_fetch, "require_source": require_source,
             "evidence_scope": "supplied_paper_and_source" if repository is not None else "supplied_document_only",
@@ -318,11 +319,11 @@ def main(argv=None):
                         help="Fetch a pinned archive with fallback, or directly fetch verified eligible GitHub source files")
     parser.add_argument("--require-source", action="store_true",
                         help="Stop before model inference if verified source cannot be loaded")
-    parser.add_argument("--max-input-chars", type=int, default=600000,
+    parser.add_argument("--max-input-chars", type=int, default=1200000,
                         help="Combined paper/source text limit; oversized inputs fail without truncation")
     parser.add_argument("--repo", help="Optional override: local source directory/Git checkout or public GitHub repository URL")
     parser.add_argument("--repo-revision", help="Pinned Git commit (required for GitHub URLs)")
-    parser.add_argument("--max-code-chars", type=int, default=320000,
+    parser.add_argument("--max-code-chars", type=int, default=500000,
                         help="Selected source text budget; any omitted files remain explicit in coverage")
     parser.add_argument("--no-citation-repair", action="store_true", help="Disable the optional single citation-only recovery call")
     parser.add_argument("--proposal", type=Path,
