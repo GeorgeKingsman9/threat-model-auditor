@@ -1,0 +1,1142 @@
+{
+  "created_at": "2026-11-20T08:37:21.473132+00:00",
+  "code_commit": "3ff7787",
+  "input_contract": "Only original PDF path or paper URL; no --repo, curated cases, gold, or old proposals provided to inference.",
+  "known_development_cases": true,
+  "summary": {
+    "paper_count": 4,
+    "statuses": {
+      "completed": 4
+    },
+    "verdicts": {
+      "inconsistent": 1,
+      "insufficient_evidence": 3
+    },
+    "valid_final_cli_calls": 9,
+    "reference_label_comparison": {
+      "matched": 2,
+      "completed": 4,
+      "interpretation": "Post-hoc comparison on known development cases with potentially different evidence scopes; not accuracy."
+    }
+  },
+  "inference_runs": [
+    {
+      "provider": "codex",
+      "authentication": "chatgpt",
+      "model": "gpt-6.1-sol",
+      "max_calls": 9,
+      "calls": [
+        {
+          "provider": "codex",
+          "authentication": "chatgpt",
+          "requested_model": "gpt-6.1-sol",
+          "actual_model": null,
+          "actual_models": [],
+          "usage": {
+            "input_tokens": 128575,
+            "cached_input_tokens": 0,
+            "output_tokens": 2829,
+            "reasoning_output_tokens": 203
+          },
+          "request_sha256": "cca2420c34002e9fdb6f85ecd8c29ada4d97ea8675520a3e8d40c4e3bdb06d4a",
+          "status": "completed",
+          "diagnostics": [],
+          "execution": {
+            "returncode": 0,
+            "turn_completed": true,
+            "fatal_error_count": 0,
+            "error_notification_count": 0
+          }
+        },
+        {
+          "provider": "codex",
+          "authentication": "chatgpt",
+          "requested_model": "gpt-6.1-sol",
+          "actual_model": null,
+          "actual_models": [],
+          "usage": {
+            "input_tokens": 16950,
+            "cached_input_tokens": 0,
+            "output_tokens": 172,
+            "reasoning_output_tokens": 71
+          },
+          "request_sha256": "69db2cb95bdbc5202ff42570bf65d8210e2a5d139431012afe9da455009585a6",
+          "status": "completed",
+          "diagnostics": [],
+          "execution": {
+            "returncode": 0,
+            "turn_completed": true,
+            "fatal_error_count": 0,
+            "error_notification_count": 0
+          }
+        },
+        {
+          "provider": "codex",
+          "authentication": "chatgpt",
+          "requested_model": "gpt-6.1-sol",
+          "actual_model": null,
+          "actual_models": [],
+          "usage": {
+            "input_tokens": 130062,
+            "cached_input_tokens": 0,
+            "output_tokens": 415,
+            "reasoning_output_tokens": 24
+          },
+          "request_sha256": "b453e370f2481f7d32b587a8e1c4c7116e8513bb7f328353c78a52b3257500e4",
+          "status": "completed",
+          "diagnostics": [],
+          "execution": {
+            "returncode": 0,
+            "turn_completed": true,
+            "fatal_error_count": 0,
+            "error_notification_count": 0
+          }
+        },
+        {
+          "provider": "codex",
+          "authentication": "chatgpt",
+          "requested_model": "gpt-6.1-sol",
+          "actual_model": null,
+          "actual_models": [],
+          "usage": {
+            "input_tokens": 34354,
+            "cached_input_tokens": 0,
+            "output_tokens": 2400,
+            "reasoning_output_tokens": 79
+          },
+          "request_sha256": "13104c462ecf0a360044bbd2d0e884012a35d7b9e3a160ff269cc9be361ae098",
+          "status": "completed",
+          "diagnostics": [],
+          "execution": {
+            "returncode": 0,
+            "turn_completed": true,
+            "fatal_error_count": 0,
+            "error_notification_count": 0
+          }
+        },
+        {
+          "provider": "codex",
+          "authentication": "chatgpt",
+          "requested_model": "gpt-6.1-sol",
+          "actual_model": null,
+          "actual_models": [],
+          "usage": {
+            "input_tokens": 35548,
+            "cached_input_tokens": 0,
+            "output_tokens": 585,
+            "reasoning_output_tokens": 42
+          },
+          "request_sha256": "8a041d16da6db12ee66269c4e107686a9d64fb64c96ae89185234a9d615f67ef",
+          "status": "completed",
+          "diagnostics": [],
+          "execution": {
+            "returncode": 0,
+            "turn_completed": true,
+            "fatal_error_count": 0,
+            "error_notification_count": 0
+          }
+        },
+        {
+          "provider": "codex",
+          "authentication": "chatgpt",
+          "requested_model": "gpt-6.1-sol",
+          "actual_model": null,
+          "actual_models": [],
+          "usage": {
+            "input_tokens": 38965,
+            "cached_input_tokens": 0,
+            "output_tokens": 1801,
+            "reasoning_output_tokens": 106
+          },
+          "request_sha256": "9f1c8863e3ed14aed59fd78f049b3201279d9b972f32f9b9ed060452fd29c639",
+          "status": "completed",
+          "diagnostics": [],
+          "execution": {
+            "returncode": 0,
+            "turn_completed": true,
+            "fatal_error_count": 0,
+            "error_notification_count": 0
+          }
+        },
+        {
+          "provider": "codex",
+          "authentication": "chatgpt",
+          "requested_model": "gpt-6.1-sol",
+          "actual_model": null,
+          "actual_models": [],
+          "usage": {
+            "input_tokens": 39605,
+            "cached_input_tokens": 0,
+            "output_tokens": 332,
+            "reasoning_output_tokens": 0
+          },
+          "request_sha256": "384e9599493238f1cf60cc8978c013486d232c71c2413a0896952ebb76ca5f6b",
+          "status": "completed",
+          "diagnostics": [],
+          "execution": {
+            "returncode": 0,
+            "turn_completed": true,
+            "fatal_error_count": 0,
+            "error_notification_count": 0
+          }
+        }
+      ],
+      "usage": {
+        "input_tokens": 424059,
+        "cached_input_tokens": 0,
+        "output_tokens": 8534,
+        "reasoning_output_tokens": 525
+      },
+      "usage_reporting_complete": true,
+      "preflight_failures": [],
+      "account_usage_note": "Uses the existing ChatGPT/Codex account's access, limits and possible credits; not a guarantee of free usage. The wrapper does not retry or fall back. max_calls counts CLI invocations, not CLI-internal transport attempts. Usage totals sum only reported events; missing usage is not proof of zero use. Actual model remains null when the CLI events do not expose it."
+    },
+    {
+      "provider": "codex",
+      "authentication": "chatgpt",
+      "model": "gpt-6.1-sol",
+      "max_calls": 3,
+      "calls": [
+        {
+          "provider": "codex",
+          "authentication": "chatgpt",
+          "requested_model": "gpt-6.1-sol",
+          "actual_model": null,
+          "actual_models": [],
+          "usage": {
+            "input_tokens": 36585,
+            "cached_input_tokens": 0,
+            "output_tokens": 2752,
+            "reasoning_output_tokens": 172
+          },
+          "request_sha256": "b182601bd8c4cbfd3c27699326408e036a6337655c1207d7f7925ec2c9f82bdf",
+          "status": "completed",
+          "diagnostics": [],
+          "execution": {
+            "returncode": 0,
+            "turn_completed": true,
+            "fatal_error_count": 0,
+            "error_notification_count": 0
+          }
+        },
+        {
+          "provider": "codex",
+          "authentication": "chatgpt",
+          "requested_model": "gpt-6.1-sol",
+          "actual_model": null,
+          "actual_models": [],
+          "usage": {
+            "input_tokens": 37984,
+            "cached_input_tokens": 0,
+            "output_tokens": 655,
+            "reasoning_output_tokens": 46
+          },
+          "request_sha256": "192cc6f1bb35c97afae0fe8ae161aec8faf9d5083c522cd4067853b5d9896222",
+          "status": "completed",
+          "diagnostics": [],
+          "execution": {
+            "returncode": 0,
+            "turn_completed": true,
+            "fatal_error_count": 0,
+            "error_notification_count": 0
+          }
+        }
+      ],
+      "usage": {
+        "input_tokens": 74569,
+        "cached_input_tokens": 0,
+        "output_tokens": 3407,
+        "reasoning_output_tokens": 218
+      },
+      "usage_reporting_complete": true,
+      "preflight_failures": [],
+      "account_usage_note": "Uses the existing ChatGPT/Codex account's access, limits and possible credits; not a guarantee of free usage. The wrapper does not retry or fall back. max_calls counts CLI invocations, not CLI-internal transport attempts. Usage totals sum only reported events; missing usage is not proof of zero use. Actual model remains null when the CLI events do not expose it."
+    }
+  ],
+  "papers": [
+    {
+      "id": "aspi",
+      "title": "Task-specific knowledge in pre-generated HR clarification attacks",
+      "status": "completed",
+      "verdict": "inconsistent",
+      "reason": "confirmed_inconsistency_in_scope",
+      "input_mode": "paper_and_source",
+      "requested_workflow": "automatic_from_paper",
+      "document_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893",
+      "source_discovery_status": "selected",
+      "source_audit": {
+        "status": "loaded",
+        "repository": "https://github.com/scaleapi/aspi",
+        "revision": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+        "coverage": {
+          "complete": false,
+          "inventory_complete": true,
+          "scope": "eligible UTF-8 source files only; excluded documents, datasets, tests, labels, credentials and dependencies are not audited",
+          "reason": "Source files omitted; this snapshot can support bounded positive findings but not whole-repository absence claims",
+          "eligible_files": 32,
+          "included_files": 29,
+          "omitted_files": 3,
+          "excluded_entries": 6,
+          "characters": 311831,
+          "max_characters": 320000
+        }
+      },
+      "expected_after_run": "inconsistent",
+      "matches_reference_label": true,
+      "claims": [
+        {
+          "id": "aspi_claim_1",
+          "claim": "HR payload authoring receives same-instance task-derived information before delivery in clarif_user_HR.",
+          "verdict": "inconsistent",
+          "reason": "scoped_forbidden_delivery_confirmed",
+          "claim_result": "confirmed",
+          "locators": {
+            "policy_scope": {
+              "segment_id": "paper:p3",
+              "start": 3437,
+              "end": 3489,
+              "document_sha256": "a55dc83678c5e43ef7e9616344f6576a28183921e4e7f7f24a1cf98b01f74d6a",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275",
+              "source_kind": "paper",
+              "paper_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893"
+            },
+            "delivery": {
+              "segment_id": "repo:src/aspi/eval/runner.py:L1-L2317",
+              "start": 72698,
+              "end": 72748,
+              "document_sha256": "a55dc83678c5e43ef7e9616344f6576a28183921e4e7f7f24a1cf98b01f74d6a",
+              "match": "normalized_exact",
+              "text_view": "primary",
+              "text_view_sha256": "2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55",
+              "source_kind": "code",
+              "path": "src/aspi/eval/runner.py",
+              "file_sha256": "2af5bd9333578ae6634cbbe568149927b6f42b271beddc5fcbea3cdb08b1ae55",
+              "repository_revision": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+              "repository_manifest_sha256": "3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011",
+              "line_start": 1806,
+              "line_end": 1807
+            },
+            "declaration": {
+              "segment_id": "paper:p3",
+              "start": 3437,
+              "end": 3489,
+              "document_sha256": "a55dc83678c5e43ef7e9616344f6576a28183921e4e7f7f24a1cf98b01f74d6a",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "990c019be9fcc7d8ea9ba571bda1a612096691b369976ac845ee928d8228d275",
+              "source_kind": "paper",
+              "paper_sha256": "cd6e0fee0fd70d712be88b44b90606e720e30b7184cbf4ff9df5d6393b475893"
+            },
+            "implementation": {
+              "segment_id": "repo:src/aspi/dataset/pipeline.py:L1-L809",
+              "start": 4456,
+              "end": 4533,
+              "document_sha256": "a55dc83678c5e43ef7e9616344f6576a28183921e4e7f7f24a1cf98b01f74d6a",
+              "match": "normalized_exact",
+              "text_view": "primary",
+              "text_view_sha256": "3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd",
+              "source_kind": "code",
+              "path": "src/aspi/dataset/pipeline.py",
+              "file_sha256": "3e913be19d9fb33c876fe500130e893516d7b06fba5fc089cbc7d36d8503ddbd",
+              "repository_revision": "e2a3f6ac87b2c00ac482252d067d22f3ecf57b9d",
+              "repository_manifest_sha256": "3bc7ffecdd9b7e5d91be8436ddef6d8ceea28c53aac9ceead9f60744f47c1011",
+              "line_start": 131,
+              "line_end": 132
+            }
+          }
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/url-run-transport-fixed/aspi/prepared.json",
+          "sha256": "b13ef55e4fc2e58f912b278fc073a60cac1dd69fdd470e0ed6b2ebdf6d0193a6",
+          "bytes": 455343
+        },
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/url-run-transport-fixed/aspi/source_discovery.json",
+          "sha256": "fb01c11ca90ae2520316f405a8bf0f116d82743693be263a03e2f0e5d98de3d7",
+          "bytes": 6123
+        },
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/url-run-transport-fixed/aspi/request.json",
+          "sha256": "58bdca1bb8bd9b1c9437c855fc55afdfca4b7b7b167e6c9ce4343cf20f9ce155",
+          "bytes": 440
+        },
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/url-run-transport-fixed/aspi/extraction.json",
+          "sha256": "af882255145fe3bd88cfa04272537bc21609ab0dc1beaedb36eaf280a1300143",
+          "bytes": 12059
+        },
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/url-run-transport-fixed/aspi/review.json",
+          "sha256": "274ebb1b147ce5dfe76ae6b95eac830062eff5b47c9314b7ceaa06ef7047d7dd",
+          "bytes": 1673
+        },
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/url-run-transport-fixed/aspi/result.json",
+          "sha256": "6fb4c5c0648c6d44a66dfdaa2d7e15410741c2296576de49e85179f68e39ae18",
+          "bytes": 55038
+        },
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/url-run-transport-fixed/aspi/inference.json",
+          "sha256": "f3f43603a9a4e9c3d59b5e569b4857c95d7833910d1a73be856e525af8ea2584",
+          "bytes": 2609
+        }
+      ]
+    },
+    {
+      "id": "retrieval_barrier",
+      "title": "Information-budget audit: Overcoming the Retrieval Barrier",
+      "status": "completed",
+      "verdict": "insufficient_evidence",
+      "reason": "unresolved_checks",
+      "input_mode": "document_only",
+      "requested_workflow": "automatic_from_paper",
+      "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+      "source_discovery_status": "unavailable",
+      "source_audit": {
+        "status": "unavailable",
+        "reason": "no_unambiguous_self_associated_code_repository"
+      },
+      "expected_after_run": "consistent_within_scope",
+      "matches_reference_label": false,
+      "claims": [
+        {
+          "id": "retrieval_barrier_claim_1",
+          "claim": "Target-query conditioning: CEM receives the target query as an explicit construction input.",
+          "verdict": "consistent_within_scope",
+          "reason": "claim_refuted_explicit_permission",
+          "claim_result": "refuted",
+          "locators": {
+            "policy_scope": {
+              "segment_id": "p4",
+              "start": 3949,
+              "end": 4014,
+              "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5"
+            },
+            "delivery": {
+              "segment_id": "p6",
+              "start": 2619,
+              "end": 2663,
+              "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "c425d0087d02d35e9df0158d5cc99198a6d6a9e511b2ac351fccf0455d9d3aa2"
+            },
+            "refutation": {
+              "segment_id": "p4",
+              "start": 3949,
+              "end": 4014,
+              "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5"
+            },
+            "declaration": {
+              "segment_id": "p4",
+              "start": 3949,
+              "end": 4014,
+              "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5"
+            },
+            "implementation": {
+              "segment_id": "p6",
+              "start": 2771,
+              "end": 2851,
+              "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "c425d0087d02d35e9df0158d5cc99198a6d6a9e511b2ac351fccf0455d9d3aa2"
+            }
+          }
+        },
+        {
+          "id": "retrieval_barrier_claim_2",
+          "claim": "FAQ history boundary: corpus-based query generation might expose email contents to attack construction beyond the permitted query.",
+          "verdict": "insufficient_evidence",
+          "reason": "delivery_to_input_boundary_not_established",
+          "claim_result": "unresolved",
+          "locators": {
+            "policy_scope": {
+              "segment_id": "p4",
+              "start": 2470,
+              "end": 2584,
+              "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5"
+            },
+            "delivery": {
+              "segment_id": "p11",
+              "start": 4060,
+              "end": 4134,
+              "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "c01f37381da29c05694d0887e9885c7bce7a62ad177f318148743ead3a060e45"
+            },
+            "declaration": {
+              "segment_id": "p4",
+              "start": 2470,
+              "end": 2584,
+              "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5"
+            },
+            "implementation": {
+              "segment_id": "p11",
+              "start": 3898,
+              "end": 3988,
+              "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "c01f37381da29c05694d0887e9885c7bce7a62ad177f318148743ead3a060e45"
+            }
+          }
+        },
+        {
+          "id": "retrieval_barrier_claim_3",
+          "claim": "Embedding API control: construction obtains embedding vectors through the expressly permitted black-box interface.",
+          "verdict": "consistent_within_scope",
+          "reason": "claim_refuted_explicit_permission",
+          "claim_result": "refuted",
+          "locators": {
+            "policy_scope": {
+              "segment_id": "p4",
+              "start": 2972,
+              "end": 3044,
+              "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5"
+            },
+            "delivery": {
+              "segment_id": "p6",
+              "start": 594,
+              "end": 645,
+              "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "c425d0087d02d35e9df0158d5cc99198a6d6a9e511b2ac351fccf0455d9d3aa2"
+            },
+            "refutation": {
+              "segment_id": "p4",
+              "start": 3046,
+              "end": 3099,
+              "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5"
+            },
+            "declaration": {
+              "segment_id": "p4",
+              "start": 2972,
+              "end": 3099,
+              "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "87ea88c6654f5d0b145a5a4ef92c023605ec4e64fdc7f593fd49269c961f55d5"
+            },
+            "implementation": {
+              "segment_id": "p8",
+              "start": 3841,
+              "end": 3924,
+              "document_sha256": "618906131d9aa7b6225ea3b0e2cc7e12c11694cf54842ac3cc4dc1d2f8f45285",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "808900f30d4df69c884ac12176926e2f1e61a8564bfde867e81b51429a0da6c4"
+            }
+          }
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/url-run-transport-fixed/retrieval_barrier/prepared.json",
+          "sha256": "cd93858eed4fe380cc84b71f414cd073751523968d3649d6a64797ca4f3f4942",
+          "bytes": 403396
+        },
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/url-run-transport-fixed/retrieval_barrier/source_discovery.json",
+          "sha256": "d299851f0391623a678befc0919db041fcba863a517962ec9e9baee71b49d852",
+          "bytes": 912
+        },
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/url-run-transport-fixed/retrieval_barrier/request.json",
+          "sha256": "f0f5be395ab8d8857a751929586f954f27019b7f3194eeb9ffe9baf64c20e373",
+          "bytes": 378
+        },
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/url-run-transport-fixed/retrieval_barrier/extraction.json",
+          "sha256": "0ae6b98080d57f4caabe9189e1095c08a736d1bfe4db57d171033fd4da76d4d8",
+          "bytes": 8032
+        },
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/url-run-transport-fixed/retrieval_barrier/review.json",
+          "sha256": "909b19be544bb3934ef91e6eb33620d2ba723571fc56e60a2229b2e8c080cc6b",
+          "bytes": 1938
+        },
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/url-run-transport-fixed/retrieval_barrier/result.json",
+          "sha256": "756d8e63956de67e2d9e4811145f283492df2392bbcd4bf25860456d14c96575",
+          "bytes": 27326
+        },
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/url-run-transport-fixed/retrieval_barrier/inference.json",
+          "sha256": "5b6322af8536c852cec71b85c6ab309bb9cca9fbbf1e18ed2bf0866d0429edc3",
+          "bytes": 5135
+        }
+      ]
+    },
+    {
+      "id": "muzzle",
+      "title": "MUZZLE information-budget audit",
+      "status": "completed",
+      "verdict": "insufficient_evidence",
+      "reason": "unresolved_checks",
+      "input_mode": "document_only",
+      "requested_workflow": "automatic_from_paper",
+      "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+      "source_discovery_status": "selected",
+      "source_audit": {
+        "status": "unavailable",
+        "repository": "https://github.com/gsiros/muzzle",
+        "revision": "9f3effa1668fa29dcba8f2454e711ddf9ef3c038",
+        "reason": "Source archive download timed out"
+      },
+      "expected_after_run": "insufficient_evidence",
+      "matches_reference_label": true,
+      "claims": [
+        {
+          "id": "muzzle_claim_1",
+          "claim": "Configuration provenance: the discovery framework ingests victim configuration, but privileged configuration reaching attack construction is unresolved.",
+          "verdict": "insufficient_evidence",
+          "reason": "policy_scope_not_established",
+          "claim_result": "unresolved",
+          "locators": {
+            "policy_scope": {
+              "segment_id": "p5",
+              "start": 78,
+              "end": 179,
+              "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d"
+            },
+            "delivery": {
+              "segment_id": "p6",
+              "start": 3168,
+              "end": 3232,
+              "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "ad43fe0220c23781870630a636e892b4a277f379041d024b789e783249486729"
+            },
+            "declaration": {
+              "segment_id": "p5",
+              "start": 181,
+              "end": 253,
+              "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d"
+            },
+            "implementation": {
+              "segment_id": "p6",
+              "start": 3223,
+              "end": 3278,
+              "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "ad43fe0220c23781870630a636e892b4a277f379041d024b789e783249486729"
+            }
+          }
+        },
+        {
+          "id": "muzzle_claim_2",
+          "claim": "Trace-context control: discovery-time victim reasoning and contextual telemetry are permitted inputs to payload generation.",
+          "verdict": "consistent_within_scope",
+          "reason": "claim_refuted_explicit_permission",
+          "claim_result": "refuted",
+          "locators": {
+            "policy_scope": {
+              "segment_id": "p4",
+              "start": 5399,
+              "end": 5523,
+              "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "68b69092d531361674ec4841121c3c662ba256e1dcc0799bd21316663b2f2144"
+            },
+            "delivery": {
+              "segment_id": "p6",
+              "start": 1568,
+              "end": 1685,
+              "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "ad43fe0220c23781870630a636e892b4a277f379041d024b789e783249486729"
+            },
+            "refutation": {
+              "segment_id": "p5",
+              "start": 111,
+              "end": 179,
+              "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d"
+            },
+            "declaration": {
+              "segment_id": "p5",
+              "start": 78,
+              "end": 179,
+              "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d"
+            },
+            "implementation": {
+              "segment_id": "p6",
+              "start": 1687,
+              "end": 1793,
+              "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "ad43fe0220c23781870630a636e892b4a277f379041d024b789e783249486729"
+            }
+          }
+        },
+        {
+          "id": "muzzle_claim_3",
+          "claim": "Objective-trace control: standalone adversarial-task executions supply procedural instructions to the Payload Generator.",
+          "verdict": "consistent_within_scope",
+          "reason": "claim_refuted_explicit_permission",
+          "claim_result": "refuted",
+          "locators": {
+            "policy_scope": {
+              "segment_id": "p4",
+              "start": 5399,
+              "end": 5523,
+              "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "68b69092d531361674ec4841121c3c662ba256e1dcc0799bd21316663b2f2144"
+            },
+            "delivery": {
+              "segment_id": "p8",
+              "start": 540,
+              "end": 633,
+              "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "2a076136af292214a2d9f53d8b47c2ff136dd0d645dda53bcf5cf5883f2e042b"
+            },
+            "refutation": {
+              "segment_id": "p5",
+              "start": 111,
+              "end": 179,
+              "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d"
+            },
+            "declaration": {
+              "segment_id": "p5",
+              "start": 78,
+              "end": 179,
+              "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d"
+            },
+            "implementation": {
+              "segment_id": "p8",
+              "start": 4412,
+              "end": 4491,
+              "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "2a076136af292214a2d9f53d8b47c2ff136dd0d645dda53bcf5cf5883f2e042b"
+            }
+          }
+        },
+        {
+          "id": "muzzle_claim_4",
+          "claim": "Backend insertion fidelity: final payload deployment uses direct backend modification despite the user-interface attacker model.",
+          "verdict": "consistent_within_scope",
+          "reason": "claim_refuted_different_issue_type",
+          "claim_result": "refuted",
+          "locators": {
+            "policy_scope": {
+              "segment_id": "p5",
+              "start": 474,
+              "end": 585,
+              "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "9e85ba997315a4ed9c3e45e75cfa4eedeff10bdab43a926f5bca3ebbfa32789d"
+            },
+            "delivery": {
+              "segment_id": "p8",
+              "start": 5431,
+              "end": 5527,
+              "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "2a076136af292214a2d9f53d8b47c2ff136dd0d645dda53bcf5cf5883f2e042b"
+            },
+            "refutation": {
+              "segment_id": "p8",
+              "start": 5529,
+              "end": 5581,
+              "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "2a076136af292214a2d9f53d8b47c2ff136dd0d645dda53bcf5cf5883f2e042b"
+            },
+            "implementation": {
+              "segment_id": "p8",
+              "start": 5589,
+              "end": 5696,
+              "document_sha256": "d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "2a076136af292214a2d9f53d8b47c2ff136dd0d645dda53bcf5cf5883f2e042b"
+            }
+          }
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/url-run-transport-fixed/muzzle/prepared.json",
+          "sha256": "f060fc91a92688baa885a8cd43997ebecaa2a7613e56335d3667ede12175113b",
+          "bytes": 366106
+        },
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/url-run-transport-fixed/muzzle/source_discovery.json",
+          "sha256": "2d24fcb90388013555e2406282fec36178cda5da36cebe83ffbb2044fdf4830a",
+          "bytes": 9446
+        },
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/url-run-transport-fixed/muzzle/request.json",
+          "sha256": "acad647e21082d2b96bbcf2ee9a1dfde35f8b92a85950a2f11658fbea56823a2",
+          "bytes": 377
+        },
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/url-run-transport-fixed/muzzle/extraction.json",
+          "sha256": "79327fb804f40bd41eb2aceda2a3fe32c5b89b8867882efe301b32e7e2fd9fb3",
+          "bytes": 11628
+        },
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/url-run-transport-fixed/muzzle/review.json",
+          "sha256": "c4dc8116868166116ff269db7c48ffa0ea091d39ed648be88ae7e663ea529ca0",
+          "bytes": 2666
+        },
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/url-run-transport-fixed/muzzle/result.json",
+          "sha256": "0eff0df26299712090066be6a67d6560889cf5fdae30a71ab181e1b4f3c51e7e",
+          "bytes": 45551
+        },
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/url-run-transport-fixed/muzzle/inference.json",
+          "sha256": "35b94c2eca89bfdf8c839812aa8a3b55a46800ba69fcb011c1143b926c5e88b3",
+          "bytes": 3872
+        }
+      ]
+    },
+    {
+      "id": "obliinjection",
+      "title": "ObliInjection information-budget audit",
+      "status": "completed",
+      "verdict": "insufficient_evidence",
+      "reason": "unresolved_checks",
+      "input_mode": "document_only",
+      "requested_workflow": "automatic_from_paper",
+      "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+      "source_discovery_status": "not_found",
+      "source_audit": {
+        "status": "unavailable",
+        "reason": "no_unambiguous_self_associated_code_repository"
+      },
+      "expected_after_run": "inconsistent",
+      "matches_reference_label": false,
+      "claims": [
+        {
+          "id": "uploaded_paper_claim_1",
+          "claim": "Metadata control: task-specific public attributes reach shadow-data construction under an explicit grant.",
+          "verdict": "insufficient_evidence",
+          "reason": "policy_scope_evidence_missing",
+          "claim_result": "unresolved",
+          "locators": {
+            "delivery": {
+              "segment_id": "p6",
+              "start": 1788,
+              "end": 1882,
+              "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "9a103e403a095239f48c527ccc6aed9a0c08f9cea6889f5039c8b068d0b25e7a"
+            },
+            "declaration": {
+              "segment_id": "p6",
+              "start": 1939,
+              "end": 2065,
+              "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "9a103e403a095239f48c527ccc6aed9a0c08f9cea6889f5039c8b068d0b25e7a"
+            },
+            "implementation": {
+              "segment_id": "p16",
+              "start": 1637,
+              "end": 1683,
+              "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "13f9f5f648bb585635e22c5d835bacb9e56bce09b171e3b3feea9d6e14af6e66"
+            }
+          }
+        },
+        {
+          "id": "uploaded_paper_claim_2",
+          "claim": "HotpotQA exact-question suspicion: the supplied auxiliary-generation template uses question type rather than the evaluation question.",
+          "verdict": "consistent_within_scope",
+          "reason": "claim_refuted_excluded_delivery",
+          "claim_result": "refuted",
+          "locators": {
+            "policy_scope": {
+              "segment_id": "p4",
+              "start": 496,
+              "end": 564,
+              "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "bc9941edd9d94ca84b98a626792bc9e6e71a13c78455a0a94c254b431a5ee77b"
+            },
+            "delivery": {
+              "segment_id": "p17",
+              "start": 1270,
+              "end": 1309,
+              "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "9bf7921d12603f38d2b5c8a51c6e1482d2316004ba0cc24695ef8801979f8446"
+            },
+            "refutation": {
+              "segment_id": "p17",
+              "start": 1127,
+              "end": 1191,
+              "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "9bf7921d12603f38d2b5c8a51c6e1482d2316004ba0cc24695ef8801979f8446"
+            },
+            "declaration": {
+              "segment_id": "p4",
+              "start": 496,
+              "end": 564,
+              "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "bc9941edd9d94ca84b98a626792bc9e6e71a13c78455a0a94c254b431a5ee77b"
+            },
+            "implementation": {
+              "segment_id": "p17",
+              "start": 1039,
+              "end": 1125,
+              "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "9bf7921d12603f38d2b5c8a51c6e1482d2316004ba0cc24695ef8801979f8446"
+            }
+          }
+        },
+        {
+          "id": "uploaded_paper_claim_3",
+          "claim": "News-fact provenance gap: instance-specific event facts enter construction, but their acquisition source is unspecified.",
+          "verdict": "insufficient_evidence",
+          "reason": "information_boundary_issue_not_established",
+          "claim_result": "unresolved",
+          "locators": {
+            "policy_scope": {
+              "segment_id": "p10",
+              "start": 916,
+              "end": 982,
+              "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "eac3fcc1290b677c5efdffcf1f64f6f5fc5f2e49829b19b2d52d26bc9532ff41"
+            },
+            "delivery": {
+              "segment_id": "p17",
+              "start": 162,
+              "end": 236,
+              "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "9bf7921d12603f38d2b5c8a51c6e1482d2316004ba0cc24695ef8801979f8446"
+            },
+            "declaration": {
+              "segment_id": "p6",
+              "start": 2876,
+              "end": 2989,
+              "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "9a103e403a095239f48c527ccc6aed9a0c08f9cea6889f5039c8b068d0b25e7a"
+            },
+            "implementation": {
+              "segment_id": "p17",
+              "start": 332,
+              "end": 376,
+              "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "9bf7921d12603f38d2b5c8a51c6e1482d2316004ba0cc24695ef8801979f8446"
+            }
+          }
+        },
+        {
+          "id": "uploaded_paper_claim_4",
+          "claim": "GPT-4o feedback control: target-model log probabilities enter optimization in an explicitly API-assisted arm.",
+          "verdict": "consistent_within_scope",
+          "reason": "claim_refuted_explicit_permission",
+          "claim_result": "refuted",
+          "locators": {
+            "policy_scope": {
+              "segment_id": "p11",
+              "start": 1993,
+              "end": 2045,
+              "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "ddee25cf094323863ace21a2033c4db628d5e2cf48234cb162c484b570eeb236"
+            },
+            "delivery": {
+              "segment_id": "p11",
+              "start": 2091,
+              "end": 2237,
+              "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "ddee25cf094323863ace21a2033c4db628d5e2cf48234cb162c484b570eeb236"
+            },
+            "refutation": {
+              "segment_id": "p11",
+              "start": 1216,
+              "end": 1280,
+              "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "ddee25cf094323863ace21a2033c4db628d5e2cf48234cb162c484b570eeb236"
+            },
+            "declaration": {
+              "segment_id": "p11",
+              "start": 1216,
+              "end": 1316,
+              "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "ddee25cf094323863ace21a2033c4db628d5e2cf48234cb162c484b570eeb236"
+            },
+            "implementation": {
+              "segment_id": "p11",
+              "start": 1331,
+              "end": 1421,
+              "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "ddee25cf094323863ace21a2033c4db628d5e2cf48234cb162c484b570eeb236"
+            }
+          }
+        },
+        {
+          "id": "uploaded_paper_claim_5",
+          "claim": "Unseen-task control: optimization on ten tasks does not establish access to the remaining ninety evaluation instances.",
+          "verdict": "insufficient_evidence",
+          "reason": "refutation_not_supported_by_scoped_evidence",
+          "claim_result": "unresolved",
+          "locators": {
+            "delivery": {
+              "segment_id": "p11",
+              "start": 335,
+              "end": 397,
+              "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "ddee25cf094323863ace21a2033c4db628d5e2cf48234cb162c484b570eeb236"
+            },
+            "refutation": {
+              "segment_id": "p11",
+              "start": 3571,
+              "end": 3633,
+              "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "ddee25cf094323863ace21a2033c4db628d5e2cf48234cb162c484b570eeb236"
+            },
+            "implementation": {
+              "segment_id": "p11",
+              "start": 3571,
+              "end": 3649,
+              "document_sha256": "deca13eaa2047e83d2a932d2194ef5e2533b1523b30c74f2a83fd0bb26d3d88e",
+              "match": "normalized_exact",
+              "text_view": "reading_order",
+              "text_view_sha256": "ddee25cf094323863ace21a2033c4db628d5e2cf48234cb162c484b570eeb236"
+            }
+          }
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/local-pdf-obliinjection-runtime-fixed/prepared.json",
+          "sha256": "6a99bbeded84277d87536c7dc9f2169722a65091eeda35189b3ac3717370fa51",
+          "bytes": 379043
+        },
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/local-pdf-obliinjection-runtime-fixed/source_discovery.json",
+          "sha256": "2619e6595b37b0352b96ec9443a763b0850209a5649f463f6b2abb02c9979a9c",
+          "bytes": 7422
+        },
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/local-pdf-obliinjection-runtime-fixed/request.json",
+          "sha256": "295d0374ad003048aef9f49f990ab5fe2590d98950b9e5b9a2235a2563fe9c6c",
+          "bytes": 377
+        },
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/local-pdf-obliinjection-runtime-fixed/extraction.json",
+          "sha256": "fd86ae44d1578be69d1cad5a40dfa012b0f506e6d92782254796e04c046c7251",
+          "bytes": 12173
+        },
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/local-pdf-obliinjection-runtime-fixed/review.json",
+          "sha256": "1ba885f177c9cc1a9bb56fb7ada18dfe21d56fccfffa2339f5d68a0c3bd10d7a",
+          "bytes": 2866
+        },
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/local-pdf-obliinjection-runtime-fixed/result.json",
+          "sha256": "4328870b92911a89f2f47606dea42a7cba93fd6e27fce75659b98ba11fd1b81d",
+          "bytes": 43896
+        },
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/local-pdf-obliinjection-runtime-fixed/inference.json",
+          "sha256": "923024f29067d16e266a894e191b40f442cbb25e4b64e3d3605cdd6a1be94ec4",
+          "bytes": 1975
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Only ASPI loaded a source snapshot; the other three completed on paper text only.",
+    "No generalization accuracy, recall or false-positive rate is established.",
+    "Model actual IDs are not exposed by the CLI.",
+    "Claims are bounded static or paper-procedure checks, not historical execution or ASR verification."
+  ]
+}

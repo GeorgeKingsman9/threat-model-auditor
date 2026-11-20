@@ -1,0 +1,98 @@
+{
+  "created_at": "2026-11-20T08:37:21.473132+00:00",
+  "unique_papers": 4,
+  "final_completed_papers": 4,
+  "final_completed_cli_calls": 9,
+  "all_development_cli_invocations_known": 12,
+  "all_completed_cli_invocations_known": 11,
+  "usage_note": "The first failed CLI invocation and the pre-fix aborted batch lack complete usage accounting. Do not infer zero usage or add cumulative per-paper ledger snapshots.",
+  "attempts": [
+    {
+      "name": "url-run",
+      "code_commit": "bef9070",
+      "outcome": "3 paper-download failures; 0 model calls",
+      "artifacts": [
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/url-run/report.json",
+          "sha256": "f929d3e1ffa083a3d281e62fc0228c734c711434dc2804d5a55a8b86ab313104",
+          "bytes": 3956
+        }
+      ]
+    },
+    {
+      "name": "local-pdf-obliinjection",
+      "code_commit": "bef9070",
+      "outcome": "CLI initialization failure; 1 dispatched CLI invocation, usage unreported",
+      "artifacts": [
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/local-pdf-obliinjection/report.json",
+          "sha256": "0906951d3b7aa4b82606246c526f8c93e4944344a6ffdb79da7d67d99e7caaad",
+          "bytes": 11939
+        }
+      ]
+    },
+    {
+      "name": "url-run-isolated-route",
+      "code_commit": "bef9070",
+      "outcome": "ASPI HTTP IncompleteRead escaped and aborted batch; MUZZLE completed paper-only uncertain with 2 model calls; Retrieval Barrier not run. Batch ledger unavailable, usage not reconstructed.",
+      "artifacts": [
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/url-run-isolated-route/muzzle/result.json",
+          "sha256": "0ac92890c915d84c2075d874004f965a4958cce6747738087bdb4584508ea304",
+          "bytes": 38939
+        }
+      ]
+    },
+    {
+      "name": "url-run-transport-fixed",
+      "code_commit": "3ff7787",
+      "outcome": "3 completed: 1 inconsistent, 2 insufficient_evidence; 7 completed CLI calls",
+      "artifacts": [
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/url-run-transport-fixed/report.json",
+          "sha256": "aaea9df67fdbfe00958bca27ca29d7acfb211babc0ff1fe8157a89ccf6e98234",
+          "bytes": 144907
+        }
+      ]
+    },
+    {
+      "name": "local-pdf-obliinjection-runtime-fixed",
+      "code_commit": "3ff7787",
+      "outcome": "1 completed insufficient_evidence; 2 completed CLI calls",
+      "artifacts": [
+        {
+          "path": "outputs/2026-11-20-default-auto-retest-081314/local-pdf-obliinjection-runtime-fixed/report.json",
+          "sha256": "ff1052cec6ba55b14d85c5ddf3d140b89dd4f6f996af2e2bdc6b7cf2955c6103",
+          "bytes": 49505
+        }
+      ]
+    }
+  ],
+  "configuration_artifacts": [
+    {
+      "path": "outputs/2026-11-20-default-auto-retest-081314/frozen_config.json",
+      "sha256": "18c47c4d1ea7dac07aca5deb7e435d5e1063afe675e8acb8ddaf0979c6c2cdd1",
+      "bytes": 1630
+    },
+    {
+      "path": "outputs/2026-11-20-default-auto-retest-081314/isolated_route_config.json",
+      "sha256": "60e43f50be8954242ff37bba26cfbf5cd13ffbc6c94e289ebfb4e88104282c61",
+      "bytes": 2165
+    },
+    {
+      "path": "outputs/2026-11-20-default-auto-retest-081314/local_pdf_runtime_fixed_config.json",
+      "sha256": "2b8f1eeea8883bd8e516e5cb9d5e0d76cc8a29e146236095c2de033d019d0f3c",
+      "bytes": 1114
+    },
+    {
+      "path": "outputs/2026-11-20-default-auto-retest-081314/transport_fixed_config.json",
+      "sha256": "6f969bf1c196a9c6cedb4eb030116a918f40763700ca77e41dacb8d3aeecbbf8",
+      "bytes": 2160
+    },
+    {
+      "path": "outputs/2026-11-20-default-auto-retest-081314/local_pdf_extension.json",
+      "sha256": "24186ec57bc34941c2d1fec600c421c6531df6262ee100498202afdeda5b1b3f",
+      "bytes": 710
+    }
+  ]
+}

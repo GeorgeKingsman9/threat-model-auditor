@@ -30,6 +30,8 @@ python3 -B scan.py input.pdf --prepare-only --output outputs/prepared
 
 完整流程、发现边界与输出解释见 [自动工作流说明](docs/AUTOMATIC_WORKFLOW_ZH.md)。
 
+**最新真实重测**：只给论文网址或原始PDF，4篇均完成，得到1篇positive、0篇negative、3篇不确定。ASPI已自动发现并读取官方源码后确认限定不一致；其余三篇仍有取材或证据缺口，不能称为阴性。程序检查300项通过；逐篇结果及所有失败尝试见 [默认入口重测报告](docs/AUTOMATIC_RETEST_RESULTS_ZH.md)。
+
 ## 默认自动流程
 
 1. **读论文**：提取 PDF 页码、原文与内容 hash；支持本地 PDF/HTML/TXT、公开论文 URL，以及部分可明确解析的 landing page。
