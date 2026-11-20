@@ -13,6 +13,7 @@ import hashlib
 import json
 import unicodedata
 
+from call_boundaries import call_identity
 import extraction_v3 as v3
 import extraction_v4 as v4
 from extraction import obj, STRING, NULLABLE_CITATION, validate_shape
@@ -255,6 +256,27 @@ def _independent_locators(locators):
     return selected
 
 
+def _record_anchors(expression):
+    """Ground tuple record keys component by component; never execute code.
+
+    A composite stable ID can be assembled from fields on different lines. A
+    Python tuple is an explicit composition, while arbitrary prose or semicolon
+    lists remain one exact anchor and cannot manufacture a grounded identity.
+    """
+    expression = expression.strip()
+    try:
+        node = ast.parse(expression, mode="eval").body
+    except (SyntaxError, ValueError, RecursionError):
+        return [_normalized_text(expression)]
+    if isinstance(node, ast.Tuple):
+        if 2 <= len(node.elts) <= 32 and not any(isinstance(item, ast.Starred) for item in node.elts):
+            anchors = [ast.get_source_segment(expression, item) for item in node.elts]
+            if all(anchors):
+                return [_normalized_text(anchor) for anchor in anchors]
+        return []
+    return [_normalized_text(expression)]
+
+
 def _mapping_check(binding, vote, document):
     """Ground both sides without equating names, text, or unreviewed symbols."""
     errors, locators, located_citations = [], [], []
@@ -291,11 +313,12 @@ def _mapping_check(binding, vote, document):
             if field in required and (not value or value.lower() in {"unknown", "unspecified", "unresolved", "same", "different", "train", "test"}):
                 errors.append("instance_mapping_" + side + "_" + field + "_missing")
             path_metadata = field in {"configuration", "path"} and value in source_paths
-            if value and not path_metadata and not any(value in quote for quote in quotes):
+            anchors = _record_anchors(identity[field]) if field == "record" else [value]
+            if value and not path_metadata and (not anchors or not any(all(anchor in quote for anchor in anchors) for quote in quotes)):
                 errors.append("instance_mapping_" + side + "_" + field + "_not_cited")
-        record = _normalized_text(identity["record"])
+        records = _record_anchors(identity["record"])
         side_record_locators[side] = [locator for citation, locator in located_citations
-                                     if record and record in _normalized_text(citation["quote"])]
+                                     if records and all(record and record in _normalized_text(citation["quote"]) for record in records)]
     if not any(not v3.overlapping_locators(source, evaluation)
                for source in side_record_locators["source_identity"]
                for evaluation in side_record_locators["evaluation_identity"]):
@@ -372,7 +395,7 @@ def _binding_check(flow, vote, document):
 
 
 def _same_input_boundary(left, right, document):
-    """Accept Python multiline call spans; unrelated nearby calls stay separate.
+    """Accept the same Python call identity, including multiline arguments.
 
     This is syntactic binding only. Independent path/recipient review must still
     establish the role and argument flow; parsing never executes upstream code.
@@ -382,15 +405,11 @@ def _same_input_boundary(left, right, document):
         return False
     part = next(p for p in document["segments"] if p["id"] == left["segment_id"])
     if left["path"].endswith(".py"):
-        try:
-            tree = ast.parse(part["text"])
-        except (SyntaxError, ValueError, RecursionError):
-            return v3.overlapping_locators(left, right)
-        offset = part["line_start"] - 1
-        return any(isinstance(node, ast.Call)
-                   and node.lineno + offset <= min(left["line_start"], right["line_start"])
-                   and node.end_lineno + offset >= max(left["line_end"], right["line_end"])
-                   for node in ast.walk(tree))
+        if left["segment_id"] != right["segment_id"]:
+            return False
+        left_call = call_identity(part["text"], left["start"], left["end"])
+        right_call = call_identity(part["text"], right["start"], right["end"])
+        return left_call is not None and left_call == right_call
     return (max(left["line_start"], right["line_start"])
             <= min(left["line_end"], right["line_end"]) + 2)
 
@@ -494,8 +513,9 @@ def decide_extraction(extraction, review, document, paper_id="uploaded_paper"):
         # Exact failure reasons remain in binding_validation.validation_errors.
         mapping = extraction["flows"][index]["binding"]["instance_mapping"]
         missing_paths = []
-        needs_instance = (extraction["flows"][index]["binding"]["instance_requirement"] == "same_evaluated_instance"
-                          and bindings[index]["instance_relation"] != "same")
+        needs_instance = (row["claim_result"] != "refuted"
+                          and extraction["flows"][index]["binding"]["instance_requirement"] == "same_evaluated_instance"
+                          and bindings[index]["instance_relation"] == "unknown")
         if needs_instance:
             missing_paths.extend(mapping[side]["path"] for side in (
                 "source_identity", "evaluation_identity") if mapping[side]["path"].strip())

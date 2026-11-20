@@ -140,6 +140,29 @@ class ExtractionV5Tests(unittest.TestCase):
         self.assertEqual(row["missing_obligations"][0]["kind"], "same_instance_mapping")
         self.assertTrue(row["missing_obligations"][0]["conditional_on_policy_scope"])
 
+    def test_composite_stable_record_keys_require_every_component_grounded(self):
+        paper, repository, _, extraction, review = self.fixtures()
+        part = toy.code_segment("record_keys.py", (
+            "def save(suite_name, task):\n"
+            '    persist({"suite": suite_name, "task_id": task.ID})\n'
+            "def load(group):\n"
+            '    suite = group.get("suite")\n'
+            '    task_id = group.get("task_id")\n'))
+        document = self.add_source(paper, repository, extraction, review, part)
+        binding = extraction["flows"][0]["binding"]
+        binding["instance_citations"] = [
+            cite(part["id"], 'persist({"suite": suite_name, "task_id": task.ID})'),
+            cite(part["id"], 'suite = group.get("suite")\n    task_id = group.get("task_id")')]
+        mapping = binding["instance_mapping"]
+        mapping["source_identity"].update(path="record_keys.py", record="suite_name, task.ID")
+        mapping["evaluation_identity"].update(path="record_keys.py", record='group.get("suite"), group.get("task_id")')
+        mapping["transformation_reason"] = "Both key fields are saved and read independently without remapping."
+        self.assertEqual(self.decide(extraction, review, document)["verdict"], "inconsistent")
+        mapping["source_identity"]["record"] = "suite_name, task.MISSING_ID"
+        self.assert_unresolved(self.decide(extraction, review, document))
+        mapping["source_identity"]["record"] = "suite_name; task.ID"
+        self.assert_unresolved(self.decide(extraction, review, document))
+
     def test_python_multiline_call_span_and_separate_nearby_calls(self):
         paper, repository, _, extraction, review = self.fixtures()
         part = toy.code_segment("call_spans.py", (
@@ -375,6 +398,7 @@ class ExtractionV5Tests(unittest.TestCase):
         result = self.decide(extraction, review, document)
         self.assertEqual(result["evidence"][0]["claim_result"], "refuted")
         self.assertEqual(result["evidence"][0]["reason"], "bound_claim_refuted_different_instance")
+        self.assertEqual(result["evidence"][0]["missing_obligations"], [])
         flow["binding"]["instance_requirement"] = "any_instance"
         result = self.decide(extraction, review, document)
         self.assert_unresolved(result)
