@@ -38,7 +38,7 @@ def checked_payload_size(content, limit):
 def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="uploaded_paper",
                 prepared=None, extraction=None, review=None, max_input_chars=600000,
                 repository=None, repo_revision=None, max_code_chars=320000, repair_citations=True,
-                auto_repository=True):
+                auto_repository=True, source_fetch="auto", require_source=False):
     """One document produces one result, including failures and pending stages."""
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=False)
@@ -119,7 +119,10 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
             from source_bundle import load_repository
             stage = "repository_ingestion"
             try:
-                source_snapshot = load_repository(str(repository), revision=repo_revision, max_chars=max_code_chars)
+                source_options = {"revision": repo_revision, "max_chars": max_code_chars}
+                if source_fetch != "auto":
+                    source_options["fetch_mode"] = source_fetch
+                source_snapshot = load_repository(str(repository), **source_options)
             except (OSError, ValueError) as error:
                 acquisition = getattr(error, "acquisition", None)
                 if isinstance(acquisition, dict):
@@ -138,6 +141,8 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
                     "The remaining audit covers paper text only; source verification did not complete."
                 )
                 repository = None
+        if require_source and source_snapshot is None:
+            raise ValueError("A verified source snapshot is required; model inference was not started")
         if source_snapshot is not None:
             import extraction_v4 as engine
         elif extraction is not None and extraction.get("schema_version", 2) == 2:
@@ -175,6 +180,7 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
             "model_content_sha256": evidence_document.get("model_content_sha256"),
             "max_input_chars": max_input_chars,
             "model_data_characters": payload_size,
+            "source_fetch": source_fetch, "require_source": require_source,
             "evidence_scope": "supplied_paper_and_source" if repository is not None else "supplied_document_only",
             "engine": type(client).__name__ if client else "no_model_or_replay",
         })
@@ -294,6 +300,10 @@ def main(argv=None):
     parser.add_argument("--prepare-only", action="store_true", help="Read document without model calls")
     parser.add_argument("--paper-only", action="store_true",
                         help="Disable automatic associated-source discovery; audit the supplied paper text only")
+    parser.add_argument("--source-fetch", choices=["auto", "files"], default="auto",
+                        help="Fetch a pinned archive with fallback, or directly fetch verified eligible GitHub source files")
+    parser.add_argument("--require-source", action="store_true",
+                        help="Stop before model inference if verified source cannot be loaded")
     parser.add_argument("--max-input-chars", type=int, default=600000,
                         help="Combined paper/source text limit; oversized inputs fail without truncation")
     parser.add_argument("--repo", help="Optional override: local source directory/Git checkout or public GitHub repository URL")
@@ -318,6 +328,8 @@ def main(argv=None):
             raise ValueError("--repo-revision requires --repo")
         if args.paper_only and args.repo:
             raise ValueError("--paper-only cannot be combined with --repo")
+        if args.paper_only and (args.require_source or args.source_fetch != "auto"):
+            raise ValueError("--paper-only cannot require or fetch source")
         client = get_client(args) if not args.prepare_only and not args.extraction else None
         proposal_path = args.proposal or args.extraction
         extraction = json.loads(proposal_path.read_text()) if proposal_path else None
@@ -325,7 +337,8 @@ def main(argv=None):
         row = scan_source(args.source, args.output, client, args.prepare_only,
                           extraction=extraction, review=review, max_input_chars=args.max_input_chars,
                           repository=args.repo, repo_revision=args.repo_revision, max_code_chars=args.max_code_chars,
-                          repair_citations=not args.no_citation_repair, auto_repository=not args.paper_only)
+                          repair_citations=not args.no_citation_repair, auto_repository=not args.paper_only,
+                          source_fetch=args.source_fetch, require_source=args.require_source)
         mode = "paper_source_audit" if args.repo else "document_audit" if args.paper_only else "automatic_paper_audit"
         report = make_report([row], "document_preparation" if args.prepare_only else mode)
         if client:

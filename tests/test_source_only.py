@@ -53,6 +53,16 @@ def tree_fixture(files):
 
 
 class SourceOnlyTests(unittest.TestCase):
+    def test_explicit_files_mode_skips_archive_and_still_verifies_immutable_source(self):
+        mock, requested = self.fixture({"pipeline.py": b"pass\n"})
+        with mock:
+            snapshot = s.load_repository(REPOSITORY, revision=COMMIT, fetch_mode="files")
+        self.assertFalse(any("codeload.github.com" in url for url in requested))
+        self.assertTrue(snapshot["source_acquisition"]["archive_skipped"])
+        self.assertEqual(snapshot["source_acquisition"]["attempts"], [])
+        self.assertEqual(snapshot["source_acquisition"]["fallback"]["status"], "succeeded")
+        s.validate_repository(snapshot)
+
     def fixture(self, files, *, mutate_tree=None, mutate_commit=None, raw_files=None):
         tree = tree_fixture(files)
         commit = {"sha": COMMIT, "tree": {"sha": tree["sha"]}}

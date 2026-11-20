@@ -774,7 +774,8 @@ def validate_repository(snapshot: dict) -> None:
         fail("source character budget was exceeded")
 
 
-def load_repository(source: str, revision: str | None = None, max_chars: int = 240000) -> dict:
+def load_repository(source: str, revision: str | None = None, max_chars: int = 240000,
+                    fetch_mode: str = "auto") -> dict:
     """Return exact source segments and provenance without executing repository code.
 
     Local Git refs (including HEAD when omitted) resolve once to an immutable
@@ -785,25 +786,33 @@ def load_repository(source: str, revision: str | None = None, max_chars: int = 2
         raise RepositoryError("A source directory or GitHub repository URL is required")
     if type(max_chars) is not int or max_chars <= 0:
         raise RepositoryError("max_chars must be a positive integer")
+    if fetch_mode not in {"auto", "files"}:
+        raise RepositoryError("fetch_mode must be auto or files")
     source = source.strip()
     if "://" in source:
         label, url, name, commit = _github_url(source, revision)
-        acquisition = {}
-        try:
-            data = _download_archive(url, acquisition=acquisition, max_attempts=1)
-        except RepositoryError as error:
-            if not error.retryable and error.failure_kind != "download_limit":
-                raise
+        acquisition = {"requested_fetch_mode": fetch_mode}
+        if fetch_mode == "files":
+            acquisition.update(method="github_commit_tree_raw_blobs", attempts=[], archive_skipped=True)
             items, excluded, provenance = _github_source_snapshot(label, commit, acquisition)
         else:
             try:
-                items, excluded, provenance = _archive_snapshot(data, name, commit)
+                data = _download_archive(url, acquisition=acquisition, max_attempts=1)
             except RepositoryError as error:
-                error.acquisition = acquisition
-                raise
+                if not error.retryable and error.failure_kind != "download_limit":
+                    raise
+                items, excluded, provenance = _github_source_snapshot(label, commit, acquisition)
+            else:
+                try:
+                    items, excluded, provenance = _archive_snapshot(data, name, commit)
+                except RepositoryError as error:
+                    error.acquisition = acquisition
+                    raise
         provenance["source_acquisition"] = acquisition
         binding = _digest(label.encode())
     else:
+        if fetch_mode != "auto":
+            raise RepositoryError("Explicit source-file fetching requires a public GitHub source")
         supplied = Path(source).expanduser()
         if supplied.is_symlink():
             raise RepositoryError("Source directory must not be a symbolic link")
