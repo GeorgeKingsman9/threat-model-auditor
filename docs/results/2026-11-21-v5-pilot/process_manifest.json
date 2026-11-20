@@ -1,0 +1,695 @@
+{
+  "schema_version": "v5-pilot-process-manifest-v1",
+  "hash_algorithm": "sha256",
+  "path_base": "relative to each run directory",
+  "exclusions": [
+    "generated combined directories",
+    "public report directory"
+  ],
+  "files": [
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "aspi.process.log",
+      "bytes": 340,
+      "sha256": "958698c9656384fbfbf515b65a7b1f227a8ae3e1b701528955936c75e657cf3c"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/aspi/citation_repair.request.json",
+      "bytes": 26835,
+      "sha256": "aa5327654e99278ac68462f136a49b16ccec5c3c3a5758ca2399810746b71a0a"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/aspi/citation_repair.response.json",
+      "bytes": 406,
+      "sha256": "f7da45754b2fc9e18e76e81f272c401f477bb7dd7120ce37bae12056d5b9b367"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/aspi/combined_input.json",
+      "bytes": 1651044,
+      "sha256": "09970ed1f4da6e6544fcc28b078f09e3a06c4c7c19fd11ea295c02e805134cd2"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/aspi/extraction.json",
+      "bytes": 10092,
+      "sha256": "6aa9dea62b65807bee0112bda0fc88f4af5d89e055ccbed1f2b5835311ae3152"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/aspi/extraction.repaired.json",
+      "bytes": 10546,
+      "sha256": "30785a5adc2b751855d0ca3f3fd2b35d2b660a9ac38303b666327b67a002bc50"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/aspi/inference.citation_repair.json",
+      "bytes": 1975,
+      "sha256": "faf09119329b729e64ed03727d2b40e201fb283017b8e07e112845b10e0c0dbe"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/aspi/inference.extraction.json",
+      "bytes": 1346,
+      "sha256": "93f314eee6c84e42fe41aa943a72b10b15f78091e7e6a9c7c3cc4eecaa88369b"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/aspi/inference.json",
+      "bytes": 2607,
+      "sha256": "d17374ba7db69f5ac879574685d1d8663d5b5650925155478100d6f900d990f9"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/aspi/inference.semantic_review.json",
+      "bytes": 2607,
+      "sha256": "d17374ba7db69f5ac879574685d1d8663d5b5650925155478100d6f900d990f9"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/aspi/prepared.json",
+      "bytes": 455343,
+      "sha256": "b13ef55e4fc2e58f912b278fc073a60cac1dd69fdd470e0ed6b2ebdf6d0193a6"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/aspi/report.json",
+      "bytes": 310853,
+      "sha256": "0e9074bf77a24db35c9cb872474ac35c0d4e56e9fa5ae56f12db68a1233ca10e"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/aspi/repository.json",
+      "bytes": 714862,
+      "sha256": "568d9b0115811dbd7ad484668d089a3fe2757789311cb50d4afcec4fe6dfc1ca"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/aspi/request.json",
+      "bytes": 494,
+      "sha256": "0f63c976316d0704001e18111d2139b8ee107232949ae73d5fffc6824fdb7ca9"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/aspi/result.json",
+      "bytes": 276120,
+      "sha256": "fb0397d3cbabd231fa895498e31e9b9dc58c743122eb80cb6401b4c2b8d4a476"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/aspi/review.json",
+      "bytes": 1623,
+      "sha256": "f795ba90df48d79b1aeeb0db8194a567a28200b180d145ff4d446fa96aca3161"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/aspi/source_acquisition.json",
+      "bytes": 12685,
+      "sha256": "3c59a29e4b0ef824c3d0f2ebe7813ba426143d4022b68bf44f38055cdbc97630"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/aspi/source_discovery.json",
+      "bytes": 6123,
+      "sha256": "fb01c11ca90ae2520316f405a8bf0f116d82743693be263a03e2f0e5d98de3d7"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/muzzle/combined_input.json",
+      "bytes": 2498638,
+      "sha256": "1122ce6eca49f9323d80d4364c540dda5a38acd082329acf9dc7055226cd1a3b"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/muzzle/extraction.json",
+      "bytes": 9789,
+      "sha256": "5bea819c0e137fda9a384744d98f53fd7c68e81e6c0b514d995b532857962a49"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/muzzle/inference.extraction.json",
+      "bytes": 1346,
+      "sha256": "d8ed9b1d055df4a5d8b2ab7753b6bc0f1a79e2a58d6ef1416c05216efdf407b0"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/muzzle/inference.json",
+      "bytes": 1978,
+      "sha256": "ce16334be1b58adf1f3a758e2f8ddde534b3359f1f8ba63b34779f806c9c8288"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/muzzle/inference.semantic_review.json",
+      "bytes": 1978,
+      "sha256": "ce16334be1b58adf1f3a758e2f8ddde534b3359f1f8ba63b34779f806c9c8288"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/muzzle/prepared.json",
+      "bytes": 366106,
+      "sha256": "f060fc91a92688baa885a8cd43997ebecaa2a7613e56335d3667ede12175113b"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/muzzle/report.json",
+      "bytes": 1036490,
+      "sha256": "c4630310385b11967748fc248021ef31f55f6c01848abf0925fa258da4d53286"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/muzzle/repository.json",
+      "bytes": 1514649,
+      "sha256": "1e342bf79f051565ea34b047afd4914228daa2f05ae88c859589360cd8cd28db"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/muzzle/request.json",
+      "bytes": 494,
+      "sha256": "d938a736e81c8849e35eb9140ff83be8fee9ab04a20340f595fc1b1b00f9df30"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/muzzle/result.json",
+      "bytes": 934662,
+      "sha256": "2e6d7362bd3d9165fcb90f9f047578df1e660d9fd95d839e9aeaea5fdb79a6c6"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/muzzle/review.json",
+      "bytes": 1817,
+      "sha256": "2d01e961d0e7f1b4710ea67dff107d57beb56526dd88763a281bbf9e7b65d009"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/muzzle/source_acquisition.json",
+      "bytes": 43835,
+      "sha256": "7dae8ee9bdf5c63d161374f6a8504a1b54022fc80fd571b8b039a625d674454b"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/muzzle/source_discovery.json",
+      "bytes": 10139,
+      "sha256": "f6e69dae3397a7d457c2abc8926c579bbec94ef47f05009fe50b236f37f663c3"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/obliinjection/combined_input.json",
+      "bytes": 820084,
+      "sha256": "9bf86c1d89eb913a5d4a3515532a92d43d75e25d690410090fcd42744323109a"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/obliinjection/extraction.json",
+      "bytes": 8516,
+      "sha256": "b4d5f8aed50b9e57156a3198d432410341a923e503e46101a363f22c2aa30c37"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/obliinjection/inference.extraction.json",
+      "bytes": 1344,
+      "sha256": "451f5840f916427dec47ac7e163537763b2ebd2c38c85f2474b9bac415400f95"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/obliinjection/inference.json",
+      "bytes": 1976,
+      "sha256": "df00163a460cd2bc8aa0f18c3066eeb299e21942ae2f89988ae5d958f52a65c6"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/obliinjection/inference.semantic_review.json",
+      "bytes": 1976,
+      "sha256": "df00163a460cd2bc8aa0f18c3066eeb299e21942ae2f89988ae5d958f52a65c6"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/obliinjection/prepared.json",
+      "bytes": 379065,
+      "sha256": "ffe6f2c2ca149262ad5d9b13c2e7db8a5281bcab2f6812874e3743da40dfed7f"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/obliinjection/report.json",
+      "bytes": 227935,
+      "sha256": "1083b6ddb9e368968b15273b296d8ba63bfd0ccc54ae5129ace18e6b9b853ae5"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/obliinjection/repository.json",
+      "bytes": 310856,
+      "sha256": "2eafda90063e47ce9fcc1adfa794588187749258017595a60de551f80555b16f"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/obliinjection/request.json",
+      "bytes": 494,
+      "sha256": "70182c51576064b0dfa7798469a4bad60c07b5f168d71cbc765a224138941dc6"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/obliinjection/result.json",
+      "bytes": 202321,
+      "sha256": "ea0e6bbd822be26892a582db4b31b6eadacce83136dd840b4bd4e1d8b33f76c8"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/obliinjection/review.json",
+      "bytes": 1860,
+      "sha256": "854a91b30fdd9cbae2f0b308cbb683930e9c8e64c0a8dc73d13483a29c7199a7"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/obliinjection/source_acquisition.json",
+      "bytes": 12386,
+      "sha256": "570492aa613f2867e5677c1722141e38a8ba1ac95ae1a6930003e134c9265906"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "audits/obliinjection/source_discovery.json",
+      "bytes": 10594,
+      "sha256": "34a379fffe75c9d35d9444c9b7c025776bc13277c32cd0241755f3b8431d659c"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "frozen_config.json",
+      "bytes": 2227,
+      "sha256": "5605504e9c6c56289b6e763bef9fa09f8307a26750d08bb2cb41876301ee7270"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "muzzle.process.log",
+      "bytes": 191,
+      "sha256": "16a68685530fee7d0036e181559bf71e21474ee6720b2b97b59240db91bf83a2"
+    },
+    {
+      "run_id": "2026-11-21-v5-pilot-175505",
+      "path": "obliinjection.process.log",
+      "bytes": 325,
+      "sha256": "ffec75cf96120abffaf942d4df732a6badbbf618d156ad53c966a8a9475b6632"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "aspi-download-retry.json",
+      "bytes": 443,
+      "sha256": "2b54c9050129a9bd692f98f7e4788b4b28d7853723be61d6415da1110f61ff4c"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "aspi-download-retry.process.log",
+      "bytes": 369,
+      "sha256": "a2d7d65374a040582117556f6e06fb04196ce1a3b4fc224333cb50d095059f9b"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "aspi.process.log",
+      "bytes": 184,
+      "sha256": "bb4e0b51b163ccc1ebfe487c6bb0b2e5069690b44b42865b194d10dfcb975f73"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/aspi/inference.json",
+      "bytes": 701,
+      "sha256": "cdb0a21219cb8d0086b51288ca00dce3a21a4bca6635cd74f7eb17f0588fd4a8"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/aspi/report.json",
+      "bytes": 1614,
+      "sha256": "8c58612b2d1d426110704dab3fa4a2e2d92b2d6ab77ebc67743f6b67fd148645"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/aspi/result.json",
+      "bytes": 528,
+      "sha256": "7c75ab73f4f5e1759b995c455218bf3bf84bc65da1ab656f921471c12c9582f2"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/aspi-download-retry/citation_repair.request.json",
+      "bytes": 24752,
+      "sha256": "ffe92e0e8aadc13d8bcf6eb24e04e7e1080e19463eaf4900d54e91ba0c0a0cb8"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/aspi-download-retry/citation_repair.response.json",
+      "bytes": 442,
+      "sha256": "8951b0842ad959a491fb0a2d56f3b3d6da7e81d459531c2694fd148577520d40"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/aspi-download-retry/combined_input.json",
+      "bytes": 1651046,
+      "sha256": "e9041aec152848603d150b035b37e58513be05b1585fc134852c856a4976196d"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/aspi-download-retry/extraction.json",
+      "bytes": 14197,
+      "sha256": "78965f34f373273f3a42f7ae9ae9dce319af9f5825edd3c5c3662e9d0d992e99"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/aspi-download-retry/extraction.repaired.json",
+      "bytes": 14224,
+      "sha256": "56c79b84f52b655e7b5056cd223e14cb3903513307074ad744a7ebc4c690eb27"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/aspi-download-retry/inference.citation_repair.json",
+      "bytes": 1975,
+      "sha256": "ec142fc25aa27407ed33ef1d93e4193fbaa03cbf4dc92ae13e266cabe61d97f5"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/aspi-download-retry/inference.extraction.json",
+      "bytes": 1346,
+      "sha256": "33fa19f1bf04b37dd13b018cfd83a755b53826d6a43146f39d5ffd301f7f3a43"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/aspi-download-retry/inference.json",
+      "bytes": 2607,
+      "sha256": "90e6fad72da5c64b97ed349ce94c345ddbf210363d95d3fb3b27c397b4eb42c7"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/aspi-download-retry/inference.semantic_review.json",
+      "bytes": 2607,
+      "sha256": "90e6fad72da5c64b97ed349ce94c345ddbf210363d95d3fb3b27c397b4eb42c7"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/aspi-download-retry/prepared.json",
+      "bytes": 455343,
+      "sha256": "b13ef55e4fc2e58f912b278fc073a60cac1dd69fdd470e0ed6b2ebdf6d0193a6"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/aspi-download-retry/report.json",
+      "bytes": 329092,
+      "sha256": "0515ce353191b1aa9c60c0437026b65fbd36eb9fc216c896717a3d90b9320d55"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/aspi-download-retry/repository.json",
+      "bytes": 714864,
+      "sha256": "ba02d8c048522ee567a88049432c16b7a57dd29f47f4282f8fafa2bca22ac55e"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/aspi-download-retry/request.json",
+      "bytes": 522,
+      "sha256": "164fcddce86743c0321b0eca9055e5adcb150efc9880fdf8fba469e736f52ab0"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/aspi-download-retry/result.json",
+      "bytes": 293135,
+      "sha256": "a52d6f3eb24c30b94f297268ed1a4ef0071dff6d1305203dca32c00721410b0c"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/aspi-download-retry/review.json",
+      "bytes": 1577,
+      "sha256": "dda80cdec69422efec1aabea6c5c134083a38acbd92613dd9ee7bc068fd903de"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/aspi-download-retry/source_acquisition.json",
+      "bytes": 12687,
+      "sha256": "ebce2e8ff072923935be1879ec7de036cb4cf008d8d335f5999f00075dedc178"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/aspi-download-retry/source_discovery.json",
+      "bytes": 6123,
+      "sha256": "fb01c11ca90ae2520316f405a8bf0f116d82743693be263a03e2f0e5d98de3d7"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/muzzle/citation_repair.request.json",
+      "bytes": 29403,
+      "sha256": "458eac4a44e14d91b7b4dd5ea7c1e41bb192605a4f928cbac405e68e77bd5fea"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/muzzle/citation_repair.response.json",
+      "bytes": 546,
+      "sha256": "04df82066e62defbc6342bb63bf20302a5054c293ec7f93ccb6f443a1682adb3"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/muzzle/combined_input.json",
+      "bytes": 2498629,
+      "sha256": "adc3d222a7a365b4019aca118e2a66464dec1718d87b267a915bddb3749615ba"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/muzzle/extraction.json",
+      "bytes": 14414,
+      "sha256": "7cfa6b621a8fd4fb385a80fe8071ae50b40c3c90ff54a6e34a5b078325d20454"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/muzzle/extraction.repaired.json",
+      "bytes": 14818,
+      "sha256": "145d1eed061d9d3748dbc7fc1534cdb5ef0322288b5147541954bc8da6aa724a"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/muzzle/inference.citation_repair.json",
+      "bytes": 1976,
+      "sha256": "f9d68e3de9af5ee9e7e0e612b2c386f20073576b4f119140a43801c978f58f6b"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/muzzle/inference.extraction.json",
+      "bytes": 1346,
+      "sha256": "1bcf13a798af9f8505f0ce2b4566898808349f07a284bf8c346c635775d6f6f5"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/muzzle/inference.json",
+      "bytes": 2608,
+      "sha256": "3aa1e0fc35b7db5a6574c5a3d316a41973d4a13ed9af51ab84a470d536805e38"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/muzzle/inference.semantic_review.json",
+      "bytes": 2608,
+      "sha256": "3aa1e0fc35b7db5a6574c5a3d316a41973d4a13ed9af51ab84a470d536805e38"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/muzzle/prepared.json",
+      "bytes": 366106,
+      "sha256": "f060fc91a92688baa885a8cd43997ebecaa2a7613e56335d3667ede12175113b"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/muzzle/report.json",
+      "bytes": 1059254,
+      "sha256": "fc439e8213d00c3d7ce958154bb1bc8ce6fa22de4bd52d758bc776c8ffc51b92"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/muzzle/repository.json",
+      "bytes": 1514640,
+      "sha256": "1a14604769c17400f35bea5ea84c1f879fd03573a43cd8e13ccf1114d9124a23"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/muzzle/request.json",
+      "bytes": 522,
+      "sha256": "6c87170983500f0d6e34c118600011e843b9e66dbe75ba1d476f69ba2d66ac09"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/muzzle/result.json",
+      "bytes": 955176,
+      "sha256": "46c96a9a93a46fc7321743ef0c9d4ccd89286834983a695d03fcb1654f45712f"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/muzzle/review.json",
+      "bytes": 2863,
+      "sha256": "8de6897e8835d0be0d2b955ff2ad23a1f28e20b0549998e479ef9bc350b98daf"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/muzzle/source_acquisition.json",
+      "bytes": 43823,
+      "sha256": "2585ea24b1815fc444cf063d70b5c50ae1a50b14f9a35d9c2d44cfa2e8ab36da"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/muzzle/source_discovery.json",
+      "bytes": 10139,
+      "sha256": "f6e69dae3397a7d457c2abc8926c579bbec94ef47f05009fe50b236f37f663c3"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/obliinjection/citation_repair.request.json",
+      "bytes": 27255,
+      "sha256": "7fd966915c38f0d6f277d9c0a309e9795d83a2e8db1d3d222ea710976776a116"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/obliinjection/citation_repair.response.json",
+      "bytes": 466,
+      "sha256": "fa5a05fbdb8d147a381ca5df55ba0a1aacc899f8e7683d1992f959e7acdd696f"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/obliinjection/combined_input.json",
+      "bytes": 820084,
+      "sha256": "dedc09ace1dc21e8075c2fbe03114871e41bd84cd3bfc6869818e4322aa6ebae"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/obliinjection/extraction.json",
+      "bytes": 15155,
+      "sha256": "ce895f720a5ab1a739db531f9c8f2859a4ff2a29162809ae03a2d282ee63dccc"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/obliinjection/extraction.repaired.json",
+      "bytes": 15127,
+      "sha256": "d4cf5e4a24d7427c7231701afbef8bbfc7b2387ee31c0ac0533862a60c74a3ac"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/obliinjection/inference.citation_repair.json",
+      "bytes": 1975,
+      "sha256": "77e8a99f0edf14e8efc35c7fbc56d0226cb2cfd2f8374300bacb21f4be2b1894"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/obliinjection/inference.extraction.json",
+      "bytes": 1344,
+      "sha256": "98fa53c63737c784926a9871af77084cf4548304bbb905c3622495edaffe0d8a"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/obliinjection/inference.json",
+      "bytes": 2607,
+      "sha256": "bc9b820cbf6a55699f906a80895994edf46b66c6585d6decb0e2a0df175914e5"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/obliinjection/inference.semantic_review.json",
+      "bytes": 2607,
+      "sha256": "bc9b820cbf6a55699f906a80895994edf46b66c6585d6decb0e2a0df175914e5"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/obliinjection/prepared.json",
+      "bytes": 379065,
+      "sha256": "ffe6f2c2ca149262ad5d9b13c2e7db8a5281bcab2f6812874e3743da40dfed7f"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/obliinjection/report.json",
+      "bytes": 247123,
+      "sha256": "7c75f60788fc55a5e42861b84ecf7ca45783c7230d4aca066819a50fe3710e11"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/obliinjection/repository.json",
+      "bytes": 310856,
+      "sha256": "9713e1be5d1e934fffb067a8355a16c31a2d83b425e16d1bdf80cb70ebc299c5"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/obliinjection/request.json",
+      "bytes": 522,
+      "sha256": "8452aca41e4cb9dd0b1041c9c348fbc5865fe21da9055103bc0bb76ef3061729"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/obliinjection/result.json",
+      "bytes": 219698,
+      "sha256": "cfdca61eb3ce7b17ec4a78314b20a296805239b3adf9fd788a768f86e5c0b806"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/obliinjection/review.json",
+      "bytes": 1639,
+      "sha256": "4a2c7feeaed2c016ec17f7ddad009324da0050511d206f701e4f341429282dd9"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/obliinjection/source_acquisition.json",
+      "bytes": 12386,
+      "sha256": "e3edbf3491886f02ed1bad545b4a3ae52b1e366df89f24a405c8f515a0fe924f"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "audits/obliinjection/source_discovery.json",
+      "bytes": 10594,
+      "sha256": "34a379fffe75c9d35d9444c9b7c025776bc13277c32cd0241755f3b8431d659c"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "frozen_config.json",
+      "bytes": 2066,
+      "sha256": "04138c5c1fd5082793de03f95814803d5a33cdc992cab418930dc02bb5281135"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "muzzle.process.log",
+      "bytes": 348,
+      "sha256": "81202a9cf44cf57aea38c180bfb5639f1d8c27b0fd259490f50dde2d9fc6de73"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "obliinjection.process.log",
+      "bytes": 356,
+      "sha256": "074d494624c7b6c02632f0c3b7fde87db8c1bf775b34be2c6922f9c1f2f0b28b"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "revalidated/aspi/report.json",
+      "bytes": 333259,
+      "sha256": "ee7b7fa3ca7bd5e0ef2e8c573a781ac861bc930e5338d6b08616ce287ed38d20"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "revalidated/aspi/result.json",
+      "bytes": 299841,
+      "sha256": "0fbe55b84e18ea533093761f8a8db7413d0d5585f1c0b223bd48f892c1150041"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "revalidated/muzzle/report.json",
+      "bytes": 1058304,
+      "sha256": "5ec60b8c0df6f4f8b2c8379e716b40b73860c250fcaa8292fbb346ccc570421c"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "revalidated/muzzle/result.json",
+      "bytes": 957114,
+      "sha256": "afd2be4b17ef60caa9514fa15670c7c01452b35335e6d0c4bd14ec33185bfec7"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "revalidated/obliinjection/report.json",
+      "bytes": 246203,
+      "sha256": "d9d09677c523c57f8cbad63424043aca74fc77cac024978312e5230dcc5acdf8"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "revalidated/obliinjection/result.json",
+      "bytes": 221665,
+      "sha256": "f0228fd0a2f9595199b3839f81a8f5bc6dac28f9aa5a62b2a0bb2f64b8f1fa13"
+    },
+    {
+      "run_id": "2026-11-21-v5-1-pilot-020638",
+      "path": "revalidated/revalidation_metadata.json",
+      "bytes": 2822,
+      "sha256": "1175304ad2226e7b5c66989328e7545ede43d745029c843a4fa75534ca1dbdbb"
+    }
+  ]
+}
