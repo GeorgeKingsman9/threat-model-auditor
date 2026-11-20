@@ -9,7 +9,9 @@ import subprocess
 import tarfile
 import tempfile
 import unittest
+from http.client import IncompleteRead
 from unittest.mock import patch
+from urllib.error import HTTPError, URLError
 
 import source_bundle
 
@@ -164,7 +166,7 @@ class SourceBundleTests(unittest.TestCase):
                                 ("data/private.py", b"NOT_SENT")])
         with patch.object(source_bundle, "_download_archive", return_value=archive) as download:
             result = source_bundle.load_repository("https://github.com/owner/repo.git", revision=SHA)
-        download.assert_called_once_with(f"https://codeload.github.com/owner/repo/tar.gz/{SHA}")
+        self.assertEqual(download.call_args.args, (f"https://codeload.github.com/owner/repo/tar.gz/{SHA}",))
         self.assertEqual(result["commit"], SHA)
         self.assertEqual(result["segments"][0]["line_end"], 2)
         self.assertNotIn("NOT_SENT", str(result))
@@ -238,6 +240,79 @@ class SourceBundleTests(unittest.TestCase):
         snapshot = source_bundle.load_repository(str(self.directory))
         self.assertEqual(snapshot["segments"][0]["text"].encode("utf-8"), raw)
         self.assertEqual(snapshot["segments"][0]["sha256"], hashlib.sha256(raw).hexdigest())
+        source_bundle.validate_repository(snapshot)
+
+    def response(self, data=b"archive", headers=None, read_error=None):
+        class Response(io.BytesIO):
+            status = 200
+
+            def geturl(self):
+                return "https://codeload.github.com/owner/repo/tar.gz/" + SHA
+
+            def read(self, amount):
+                if read_error:
+                    raise read_error
+                return super().read(amount)
+
+        response = Response(data)
+        response.headers = headers or {}
+        return response
+
+    def test_archive_retries_timeout_then_succeeds_with_both_attempts_preserved(self):
+        ledger = {}
+        with patch.object(source_bundle, "build_opener") as opener:
+            opener.return_value.open.side_effect = [URLError(TimeoutError("private transport detail")), self.response()]
+            data = source_bundle._download_archive("https://codeload.github.com/owner/repo/tar.gz/" + SHA, acquisition=ledger)
+        self.assertEqual(data, b"archive")
+        self.assertEqual(len(ledger["attempts"]), 2)
+        self.assertEqual(ledger["attempts"][0]["failure_kind"], "timeout")
+        self.assertEqual(ledger["attempts"][1]["status"], "succeeded")
+        self.assertEqual(ledger["attempts"][1]["bytes_received"], 7)
+        self.assertNotIn("private transport detail", str(ledger))
+
+    def test_archive_retry_exhaustion_preserves_distinct_transport_failures(self):
+        url = "https://codeload.github.com/owner/repo/tar.gz/" + SHA
+        with patch.object(source_bundle, "build_opener") as opener:
+            opener.return_value.open.side_effect = [TimeoutError(), self.response(read_error=IncompleteRead(b"partial", 100))]
+            with self.assertRaises(source_bundle.RepositoryError) as caught:
+                source_bundle._download_archive(url)
+        attempts = caught.exception.acquisition["attempts"]
+        self.assertEqual(len(attempts), source_bundle.DOWNLOAD_ATTEMPTS)
+        self.assertEqual([a["failure_kind"] for a in attempts], ["timeout", "truncated_response"])
+        self.assertEqual(attempts[-1]["bytes_received"], 7)
+        self.assertNotIn("partial", str(caught.exception.acquisition))
+
+    def test_archive_limits_redirect_and_http_not_found_are_not_retried(self):
+        url = "https://codeload.github.com/owner/repo/tar.gz/" + SHA
+        cases = [
+            (self.response(headers={"Content-Length": str(source_bundle.MAX_DOWNLOAD_BYTES + 1)}), "download_limit"),
+            (self.response(b"more than cap"), "download_limit"),
+            (HTTPError(url, 404, "private detail", {}, None), "http_error"),
+        ]
+        for response, expected in cases:
+            with self.subTest(expected=expected), patch.object(source_bundle, "build_opener") as opener:
+                opener.return_value.open.side_effect = [response]
+                with patch.object(source_bundle, "MAX_DOWNLOAD_BYTES", 10 if expected == "download_limit" else source_bundle.MAX_DOWNLOAD_BYTES):
+                    with self.assertRaises(source_bundle.RepositoryError) as caught:
+                        source_bundle._download_archive(url)
+                self.assertEqual(opener.return_value.open.call_count, 1)
+                self.assertEqual(caught.exception.acquisition["attempts"][0]["failure_kind"], expected)
+
+    def test_declared_truncation_discards_first_body_and_does_not_join_attempts(self):
+        url = "https://codeload.github.com/owner/repo/tar.gz/" + SHA
+        with patch.object(source_bundle, "build_opener") as opener:
+            opener.return_value.open.side_effect = [self.response(b"partial", {"Content-Length": "20"}), self.response(b"complete")]
+            ledger = {}
+            data = source_bundle._download_archive(url, acquisition=ledger)
+        self.assertEqual(data, b"complete")
+        self.assertEqual(ledger["attempts"][0]["failure_kind"], "truncated_response")
+
+    def test_real_download_path_carries_attempt_ledger_into_validated_snapshot(self):
+        raw = self.archive([("pipeline.py", b"pass\n")])
+        with patch.object(source_bundle, "build_opener") as opener:
+            opener.return_value.open.return_value = self.response(raw)
+            snapshot = source_bundle.load_repository("https://github.com/owner/repo", revision=SHA)
+        self.assertEqual(snapshot["source_acquisition"]["attempts"][0]["sha256"], snapshot["archive_sha256"])
         source_bundle.validate_repository(snapshot)
 
 

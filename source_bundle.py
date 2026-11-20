@@ -1,10 +1,13 @@
 """Read a version-bound source snapshot as untrusted data, never as executable code.
 
 Git inputs are read from resolved commit objects, not the working tree. GitHub
-inputs use a full commit SHA and a bounded codeload archive kept in memory. A
-plain directory has a content-manifest revision; a supplied Git revision cannot
-be attached to it without verification. No hooks, filters, submodules, package
-installation, repository tests, or source instructions are executed.
+inputs use a full commit SHA and a bounded codeload archive kept in memory. An
+archive transport/size failure can fall back to a complete hash-checked Git tree
+and bounded reads of eligible blobs at that commit. Every download attempt is
+recorded; incomplete blob acquisition fails the snapshot. A plain directory has
+a content-manifest revision; a supplied Git revision cannot be attached to it
+without verification. No hooks, filters, submodules, package installation,
+repository tests, or source instructions are executed.
 
 ``coverage.complete`` means every eligible source file was supplied, not that
 all repository content or runtime behavior was inspected. Exclusions are explicit.
@@ -15,7 +18,8 @@ metadata when constructing a model request.
 from __future__ import annotations
 
 import hashlib
-from http.client import HTTPException
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from http.client import HTTPException, IncompleteRead
 import io
 import json
 import os
@@ -28,7 +32,7 @@ import tarfile
 import threading
 import time
 from urllib.error import HTTPError, URLError
-from urllib.parse import urlsplit
+from urllib.parse import quote, urlsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 
@@ -38,6 +42,13 @@ MAX_READ_BYTES = 64 * 1024 * 1024
 MAX_FILE_BYTES = 2 * 1024 * 1024
 MAX_ENTRIES = 12000
 TIMEOUT_SECONDS = 40
+DOWNLOAD_TIMEOUT_SECONDS = 90
+DOWNLOAD_ATTEMPTS = 2
+SOURCE_ONLY_MAX_FILES = 128
+SOURCE_ONLY_WORKERS = 4
+SOURCE_ONLY_TIMEOUT_SECONDS = 160
+SOURCE_REQUEST_TIMEOUT_SECONDS = 20
+MAX_METADATA_BYTES = 4 * 1024 * 1024
 CODE_SUFFIXES = {
     ".py", ".pyi", ".js", ".mjs", ".cjs", ".ts", ".tsx", ".jsx",
     ".go", ".rs", ".java", ".kt", ".kts", ".c", ".h", ".cc", ".cpp",
@@ -67,6 +78,12 @@ _LOCAL_REVISION = re.compile(r"[A-Za-z0-9][A-Za-z0-9._/-]{0,199}")
 
 class RepositoryError(ValueError):
     """A source snapshot could not be loaded without guessing its provenance."""
+
+    def __init__(self, message, *, acquisition=None, failure_kind=None, retryable=False):
+        super().__init__(message)
+        self.acquisition = acquisition
+        self.failure_kind = failure_kind
+        self.retryable = retryable
 
 
 def _digest(data):
@@ -301,34 +318,88 @@ def _github_url(source, revision):
 
 class _NoRedirect(HTTPRedirectHandler):
     def redirect_request(self, *args, **kwargs):
-        raise RepositoryError("Unexpected source archive redirect")
+        raise RepositoryError("Unexpected source archive redirect", failure_kind="unexpected_redirect")
 
 
-def _download_archive(url):
+def _download_archive_once(url, attempt, *, byte_limit=None, timeout_seconds=None, consume=None):
+    byte_limit = MAX_DOWNLOAD_BYTES if byte_limit is None else byte_limit
+    timeout_seconds = DOWNLOAD_TIMEOUT_SECONDS if timeout_seconds is None else timeout_seconds
     opener = build_opener(_NoRedirect())
     request = Request(url, headers={"User-Agent": "ThreatModelAuditor/0.2 source reader", "Accept-Encoding": "identity"})
     started = time.monotonic()
     try:
-        with opener.open(request, timeout=TIMEOUT_SECONDS) as response:
+        with opener.open(request, timeout=timeout_seconds) as response:
             if response.geturl() != url:
-                raise RepositoryError("Source archive URL changed")
+                raise RepositoryError("Source archive URL changed", failure_kind="unexpected_redirect")
+            attempt["http_status"] = getattr(response, "status", None)
             length = response.headers.get("Content-Length", "")
-            if length.isdigit() and int(length) > MAX_DOWNLOAD_BYTES:
-                raise RepositoryError("Source archive exceeds its download limit")
+            attempt["content_length"] = int(length) if length.isdigit() else None
+            if length.isdigit() and int(length) > byte_limit:
+                raise RepositoryError("Source archive exceeds its download limit", failure_kind="download_limit")
             chunks, size = [], 0
             while True:
-                if time.monotonic() - started > TIMEOUT_SECONDS:
-                    raise RepositoryError("Source archive download timed out")
-                chunk = response.read(min(65536, MAX_DOWNLOAD_BYTES + 1 - size))
+                if time.monotonic() - started > timeout_seconds:
+                    raise RepositoryError("Source archive download timed out", failure_kind="timeout", retryable=True)
+                chunk = response.read(min(65536, byte_limit + 1 - size))
                 if not chunk:
                     break
                 chunks.append(chunk)
                 size += len(chunk)
-                if size > MAX_DOWNLOAD_BYTES:
-                    raise RepositoryError("Source archive exceeds its download limit")
+                attempt["bytes_received"] = size
+                if consume is not None:
+                    consume(len(chunk))
+                if size > byte_limit:
+                    raise RepositoryError("Source archive exceeds its download limit", failure_kind="download_limit")
+            if time.monotonic() - started > timeout_seconds:
+                raise RepositoryError("Source archive download timed out", failure_kind="timeout", retryable=True)
+            if length.isdigit() and size != int(length):
+                raise RepositoryError("Could not download the complete pinned GitHub source archive",
+                                      failure_kind="truncated_response", retryable=True)
             return b"".join(chunks)
-    except (HTTPError, URLError, OSError, TimeoutError, HTTPException) as error:
-        raise RepositoryError("Could not download the pinned GitHub source archive") from error
+    except HTTPError as error:
+        attempt["http_status"] = error.code
+        raise RepositoryError("Could not download the pinned GitHub source archive (HTTP " + str(error.code) + ")",
+                              failure_kind="http_error", retryable=error.code in {408, 425, 429, 500, 502, 503, 504}) from error
+    except (URLError, OSError, TimeoutError, HTTPException) as error:
+        reason = error.reason if isinstance(error, URLError) else error
+        if isinstance(reason, TimeoutError):
+            message, kind = "Source archive download timed out", "timeout"
+        elif isinstance(error, IncompleteRead):
+            attempt["bytes_received"] += len(error.partial)
+            if consume is not None:
+                consume(len(error.partial))
+            message, kind = "Could not download the complete pinned GitHub source archive", "truncated_response"
+        else:
+            message, kind = "Could not download the pinned GitHub source archive", "transport_error"
+        raise RepositoryError(message, failure_kind=kind, retryable=True) from error
+
+
+def _download_archive(url, *, acquisition=None, max_attempts=DOWNLOAD_ATTEMPTS):
+    """Retry only transient transport failures, without accepting partial bytes.
+
+    Each attempt has the same size and time bounds. Its safe metadata survives
+    both success and failure; response bodies, credentials and raw error text do
+    not enter the ledger. Limits and invalid provenance are never retried.
+    """
+    if acquisition is None:
+        acquisition = {}
+    acquisition.update(method="github_codeload_full_commit_url", download_byte_limit=MAX_DOWNLOAD_BYTES,
+                       attempt_timeout_seconds=DOWNLOAD_TIMEOUT_SECONDS, max_attempts=max_attempts, attempts=[])
+    for number in range(1, max_attempts + 1):
+        attempt = {"attempt": number, "bytes_received": 0}
+        acquisition["attempts"].append(attempt)
+        started = time.monotonic()
+        try:
+            data = _download_archive_once(url, attempt)
+        except RepositoryError as error:
+            attempt.update(status="failed", failure_kind=error.failure_kind or "invalid_download", retryable=error.retryable,
+                           elapsed_seconds=round(time.monotonic() - started, 3))
+            error.acquisition = acquisition
+            if not error.retryable or number == max_attempts:
+                raise
+        else:
+            attempt.update(status="succeeded", elapsed_seconds=round(time.monotonic() - started, 3), sha256=_digest(data))
+            return data
 
 
 def _archive_snapshot(data, repository_name, commit):
@@ -390,6 +461,168 @@ def _archive_snapshot(data, repository_name, commit):
     return items, excluded, {"revision_kind": "git_commit", "revision": commit, "commit": commit,
                              "tree_sha": None, "commit_binding": "github_codeload_full_commit_url",
                              "archive_sha256": _digest(data)}
+
+
+def _remote_tree(entries, tree_sha):
+    """Check the complete flat API tree, including its Git tree object hashes."""
+    if not isinstance(entries, list) or len(entries) > MAX_ENTRIES:
+        raise RepositoryError("GitHub source tree exceeds its entry limit")
+    by_path, children = {}, {"": []}
+    for entry in entries:
+        if not isinstance(entry, dict):
+            raise RepositoryError("Malformed GitHub source tree entry")
+        path = _safe_path(entry.get("path"))
+        if path in by_path or not isinstance(entry.get("sha"), str) or not _FULL_SHA.fullmatch(entry["sha"]):
+            raise RepositoryError("Duplicate path or invalid GitHub object identity")
+        mode, kind = entry.get("mode"), entry.get("type")
+        if (mode, kind) not in {("040000", "tree"), ("100644", "blob"), ("100755", "blob"),
+                                ("120000", "blob"), ("160000", "commit")}:
+            raise RepositoryError("Unsupported GitHub source tree entry")
+        if kind == "blob" and (type(entry.get("size")) is not int or entry["size"] < 0):
+            raise RepositoryError("Invalid GitHub blob size")
+        by_path[path] = entry
+        parent = str(PurePosixPath(path).parent)
+        parent = "" if parent == "." else parent
+        children.setdefault(parent, []).append(entry)
+        if kind == "tree":
+            children.setdefault(path, [])
+    for path, entry in by_path.items():
+        parent = str(PurePosixPath(path).parent)
+        if parent != "." and (parent not in by_path or by_path[parent]["type"] != "tree"):
+            raise RepositoryError("Incomplete GitHub source tree inventory")
+    for path, values in children.items():
+        def tree_order(entry):
+            name = PurePosixPath(entry["path"]).name
+            return (name + ("/" if entry["type"] == "tree" else "")).encode("utf-8")
+
+        raw = b"".join((entry["mode"].lstrip("0") + " " + PurePosixPath(entry["path"]).name).encode("utf-8")
+                       + b"\0" + bytes.fromhex(entry["sha"]) for entry in sorted(values, key=tree_order))
+        digest = hashlib.sha1(f"tree {len(raw)}\0".encode() + raw).hexdigest()
+        expected = tree_sha if path == "" else by_path[path]["sha"]
+        if digest != expected:
+            raise RepositoryError("GitHub tree inventory does not match its Git object hash")
+    items, excluded = [], []
+    for path, entry in sorted(by_path.items()):
+        if entry["type"] == "tree":
+            continue
+        reason = _excluded_reason(path)
+        if entry["mode"] not in {"100644", "100755"} or entry["type"] != "blob":
+            reason = "symlink_or_submodule"
+        if reason:
+            excluded.append({"path": path, "reason": reason})
+        else:
+            items.append({"path": path, "bytes": entry["size"], "object_id": entry["sha"], "sha256": None})
+    return items, excluded
+
+
+def _github_source_snapshot(label, commit, acquisition):
+    """Read only eligible blobs after an archive transport/size failure.
+
+    The recursive tree must be complete and hash-correct. Every eligible blob
+    within the original per-file bound must be read and hash-checked, or the
+    entire acquisition fails. Character-budget selection still happens later.
+    """
+    fallback = {"method": "github_commit_tree_raw_blobs", "max_source_files": SOURCE_ONLY_MAX_FILES,
+                "max_workers": SOURCE_ONLY_WORKERS, "timeout_seconds": SOURCE_ONLY_TIMEOUT_SECONDS,
+                "request_timeout_seconds": SOURCE_REQUEST_TIMEOUT_SECONDS,
+                "download_byte_limit": MAX_DOWNLOAD_BYTES, "attempts": [], "bytes_received": 0}
+    acquisition["fallback"] = fallback
+    deadline, lock, abort = time.monotonic() + SOURCE_ONLY_TIMEOUT_SECONDS, threading.Lock(), threading.Event()
+    owner_repo = urlsplit(label).path.strip("/")
+    api = "https://api.github.com/repos/" + owner_repo + "/git/"
+
+    def consume(count):
+        with lock:
+            fallback["bytes_received"] += count
+            if fallback["bytes_received"] > MAX_DOWNLOAD_BYTES:
+                raise RepositoryError("Source-only acquisition exceeds its total download limit", failure_kind="download_limit")
+
+    def read(url, kind, limit, path=None):
+        for number in range(1, DOWNLOAD_ATTEMPTS + 1):
+            remaining = deadline - time.monotonic()
+            if abort.is_set() or remaining <= 0:
+                raise RepositoryError("Source-only acquisition timed out or stopped", failure_kind="source_acquisition_stopped")
+            attempt = {"resource_kind": kind, "attempt": number, "bytes_received": 0}
+            if path is not None:
+                attempt["path"] = path
+            with lock:
+                fallback["attempts"].append(attempt)
+            started = time.monotonic()
+            try:
+                data = _download_archive_once(url, attempt, byte_limit=limit,
+                    timeout_seconds=min(SOURCE_REQUEST_TIMEOUT_SECONDS, remaining), consume=consume)
+            except RepositoryError as error:
+                attempt.update(status="failed", failure_kind=error.failure_kind or "invalid_download",
+                               retryable=error.retryable, elapsed_seconds=round(time.monotonic() - started, 3))
+                if not error.retryable or number == DOWNLOAD_ATTEMPTS:
+                    raise
+            else:
+                attempt.update(status="succeeded", elapsed_seconds=round(time.monotonic() - started, 3), sha256=_digest(data))
+                return data
+
+    def metadata(suffix, kind):
+        raw = read(api + suffix, kind, MAX_METADATA_BYTES)
+        try:
+            result = json.loads(raw)
+        except (UnicodeError, ValueError) as error:
+            raise RepositoryError("Malformed GitHub source metadata") from error
+        if not isinstance(result, dict):
+            raise RepositoryError("Malformed GitHub source metadata")
+        return result
+
+    try:
+        commit_data = metadata("commits/" + commit, "commit")
+        tree_sha = commit_data.get("tree", {}).get("sha") if isinstance(commit_data.get("tree"), dict) else None
+        if commit_data.get("sha") != commit or not isinstance(tree_sha, str) or not _FULL_SHA.fullmatch(tree_sha):
+            raise RepositoryError("GitHub commit metadata does not match the pinned commit")
+        tree_data = metadata("trees/" + tree_sha + "?recursive=1", "tree")
+        if tree_data.get("sha") != tree_sha or tree_data.get("truncated") is not False:
+            raise RepositoryError("GitHub source tree is truncated or has the wrong identity")
+        raw_entries = tree_data.get("tree")
+        if not isinstance(raw_entries, list) or any(not isinstance(entry, dict) for entry in raw_entries):
+            raise RepositoryError("Malformed GitHub source tree metadata")
+        entries = [{key: entry[key] for key in ("path", "mode", "type", "sha", "size") if key in entry}
+                   for entry in raw_entries]
+        items, excluded = _remote_tree(entries, tree_sha)
+        readable = [item for item in items if item["bytes"] <= MAX_FILE_BYTES]
+        if not items or len(readable) > SOURCE_ONLY_MAX_FILES:
+            raise RepositoryError("Source-only acquisition exceeds its eligible file limit or has no source")
+        if sum(item["bytes"] for item in readable) > min(MAX_READ_BYTES, MAX_DOWNLOAD_BYTES):
+            raise RepositoryError("Eligible source content exceeds its total byte limit")
+        for item in items:
+            if item["bytes"] > MAX_FILE_BYTES:
+                item["omission_reason"] = "file_byte_limit"
+
+        def blob(item):
+            url = "https://raw.githubusercontent.com/" + owner_repo + "/" + commit + "/" + quote(item["path"], safe="/")
+            raw = read(url, "blob", min(MAX_FILE_BYTES, item["bytes"]), item["path"])
+            oid = hashlib.sha1(f"blob {len(raw)}\0".encode() + raw).hexdigest()
+            if len(raw) != item["bytes"] or oid != item["object_id"]:
+                raise RepositoryError("Source blob differs from its pinned Git tree identity")
+            item.update(data=raw, sha256=_digest(raw))
+
+        with ThreadPoolExecutor(max_workers=SOURCE_ONLY_WORKERS) as pool:
+            futures = [pool.submit(blob, item) for item in readable]
+            try:
+                for future in as_completed(futures):
+                    future.result()
+            except Exception:
+                abort.set()
+                for future in futures:
+                    future.cancel()
+                raise
+        if time.monotonic() > deadline:
+            raise RepositoryError("Source-only acquisition timed out", failure_kind="timeout")
+        fallback.update(status="succeeded", eligible_files=len(items), fetched_files=len(readable), tree_sha=tree_sha)
+        return items, excluded, {"revision_kind": "git_commit", "revision": commit, "commit": commit,
+            "tree_sha": tree_sha, "commit_binding": "github_commit_tree_raw_blobs",
+            "tree_manifest": entries, "tree_manifest_sha256": _canonical_hash(entries)}
+    except (RepositoryError, TypeError, KeyError, ValueError) as error:
+        fallback["status"] = "failed"
+        if not isinstance(error, RepositoryError):
+            error = RepositoryError("Malformed GitHub source tree metadata")
+        error.acquisition = acquisition
+        raise error
 
 
 def validate_repository(snapshot: dict) -> None:
@@ -505,6 +738,27 @@ def validate_repository(snapshot: dict) -> None:
                 fail("archive source identity changed")
         elif not isinstance(tree, str) or not re.fullmatch(r"[0-9a-f]{40}|[0-9a-f]{64}", tree):
             fail("invalid Git tree identity")
+        if "://" in snapshot["source"]:
+            label, _, _, remote_commit = _github_url(snapshot["source"], commit)
+            if label != snapshot["source"] or remote_commit != commit or snapshot["source_binding"] != _digest(label.encode()):
+                fail("remote source identity changed")
+            if tree is not None and snapshot.get("commit_binding") != "github_commit_tree_raw_blobs":
+                fail("remote tree commit binding missing")
+        if snapshot.get("commit_binding") == "github_commit_tree_raw_blobs":
+            label, _, _, remote_commit = _github_url(snapshot["source"], commit)
+            if label != snapshot["source"] or remote_commit != commit or tree is None:
+                fail("tree source identity changed")
+            entries = snapshot.get("tree_manifest")
+            if snapshot.get("tree_manifest_sha256") != _canonical_hash(entries):
+                fail("source tree manifest changed")
+            tree_items, tree_excluded = _remote_tree(entries, tree)
+            expected_tree_items = {item["path"]: item for item in tree_items}
+            if set(expected_tree_items) != set(by_path) or tree_excluded != excluded:
+                fail("source inventory is incomplete relative to its pinned tree")
+            for path, item in by_path.items():
+                pinned = expected_tree_items[path]
+                if item["bytes"] != pinned["bytes"] or item.get("object_id") != pinned["object_id"]:
+                    fail("source inventory differs from its pinned Git tree")
     else:
         fail("unknown revision kind")
     coverage = snapshot.get("coverage")
@@ -534,8 +788,20 @@ def load_repository(source: str, revision: str | None = None, max_chars: int = 2
     source = source.strip()
     if "://" in source:
         label, url, name, commit = _github_url(source, revision)
-        data = _download_archive(url)
-        items, excluded, provenance = _archive_snapshot(data, name, commit)
+        acquisition = {}
+        try:
+            data = _download_archive(url, acquisition=acquisition, max_attempts=1)
+        except RepositoryError as error:
+            if not error.retryable and error.failure_kind != "download_limit":
+                raise
+            items, excluded, provenance = _github_source_snapshot(label, commit, acquisition)
+        else:
+            try:
+                items, excluded, provenance = _archive_snapshot(data, name, commit)
+            except RepositoryError as error:
+                error.acquisition = acquisition
+                raise
+        provenance["source_acquisition"] = acquisition
         binding = _digest(label.encode())
     else:
         supplied = Path(source).expanduser()

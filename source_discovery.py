@@ -36,9 +36,9 @@ SHA = re.compile(r"[0-9a-fA-F]{40}")
 AVAILABILITY = re.compile(
     r"(?:\b(?:our|the|this)\s+(?:(?:source|official|research)\s+)?"
     r"(?:code|implementation|software|artifacts?|data\s+and\s+(?:source\s+)?code|code\s+and\s+data)\b"
-    r"[^.!?\n]{0,95}?\b(?:available|released|public|provided|found|hosted|accessed|open[- ]sourced|at)\b"
+    r"[^.!?]{0,95}?\b(?:available|released|public|provided|found|hosted|accessed|open[- ]sourced|at)\b"
     r"|\b(?:source\s+code|code\s+and\s+data|data\s+and\s+(?:source\s+)?code)\b"
-    r"[^.!?\n]{0,60}?\b(?:available|released|provided|found|hosted|at)\b"
+    r"[^.!?]{0,60}?\b(?:available|released|provided|found|hosted|at)\b"
     r"|\b(?:code|implementation)\s+(?:is\s+)?(?:available|released|provided|hosted)\b"
     r"|(?:^|[\n.;])\s*(?:source\s+code|code|official\s+implementation)\s*[:：])", re.I
 )
@@ -76,10 +76,13 @@ def _github_repository(url):
 
 
 def _context_support(text, before_url=None, anchor=False, source_kind="paper"):
-    text = " ".join(text.split()) if anchor else text
-    if anchor and ANCHOR_CODE.fullmatch(text.strip()):
-        return "code_anchor" if source_kind in {"landing_page", "project_page", "html_anchor"} else None
+    # A single line break may be PDF/HTML layout wrapping. Blank lines still
+    # delimit paragraphs, including before the availability phrase itself.
+    # Slice the original text so recorded URL offsets keep their meaning.
     left = text if before_url is None else text[:before_url]
+    left = re.split(r"\r?\n[^\S\r\n]*\r?\n", left)[-1]
+    if anchor and ANCHOR_CODE.fullmatch(" ".join(text.split())):
+        return "code_anchor" if source_kind in {"landing_page", "project_page", "html_anchor"} else None
     matches = list(AVAILABILITY.finditer(left))
     if matches:
         match = matches[-1]
@@ -341,9 +344,8 @@ def discover_repository(document, source):
                 continue
             context_kind = record_context.get("source", kind)
             # An annotation URI by itself supplies no ownership evidence.
-            normalized = " ".join(context.split())
-            position = normalized.find(url)
-            support = _context_support(normalized, position if position >= 0 else None, anchor=True, source_kind=context_kind)
+            position = context.find(url)
+            support = _context_support(context, position if position >= 0 else None, anchor=True, source_kind=context_kind)
             label = record_context.get("anchor_text", "")
             if support is None and isinstance(label, str):
                 support = _context_support(label, anchor=True, source_kind=context_kind)

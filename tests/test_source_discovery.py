@@ -64,6 +64,61 @@ class SourceDiscoveryTests(unittest.TestCase):
                 self.assertFalse(calls)
                 self.assertFalse(result["candidates"][0]["accepted"])
 
+    def test_soft_wrapped_own_code_and_data_statement_keeps_original_evidence(self):
+        for statement in ["Our code and data\nare available at: ",
+                          "Our data and source\ncode are available at ",
+                          "Our\ncode is available at ",
+                          "Our code and data\r\nare available at: "]:
+            with self.subTest(statement=statement):
+                text = statement + "https://github.com/owner/study."
+                result, calls = self.resolve(paper(text))
+                self.assertEqual(result["status"], "selected")
+                self.assertEqual(result["repository"], "https://github.com/owner/study")
+                self.assertEqual(calls, ["https://api.github.com/repos/owner/study/commits?per_page=1"])
+                evidence = result["evidence"][0]
+                self.assertEqual(evidence["context"], text)
+                self.assertEqual(evidence["context_start"], 0)
+                self.assertEqual(evidence["text_view"], "text")
+                self.assertEqual(evidence["association"], "self_described_code_availability")
+
+    def test_soft_wrapped_availability_accepts_url_without_space_after_colon(self):
+        text = "Our code and data\nare available at:https://github.com/owner/study."
+        for document in [paper(text), paper("Paper body", link_contexts=[{
+                "url": "https://github.com/owner/study", "text": text, "source": "landing_page",
+        }])]:
+            with self.subTest(source="link_contexts" if document.get("link_contexts") else "text"):
+                result, calls = self.resolve(document)
+                self.assertEqual(result["status"], "selected")
+                self.assertEqual(result["repository"], "https://github.com/owner/study")
+                self.assertEqual(result["evidence"][0]["context"], text)
+                self.assertEqual(len(calls), 1)
+
+    def test_availability_does_not_cross_blank_paragraphs_in_text_or_link_context(self):
+        for statement in ["Our code and data\n\nare available at: ",
+                          "Our code and data\n \nare available at: ",
+                          "Our code and data\r\n\r\nare available at: ",
+                          "Our code and data are available at:\n\nReferences: "]:
+            text = statement + "https://github.com/other/reference."
+            for document in [paper(text), paper("Paper body", link_contexts=[{
+                    "url": "https://github.com/other/reference", "text": text, "source": "landing_page",
+            }])]:
+                with self.subTest(statement=statement, source="link_contexts" if document.get("link_contexts") else "text"):
+                    result, calls = self.resolve(document)
+                    self.assertEqual(result["status"], "not_found")
+                    self.assertFalse(result["candidates"][0]["accepted"])
+                    self.assertFalse(calls)
+
+    def test_wrapped_baseline_dependency_and_reference_contexts_stay_unassociated(self):
+        for statement in ["Baseline X code\nis available at ",
+                          "Our paper improves the library. Its source code\nis available at ",
+                          "We use a baseline whose source code\nis available at ",
+                          "References:\n"]:
+            with self.subTest(statement=statement):
+                result, calls = self.resolve(paper(statement + "https://github.com/other/baseline."))
+                self.assertEqual(result["status"], "not_found")
+                self.assertFalse(result["candidates"][0]["accepted"])
+                self.assertFalse(calls)
+
     def test_two_self_associated_repositories_are_ambiguous_without_trying_to_pick_a_label(self):
         text = ("Our code is available at https://github.com/owner/attack.\n\n"
                 "Our implementation is released at https://github.com/owner/framework.")
@@ -117,6 +172,26 @@ class SourceDiscoveryTests(unittest.TestCase):
         self.assertEqual(evidence["association"], "code_availability_with_same_page_annotation")
         self.assertEqual(evidence["visible_url_fragment"], "https://github.com/own")
         self.assertEqual(evidence["annotation_url"], "https://github.com/owner/study")
+        document["link_contexts"][0]["segment_id"] = "p2"
+        result, calls = self.resolve(document)
+        self.assertEqual(result["status"], "not_found")
+        self.assertFalse(calls)
+
+    def test_soft_wrapped_availability_recovers_only_same_page_annotation_uri(self):
+        text = "Our code and data\nare available at:https://github.com/own\nA following line."
+        document = paper(text, link_contexts=[{
+            "url": "https://github.com/owner/study", "text": "", "source": "pdf_annotation", "segment_id": "p1",
+        }])
+        result, calls = self.resolve(document)
+        self.assertEqual(result["status"], "selected")
+        self.assertEqual(result["repository"], "https://github.com/owner/study")
+        evidence = result["evidence"][0]
+        self.assertEqual(evidence["association"], "code_availability_with_same_page_annotation")
+        self.assertEqual(evidence["context"], text)
+        self.assertEqual(evidence["context_start"], 0)
+        self.assertEqual(evidence["visible_url_fragment"], "https://github.com/own")
+        self.assertEqual(evidence["annotation_url"], "https://github.com/owner/study")
+        self.assertEqual(len(calls), 1)
         document["link_contexts"][0]["segment_id"] = "p2"
         result, calls = self.resolve(document)
         self.assertEqual(result["status"], "not_found")

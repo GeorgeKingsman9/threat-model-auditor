@@ -121,12 +121,17 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
             try:
                 source_snapshot = load_repository(str(repository), revision=repo_revision, max_chars=max_code_chars)
             except (OSError, ValueError) as error:
+                acquisition = getattr(error, "acquisition", None)
+                if isinstance(acquisition, dict):
+                    save_json(output_dir / "source_acquisition.json", acquisition)
                 if explicit_repository:
                     raise
                 # Retain the failed source stage separately from any successful
                 # paper-only audit. Never pass unverified source bytes to V4.
                 row["source_audit"] = {"status": "unavailable", "repository": repository,
                                        "revision": repo_revision, "reason": str(error)}
+                if isinstance(acquisition, dict):
+                    row["source_audit"]["acquisition"] = acquisition
                 row["stages"].append({"stage": stage, "status": "failed", "error": str(error)})
                 row.setdefault("notes", []).append(
                     "An associated source revision was discovered but could not be read. "
@@ -147,6 +152,10 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
             row["repository"] = evidence_document["repository"]
             row["source_audit"] = {"status": "loaded", "repository": str(repository),
                                    "revision": source_snapshot["revision"], "coverage": source_snapshot["coverage"]}
+            acquisition = source_snapshot.get("source_acquisition")
+            if isinstance(acquisition, dict):
+                save_json(output_dir / "source_acquisition.json", acquisition)
+                row["source_audit"]["acquisition"] = acquisition
             row["stages"].append({"stage": stage, "status": "completed",
                 "revision": source_snapshot["revision"], "manifest_sha256": source_snapshot["manifest_sha256"],
                 "source_segments": len(source_snapshot["segments"]), "coverage": source_snapshot["coverage"]})
