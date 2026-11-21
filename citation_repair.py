@@ -54,6 +54,17 @@ def _targets(extraction):
                     yield f"{prefix}.binding.{field}", binding[field], "code", binding["reason"], index
             for cite_index, citation in enumerate(binding["instance_citations"]):
                 yield f"{prefix}.binding.instance_citations.{cite_index}", citation, "code", binding["reason"], index
+    for index, item in enumerate(extraction.get("channel_assessments", [])):
+        for cite_index, citation in enumerate(item["citations"]):
+            yield f"channel_assessments.{index}.citations.{cite_index}", citation, "code", item["reason"], None
+    for index, finding in enumerate(extraction.get("deployment_findings", [])):
+        prefix = f"deployment_findings.{index}"
+        if finding["paper_claim"]["citation"] is not None:
+            yield prefix + ".paper_claim.citation", finding["paper_claim"]["citation"], "paper", finding["paper_claim"]["description"], None
+        for field, kind in (("conditional_construction", "code"), ("required_knowledge", "code"),
+                            ("knowledge_provenance", None)):
+            for cite_index, citation in enumerate(finding[field]["citations"]):
+                yield f"{prefix}.{field}.citations.{cite_index}", citation, kind, finding[field]["description"], None
 
 
 def citation_issues(extraction, document):
@@ -235,6 +246,7 @@ def apply_repairs(extraction, response, document, issues):
         pieces = path.split(".")
         for piece in pieces[:-1]:
             parent = parent[int(piece)] if isinstance(parent, list) else parent[piece]
-        parent[pieces[-1]] = copy.deepcopy(replacement)
+        final = int(pieces[-1]) if isinstance(parent, list) else pieces[-1]
+        parent[final] = copy.deepcopy(replacement)
         accepted.append({"target": path, "before": issue["citation"], "after": replacement, "reason": item["reason"]})
     return fixed, accepted

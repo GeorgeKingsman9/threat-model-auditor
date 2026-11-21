@@ -21,6 +21,7 @@ import hashlib
 import configparser
 
 import evidence_expansion
+import data_witnesses
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from http.client import HTTPException, IncompleteRead
 import io
@@ -303,21 +304,36 @@ def _pinned_dependencies(candidates, ledger, read):
             **({"dependency_metadata": metadata} if metadata else {})}
 
 
-def _expand_items(items, excluded, candidates, read, max_chars):
+def _expand_items(items, excluded, candidates, read, max_chars, evidence_policy=evidence_expansion.POLICY):
     """Extend eligibility with the same pure static policy on every transport."""
+    data_result = {} if evidence_policy == evidence_expansion.DATA_POLICY else None
+    def acquire_data(entry, budget):
+        raw = read(entry)
+        if len(raw) != entry["bytes"]:
+            raise RepositoryError("Data byte size differs from repository inventory")
+        if entry.get("object_id") is not None and data_witnesses.git_blob(raw, entry["object_id"]) != entry["object_id"]:
+            raise RepositoryError("Data bytes differ from their pinned Git blob identity")
+        if CREDENTIAL_CONTENT.search(raw.decode("utf-8", errors="replace")):
+            return {"path": entry["path"], "bytes": len(raw), "sha256": _digest(raw),
+                    "policy": data_witnesses.POLICY, "output_budget": budget,
+                    "status": "unresolved", "reason": "credential_like_content",
+                    **({"object_id": entry["object_id"]} if "object_id" in entry else {})}, []
+        return data_witnesses.build(entry, raw, output_budget=budget)
     added, ledger = evidence_expansion.expand(candidates, items, read,
-        text_for_item=_expansion_text, priority=_priority, max_chars=max_chars)
-    if sum(item["bytes"] for item in items + added if "data" in item) > MAX_READ_BYTES:
+        text_for_item=_expansion_text, priority=_priority, max_chars=max_chars,
+        policy=evidence_policy, data_handler=acquire_data, data_result=data_result)
+    if sum(item["bytes"] for item in items + added if "data" in item) + ledger.get("data_bytes", 0) > MAX_READ_BYTES:
         raise RepositoryError("Expanded source content exceeds its total byte limit")
     paths = {item["path"] for item in added}
     excluded = [item for item in excluded if item["path"] not in paths]
     dependencies = _pinned_dependencies(candidates, ledger, read)
-    return items + added, excluded, {**dependencies, "eligibility_policy": evidence_expansion.POLICY,
+    return items + added, excluded, {**dependencies, "eligibility_policy": evidence_policy,
+        **(data_result or {}),
         "evidence_manifest": sorted(candidates, key=lambda item: item["path"]),
         "evidence_expansion": ledger}
 
 
-def _git_snapshot(directory, revision, *, max_chars=240000, expand_evidence=True):
+def _git_snapshot(directory, revision, *, max_chars=240000, expand_evidence=True, evidence_policy=evidence_expansion.POLICY):
     if revision is not None and (
         not isinstance(revision, str) or not _LOCAL_REVISION.fullmatch(revision) or ".." in revision
     ):
@@ -360,15 +376,15 @@ def _git_snapshot(directory, revision, *, max_chars=240000, expand_evidence=True
             item.update(data=data, sha256=_digest(data))
         items.append(item)
     def read(entry):
-        data = _git(directory, ["cat-file", "blob", entry["object_id"]], MAX_FILE_BYTES)
+        data = _git(directory, ["cat-file", "blob", entry["object_id"]], max(MAX_FILE_BYTES, data_witnesses.LIMITS["max_file_bytes"]))
         if len(data) != entry["bytes"]:
             raise RepositoryError("Git blob size changed during evidence expansion")
         return data
-    items, excluded, expansion = _expand_items(items, excluded, candidates, read, max_chars) if expand_evidence else (items, excluded, {})
+    items, excluded, expansion = _expand_items(items, excluded, candidates, read, max_chars, evidence_policy) if expand_evidence else (items, excluded, {})
     return items, excluded, {"revision_kind": "git_commit", "revision": commit, "commit": commit, "tree_sha": tree, **expansion}
 
 
-def _directory_snapshot(directory, *, max_chars=240000, expand_evidence=True):
+def _directory_snapshot(directory, *, max_chars=240000, expand_evidence=True, evidence_policy=evidence_expansion.POLICY):
     items, excluded, candidates = [], [], []
     total_read, entries = 0, 0
 
@@ -388,7 +404,7 @@ def _directory_snapshot(directory, *, max_chars=240000, expand_evidence=True):
                 info = os.fstat(stream.fileno())
                 if not stat.S_ISREG(info.st_mode) or info.st_size != entry["bytes"]:
                     raise RepositoryError("Evidence file changed or is not regular")
-                data = stream.read(MAX_FILE_BYTES + 1)
+                data = stream.read(max(MAX_FILE_BYTES, data_witnesses.LIMITS["max_file_bytes"]) + 1)
                 if len(data) != info.st_size:
                     raise RepositoryError("Source file changed while its snapshot was read")
                 return data
@@ -434,7 +450,7 @@ def _directory_snapshot(directory, *, max_chars=240000, expand_evidence=True):
                 data = read(entry)
                 item.update(data=data, sha256=_digest(data))
             items.append(item)
-    items, excluded, expansion = _expand_items(items, excluded, candidates, read, max_chars) if expand_evidence else (items, excluded, {})
+    items, excluded, expansion = _expand_items(items, excluded, candidates, read, max_chars, evidence_policy) if expand_evidence else (items, excluded, {})
     return items, excluded, {"revision_kind": "content_manifest", "commit": None, "tree_sha": None, **expansion}
 
 
@@ -544,7 +560,7 @@ def _download_archive(url, *, acquisition=None, max_attempts=DOWNLOAD_ATTEMPTS):
             return data
 
 
-def _archive_snapshot(data, repository_name, commit, *, max_chars=240000, expand_evidence=True):
+def _archive_snapshot(data, repository_name, commit, *, max_chars=240000, expand_evidence=True, evidence_policy=evidence_expansion.POLICY):
     if len(data) > MAX_DOWNLOAD_BYTES:
         raise RepositoryError("Source archive exceeds its download limit")
     items, excluded, seen, candidates, members = [], [], set(), [], {}
@@ -603,11 +619,11 @@ def _archive_snapshot(data, repository_name, commit, *, max_chars=240000, expand
                 stream = archive.extractfile(members[entry["path"]])
                 if stream is None:
                     raise RepositoryError("Missing referenced archive content")
-                raw = stream.read(MAX_FILE_BYTES + 1)
+                raw = stream.read(max(MAX_FILE_BYTES, data_witnesses.LIMITS["max_file_bytes"]) + 1)
                 if len(raw) != entry["bytes"]:
                     raise RepositoryError("Referenced archive member size mismatch")
                 return raw
-            items, excluded, expansion = _expand_items(items, excluded, candidates, read, max_chars) if expand_evidence else (items, excluded, {})
+            items, excluded, expansion = _expand_items(items, excluded, candidates, read, max_chars, evidence_policy) if expand_evidence else (items, excluded, {})
     except (tarfile.TarError, OSError, EOFError) as error:
         raise RepositoryError("Invalid or truncated source archive") from error
     if not items:
@@ -669,7 +685,7 @@ def _remote_tree(entries, tree_sha, *, expand_evidence=False):
     return items, excluded
 
 
-def _github_source_snapshot(label, commit, acquisition, *, max_chars=240000, expand_evidence=True):
+def _github_source_snapshot(label, commit, acquisition, *, max_chars=240000, expand_evidence=True, evidence_policy=evidence_expansion.POLICY):
     """Read only eligible blobs after an archive transport/size failure.
 
     The recursive tree must be complete and hash-correct. Every eligible blob
@@ -748,9 +764,9 @@ def _github_source_snapshot(label, commit, acquisition, *, max_chars=240000, exp
             if item["bytes"] > MAX_FILE_BYTES:
                 item["omission_reason"] = "file_byte_limit"
 
-        def blob(item):
+        def blob(item, limit=MAX_FILE_BYTES):
             url = "https://raw.githubusercontent.com/" + owner_repo + "/" + commit + "/" + quote(item["path"], safe="/")
-            raw = read(url, "blob", min(MAX_FILE_BYTES, item["bytes"]), item["path"])
+            raw = read(url, "blob", min(limit, item["bytes"]), item["path"])
             oid = hashlib.sha1(f"blob {len(raw)}\0".encode() + raw).hexdigest()
             if len(raw) != item["bytes"] or oid != item["object_id"]:
                 raise RepositoryError("Source blob differs from its pinned Git tree identity")
@@ -773,9 +789,9 @@ def _github_source_snapshot(label, commit, acquisition, *, max_chars=240000, exp
                       for entry in entries if entry["type"] != "tree"]
         def referenced_blob(entry):
             item = dict(entry)
-            blob(item)
+            blob(item, max(MAX_FILE_BYTES, data_witnesses.LIMITS["max_file_bytes"]))
             return item["data"]
-        items, excluded, expansion = _expand_items(items, excluded, candidates, referenced_blob, max_chars) if expand_evidence else (items, excluded, {})
+        items, excluded, expansion = _expand_items(items, excluded, candidates, referenced_blob, max_chars, evidence_policy) if expand_evidence else (items, excluded, {})
         fallback.update(status="succeeded", eligible_files=len(items), fetched_files=sum("data" in item for item in items), tree_sha=tree_sha)
         return items, excluded, {"revision_kind": "git_commit", "revision": commit, "commit": commit,
             "tree_sha": tree_sha, "commit_binding": "github_commit_tree_raw_blobs",
@@ -790,10 +806,13 @@ def _github_source_snapshot(label, commit, acquisition, *, max_chars=240000, exp
 
 def _manifest_hash(manifest, excluded, provenance):
     value = {"eligible_source": manifest, "excluded": excluded}
-    if provenance.get("eligibility_policy") == evidence_expansion.POLICY:
+    if provenance.get("eligibility_policy") in evidence_expansion.SUPPORTED_POLICIES:
         for key in ("eligibility_policy", "evidence_manifest", "dependency_metadata"):
             value[key] = provenance.get(key)
         value["dependencies"] = [{key: child[key] for key in ("mount_path", "source", "revision")} | {"manifest_sha256": child["snapshot"]["manifest_sha256"]} for child in provenance.get("dependency_snapshots", [])]
+    if provenance.get("eligibility_policy") == evidence_expansion.DATA_POLICY:
+        for key in ("data_blobs", "data_witnesses"):
+            value[key] = provenance.get(key)
     return _canonical_hash(value)
 
 
@@ -853,13 +872,169 @@ def _validate_dependencies(snapshot, fail):
         fail("resolved dependency has no validated snapshot")
 
 
+def _validate_data_git_manifest(snapshot, entries, fail):
+    """Bind flat pinned leaf identities back to their saved Git tree root."""
+    tree_sha = snapshot.get("tree_sha")
+    if snapshot.get("revision_kind") != "git_commit" or tree_sha is None:
+        return
+    if not isinstance(tree_sha, str) or not re.fullmatch(r"[0-9a-f]{40}|[0-9a-f]{64}", tree_sha):
+        fail("invalid data repository Git tree identity")
+    if snapshot.get("tree_manifest") is not None:
+        # The GitHub transport also preserves explicit tree objects (including
+        # empty trees), which the existing checker authenticates recursively.
+        _remote_tree(snapshot["tree_manifest"], tree_sha, expand_evidence=True)
+        expected = [{"path": entry["path"], "bytes": entry.get("size", 0),
+                     "mode": entry["mode"], "type": entry["type"], "object_id": entry["sha"]}
+                    for entry in snapshot["tree_manifest"] if entry["type"] != "tree"]
+        if sorted(expected, key=lambda item: item["path"]) != entries:
+            fail("data manifest differs from pinned Git tree")
+        return
+    root = {}
+    for entry in entries:
+        mode, oid = entry["mode"], entry.get("object_id")
+        if (mode not in {"100644", "100755", "120000", "160000"}
+                or not isinstance(oid, str) or len(oid) != len(tree_sha)
+                or not re.fullmatch(r"[0-9a-f]{40}|[0-9a-f]{64}", oid)):
+            fail("data manifest has an invalid pinned leaf identity")
+        parts, node = entry["path"].split("/"), root
+        for parent in parts[:-1]:
+            node = node.setdefault(parent, {})
+            if not isinstance(node, dict): fail("Git data manifest path conflict")
+        if parts[-1] in node: fail("Git data manifest path conflict")
+        node[parts[-1]] = (mode, oid)
+
+    def tree_identity(node, depth=0):
+        if depth > 128: fail("Git data manifest nesting limit")
+        values = []
+        for name, child in sorted(node.items(), key=lambda pair: (
+                pair[0] + ("/" if isinstance(pair[1], dict) else "")).encode("utf-8")):
+            mode, oid = ("40000", tree_identity(child, depth + 1)) if isinstance(child, dict) else child
+            values.append((mode + " " + name).encode("utf-8") + b"\0" + bytes.fromhex(oid))
+        raw = b"".join(values)
+        encoded = f"tree {len(raw)}\0".encode() + raw
+        return hashlib.sha1(encoded).hexdigest() if len(tree_sha) == 40 else _digest(encoded)
+    if tree_identity(root) != tree_sha:
+        fail("data manifest leaf identities differ from pinned Git tree")
+
+
+def _validated_data_state(snapshot, fail):
+    entries = snapshot.get("evidence_manifest")
+    if not isinstance(entries, list) or len(entries) > MAX_ENTRIES:
+        fail("invalid data repository manifest")
+    by_path = {}
+    for entry in entries:
+        if (not isinstance(entry, dict) or type(entry.get("bytes")) is not int
+                or entry["bytes"] < 0 or not isinstance(entry.get("mode"), str)):
+            fail("malformed data repository entry")
+        path = _safe_path(entry.get("path"))
+        if path in by_path: fail("duplicate data repository entry")
+        by_path[path] = entry
+    _validate_data_git_manifest(snapshot, entries, fail)
+    raw_data, blobs_by_path = {}, {}
+    if snapshot.get("eligibility_policy") == evidence_expansion.DATA_POLICY:
+        blobs, witnesses = snapshot.get("data_blobs"), snapshot.get("data_witnesses")
+        if (not isinstance(blobs, list) or len(blobs) > data_witnesses.LIMITS["max_files"]
+                or not isinstance(witnesses, list)
+                or len(witnesses) > data_witnesses.LIMITS["max_files"] * data_witnesses.LIMITS["max_records"]):
+            fail("invalid bounded data collections")
+        total = 0
+        for blob in blobs:
+            if not isinstance(blob, dict): fail("malformed data blob")
+            path = _safe_path(blob.get("path"))
+            entry = by_path.get(path)
+            if (entry is None or path in blobs_by_path or evidence_expansion.blocked(path)
+                    or entry.get("mode") not in {"100644", "100755"}
+                    or PurePosixPath(path).suffix.lower() != ".json"
+                    or blob.get("bytes") != entry["bytes"]
+                    or type(blob.get("bytes")) is not int
+                    or blob["bytes"] > data_witnesses.LIMITS["max_file_bytes"]
+                    or blob.get("object_id") != entry.get("object_id")
+                    or not isinstance(blob.get("sha256"), str)
+                    or not re.fullmatch(r"[0-9a-f]{64}", blob["sha256"])
+                    or type(blob.get("output_budget")) is not int
+                    or not 0 < blob["output_budget"] <= data_witnesses.LIMITS["max_file_output_bytes"]):
+                fail("data blob differs from bounded repository inventory")
+            total += blob["bytes"]
+            if total > data_witnesses.LIMITS["max_total_bytes"]:
+                fail("bounded data total byte limit exceeded")
+            blobs_by_path[path] = blob
+            if blob.get("reason") == "credential_like_content":
+                allowed = {"path", "bytes", "sha256", "policy", "output_budget", "status", "reason"}
+                if "object_id" in entry: allowed.add("object_id")
+                if set(blob) != allowed or blob.get("status") != "unresolved" or blob.get("policy") != data_witnesses.POLICY:
+                    fail("invalid credential data omission")
+            else:
+                try:
+                    raw = data_witnesses.decode_blob(blob)
+                    if (len(raw) != entry["bytes"] or _digest(raw) != blob["sha256"]
+                            or CREDENTIAL_CONTENT.search(raw.decode("utf-8", errors="replace"))):
+                        fail("data raw bytes differ from their safe full-file hash")
+                    if "object_id" in entry and data_witnesses.git_blob(raw, entry["object_id"]) != entry["object_id"]:
+                        fail("data raw bytes differ from their Git blob identity")
+                    raw_data[path] = raw
+                except (ValueError, TypeError, UnicodeError) as error:
+                    fail("invalid bounded raw data encoding: " + str(error))
+        output_bytes = 0
+        for witness in witnesses:
+            if not isinstance(witness, dict) or not isinstance(witness.get("text"), str):
+                fail("malformed bounded record witness")
+            count = len(witness["text"].encode("utf-8"))
+            if count > data_witnesses.LIMITS["max_record_bytes"]:
+                fail("record witness byte limit exceeded")
+            output_bytes += count
+        if output_bytes > data_witnesses.LIMITS["max_output_bytes"]:
+            fail("bounded record output byte limit exceeded")
+
+    return raw_data, blobs_by_path
+
+
+def validate_data_evidence(metadata):
+    """Validate saved bounded data using provenance alone, without file segments.
+
+    Combined V6 inputs retain these exact metadata and complete capped raw blobs.
+    Validate their hashes, pinned Git object identities and deterministic record
+    selection independently of any recomputed combined/model input binding.
+    This checks internal provenance; callers still bind the repository identity
+    to their recorded ingestion run, as with validate_repository.
+    """
+    def fail(message):
+        raise RepositoryError("Invalid bounded data evidence: " + message)
+    if not isinstance(metadata, dict): fail("expected repository metadata")
+    if metadata.get("eligibility_policy") != evidence_expansion.DATA_POLICY:
+        if any(key in metadata for key in ("data_blobs", "data_witnesses")):
+            fail("legacy policy contains bounded data metadata")
+        return
+    raw_data, blobs_by_path = _validated_data_state(metadata, fail)
+    entries = {entry["path"]: entry for entry in metadata["evidence_manifest"]}
+    expected_witnesses, used = [], 0
+    for path, blob in blobs_by_path.items():
+        budget = min(data_witnesses.LIMITS["max_file_output_bytes"],
+                     data_witnesses.LIMITS["max_output_bytes"] - used)
+        if budget <= 0 or blob["output_budget"] != budget:
+            fail("data output budget differs from deterministic selection")
+        if blob.get("reason") == "credential_like_content":
+            continue
+        try:
+            expected_blob, witnesses = data_witnesses.build(entries[path], raw_data[path], output_budget=budget)
+        except (ValueError, TypeError, KeyError) as error:
+            fail("invalid bounded data replay: " + str(error))
+        if expected_blob != blob:
+            fail("data raw provenance or deterministic coverage changed")
+        expected_witnesses.extend(witnesses)
+        used += sum(len(witness["text"].encode("utf-8")) for witness in witnesses)
+    if metadata["data_witnesses"] != expected_witnesses:
+        fail("exact data records, original offsets or sampled coverage changed")
+
+
 def _validate_expansion(snapshot, inventory, segments, fail):
     policy = snapshot.get("eligibility_policy")
+    if policy != evidence_expansion.DATA_POLICY and any(key in snapshot for key in ("data_blobs", "data_witnesses")):
+        fail("legacy policy contains bounded data metadata")
     if policy is None:
         if any("evidence_kind" in item for item in inventory):
             fail("legacy inventory contains expansion metadata")
         return
-    if policy != evidence_expansion.POLICY:
+    if policy not in evidence_expansion.SUPPORTED_POLICIES:
         fail("unknown source eligibility policy")
     entries = snapshot.get("evidence_manifest")
     if not isinstance(entries, list) or len(entries) > MAX_ENTRIES:
@@ -888,14 +1063,32 @@ def _validate_expansion(snapshot, inventory, segments, fail):
         # remains in inventory and it supplies no evidence or further references.
         text = texts.get(entry["path"])
         return text.encode("utf-8") if text is not None else bytes(entry["bytes"])
+    data_result = {} if policy == evidence_expansion.DATA_POLICY else None
+    raw_data, blobs_by_path = _validated_data_state(snapshot, fail) if data_result is not None else ({}, {})
+
+    def replay_data(entry, budget):
+        blob = blobs_by_path.get(entry["path"])
+        if blob is None:
+            fail("referenced bounded data acquisition missing")
+        if blob.get("reason") == "credential_like_content":
+            if blob["output_budget"] != budget:
+                fail("credential omission output budget changed")
+            return blob, []
+        try:
+            return data_witnesses.build(entry, raw_data[entry["path"]], output_budget=budget)
+        except (ValueError, TypeError, KeyError) as error:
+            fail("invalid bounded data replay: " + str(error))
     added, ledger = evidence_expansion.expand(entries, initial, read,
         text_for_item=lambda item: texts.get(item["path"]), priority=_priority,
-        max_chars=snapshot.get("coverage", {}).get("max_characters", 0))
+        max_chars=snapshot.get("coverage", {}).get("max_characters", 0),
+        policy=policy, data_handler=replay_data, data_result=data_result)
     expanded = [item for item in inventory if "evidence_kind" in item]
     expected = [(item["path"], item["evidence_kind"], item["evidence_order"]) for item in added]
     actual = [(item["path"], item["evidence_kind"], item.get("evidence_order")) for item in sorted(expanded, key=lambda i: i.get("evidence_order", -1))]
     if expected != actual or snapshot.get("evidence_expansion") != ledger:
         fail("directed evidence selection or need-resolution ledger changed")
+    if data_result is not None and any(snapshot.get(key) != value for key, value in data_result.items()):
+        fail("bounded data selection, raw provenance or exact record witnesses changed")
     _validate_dependencies(snapshot, fail)
 
 
@@ -930,7 +1123,7 @@ def validate_repository(snapshot: dict) -> None:
         if "evidence_kind" in item and (item["evidence_kind"] not in {"referenced_python_source", "referenced_configuration_or_task_source", "referenced_task_source_or_index"} or type(item.get("evidence_order")) is not int or item["evidence_order"] < 0):
             fail("invalid expansion inventory metadata")
         path = _safe_path(item.get("path"))
-        if _excluded_reason(path) and not (snapshot.get("eligibility_policy") == evidence_expansion.POLICY and item.get("evidence_kind") and not evidence_expansion.blocked(path)):
+        if _excluded_reason(path) and not (snapshot.get("eligibility_policy") in evidence_expansion.SUPPORTED_POLICIES and item.get("evidence_kind") and not evidence_expansion.blocked(path)):
             fail("ineligible source path in inventory")
         if type(item.get("bytes")) is not int or item["bytes"] < 0:
             fail("invalid source byte count")
@@ -1030,9 +1223,9 @@ def validate_repository(snapshot: dict) -> None:
             entries = snapshot.get("tree_manifest")
             if snapshot.get("tree_manifest_sha256") != _canonical_hash(entries):
                 fail("source tree manifest changed")
-            tree_items, tree_excluded = _remote_tree(entries, tree, expand_evidence=snapshot.get("eligibility_policy") == evidence_expansion.POLICY)
+            tree_items, tree_excluded = _remote_tree(entries, tree, expand_evidence=snapshot.get("eligibility_policy") in evidence_expansion.SUPPORTED_POLICIES)
             expected_tree_items = {item["path"]: item for item in tree_items}
-            if snapshot.get("eligibility_policy") == evidence_expansion.POLICY:
+            if snapshot.get("eligibility_policy") in evidence_expansion.SUPPORTED_POLICIES:
                 candidates = [{"path": entry["path"], "bytes": entry.get("size", 0), "mode": entry["mode"], "type": entry["type"], "object_id": entry["sha"]}
                               for entry in entries if entry["type"] != "tree"]
                 if sorted(candidates, key=lambda i: i["path"]) != snapshot.get("evidence_manifest"):
@@ -1065,7 +1258,8 @@ def validate_repository(snapshot: dict) -> None:
 
 
 def load_repository(source: str, revision: str | None = None, max_chars: int = 240000,
-                    fetch_mode: str = "auto", expand_evidence: bool = True) -> dict:
+                    fetch_mode: str = "auto", expand_evidence: bool = True,
+                    evidence_policy: str = evidence_expansion.POLICY) -> dict:
     """Return exact source segments and provenance without executing repository code.
 
     Local Git refs (including HEAD when omitted) resolve once to an immutable
@@ -1078,6 +1272,8 @@ def load_repository(source: str, revision: str | None = None, max_chars: int = 2
         raise RepositoryError("max_chars must be a positive integer")
     if type(expand_evidence) is not bool:
         raise RepositoryError("expand_evidence must be a boolean")
+    if evidence_policy not in evidence_expansion.SUPPORTED_POLICIES:
+        raise RepositoryError("Unknown source evidence policy")
     if fetch_mode not in {"auto", "files"}:
         raise RepositoryError("fetch_mode must be auto or files")
     source = source.strip()
@@ -1086,17 +1282,17 @@ def load_repository(source: str, revision: str | None = None, max_chars: int = 2
         acquisition = {"requested_fetch_mode": fetch_mode}
         if fetch_mode == "files":
             acquisition.update(method="github_commit_tree_raw_blobs", attempts=[], archive_skipped=True)
-            items, excluded, provenance = _github_source_snapshot(label, commit, acquisition, max_chars=max_chars, expand_evidence=expand_evidence)
+            items, excluded, provenance = _github_source_snapshot(label, commit, acquisition, max_chars=max_chars, expand_evidence=expand_evidence, evidence_policy=evidence_policy)
         else:
             try:
                 data = _download_archive(url, acquisition=acquisition, max_attempts=1)
             except RepositoryError as error:
                 if not error.retryable and error.failure_kind != "download_limit":
                     raise
-                items, excluded, provenance = _github_source_snapshot(label, commit, acquisition, max_chars=max_chars, expand_evidence=expand_evidence)
+                items, excluded, provenance = _github_source_snapshot(label, commit, acquisition, max_chars=max_chars, expand_evidence=expand_evidence, evidence_policy=evidence_policy)
             else:
                 try:
-                    items, excluded, provenance = _archive_snapshot(data, name, commit, max_chars=max_chars, expand_evidence=expand_evidence)
+                    items, excluded, provenance = _archive_snapshot(data, name, commit, max_chars=max_chars, expand_evidence=expand_evidence, evidence_policy=evidence_policy)
                 except RepositoryError as error:
                     error.acquisition = acquisition
                     raise
@@ -1115,11 +1311,11 @@ def load_repository(source: str, revision: str | None = None, max_chars: int = 2
         binding = _digest(str(directory).encode())
         is_git = (directory / ".git").exists() or ((directory / "HEAD").is_file() and (directory / "objects").is_dir())
         if is_git:
-            items, excluded, provenance = _git_snapshot(directory, revision, max_chars=max_chars, expand_evidence=expand_evidence)
+            items, excluded, provenance = _git_snapshot(directory, revision, max_chars=max_chars, expand_evidence=expand_evidence, evidence_policy=evidence_policy)
         else:
             if revision is not None:
                 raise RepositoryError("Cannot verify a Git revision against a non-Git source directory")
-            items, excluded, provenance = _directory_snapshot(directory, max_chars=max_chars, expand_evidence=expand_evidence)
+            items, excluded, provenance = _directory_snapshot(directory, max_chars=max_chars, expand_evidence=expand_evidence, evidence_policy=evidence_policy)
 
     inventory, segments, included, omitted = [], [], [], []
     used_chars = 0

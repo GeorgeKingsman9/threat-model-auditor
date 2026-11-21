@@ -1,4 +1,4 @@
-"""The one-argument CLI defaults to automatic V5 and reports grounded locations."""
+"""Explicit V5 CLI compatibility and grounded user-facing locations."""
 from contextlib import redirect_stdout
 import copy
 import io
@@ -14,7 +14,7 @@ import test_extraction_v5 as fixtures
 
 
 class DefaultV5Tests(unittest.TestCase):
-    def test_single_paper_url_produces_v5_verdict_and_locations_without_other_inputs(self):
+    def test_explicit_v5_paper_url_retains_verdict_and_locations(self):
         paper, repository, _, extraction, review = fixtures.ExtractionV5Tests().fixtures()
         source = "https://example.org/uploaded.pdf"
         paper["source"] = source
@@ -35,7 +35,7 @@ class DefaultV5Tests(unittest.TestCase):
                  patch.object(scan, "discover_repository", return_value={"status": "selected", "repository": "https://github.com/toy/source", "revision": repository["revision"]}), \
                  patch("source_bundle.load_repository", return_value=repository), \
                  patch.object(scan, "get_client", return_value=client), redirect_stdout(io.StringIO()) as console:
-                code = scan.main([source])
+                code = scan.main([source, "--engine-version", "5"])
             self.assertEqual(code, 0)
             row = json.loads((output / "result.json").read_text())
             self.assertEqual(row["schema_version"], 5)

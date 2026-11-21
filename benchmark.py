@@ -57,7 +57,7 @@ def main(argv=None):
     parser.add_argument("--workers", type=int, choices=[1, 2, 3], default=1,
                         help="Concurrent documents; metered API backends require 1")
     parser.add_argument("--paper-only", action="store_true", help="Disable automatic associated-source discovery")
-    parser.add_argument("--engine-version", type=int, choices=[4, 5], default=5)
+    parser.add_argument("--engine-version", type=int, choices=[4, 5, 6], default=6)
     parser.add_argument("--max-input-chars", type=int, default=600000)
     parser.add_argument("--max-code-chars", type=int, default=320000)
     add_engine_arguments(parser)

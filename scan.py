@@ -69,9 +69,9 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
         explicit_repository = repository is not None
         if repo_revision and not explicit_repository:
             raise ValueError("repo_revision requires an explicit repository")
-        if explicit_repository and extraction is not None and extraction.get("schema_version") not in {4, 5}:
+        if explicit_repository and extraction is not None and extraction.get("schema_version") not in {4, 5, 6}:
             raise ValueError("paper-plus-source replay requires V4/V5 outputs from the same source snapshot")
-        if not explicit_repository and extraction is not None and extraction.get("schema_version") in {4, 5}:
+        if not explicit_repository and extraction is not None and extraction.get("schema_version") in {4, 5, 6}:
             raise ValueError("V4 replay requires the repository snapshot as well as the paper")
         if isinstance(prepared, (str, Path)):
             prepared = json.loads(Path(prepared).read_text(encoding="utf-8"))
@@ -127,6 +127,9 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
             stage = "repository_ingestion"
             try:
                 source_options = {"revision": repo_revision, "max_chars": max_code_chars}
+                if (extraction or {}).get("schema_version", engine_version) == 6:
+                    from evidence_expansion import DATA_POLICY
+                    source_options["evidence_policy"] = DATA_POLICY
                 if source_fetch != "auto":
                     source_options["fetch_mode"] = source_fetch
                 source_snapshot = load_repository(str(repository), **source_options)
@@ -152,7 +155,9 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
             raise ValueError("A verified source snapshot is required; model inference was not started")
         if source_snapshot is not None:
             selected_version = extraction.get("schema_version") if extraction is not None else engine_version
-            if selected_version == 5:
+            if selected_version == 6:
+                import extraction_v6 as engine
+            elif selected_version == 5:
                 import extraction_v5 as engine
             else:
                 import extraction_v4 as engine
@@ -310,8 +315,8 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("source", help="Local PDF/HTML/TXT path or HTTP(S) paper URL")
     parser.add_argument("--output", type=Path, help="Optional new output directory; generated automatically when omitted")
-    parser.add_argument("--engine-version", type=int, choices=[4, 5], default=5,
-                        help="Default: recipient/instance-aware V5; V4 retained for historical comparisons")
+    parser.add_argument("--engine-version", type=int, choices=[4, 5, 6], default=6,
+                        help="Default: V6 input-channel/data/deployment audit; V4/V5 retained for historical comparisons")
     parser.add_argument("--prepare-only", action="store_true", help="Read document without model calls")
     parser.add_argument("--paper-only", action="store_true",
                         help="Disable automatic associated-source discovery; audit the supplied paper text only")
@@ -363,9 +368,15 @@ def main(argv=None):
             report["inference"] = client.ledger()
         save_json(args.output / "report.json", report)
         paths = write_reports(report, args.output)
+        coverage = row.get("channel_coverage", {})
+        channel_summary = ({"candidate_count": coverage["candidate_count"], "complete": coverage["complete"],
+                            "unresolved_count": sum(item["status"] == "unresolved" for item in coverage["channels"]),
+                            "truncated": coverage["truncated"]} if coverage else None)
         print(json.dumps({"inconsistency": row["inconsistency"], "verdict": row["verdict"],
                           "status": row["status"], "findings": row["findings"],
                           "unresolved": row["unresolved_findings"],
+                          "deployment_findings": row.get("deployment_assessment", {}).get("findings", []),
+                          "input_channels": channel_summary,
                           "report": str(paths["html"])}, ensure_ascii=False))
         return int(row["status"] == "failed")
     except (OSError, ValueError, KeyError, TypeError) as error:

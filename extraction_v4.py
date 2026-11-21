@@ -244,6 +244,16 @@ def _locate(citation, document, kind=None):
         text = part["text"]
         locator["line_start"] = part["line_start"] + text[:locator["start"]].count("\n")
         locator["line_end"] = part["line_start"] + text[:max(locator["start"], locator["end"] - 1)].count("\n")
+        witness = part.get("data_witness_origin")
+        if witness is not None:
+            locator["data_witness"] = {
+                **copy.deepcopy(witness),
+                "char_start": witness["char_start"] + locator["start"],
+                "char_end": witness["char_start"] + locator["end"],
+                "byte_start": witness["byte_start"] + len(text[:locator["start"]].encode("utf-8")),
+                "byte_end": witness["byte_start"] + len(text[:locator["end"]].encode("utf-8")),
+                "excerpt_sha256": part["text_sha256"],
+            }
     else:
         locator["paper_sha256"] = document["paper_sha256"]
     return locator

@@ -3,6 +3,18 @@
 from urllib.parse import quote
 
 
+def _locators(value):
+    if isinstance(value, dict):
+        if "segment_id" in value or ("path" in value and "line_start" in value):
+            yield value
+        else:
+            for child in value.values():
+                yield from _locators(child)
+    elif isinstance(value, list):
+        for child in value:
+            yield from _locators(child)
+
+
 def project_result(row):
     """Keep uncertainty distinct from a scoped negative; never invent locations."""
     verdict = row.get("verdict")
@@ -12,15 +24,15 @@ def project_result(row):
         if evidence.get("claim_result") == "confirmed":
             locators = evidence.get("locators", {})
             paper_locations, code_locations = [], []
-            candidates = list(locators.values())
-            candidates += evidence.get("source_validation", {}).get("code_path_locators", [])
-            candidates += list(evidence.get("binding_validation", {}).get("locators", {}).values())
+            candidates = list(_locators(locators))
+            candidates += list(_locators(evidence.get("source_validation", {})))
+            candidates += list(_locators(evidence.get("binding_validation", {}).get("locators", {})))
             for locator in candidates:
                 if not isinstance(locator, dict):
                     continue
                 if locator.get("source_kind") == "code" or locator.get("path"):
                     value = {key: locator[key] for key in ("path", "original_path", "line_start", "line_end",
-                             "repository_source", "repository_revision", "file_sha256") if key in locator}
+                             "repository_source", "repository_revision", "file_sha256", "data_witness") if key in locator}
                     if value:
                         source = value.get("repository_source", "") or ""
                         revision = value.get("repository_revision", "")

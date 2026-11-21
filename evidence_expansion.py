@@ -13,8 +13,11 @@ from pathlib import PurePosixPath
 import re
 import sys
 import warnings
+import data_witnesses
 
 POLICY = "directed-evidence-v2"
+DATA_POLICY = "directed-evidence-v3"
+SUPPORTED_POLICIES = {POLICY, DATA_POLICY}
 VERSION = 1
 LIMITS = {"max_added_files": 64, "max_added_bytes": 4 * 1024 * 1024,
           "max_config_bytes": 256 * 1024, "max_data_bytes": 64 * 1024,
@@ -192,8 +195,13 @@ def resolve(ref, entries):
     return [], "path_not_in_pinned_repository"
 
 
-def expand(entries, initial_items, read, *, text_for_item, priority, max_chars):
+def expand(entries, initial_items, read, *, text_for_item, priority, max_chars,
+           policy=POLICY, data_handler=None, data_result=None):
     """Return extra exact files and an explicit bounded need-resolution ledger."""
+    if policy not in SUPPORTED_POLICIES:
+        raise ValueError("Unknown directed evidence policy")
+    if policy == DATA_POLICY and (data_handler is None or data_result is None):
+        raise ValueError("Bounded data policy needs an explicit acquisition handler")
     entries = {entry["path"]: entry for entry in entries}
     known = {item["path"] for item in initial_items}
     added, needs, pending, inspected = [], [], [], set()
@@ -204,6 +212,9 @@ def expand(entries, initial_items, read, *, text_for_item, priority, max_chars):
             used_chars += len(text)
             pending.append((item["path"], text))
     added_bytes = 0
+    data_seen, data_bytes, data_output = {}, 0, 0
+    if data_result is not None:
+        data_result.update(data_blobs=[], data_witnesses=[])
     for round_number in range(LIMITS["max_rounds"]):
         next_pending = []
         for path, text in pending:
@@ -230,6 +241,39 @@ def expand(entries, initial_items, read, *, text_for_item, priority, max_chars):
                         reason = "hard_exclusion_or_unsupported_type"
                     else:
                         count = entry["bytes"]
+                        is_data = (policy == DATA_POLICY and PurePosixPath(target).suffix.lower() == ".json"
+                                   and (count > LIMITS["max_data_bytes"] or any(
+                                       p.lower() in {"data", "datasets"} for p in PurePosixPath(target).parts[:-1])))
+                        if is_data:
+                            if ref["kind"] != "path":
+                                reason = "data_template_no_bulk_read"
+                            elif target in data_seen:
+                                needs.append({**edge, **data_seen[target]})
+                                continue
+                            elif count > data_witnesses.LIMITS["max_file_bytes"]:
+                                reason = "data_file_byte_limit"
+                            elif len(data_seen) >= data_witnesses.LIMITS["max_files"]:
+                                reason = "data_file_limit"
+                            elif data_bytes + count > data_witnesses.LIMITS["max_total_bytes"]:
+                                reason = "data_total_byte_limit"
+                            elif data_output >= data_witnesses.LIMITS["max_output_bytes"]:
+                                reason = "data_output_byte_limit"
+                            else:
+                                budget = min(data_witnesses.LIMITS["max_file_output_bytes"],
+                                             data_witnesses.LIMITS["max_output_bytes"] - data_output)
+                                blob, witnesses = data_handler(entry, budget)
+                                data_result["data_blobs"].append(blob)
+                                data_result["data_witnesses"].extend(witnesses)
+                                data_bytes += count
+                                data_output += sum(len(w["text"].encode("utf-8")) for w in witnesses)
+                                outcome = ({"status": "resolved_data_witness"} if witnesses else
+                                           {"status": "unresolved", "reason": blob["reason"]})
+                                data_seen[target] = outcome
+                                needs.append({**edge, **outcome})
+                                # Records and schema references never extend eligibility.
+                                continue
+                            needs.append({**edge, "status": "unresolved", "reason": reason})
+                            continue
                         cap = LIMITS["max_config_bytes"] if evidence_kind == "referenced_configuration_or_task_source" and not any(p.lower() in {"data", "datasets"} for p in PurePosixPath(target).parts[:-1]) else LIMITS["max_data_bytes"]
                         if evidence_kind == "referenced_python_source": cap = 2 * 1024 * 1024
                         if count > cap: reason = "referenced_file_byte_limit"
@@ -260,9 +304,16 @@ def expand(entries, initial_items, read, *, text_for_item, priority, max_chars):
     for path, _ in pending:
         if path not in inspected:
             needs.append({"from_path": path, "line": 1, "kind": "limit", "reference": "uninspected_references", "status": "unresolved", "reason": "expansion_round_limit"})
-    return added, {"version": VERSION, "policy": POLICY, "limits": dict(LIMITS),
+    return added, {"version": VERSION, "policy": policy, "limits": dict(LIMITS),
                    "derivation": "static reference metadata only; source evidence remains exact raw-byte segments",
                    "needed": needs, "unresolved": [n for n in needs if n["status"] == "unresolved"],
                    "over_limit": [n for n in needs if n.get("reason", "").endswith(("limit", "budget"))],
                    "added_files": len(added), "added_bytes": added_bytes,
-                   "inspected_paths": sorted(inspected)}
+                   "inspected_paths": sorted(inspected),
+                   **({"data_policy": data_witnesses.POLICY, "data_limits": dict(data_witnesses.LIMITS),
+                       "data_files": len(data_seen), "data_bytes": data_bytes,
+                       "data_output_bytes": data_output,
+                       "data_coverage_complete": all(blob.get("coverage", {}).get("complete") is True
+                                                     for blob in data_result["data_blobs"])
+                                                 and not any(n["status"] == "unresolved" for n in needs)}
+                      if policy == DATA_POLICY else {})}

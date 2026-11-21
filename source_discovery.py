@@ -39,7 +39,7 @@ AVAILABILITY = re.compile(
     r"[^.!?]{0,95}?\b(?:available|released|public|provided|found|hosted|accessed|open[- ]sourced|at)\b"
     r"|\b(?:source\s+code|code\s+and\s+data|data\s+and\s+(?:source\s+)?code)\b"
     r"[^.!?]{0,60}?\b(?:available|released|provided|found|hosted|at)\b"
-    r"|\b(?:code|implementation)\s+(?:is\s+)?(?:available|released|provided|hosted)\b"
+    r"|\b(?:code|implementation)\s+(?:is\s+)?(?:publicly\s+)?(?:available|released|provided|hosted)\b"
     r"|(?:^|[\n.;])\s*(?:source\s+code|code|official\s+implementation)\s*[:：])", re.I
 )
 PROJECT = re.compile(r"\b(?:our\s+)?(?:project\s+(?:page|website|site)|paper\s+website)\s*(?::|is|at|available)?", re.I)
@@ -89,8 +89,8 @@ def _context_support(text, before_url=None, anchor=False, source_kind="paper"):
         # Named dependency/baseline availability does not become an author-code
         # statement merely because the surrounding paragraph discusses our work.
         nearby = left[max(0, match.start() - 120):match.end()]
-        own = re.search(r"\bour\s+(?:(?:source|official)\s+)?(?:code|implementation|data\s+and|software|artifacts?)", nearby, re.I)
-        if not own and re.search(r"\b(?:baseline|dependency|dependencies|third[- ]party|prior\s+work|related\s+work|library|we\s+(?:use|adopt))\b", nearby, re.I):
+        own = re.search(r"\bour\s+(?:(?:source|official)\s+)?(?:code|implementation|data\s+and|software|artifacts?)", match.group(), re.I)
+        if not own and re.search(r"\b(?:baseline|dependency|dependencies|third[- ]party|prior\s+work|related\s+work|references?|authors?|library|we\s+(?:use|adopt)|et\s+al)\b|['’]s\s+(?:source\s+)?(?:code|implementation)\b", nearby, re.I):
             return None
         suffix = left[match.end():]
         # A declaration attaches to the next URL/anchor, not an unrelated URL
@@ -256,6 +256,42 @@ def _github_link_prefix(url):
         return None
 
 
+def _host_wrapped_github_annotation(text, match, segment_id, annotations):
+    """Verify one visible host/path hard wrap against a same-page PDF URI.
+
+    A bare host never identifies a repository. Unlike partial-path recovery,
+    this path requires the complete owner/repository on the immediately next
+    line and an equal annotation URI, not an arbitrary annotation completion.
+    The returned offsets refer to original text; no joined string is evidence.
+    """
+    if segment_id is None:
+        return []
+    url = _trim_url(match.group())
+    try:
+        parts = urlsplit(url)
+        if (parts.scheme not in {"http", "https"} or parts.hostname not in {"github.com", "www.github.com"}
+                or parts.path != "/" or parts.query or parts.fragment
+                or parts.username is not None or parts.password is not None or parts.port not in {None, 80, 443}):
+            return []
+    except ValueError:
+        return []
+    continuation = re.match(r"[\t ]*\r?\n[\t ]*(?P<path>[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)(?=$|[\s,;:!?)\]】}])",
+                            text[match.end():])
+    if continuation is None:
+        return []
+    end = match.end() + continuation.end("path")
+    visible = url + continuation.group("path")
+    parsed = _github_repository(visible)
+    if parsed is None:
+        return []
+    prefix = _github_link_prefix(visible)
+    matching = {annotation["url"] for annotation in annotations
+                if annotation.get("segment_id") == segment_id
+                and _github_repository(annotation["url"]) is not None
+                and _github_link_prefix(annotation["url"]) == prefix}
+    return [{"url": url, "start": match.start(), "end": end} for url in sorted(matching)]
+
+
 def discover_repository(document, source):
     """Discover one explicitly associated GitHub repository and pin its commit.
 
@@ -307,6 +343,21 @@ def discover_repository(document, source):
                 before = text[max(0, match.start() - 80):match.start()]
                 if support is None and PROJECT.search(before):
                     support = "explicitly_linked_project_page"
+                wrapped = (_host_wrapped_github_annotation(text, match, segment_id, annotations)
+                           if support == "self_described_code_availability" else [])
+                if wrapped:
+                    for item in sorted(wrapped, key=lambda entry: entry["url"]):
+                        full = item["url"]
+                        # Include the complete literal fragment even when its
+                        # line extends beyond the ordinary URL context window.
+                        raw_context = text[left:min(len(text), max(match.end() + 120, item["end"]))]
+                        add(full, raw_context, origin, "code_availability_with_same_page_annotation", segment_id, view, left)
+                        key = _github_repository(full)["repository"].lower()
+                        evidence = candidates[key]["evidence"][-1]
+                        evidence.update(visible_url_fragment=text[item["start"]:item["end"]],
+                                        visible_url_start=item["start"], visible_url_end=item["end"],
+                                        annotation_url=full, annotation_source="pdf_annotation")
+                    continue
                 # Some two-column PDFs visibly truncate a URL while the actual
                 # hyperlink annotation retains it. Combine only the same-page
                 # URI with an explicitly associated visible prefix. The URI

@@ -1,6 +1,6 @@
 # 只给论文输入的自动工作流
 
-普通使用方式只有两个必要输入：**论文文件/网址，以及新输出目录**。用户不用先找出不一致、写 cases、选择 `allow/deny` 或制作 gold。
+当前CLI默认V6，普通使用只需**一个论文文件或论文网址**，输出目录自动生成；`--output`仍可显式指定。用户不用先找出不一致、写cases、选择`allow/deny`或制作gold。最新输入通道、数据取证与部署问题说明见[V6实现](AUTOMATIC_V6_ZH.md)。下文保留原自动工作流的历史说明。
 
 ```bash
 python3 -B scan.py input.pdf --output outputs/my-paper
