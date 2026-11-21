@@ -46,7 +46,7 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
                 prepared=None, extraction=None, review=None, max_input_chars=600000,
                 repository=None, repo_revision=None, max_code_chars=320000, repair_citations=True,
                 auto_repository=True, source_fetch="auto", require_source=False, engine_version=4,
-                declared_contract=None):
+                declared_contract=None, review_retries=0):
     """One document produces one result, including failures and pending stages."""
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=False)
@@ -65,14 +65,16 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
             if isinstance(ledger, dict):
                 save_json(output_dir / f"inference.{stage}.json", ledger)
     try:
+        if type(review_retries) is not int or review_retries not in {0, 1}:
+            raise ValueError("review_retries must be zero or one")
         # Fixed historical outputs must never trigger a fresh source search or
         # acquire new evidence behind a saved model proposal's back.
         explicit_repository = repository is not None
         if repo_revision and not explicit_repository:
             raise ValueError("repo_revision requires an explicit repository")
-        if explicit_repository and extraction is not None and extraction.get("schema_version") not in {4, 5, 6}:
+        if explicit_repository and extraction is not None and extraction.get("schema_version") not in {4, 5, 6, 7}:
             raise ValueError("paper-plus-source replay requires V4/V5 outputs from the same source snapshot")
-        if not explicit_repository and extraction is not None and extraction.get("schema_version") in {4, 5, 6}:
+        if not explicit_repository and extraction is not None and extraction.get("schema_version") in {4, 5, 6, 7}:
             raise ValueError("V4 replay requires the repository snapshot as well as the paper")
         if isinstance(prepared, (str, Path)):
             prepared = json.loads(Path(prepared).read_text(encoding="utf-8"))
@@ -128,7 +130,7 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
             stage = "repository_ingestion"
             try:
                 source_options = {"revision": repo_revision, "max_chars": max_code_chars}
-                if (extraction or {}).get("schema_version", engine_version) == 6:
+                if (extraction or {}).get("schema_version", engine_version) in {6, 7}:
                     from evidence_expansion import DATA_POLICY
                     source_options["evidence_policy"] = DATA_POLICY
                 if source_fetch != "auto":
@@ -156,7 +158,9 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
             raise ValueError("A verified source snapshot is required; model inference was not started")
         if source_snapshot is not None:
             selected_version = extraction.get("schema_version") if extraction is not None else engine_version
-            if selected_version == 6:
+            if selected_version == 7:
+                import extraction_v7 as engine
+            elif selected_version == 6:
                 import extraction_v6 as engine
             elif selected_version == 5:
                 import extraction_v5 as engine
@@ -186,9 +190,9 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
         # A fresh V6 source-aware audit first interprets the paper WITHOUT code.
         # Its output remains a suggestion: both later calls must re-cite the
         # original paper, and deterministic gates never read its policy fields.
-        use_contract = source_snapshot is not None and engine is sys.modules.get("extraction_v6")
+        use_contract = source_snapshot is not None and callable(getattr(engine, "attach_declared_contract", None))
         if declared_contract is not None and (not use_contract or extraction is None):
-            raise ValueError("a saved declared contract is only for V6 proposal/review replay")
+            raise ValueError("a saved declared contract is only for V6/V7 proposal/review replay")
         if use_contract and not prepare_only and (extraction is None or declared_contract is not None):
             from declared_contract import (SCHEMA as CONTRACT_SCHEMA, PROMPT as CONTRACT_PROMPT,
                                            prepare_contract_input, validate_contract,
@@ -235,6 +239,7 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
             "max_code_chars": max_code_chars,
             "model_data_characters": payload_size,
             "source_fetch": source_fetch, "require_source": require_source,
+            "requested_engine_version": engine_version, "review_retries": review_retries,
             "evidence_scope": "supplied_paper_and_source" if repository is not None else "supplied_document_only",
             "engine": type(client).__name__ if client else "no_model_or_replay",
         })
@@ -266,7 +271,8 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
                 max_calls = getattr(client, "max_calls", None)
                 calls = getattr(client, "calls", [])
                 remaining = max_calls - len(calls) if type(max_calls) is int and isinstance(calls, list) else 0
-                if issues and len(issues) <= 24 and repair_citations and review is None and client is not None and remaining >= 2:
+                issue_limit = 48 if extraction.get("schema_version") == 7 else 24
+                if issues and len(issues) <= issue_limit and repair_citations and review is None and client is not None and remaining >= 2:
                     stage = "citation_repair"
                     repair_input = choice_request(extraction, evidence_document, issues)
                     checked_payload_size(repair_input, max_input_chars)
@@ -274,7 +280,7 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
                     response = generate_model(REPAIR_PROMPT, repair_input, CHOICE_SCHEMA)
                     save_json(output_dir / "citation_repair.response.json", response)
                     rejected = []
-                    if extraction["schema_version"] == 6:
+                    if extraction["schema_version"] in {6, 7}:
                         from repair_guard import apply_bounded_choices
                         extraction, accepted, rejected = apply_bounded_choices(
                             extraction, response, evidence_document, issues, repair_input)
@@ -295,7 +301,39 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
                     raise ValueError("replay requires a separate review JSON")
                 review_input = {**content, "proposal": extraction}
                 checked_payload_size(review_input, max_input_chars)
-                review = generate_model(engine.REVIEW_PROMPT, review_input, engine.REVIEW_SCHEMA)
+                if extraction.get("schema_version") == 7:
+                    # Frozen review inputs permit explicit recovery without a
+                    # new extraction, source override, or classification edits.
+                    save_json(output_dir / "review.request.json", review_input)
+                    save_json(output_dir / "review.contract.json", {
+                        "prompt": engine.REVIEW_PROMPT, "schema": engine.REVIEW_SCHEMA,
+                        "prompt_sha256": hashlib.sha256(engine.REVIEW_PROMPT.encode()).hexdigest(),
+                        "schema_sha256": hashlib.sha256(json.dumps(engine.REVIEW_SCHEMA, sort_keys=True).encode()).hexdigest(),
+                        "review_input_sha256": hashlib.sha256(json.dumps(review_input, sort_keys=True).encode()).hexdigest(),
+                        "input_binding": evidence_document["sha256"], "engine_version": 7})
+                prior_calls = len(getattr(client, "calls", []))
+                try:
+                    review = generate_model(engine.REVIEW_PROMPT, review_input, engine.REVIEW_SCHEMA)
+                except (OSError, ValueError) as error:
+                    calls = getattr(client, "calls", [])
+                    maximum = getattr(client, "max_calls", None)
+                    failure_status = calls[-1].get("status") if isinstance(calls, list) and len(calls) > prior_calls else None
+                    retryable = failure_status in {
+                        "timeout", "transport_error", "connection_error", "stream_disconnected", "cli_failed",
+                        "server_error", "service_error", "internal_error", "service_unavailable", "incomplete_event_stream",
+                    }
+                    if not (extraction.get("schema_version") == 7 and review_retries == 1 and retryable
+                            and type(maximum) is int and len(calls) < maximum):
+                        raise
+                    failure = {"stage": "semantic_review", "status": "failed", "error": str(error),
+                               "failure_category": failure_status, "preserved_inference_file": "inference.semantic_review.json"}
+                    save_json(output_dir / "semantic_review.attempt1.failure.json", failure)
+                    row["stages"].append(failure)
+                    stage = "semantic_review_retry1"
+                    # Exactly the same prompt/schema/payload and requested model.
+                    # Provider never retries; this one caller-level retry is
+                    # explicit, counted, and cannot exceed the frozen call cap.
+                    review = generate_model(engine.REVIEW_PROMPT, review_input, engine.REVIEW_SCHEMA)
             save_json(output_dir / "review.json", review)
             validate_shape(review, engine.REVIEW_SCHEMA)
             row["stages"].append({"stage": stage, "status": "completed",
@@ -357,10 +395,14 @@ def get_client(args):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("source", help="Local PDF/HTML/TXT path or HTTP(S) paper URL")
+    parser.add_argument("source", nargs="?", help="Local PDF/HTML/TXT path or HTTP(S) paper URL")
     parser.add_argument("--output", type=Path, help="Optional new output directory; generated automatically when omitted")
-    parser.add_argument("--engine-version", type=int, choices=[4, 5, 6], default=6,
-                        help="Default: V6 input-channel/data/deployment audit; V4/V5 retained for historical comparisons")
+    parser.add_argument("--engine-version", type=int, choices=[4, 5, 6, 7], default=7,
+                        help="Default: V7 three-category audit; V4/V5/V6 retained for historical comparisons")
+    parser.add_argument("--review-retries", type=int, choices=[0, 1], default=1,
+                        help="V7 only: at most one counted retry of a failed review; never retry extraction or change models")
+    parser.add_argument("--resume-review", type=Path,
+                        help="Recover a failed automatic review from unchanged stored inputs in a new output directory")
     parser.add_argument("--prepare-only", action="store_true", help="Read document without model calls")
     parser.add_argument("--paper-only", action="store_true",
                         help="Disable automatic associated-source discovery; audit the supplied paper text only")
@@ -384,6 +426,19 @@ def main(argv=None):
     add_engine_arguments(parser)
     args = parser.parse_args(argv)
     try:
+        if args.resume_review:
+            if args.source or args.prepare_only or args.repo or args.extraction or args.review or args.proposal or args.declared_contract:
+                raise ValueError("--resume-review cannot be mixed with new evidence or supplied proposals")
+            if args.output is None:
+                args.output = default_output_directory(str(args.resume_review.resolve()))
+            from review_recovery import resume_review
+            client = get_client(args)
+            row = resume_review(args.resume_review, args.output, client, max_input_chars=args.max_input_chars)
+            print(json.dumps({"status": row["status"], "verdict": row["verdict"],
+                              "inconsistency": row["inconsistency"], "output": str(args.output)}, ensure_ascii=False))
+            return int(row["status"] == "failed")
+        if not args.source:
+            raise ValueError("supply one paper PDF/URL or --resume-review RUN_DIR")
         if args.output is None:
             args.output = default_output_directory(args.source)
         if bool(args.extraction) != bool(args.review):
@@ -410,7 +465,8 @@ def main(argv=None):
                           repository=args.repo, repo_revision=args.repo_revision, max_code_chars=args.max_code_chars,
                           repair_citations=not args.no_citation_repair, auto_repository=not args.paper_only,
                           source_fetch=args.source_fetch, require_source=args.require_source,
-                          engine_version=args.engine_version, declared_contract=contract)
+                          engine_version=args.engine_version, declared_contract=contract,
+                          review_retries=args.review_retries)
         mode = "paper_source_audit" if args.repo else "document_audit" if args.paper_only else "automatic_paper_audit"
         report = make_report([row], "document_preparation" if args.prepare_only else mode)
         if client:
@@ -423,6 +479,8 @@ def main(argv=None):
                             "truncated": coverage["truncated"]} if coverage else None)
         print(json.dumps({"inconsistency": row["inconsistency"], "verdict": row["verdict"],
                           "status": row["status"], "findings": row["findings"],
+                          "confirmed_issue_types": row.get("confirmed_issue_types", []),
+                          "knowledge_boundary_verdict": row.get("knowledge_boundary_verdict"),
                           "unresolved": row["unresolved_findings"],
                           "deployment_findings": row.get("deployment_assessment", {}).get("findings", []),
                           "input_channels": channel_summary,

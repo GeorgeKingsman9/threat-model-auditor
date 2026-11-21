@@ -65,6 +65,21 @@ def _targets(extraction):
                             ("knowledge_provenance", None)):
             for cite_index, citation in enumerate(finding[field]["citations"]):
                 yield f"{prefix}.{field}.citations.{cite_index}", citation, kind, finding[field]["description"], None
+        for field, kind in (("source_boundary", "paper"), ("actual_source", "code"),
+                            ("timing", "code"), ("task_relation", None), ("deployment_scope", "paper")):
+            for cite_index, citation in enumerate(finding.get(field, {}).get("citations", [])):
+                yield f"{prefix}.{field}.citations.{cite_index}", citation, kind, finding[field]["description"], None
+    for index, finding in enumerate(extraction.get("construction_findings", [])):
+        prefix = f"construction_findings.{index}"
+        for field, kind in (("contract", "paper"), ("implemented_source", "code"), ("exceptions", "paper")):
+            for cite_index, citation in enumerate(finding[field]["citations"]):
+                yield f"{prefix}.{field}.citations.{cite_index}", citation, kind, finding[field]["description"], None
+        for field, kind in (("paper_citations", "paper"), ("code_citations", "code")):
+            for cite_index, citation in enumerate(finding["semantic_mapping"][field]):
+                yield f"{prefix}.semantic_mapping.{field}.{cite_index}", citation, kind, finding["semantic_mapping"]["description"], None
+    for index, item in enumerate(extraction.get("category_assessments", [])):
+        for cite_index, citation in enumerate(item["citations"]):
+            yield f"category_assessments.{index}.citations.{cite_index}", citation, None, item["reason"], None
 
 
 def citation_issues(extraction, document):
@@ -91,7 +106,8 @@ def _windows(part):
 
 def repair_request(extraction, document, issues):
     issues = _verified_issues(extraction, document, issues)
-    if len(issues) > 24:
+    limit = 48 if extraction.get("schema_version") == 7 else 24
+    if len(issues) > limit:
         raise ValueError("too many citation issues for one bounded repair")
     by_id = {p["id"]: p for p in document["segments"]}
     tasks = []

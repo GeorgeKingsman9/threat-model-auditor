@@ -53,7 +53,11 @@ def project_result(row):
             findings.append({"claim": evidence.get("claim", evidence.get("description")),
                              "reason": evidence.get("reason"), "scope": evidence.get("scope"),
                              "paper_locations": paper_locations, "code_locations": code_locations})
+            if "issue_type" in evidence:
+                findings[-1]["issue_type"] = evidence["issue_type"]
         elif evidence.get("claim_result") == "unresolved":
             unresolved.append({"claim": evidence.get("claim"), "reason": evidence.get("reason")})
+            if "issue_type" in evidence:
+                unresolved[-1]["issue_type"] = evidence["issue_type"]
     row.update(inconsistency=flag, findings=findings, unresolved_findings=unresolved)
     return row

@@ -19,6 +19,7 @@ import shutil
 import subprocess
 import tempfile
 import threading
+import time
 import urllib.request
 
 
@@ -33,6 +34,8 @@ SAFE_ERROR_CODES = {
     "context_length_exceeded", "invalid_request_error", "permission_denied",
     "sandbox_error", "model_not_found", "connection_error", "transport_error",
     "stream_disconnected",
+    "invalid_json_schema", "schema_validation_error", "request_too_large",
+    "context_window_exceeded", "timeout", "http_error",
 }
 
 
@@ -80,6 +83,11 @@ def failure_kind(text):
         return "cli_environment_error"
     if any(word in text for word in ("usage limit", "rate limit", "quota", "credits")):
         return "account_limit_or_quota"
+    if any(word in text for word in ("context length", "context_length", "context window", "context_window",
+                                     "request too large", "request_too_large")):
+        return "context_or_request_limit"
+    if any(word in text for word in ("invalid json schema", "invalid_json_schema", "schema validation", "schema_validation")):
+        return "structured_output_schema_error"
     # Bare words such as 'login', or '401' inside a hash/token count, do not
     # establish an authentication failure. Never pass agent prose to this helper.
     if (re.search(r"\b(?:unauthorized|invalid_api_key|token expired|not logged in)\b", text)
@@ -117,7 +125,7 @@ def diagnostic_summary(event):
     sources = [event, event.get("error")]
     if item_error:
         sources.extend((item, item.get("error")))
-    codes = []
+    codes, statuses = [], set()
     explicit_fatal = False
     for source in sources:
         if not isinstance(source, dict):
@@ -128,12 +136,55 @@ def diagnostic_summary(event):
             codes.append(code)
         elif type(code) is int and 100 <= code <= 599:
             codes.append(code)
+            statuses.add(code)
+        for key in ("status", "status_code", "http_status"):
+            status = source.get(key)
+            if type(status) is int and 100 <= status <= 599:
+                statuses.add(status)
     kind = "item.error" if item_error else event["type"]
+    message = diagnostic_text(event)
+    statuses.update(int(match) for match in re.findall(
+        r"\bHTTP(?:/\d(?:\.\d)?)?\s+(?:status\s*[:=]?\s*)?([1-5]\d\d)\b", message, re.I))
+    category = failure_kind(message + "\n" + " ".join(str(code).replace("_", " ") for code in codes))
+    if category == "cli_failed":
+        if 401 in statuses:
+            category = "authentication_error"
+        elif 429 in statuses:
+            category = "account_limit_or_quota"
+        elif any(status >= 500 for status in statuses):
+            category = "service_error"
+        elif statuses:
+            category = "http_error"
     return {
         "event_type": kind,
-        "category": failure_kind(diagnostic_text(event) + "\n" + " ".join(str(code).replace("_", " ") for code in codes)),
+        "category": category,
         "codes": codes, "fatal": item_error or event.get("type") == "turn.failed" or explicit_fatal,
+        "http_statuses": sorted(statuses),
+        "message_sha256": hashlib.sha256(message.encode("utf-8")).hexdigest(),
+        "message_characters": len(message),
+        "structure": {"has_error_object": isinstance(event.get("error"), dict),
+                      "has_item_error": item_error,
+                      "has_message": any(isinstance(source, dict) and isinstance(source.get("message"), str)
+                                         for source in sources)},
     }
+
+
+def _opaque_stream_summary(value):
+    """Retain correlation metadata without retaining arbitrary CLI prose."""
+    raw = value if isinstance(value, bytes) else (value or "").encode("utf-8")
+    return {"bytes": len(raw), "sha256": hashlib.sha256(raw).hexdigest()}
+
+
+def _event_shape_summary(events):
+    """Only schema-owned event names survive; arbitrary type strings do not."""
+    allowed = {"thread.started", "turn.started", "turn.completed", "turn.failed",
+               "item.started", "item.updated", "item.completed", "error"}
+    counts = {}
+    for event in events:
+        kind = event.get("type")
+        key = kind if isinstance(kind, str) and kind in allowed else "other"
+        counts[key] = counts.get(key, 0) + 1
+    return counts
 
 
 class CodexClient:
@@ -150,6 +201,7 @@ class CodexClient:
         self.calls = []
         self._call_lock = threading.Lock()
         self.preflight_failures = []
+        self.cli_version = None  # Populated by an explicit doctor(), never guessed.
 
     def _require_chatgpt_login(self, executable, env, cwd):
         try:
@@ -216,22 +268,35 @@ class CodexClient:
                 "provider": "codex", "authentication": "chatgpt", "requested_model": self.model,
                 "actual_model": None, "actual_models": [], "usage": {},
                 "request_sha256": request_hash, "status": "dispatched",
+                "cli_version": self.cli_version,
             }
             with self._call_lock:
                 if len(self.calls) >= self.max_calls:
                     raise ValueError("Codex CLI call limit reached; no inference started")
                 self.calls.append(entry)
+            dispatched_at = time.monotonic()
             try:
                 result = subprocess.run(
                     command, input=prompt, env=env, cwd=work,
                     capture_output=True, text=True, timeout=self.timeout,
                 )
-            except subprocess.TimeoutExpired:
+            except subprocess.TimeoutExpired as error:
                 entry["status"] = "timeout"
+                entry["transport_diagnostics"] = {
+                    "kind": "timeout", "timeout_seconds": self.timeout,
+                    "stdout": _opaque_stream_summary(error.stdout),
+                    "stderr": _opaque_stream_summary(error.stderr),
+                }
                 raise ValueError("Codex CLI timed out; no retry or fallback attempted") from None
-            except OSError:
+            except OSError as error:
                 entry["status"] = "launch_failed"
+                entry["transport_diagnostics"] = {"kind": "launch_failed", "errno": error.errno}
                 raise ValueError("Codex CLI could not start; no retry or fallback attempted") from None
+            finally:
+                entry["elapsed_seconds"] = round(time.monotonic() - dispatched_at, 6)
+
+            entry["stderr_summary"] = {**_opaque_stream_summary(result.stderr),
+                                       "category": failure_kind(result.stderr) if result.stderr else None}
 
             try:
                 events = [json.loads(line) for line in result.stdout.splitlines() if line.strip()]
@@ -239,7 +304,9 @@ class CodexClient:
                     raise ValueError("non-object event")
             except (ValueError, TypeError):
                 entry["status"] = "invalid_event_stream"
+                entry["stdout_summary"] = _opaque_stream_summary(result.stdout)
                 raise ValueError("Codex returned an invalid JSON event stream; no verdict produced") from None
+            entry["event_shapes"] = _event_shape_summary(events)
             models = set()
             for event in events:
                 for metadata in (event, event.get("session"), event.get("response")):
@@ -340,6 +407,7 @@ class CodexClient:
                     version = re.search(r"\bcodex-cli\s+(\d+(?:\.\d+){1,3}(?:[-+][A-Za-z0-9.-]+)?)\b", text)
                     row.update(status="passed" if version else "failed",
                                version=version.group(1) if version else None)
+                    self.cli_version = version.group(1) if version else None
                 elif check == "login":
                     chatgpt = re.search(r"(?im)^\s*Logged in using ChatGPT\s*$", text) is not None
                     row.update(status="passed" if chatgpt else "failed",

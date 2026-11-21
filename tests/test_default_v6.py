@@ -46,7 +46,7 @@ class DefaultV6Tests(unittest.TestCase):
                  patch.object(scan, "discover_repository", return_value={"status": "selected", "repository": "https://github.com/toy/source", "revision": repository["revision"]}), \
                  patch("source_bundle.load_repository", return_value=repository) as loader, \
                  patch.object(scan, "get_client", return_value=client), redirect_stdout(io.StringIO()) as console:
-                self.assertEqual(scan.main([source]), 0)
+                self.assertEqual(scan.main([source, "--engine-version", "6"]), 0)
             row = json.loads((output / "result.json").read_text())
             self.assertEqual(row["schema_version"], 6)
             self.assertIs(row["inconsistency"], True)
