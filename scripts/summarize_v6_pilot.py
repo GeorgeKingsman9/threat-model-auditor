@@ -34,7 +34,7 @@ EVAL_FIELDS = {"gold", "gold_label", "gold_labels", "expected", "expected_label"
                "expected_labels", "expected_verdict", "matches_gold", "curated_cases",
                "previous_proposal", "reproduction_evidence"}
 FORBIDDEN_PUBLIC = {"quote", "text", "raw_base64", "prompt", "context", "reading_order_text"}
-DERIVATIVES = {"combined", "public", "derivatives", "generated", "revalidated", "deterministic_revalidation"}
+DERIVATIVES = {"combined", "combined-corrected", "public", "derivatives", "generated", "revalidated", "deterministic_revalidation"}
 LOCATOR_FIELDS = {"segment_id", "start", "end", "line_start", "line_end", "char_start", "char_end",
                   "byte_start", "byte_end", "record_index", "record_pointer", "document_sha256",
                   "paper_sha256", "file_sha256", "source_kind", "path", "original_path",
@@ -205,13 +205,25 @@ def inference(directory, preflight=False):
         return {"invocation_count": None, "calls": [], "usage": {}, "usage_reporting_complete": False,
                 "recording_status": "final_cumulative_ledger_missing", "actual_model_unknown_invocations": None}
     ledger = read_json(path)
-    stage_by_request = {}
+    # Stage snapshots are cumulative. Their final entry belongs to that stage;
+    # earlier entries must not inherit the first alphabetic snapshot's name.
+    stage_by_invocation = {}
+    final_calls = ledger.get("calls", [])
+    verified_snapshots = 0
     for snapshot in sorted(directory.glob("inference.*.json")):
-        for call in read_json(snapshot).get("calls", []):
-            stage_by_request.setdefault(call.get("request_sha256"), snapshot.name[10:-5])
+        snapshot_calls = read_json(snapshot).get("calls", [])
+        if not isinstance(snapshot_calls, list) or snapshot_calls != final_calls[:len(snapshot_calls)]:
+            raise ValueError("stage inference snapshot is not an unchanged prefix of final ledger")
+        if not snapshot_calls:
+            continue
+        index, stage = len(snapshot_calls), code(snapshot.name[10:-5])
+        if index in stage_by_invocation and stage_by_invocation[index] != stage:
+            raise ValueError("multiple stage snapshots claim the same invocation")
+        stage_by_invocation[index] = stage
+        verified_snapshots += 1
     calls = []
-    for index, call in enumerate(ledger.get("calls", []), 1):
-        calls.append({"invocation": index, "stage": stage_by_request.get(call.get("request_sha256")),
+    for index, call in enumerate(final_calls, 1):
+        calls.append({"invocation": index, "stage": stage_by_invocation.get(index),
                       "status": code(call.get("status")), "requested_model": code(call.get("requested_model")),
                       "actual_model": code(call.get("actual_model")),
                       "actual_models": [code(x) for x in call.get("actual_models", [])],
@@ -224,6 +236,8 @@ def inference(directory, preflight=False):
             "actual_model_unknown_invocations": sum(not x["actual_model"] and not x["actual_models"] for x in calls),
             "preflight_failure_count": len(ledger.get("preflight_failures", [])),
             "preflight_failure_codes": [error_code(x) for x in ledger.get("preflight_failures", [])],
+            "stage_attribution": "verified_cumulative_snapshot_prefix_lengths",
+            "verified_stage_snapshot_count": verified_snapshots,
             "recording_status": "final_cumulative_ledger"}
 
 
@@ -419,12 +433,13 @@ def assert_public_safe(value, omitted_spans=()):
             raise ValueError("citation/source payload leaked into public projection")
 
 
-def manifest_files(runs, public_dir):
+def manifest_files(runs, public_dir, excluded_dirs=()):
     rows = []
     for run in runs:
         for path in sorted(run.rglob("*")):
             relative = path.relative_to(run)
-            if set(relative.parts) & DERIVATIVES or path.is_relative_to(public_dir):
+            if (set(relative.parts) & DERIVATIVES or path.is_relative_to(public_dir)
+                    or any(path.is_relative_to(directory) for directory in excluded_dirs)):
                 continue
             if path.is_file() and path.suffix.lower() in {".json", ".jsonl", ".log"}:
                 if not path.resolve().is_relative_to(run):
@@ -461,8 +476,10 @@ def retry_provenance(value):
     return output
 
 
-def build(run, preflights, public_dir, selections):
-    combined_dir = run / "combined"
+def build(run, preflights, public_dir, selections, combined_dir=None):
+    combined_dir = combined_dir or run / "combined"
+    if combined_dir.parent != run or not combined_dir.name.startswith("combined"):
+        raise ValueError("combined output must be a direct run subdirectory named combined or combined-...")
     runs = [*preflights, run]
     if len({x.name for x in runs}) != len(runs):
         raise ValueError("input run names must be distinct")
@@ -470,7 +487,7 @@ def build(run, preflights, public_dir, selections):
         raise FileExistsError("refusing to overwrite existing public or combined directory")
     if any(public_dir.is_relative_to(x) or x.is_relative_to(public_dir) for x in runs):
         raise ValueError("public output must be separate from input run directories")
-    before = manifest_files(runs, public_dir)
+    before = manifest_files(runs, public_dir, [combined_dir])
     config = read_json(run / "frozen_config.json")
     frozen = config.get("papers", [])
     if {x.get("id") for x in frozen} != set(PAPERS) or len(frozen) != len(PAPERS):
@@ -542,13 +559,41 @@ def build(run, preflights, public_dir, selections):
               "builder": {"script": "scripts/summarize_v6_pilot.py", "script_sha256": digest(Path(__file__))},
               "public_evidence_policy": "Allowlisted verdicts, model-written claim/scope summaries, stage metadata, counts, hashes and locators. Citation contents, source payloads and prompts are omitted."}
     assert_public_safe(report)
-    if manifest_files(runs, public_dir) != before:
+    if manifest_files(runs, public_dir, [combined_dir]) != before:
         raise ValueError("input artifacts changed while building; wait for all writers to finish")
     manifest = {"schema_version": "v6-pilot-process-manifest-v1", "hash_algorithm": "sha256",
-                "path_base": "relative to run_id directory", "exclusions": sorted(DERIVATIVES),
+                "path_base": "relative to run_id directory", "exclusions": sorted(DERIVATIVES | {combined_dir.name}),
                 "files": before, "builder_sha256": report["builder"]["script_sha256"]}
     assert_public_safe(manifest)
     return report, manifest, combined_dir
+
+
+def attach_correction(report, manifest, previous_dir, public_dir):
+    """Bind a new correction to preserved v1 files without changing its results."""
+    import os
+    previous = read_json(previous_dir / "report.json")
+    previous_manifest = read_json(previous_dir / "process_manifest.json")
+    if previous_manifest["files"] != manifest["files"]:
+        raise ValueError("correction original artifact manifest differs from preserved v1")
+    fields = ("paper_id", "attempt_id", "status", "paper_verdict", "inconsistency", "has_confirmed_inconsistency")
+    def material_rows(value):
+        return [({key: row.get(key) for key in fields}, row["inference"]["invocation_count"]) for row in value["attempts"]]
+    if material_rows(previous) != material_rows(report):
+        raise ValueError("a stage-attribution correction must not change result rows or call counts")
+    for key in ("papers", "fresh_attempts", "model_invocation_count", "usage", "usage_reporting_complete"):
+        if previous["summary"][key] != report["summary"][key]:
+            raise ValueError("a stage-attribution correction must not change verdict/count/usage summaries")
+    report["correction"] = {
+        "kind": "per_invocation_stage_attribution",
+        "note": "Corrected per-invocation stage attribution using verified cumulative snapshot prefix lengths. Paper and attempt counts, verdicts, inconsistency flags, call counts, usage totals and original artifact hashes are unchanged. The original v1 report remains preserved.",
+        "previous_report_link": os.path.relpath(previous_dir / "report.json", public_dir),
+        "previous_manifest_link": os.path.relpath(previous_dir / "process_manifest.json", public_dir),
+        "previous_report_sha256": digest(previous_dir / "report.json"),
+        "previous_manifest_sha256": digest(previous_dir / "process_manifest.json"),
+        "previous_builder_sha256": previous.get("builder", {}).get("script_sha256")}
+    manifest["corrects_process_manifest_sha256"] = report["correction"]["previous_manifest_sha256"]
+    assert_public_safe(report)
+    assert_public_safe(manifest)
 
 
 def render_markdown(report):
@@ -556,6 +601,9 @@ def render_markdown(report):
     lines = ["# V6 pilot results", "", summary["denominator_note"], "", summary["scope_note"], "",
              f"Frozen commit: `{report['code_commit']}`. Recorded model invocations: {summary['model_invocation_count']}.", "",
              "| Paper | Status | Verdict | Inconsistency | Calls |", "| --- | --- | --- | --- | --- |"]
+    if report.get("correction"):
+        correction = report["correction"]
+        lines[2:2] = [correction["note"], "", "[Preserved v1 manifest](" + correction["previous_manifest_link"] + ").", ""]
     for row in report["paper_results"]:
         lines.append(f"| {row['paper_name']} | {row['status']} | {row['paper_verdict']} | {json.dumps(row['inconsistency'])} | {row['inference']['invocation_count']} |")
     lines += ["", summary["usage_note"], "", "Complete structured metadata is in report.json; original artifact hashes are in process_manifest.json.", ""]
@@ -602,6 +650,10 @@ def render_html(report):
         (r["paper_name"], r["status"], r["paper_verdict"], json.dumps(r["inconsistency"]), r["inference"]["invocation_count"])) + "</tr>"
         for r in report["paper_results"])
     sections = []
+    correction = report.get("correction")
+    if correction:
+        sections.append('<aside><p>' + html.escape(correction["note"]) + '</p><p><a href="'
+                        + html.escape(correction["previous_manifest_link"], quote=True) + '">Preserved v1 manifest</a></p></aside>')
     for heading, attempts in (("Selected final papers", report["paper_results"]),
                               ("Earlier fresh attempts", [x for x in report["attempts"] if not x["selected_final"]]),
                               ("Material preflights: no paper verdicts", report["preflights"])):
@@ -658,12 +710,17 @@ def main(argv=None):
                         help="Preparation-only run directory; repeat in chronological order")
     parser.add_argument("--select-final", action="append", default=[], help="Override PAPER_ID=ATTEMPT_DIRECTORY")
     parser.add_argument("--public-dir", required=True, type=Path)
+    parser.add_argument("--combined-dir", type=Path, help="New direct run subdirectory for local output; defaults to combined")
+    parser.add_argument("--corrects-dir", type=Path, help="Preserved public v1 report to bind a stage-attribution-only correction")
     args = parser.parse_args(argv)
     try:
         run = args.run_dir.resolve(strict=True)
         preflights = [x.resolve(strict=True) for x in args.preflight_dir]
         public_dir = args.public_dir.resolve()
-        report, manifest, combined_dir = build(run, preflights, public_dir, args.select_final)
+        combined_dir = args.combined_dir.resolve() if args.combined_dir else None
+        report, manifest, combined_dir = build(run, preflights, public_dir, args.select_final, combined_dir)
+        if args.corrects_dir:
+            attach_correction(report, manifest, args.corrects_dir.resolve(strict=True), public_dir)
         write_outputs(report, manifest, combined_dir, public_dir)
         print(json.dumps({"run_id": run.name, "public_directory": public_dir.name,
                           "paper_count": len(report["paper_results"]), "fresh_attempt_count": len(report["attempts"]),

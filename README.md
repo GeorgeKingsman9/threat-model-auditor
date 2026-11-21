@@ -2,6 +2,8 @@
 
 默认入口已升级为V6：直接运行 `python3 -B scan.py PAPER.pdf` 或 `python3 -B scan.py PAPER_URL`，输出目录自动生成。在原声明模型与实现信息流比较之上，分别审查问题、文档、标签及反馈输入，取得固定版本的有界数据原文样本，并单列部署来源问题。输出仍是一篇一条三值结论及具体位置。见 [V6实现与边界](docs/AUTOMATIC_V6_ZH.md)；[V5说明](docs/AUTOMATIC_V5_ZH.md)保留作历史记录。
 
+**V6最新开发测试（2026-11-21）**：加入纯论文声明阶段后，两篇新网址运行得到ASPI限定范围不一致、ObliInjection不确定，均完成4次调用。此前四篇运行中的MUZZLE复核调用技术失败、TopicAttack不确定，完整失败记录保留；本轮没有认证的论文级negative。509项软件检查通过。见[两轮结果、具体位置与限制](docs/V6_PILOT_RESULTS_ZH.md)。
+
 **V5三篇开发案例历史测试**：两轮原始URL自动运行均为3篇不确定；修复组合记录ID的确定性校验后，原自动提案与独立复核重新验收为 **ASPI限定不一致、MUZZLE与ObliInjection不确定**。重放没有修改证据或增加模型调用，也不是独立新实验。该轮没有论文级negative，软件检查398项通过。见[完整过程、结果与失败尝试](docs/V5_PILOT_RESULTS_ZH.md)及[原Notion元素建模与代码对应](docs/NOTION_MODEL_MAPPING_ZH.md)。
 
 给出一份本地 PDF 或论文网址，自动读取论文、发现明确关联的官方源码、固定源码版本，再抽取声明与信息流、独立复核、运行规则，最后**每篇论文输出一条带证据链的结果**。

@@ -1,0 +1,294 @@
+{
+  "schema_version": "v6-contract-followup-process-manifest-v1",
+  "hash_algorithm": "sha256",
+  "path_base": "relative to run_id directory",
+  "exclusions": [
+    "combined",
+    "combined-corrected",
+    "derivatives",
+    "deterministic_revalidation",
+    "generated",
+    "public",
+    "revalidated"
+  ],
+  "files": [
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "aspi.process.log",
+      "bytes": 7878,
+      "sha256": "1570f94fe1816a80588c97086febe33ccdedda5b5d780dd96a0961d4b27b2a35"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/aspi/citation_repair.request.json",
+      "bytes": 85000,
+      "sha256": "0f7ad485340969ae2e870f748a8dff662fa3aedc19f73346121498bcfd57b827"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/aspi/citation_repair.response.json",
+      "bytes": 1735,
+      "sha256": "056ae01d285bcd5fe2d7ac06baee8079a5ef3bb25c4c238fb7fefce101d84552"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/aspi/combined_input.json",
+      "bytes": 1767986,
+      "sha256": "b8812dd84d0f4a168733a551810caa93ff2f6a884719f617b3df26b8eb0a785a"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/aspi/declared_contract.json",
+      "bytes": 84465,
+      "sha256": "c8ecdb71e913b8255d4fe42c22677e1060f54cabce35b970548d3de94ab12689"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/aspi/declared_contract.request.json",
+      "bytes": 132816,
+      "sha256": "b8fe456a1257bdf57e0b9b63b4e0a0a0e05417abdac2dc619d457a6c1a22778f"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/aspi/declared_contract.response.json",
+      "bytes": 31471,
+      "sha256": "a0a6c7447645f224893bd890246be20d9fd6fe6be2ad316f649e2f1ca2e5cb00"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/aspi/extraction.json",
+      "bytes": 34054,
+      "sha256": "5a044b922af01b4039581a6b0d65ec53cd6e5f39c10f2122417976073c661ce9"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/aspi/extraction.repaired.json",
+      "bytes": 34298,
+      "sha256": "d0fd2fca125d6e7b2677c54b90175c8d45f358c64233976d8c5d363857c156a1"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/aspi/inference.citation_repair.json",
+      "bytes": 2610,
+      "sha256": "ac13960329ddb39f5e50ae1f26b58834e02885f934fa2792a07741219f0ea83e"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/aspi/inference.declared_contract.json",
+      "bytes": 1342,
+      "sha256": "169c0130cf908f2f268b716221496d1ca48dcb08efdbbf11103cbadab1a62a97"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/aspi/inference.extraction.json",
+      "bytes": 1979,
+      "sha256": "cf2a42332dfcf78485d357afff9f8790e3520aff00fcff9a6eb98d1373e2a570"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/aspi/inference.json",
+      "bytes": 3250,
+      "sha256": "e676db389be4a5d1fac9f18376f15c6b30ed495eb0ba30a3ba8a1aa7131ab280"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/aspi/inference.semantic_review.json",
+      "bytes": 3250,
+      "sha256": "e676db389be4a5d1fac9f18376f15c6b30ed495eb0ba30a3ba8a1aa7131ab280"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/aspi/prepared.json",
+      "bytes": 455343,
+      "sha256": "b13ef55e4fc2e58f912b278fc073a60cac1dd69fdd470e0ed6b2ebdf6d0193a6"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/aspi/report.json",
+      "bytes": 410864,
+      "sha256": "0e08ab3c3faf89a0f561ac909a7755be662c44933df1eae0c919ebae28d43ac0"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/aspi/repository.json",
+      "bytes": 715380,
+      "sha256": "abf1d47154618111ac40c492d2fc12cfd4491fd6f94616c36b8ddb893a2e77ee"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/aspi/request.json",
+      "bytes": 522,
+      "sha256": "c2ec2b079cb4e799bf3b867d2910802a10bf6735bca99f4f7378fb0b8854b06f"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/aspi/result.json",
+      "bytes": 368293,
+      "sha256": "2dc512912cc333d3843ed3bb0838f4030dc97aafb4dbfe995142db8387e91027"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/aspi/review.json",
+      "bytes": 6017,
+      "sha256": "c71226acaec2fc894b6d6e418e41c84d46fb53375697b2215681b9596aee1840"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/aspi/source_acquisition.json",
+      "bytes": 12687,
+      "sha256": "bf27180b9db7c52f94cfd5af73deeb8b2c53e61effe93bbef23c4f4025fd7eee"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/aspi/source_discovery.json",
+      "bytes": 6123,
+      "sha256": "fb01c11ca90ae2520316f405a8bf0f116d82743693be263a03e2f0e5d98de3d7"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/obliinjection/citation_repair.request.json",
+      "bytes": 55518,
+      "sha256": "d0a132fb7f76aad23c0fd5beeb7f35396c396d294332620a6364aabb510b3d4b"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/obliinjection/citation_repair.response.json",
+      "bytes": 1002,
+      "sha256": "83721e0b718265dc90c2d919d9b92972d91bab84332d294ea2cfc17da3ad30b6"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/obliinjection/combined_input.json",
+      "bytes": 8257162,
+      "sha256": "1ab2035d63b03684ebff1f149d91572d491179e0bd25e56a58226dfb1fe03ec0"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/obliinjection/declared_contract.json",
+      "bytes": 64403,
+      "sha256": "7f7d642cbfe8c7ede83566ac301aeed10a54a20f03f1dd3d0c18179c1652d7ee"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/obliinjection/declared_contract.request.json",
+      "bytes": 99123,
+      "sha256": "008c9cc16f40e202c6616e7c85d9ccaabbdf5c0722975c135870a73737650669"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/obliinjection/declared_contract.response.json",
+      "bytes": 25114,
+      "sha256": "39314ee4bf7119f595dbfd25f8fe521f3329a33c089eb7f00b5d56dd5f10113a"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/obliinjection/extraction.json",
+      "bytes": 37342,
+      "sha256": "340f15681d2b9687abb708b95343761ebf02b0eb50c846950ca26d8c72ef40b8"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/obliinjection/extraction.repaired.json",
+      "bytes": 37993,
+      "sha256": "61c97ac2a1e7646212e1de8e8840a41ebfb9ece7818c4251f8338ab47b16cfe9"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/obliinjection/inference.citation_repair.json",
+      "bytes": 2610,
+      "sha256": "98723e15583db9248c183412d1a98c408967f1c27f44fa769170c0596bef80be"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/obliinjection/inference.declared_contract.json",
+      "bytes": 1342,
+      "sha256": "91e8b13dc60cd8254b95646b502077e14fb86039c689f6ebad8e65ae4fd37fc8"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/obliinjection/inference.extraction.json",
+      "bytes": 1979,
+      "sha256": "a2e19ed43894fed8e4c914c0122a05f876006f49215b8021ffe555926b9ca608"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/obliinjection/inference.json",
+      "bytes": 3243,
+      "sha256": "e227d67c29ed0fb415a8339f81250143854ada7e5434898b83845f117fd6e1d9"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/obliinjection/inference.semantic_review.json",
+      "bytes": 3243,
+      "sha256": "e227d67c29ed0fb415a8339f81250143854ada7e5434898b83845f117fd6e1d9"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/obliinjection/prepared.json",
+      "bytes": 379065,
+      "sha256": "ffe6f2c2ca149262ad5d9b13c2e7db8a5281bcab2f6812874e3743da40dfed7f"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/obliinjection/report.json",
+      "bytes": 7497476,
+      "sha256": "ed04883a09c3d75ad83eaf7a21a45b91a19a71eceb828b396ebe1e1ceed57ab6"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/obliinjection/repository.json",
+      "bytes": 7441627,
+      "sha256": "3b322a27977beab40035f558d638392c69882e2b826981f008aa4e655e50295e"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/obliinjection/request.json",
+      "bytes": 522,
+      "sha256": "553646ff670ea0b82b5d81d75478d2d313fd0c067e9d4c7d2fca1e31810fceca"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/obliinjection/result.json",
+      "bytes": 7459539,
+      "sha256": "2de11e0bdb4b2f34e578ae896647625aaedd1f58cd8b21a7a17a06b953a28445"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/obliinjection/review.json",
+      "bytes": 10751,
+      "sha256": "8794c2fb0665a606692922663578413b61200906ca58d3d7eee1e5d9172ab9d6"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/obliinjection/source_acquisition.json",
+      "bytes": 13522,
+      "sha256": "2d9ebd6c83f467b187e07170b9ec0ce8560c71a91c010cf80fe137f265c56389"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "audits/obliinjection/source_discovery.json",
+      "bytes": 10594,
+      "sha256": "34a379fffe75c9d35d9444c9b7c025776bc13277c32cd0241755f3b8431d659c"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "driver_summary.json",
+      "bytes": 408,
+      "sha256": "52c58f1782ef3574d9a827fca5562001baaa17703f2e925c369b9dababf3f3f6"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "frozen_config.json",
+      "bytes": 3470,
+      "sha256": "62d586b8274e44bfcf83ed40e6e40968ddb79cabcf7f669c83aaab91a9b89eb3"
+    },
+    {
+      "run_id": "2026-11-21-v6-contract-followup",
+      "path": "obliinjection.process.log",
+      "bytes": 2018,
+      "sha256": "3a49617cd33139b5a5b931d12be4e3e247bd96d73313a629e9462a6cb24f3997"
+    }
+  ],
+  "builder_sha256": "a16e9482a16a14772e93b6be5d77dd553ed8a20ec1842ec981091eb2ea6ac4cc",
+  "projection_helpers_sha256": "0e3aab042feba9e26c4b42f1041e06cea0f0cebcbaf66a6a35241e51b45c370d"
+}
