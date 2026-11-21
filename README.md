@@ -2,6 +2,8 @@
 
 默认入口已升级为V7：直接运行 `python3 -B scan.py PAPER.pdf` 或 `python3 -B scan.py PAPER_URL`，输出目录自动生成。分别审计**知识边界违规、构造契约差异、任务获取／部署假设缺口**，一篇汇总一条三值结论，并列出类型和具体位置。原知识边界规则保留；构造差异和部署缺口不再需要强行转换成`deny`。见[V7规则、公式与实现](docs/AUTOMATIC_V7_ZH.md)；[V6](docs/AUTOMATIC_V6_ZH.md)、[V5](docs/AUTOMATIC_V5_ZH.md)保留历史语义。
 
+用于Notion整理的[完整公式总表](docs/FORMAL_RULES_ZH.md)按**3条核心判定＋4组通用规则**组织，单独说明给定Q、实验供给Q与获取路径的区别，并标明当前代码的覆盖限制。
+
 **V7原网址实测**：ObliInjection自动检出限定构造契约差异；MUZZLE独立复核正常完成，结构化任务来源／部署候选仍未确证，保留不确定。两篇首轮、MUZZLE来源失败和补测分别保留，未手动改标签。612项软件检查通过。见[完整过程、逐篇结果与剩余缺口](docs/V7_PILOT_RESULTS_ZH.md)和[带注释的代码讲解](docs/CODE_V7_ZH.md)。
 
 **V6历史开发测试（2026-11-21）**：加入纯论文声明阶段后，两篇新网址运行得到ASPI限定范围不一致、ObliInjection不确定，均完成4次调用。此前四篇运行中的MUZZLE复核调用技术失败、TopicAttack不确定，完整失败记录保留；该轮没有认证的论文级negative。该版509项软件检查通过。见[两轮结果、具体位置与限制](docs/V6_PILOT_RESULTS_ZH.md)。

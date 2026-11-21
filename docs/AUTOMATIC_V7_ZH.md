@@ -2,6 +2,8 @@
 
 普通入口只需一个PDF或论文网址。程序自动关联官方源码、固定版本、读取有界证据，再抽取、独立复核和判定；人工审计记录与参考标签不进入运行输入。
 
+若用于Notion中的完整规则说明，见[3条核心判定＋4组通用规则的公式总表](FORMAL_RULES_ZH.md)。下文侧重V7工作流；获取路径的补充建模定义与当前实现限制在总表中分别标明。
+
 ```bash
 python3 -B scan.py /path/to/paper.pdf --model gpt-6.1-sol --max-calls 6
 python3 -B scan.py https://example.org/paper.pdf --model gpt-6.1-sol --max-calls 6
@@ -51,23 +53,30 @@ A_C(\sigma)\land ExplicitContract(P,c,\sigma)
 A_D(\sigma)\land ClaimedScenario(P,\sigma)
 \land TaskConditionedConstruction(C,q,\sigma)
 \land MaterialTimingOrInstanceGap(P,C,q,\sigma)
-\land \neg EstablishedAcquisition(P,C,q,\sigma)
+\land Get_{\sigma}(q)=?
 \Rightarrow I_D^{gap}(q,\sigma).
 \]
 
-其中\(\neg EstablishedAcquisition\)表示在已命名的声明与实现范围内，尚未建立必要获取环节，**不表示现实中不存在获取方法**。构造依赖、允许知识来源、实际输入来源、时序、任务关系、部署主张和材料性必须分别有证据并复核。单纯缺少一个路径不能触发该规则。
+其中\(Get_{\sigma}(q)=?\)表示在已命名的声明与实现范围内，必要获取环节的证据状态未确定，**不表示现实中不存在获取方法**。构造依赖、允许知识来源、实际输入来源、时序、任务关系、部署主张和材料性必须分别有证据并复核。单纯缺少一个路径不能触发该规则。
 
 operator把任务交给构造器是实验输入事实，不自动构成攻击者知识授权。反之，允许的观察渠道确已使同一任务在构造前可见，或者论文明确限定离线已知任务时，应保留反证。观察之后的同任务条件化不能仅凭来源未解释就确认部署缺口。
 
 ## 论文级汇总
 
 \[
-I_{paper}=\exists x\in\sigma:\ I_K(x)\lor I_C(x)\lor I_D^{gap}(x).
+I_{paper}\Longleftrightarrow
+(\exists e\in\mathcal O_K:I_K(e))\lor
+(\exists c\in\mathcal O_C:I_C(c))\lor
+(\exists g\in\mathcal O_D:I_D^{gap}(g)).
 \]
+
+\(\mathcal O_K,\mathcal O_C,\mathcal O_D\)是本次固定范围内三类候选集合；范围元组\(\sigma\)本身不是候选集合。
 
 任一类别有确认项，论文级`inconsistency=true`，同时列出`confirmed_issue_types`和具体位置。`knowledge_boundary_verdict`单独保留，因此部署缺口不会被误写成严格知识越权。未审清项继续显示，不会被一条局部发现抹去。
 
 只有所列非空怀疑有反证、三个类别及原有输入覆盖证明义务闭合时，才允许范围内`false`；其他为`null`。这是带类型、带范围的审计，不能理解为整篇所有结论均错误。
+
+当前实现还要求原V6知识边界／输入覆盖结果已为范围内一致，才允许保留论文级阴性；不会仅凭新增C/D被反驳，把原知识轨道的U升级成N。当前D确认分支也限于operator/configuration来源及指定时序组合；其他来源未覆盖不等于已证安全。详见公式总表的实现边界。
 
 ## 实现对应
 
