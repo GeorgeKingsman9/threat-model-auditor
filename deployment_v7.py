@@ -147,11 +147,17 @@ def project_deployment_findings_v7(findings, reviews, document, flow_rows, *,
                  "task_relation": None, "deployment_scope": "paper"}
         axes = {name: _fact(finding[name], document, vote[name + "_supported"], kind, errors, name)
                 for name, kind in kinds.items()}
-        # Task relation combines a claimed scenario with an actual task-bound
-        # construction. A paper phrase or dataset name alone cannot bridge it.
-        if not {loc["source_kind"] for loc in axes["task_relation"]["locators"]} >= {"paper", "code"}:
+        # Same-task conditioning is an implementation relation. Its code proof
+        # and independent review need no duplicate paper quote: paper_claim and
+        # deployment_scope already ground the advertised scenario separately.
+        # A future-task transfer relation additionally needs the paper's specific
+        # transfer claim; neither relation follows from paper wording alone.
+        relation_domains = {loc["source_kind"] for loc in axes["task_relation"]["locators"]}
+        needed_domains = ({"paper", "code"} if finding["task_relation"]["status"] == "future_task_transfer"
+                          else {"code"})
+        if not relation_domains >= needed_domains:
             axes["task_relation"]["supported"] = False
-            errors.append("task_relation: both paper scenario and code identity evidence are required")
+            errors.append("task_relation: code identity evidence is required; future-task transfer also needs a paper claim")
         dependency = _dependency(finding, flow_rows, document, axes["actual_source"],
             row["positive_facts"]["conditional_construction"],
             row["positive_facts"]["required_knowledge"], errors)

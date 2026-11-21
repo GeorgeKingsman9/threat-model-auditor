@@ -1,0 +1,2276 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>V7 URL pilot</title><style>body{font:15px system-ui;max-width:1200px;margin:2rem auto;padding:0 1rem;color:#172331;line-height:1.5}table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:.55rem;border:1px solid #ccd3dd;text-align:left}article{margin:2rem 0;border-top:2px solid #8795a8;padding-top:1rem}.claim{padding:.8rem 1rem;margin:1rem 0;border-left:4px solid #a6afba;background:#f5f7f9}.confirmed{border-color:#356eb5}.unresolved{border-color:#be8c25}.refuted{border-color:#419367}summary{cursor:pointer;padding:.5rem 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;background:#f4f6f8;padding:1rem}code{overflow-wrap:anywhere}small{color:#566476}</style><h1>V7: original-URL audit results</h1><p>1 fresh original-URL audit(s) only: MUZZLE. This cohort is separate from earlier runs; older outcomes, curated findings and expected labels do not enter its denominator or model input.</p><p>A typed paper result combines knowledge-boundary violations, explicit construction-contract mismatches and bounded task-acquisition/deployment gaps. These types are retained separately. A deployment gap does not prove forbidden or impossible knowledge, historical execution, or an ASR effect.</p><table><thead><tr><th>Paper</th><th>Audit</th><th>Paper result</th><th>Knowledge boundary</th><th>Confirmed types</th><th>Calls</th><th>Review retries</th></tr></thead><tbody><tr><td>MUZZLE</td><td>completed</td><td>insufficient_evidence</td><td>insufficient_evidence</td><td>none</td><td>4</td><td>0</td></tr></tbody></table><p>At most 6 wrapper calls per paper, 6 total; at most one identical-payload review retry and 1 acquisition pass. Failed calls remain counted. Cumulative ledgers are counted once. Unknown actual model IDs remain null; unreported usage does not prove zero use.</p><p><a href="report.json">Structured report</a> · <a href="process_manifest.json">Original artifact hashes</a>.</p><article><h2>MUZZLE</h2><p>Original paper: <a href="https://www.usenix.org/system/files/usenixsecurity26-syros.pdf">https://www.usenix.org/system/files/usenixsecurity26-syros.pdf</a></p><p><strong>insufficient_evidence</strong> · unresolved_checks</p><h3>Process</h3><ol><li><strong>ingestion</strong>: completed</li><li><strong>source_discovery</strong>: completed — unique_self_associated_code_link_resolved_to_full_commit</li><li><strong>repository_ingestion</strong>: completed</li><li><strong>declared_contract</strong>: completed</li><li><strong>extraction</strong>: completed</li><li><strong>citation_repair</strong>: completed</li><li><strong>semantic_review</strong>: completed</li><li><strong>citation_validation_and_decision</strong>: completed — unresolved_checks</li></ol><p>Source: https://github.com/gsiros/muzzle @ <code>9f3effa1668fa29dcba8f2454e711ddf9ef3c038</code>; selected files 106; data excerpts 0.</p><h3>Findings and unresolved checks</h3><section class="claim unresolved"><h4>Operator task specification reaches the PAIR optimizer independently of the transcript</h4><p><code>knowledge_boundary_violation</code> · <strong>unresolved</strong></p><p>bound_policy_scope_not_established</p><p>Scope: {&quot;paper_version&quot;: &quot;d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0&quot;, &quot;experiment_arm&quot;: &quot;run_rtm.py main workflow; Explorer.handle_dispatched_task PROBE branch; PAIRAgent&quot;, &quot;artifact_revision&quot;: &quot;9f3effa1668fa29dcba8f2454e711ddf9ef3c038&quot;, &quot;configuration&quot;: &quot;Supplied paper and immutable source snapshot; no repository code executed&quot;}</p><ul><li><strong>Independent review</strong>: The PROBE branch forwards task_spec.instruction through PAIRConfig to the actual optimizer invocation. The common knowledge restriction covers optimization, but whether this task information is observable in permitted LLM I/O remains unresolved. Operator-input disclosure alone grants no exception.</li></ul><details><summary>Exact paper/code locations and provenance hashes</summary><ul><li>paper paper:p5 <small>d893e5adb758</small></li><li><a href="https://github.com/gsiros/muzzle/blob/9f3effa1668fa29dcba8f2454e711ddf9ef3c038/muzzle/prototype/agents/pair.py#L325">muzzle/prototype/agents/pair.py:325</a> <small>d34697a2d00a</small></li><li><a href="https://github.com/gsiros/muzzle/blob/9f3effa1668fa29dcba8f2454e711ddf9ef3c038/muzzle/prototype/agents/explorer.py#L793">muzzle/prototype/agents/explorer.py:793–798</a> <small>4c9acd02b0c0</small></li><li>paper paper:p5 <small>d893e5adb758</small></li><li>paper paper:p6 <small>d893e5adb758</small></li><li><a href="https://github.com/gsiros/muzzle/blob/9f3effa1668fa29dcba8f2454e711ddf9ef3c038/run_rtm.py#L131">run_rtm.py:131–133</a> <small>5ae5c02aa8f7</small></li><li><a href="https://github.com/gsiros/muzzle/blob/9f3effa1668fa29dcba8f2454e711ddf9ef3c038/run_rtm.py#L137">run_rtm.py:137–140</a> <small>5ae5c02aa8f7</small></li><li><a href="https://github.com/gsiros/muzzle/blob/9f3effa1668fa29dcba8f2454e711ddf9ef3c038/muzzle/prototype/agents/explorer.py#L809">muzzle/prototype/agents/explorer.py:809–811</a> <small>4c9acd02b0c0</small></li></ul></details></section><section class="claim unresolved"><h4>Reflection details reach the PAIR optimizer</h4><p><code>knowledge_boundary_violation</code> · <strong>unresolved</strong></p><p>bound_policy_scope_not_established</p><p>Scope: {&quot;paper_version&quot;: &quot;d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0&quot;, &quot;experiment_arm&quot;: &quot;run_rtm.py main workflow; Explorer.handle_reflection partial/failure with component == instruction&quot;, &quot;artifact_revision&quot;: &quot;9f3effa1668fa29dcba8f2454e711ddf9ef3c038&quot;, &quot;configuration&quot;: &quot;Supplied paper and immutable source snapshot; no repository code executed&quot;}</p><ul><li><strong>Independent review</strong>: Judge details, including conditional assertion information, pass through Explorer reflection and PAIRConfig.feedback to _run_pair. Paper-described diagnosis and refinement support ordinary feedback, but do not clearly resolve optimizer access to every assertion-derived detail.</li></ul><details><summary>Exact paper/code locations and provenance hashes</summary><ul><li>paper paper:p5 <small>d893e5adb758</small></li><li><a href="https://github.com/gsiros/muzzle/blob/9f3effa1668fa29dcba8f2454e711ddf9ef3c038/muzzle/prototype/agents/pair.py#L325">muzzle/prototype/agents/pair.py:325</a> <small>d34697a2d00a</small></li><li><a href="https://github.com/gsiros/muzzle/blob/9f3effa1668fa29dcba8f2454e711ddf9ef3c038/muzzle/prototype/agents/pair.py#L316">muzzle/prototype/agents/pair.py:316</a> <small>d34697a2d00a</small></li><li>paper paper:p9 <small>d893e5adb758</small></li><li><a href="https://github.com/gsiros/muzzle/blob/9f3effa1668fa29dcba8f2454e711ddf9ef3c038/muzzle/prototype/agents/judge.py#L349">muzzle/prototype/agents/judge.py:349–352</a> <small>0a16ba2c097a</small></li><li><a href="https://github.com/gsiros/muzzle/blob/9f3effa1668fa29dcba8f2454e711ddf9ef3c038/muzzle/prototype/agents/explorer.py#L913">muzzle/prototype/agents/explorer.py:913–916</a> <small>4c9acd02b0c0</small></li><li><a href="https://github.com/gsiros/muzzle/blob/9f3effa1668fa29dcba8f2454e711ddf9ef3c038/muzzle/prototype/agents/explorer.py#L932">muzzle/prototype/agents/explorer.py:932–933</a> <small>4c9acd02b0c0</small></li></ul></details></section><section class="claim refuted"><h4>Judge model receives malicious instruction and execution transcript for evaluation</h4><p><code>knowledge_boundary_violation</code> · <strong>refuted</strong></p><p>bound_claim_refuted_explicit_permission</p><p>Scope: {&quot;paper_version&quot;: &quot;d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0&quot;, &quot;experiment_arm&quot;: &quot;run_rtm.py main workflow; JudgeAgent.handle_judge&quot;, &quot;artifact_revision&quot;: &quot;9f3effa1668fa29dcba8f2454e711ddf9ef3c038&quot;, &quot;configuration&quot;: &quot;Supplied paper and immutable source snapshot; no repository code executed&quot;}</p><ul><li><strong>Independent review</strong>: The formatter and actual Judge model request establish evaluator receipt of the serialized analytical inputs. Paper p9 expressly permits transcript evaluation and conditional assertion grounding. This receiver-specific permission establishes no exclusion of downstream attacker access.</li></ul><details><summary>Exact paper/code locations and provenance hashes</summary><ul><li>paper paper:p9 <small>d893e5adb758</small></li><li><a href="https://github.com/gsiros/muzzle/blob/9f3effa1668fa29dcba8f2454e711ddf9ef3c038/muzzle/prototype/agents/judge.py#L290">muzzle/prototype/agents/judge.py:290–293</a> <small>0a16ba2c097a</small></li><li>paper paper:p9 <small>d893e5adb758</small></li><li>paper paper:p9 <small>d893e5adb758</small></li><li><a href="https://github.com/gsiros/muzzle/blob/9f3effa1668fa29dcba8f2454e711ddf9ef3c038/muzzle/prototype/agents/judge.py#L285">muzzle/prototype/agents/judge.py:285</a> <small>0a16ba2c097a</small></li><li>paper paper:p9 <small>d893e5adb758</small></li></ul></details></section><section class="claim unresolved"><h4>Online applicability leaves precise-task acquisition and transfer unresolved</h4><p><code>task_acquisition_deployment_gap</code> · <strong>unresolved</strong></p><p>deployment_contract_obligations_unresolved</p><p>Scope: Online applicability of the task-conditioned main workflow, separate from its sandbox experimental location.</p><ul><li><strong>paper_claim</strong>: The threat model includes offline discovery followed by online execution. <small>(supported=True)</small></li><li><strong>conditional_construction</strong>: The PROBE construction branch independently supplies the operator task to PAIR. <small>(supported=True)</small></li><li><strong>required_knowledge</strong>: The exact task can materially influence generated payloads by aligning the malicious step with task completion. <small>(supported=False)</small></li><li><strong>source_boundary</strong>: Discovery explicitly permits observation of local web-agent/LLM traffic. <small>(supported=True)</small></li><li><strong>actual_source</strong>: The entry point loads a selected task file; Explorer forwards its instruction independently of the transcript. <small>(supported=True)</small></li><li><strong>timing</strong>: First task knowledge comes from the loaded spec before Explorer emulates the benign task. Optimizer receipt occurs later, after probe observations. <small>(supported=True)</small></li><li><strong>task_relation</strong>: Within the workflow, the task_spec instruction drives victim execution and the separate optimizer task field. This semantic alias does not establish a concrete historical record identity. <small>(supported=False)</small></li><li><strong>deployment_scope</strong>: The stated scenario distinguishes discovery interception from deployment in the wild; sandbox ethics does not resolve task acquisition. <small>(supported=True)</small></li><li><strong>knowledge_provenance</strong>: Operator-file provenance is established for the experiment. Acquisition of a future online victim&#x27;s precise task through the permitted discovery channel is not established.</li><li><strong>Independent review</strong>: The online scenario and task-conditioned optimization are explicit, and the task is first loaded from an operator file before observation. However, the paper also explicitly starts discovery with a supplied task and later deploys crafted payloads; the evidence does not establish that online execution requires acquiring a different future victim&#x27;s precise task. The acquisition/transfer question remains material but does not yet prove a gap.</li></ul><details><summary>Exact paper/code locations and provenance hashes</summary><ul><li>paper paper:p4 <small>d893e5adb758</small></li><li><a href="https://github.com/gsiros/muzzle/blob/9f3effa1668fa29dcba8f2454e711ddf9ef3c038/muzzle/prototype/agents/explorer.py#L793">muzzle/prototype/agents/explorer.py:793–798</a> <small>4c9acd02b0c0</small></li><li><a href="https://github.com/gsiros/muzzle/blob/9f3effa1668fa29dcba8f2454e711ddf9ef3c038/muzzle/prototype/agents/pair.py#L325">muzzle/prototype/agents/pair.py:325</a> <small>d34697a2d00a</small></li><li><a href="https://github.com/gsiros/ag-pair/blob/16518e2dacc3da823a39ec3bc28d692bacaf17b6/PAIR/system_prompts.py#L137">modules/JailbreakingLLMs/PAIR/system_prompts.py:137</a> <small>91c36d406236</small></li><li><a href="https://github.com/gsiros/muzzle/blob/9f3effa1668fa29dcba8f2454e711ddf9ef3c038/run_rtm.py#L131">run_rtm.py:131</a> <small>5ae5c02aa8f7</small></li><li>paper paper:p4 <small>d893e5adb758</small></li><li><a href="https://github.com/gsiros/muzzle/blob/9f3effa1668fa29dcba8f2454e711ddf9ef3c038/run_rtm.py#L133">run_rtm.py:133</a> <small>5ae5c02aa8f7</small></li><li><a href="https://github.com/gsiros/muzzle/blob/9f3effa1668fa29dcba8f2454e711ddf9ef3c038/muzzle/prototype/agents/explorer.py#L793">muzzle/prototype/agents/explorer.py:793–798</a> <small>4c9acd02b0c0</small></li><li><a href="https://github.com/gsiros/muzzle/blob/9f3effa1668fa29dcba8f2454e711ddf9ef3c038/muzzle/prototype/agents/explorer.py#L956">muzzle/prototype/agents/explorer.py:956</a> <small>4c9acd02b0c0</small></li><li><a href="https://github.com/gsiros/muzzle/blob/9f3effa1668fa29dcba8f2454e711ddf9ef3c038/muzzle/prototype/agents/explorer.py#L962">muzzle/prototype/agents/explorer.py:962</a> <small>4c9acd02b0c0</small></li><li><a href="https://github.com/gsiros/muzzle/blob/9f3effa1668fa29dcba8f2454e711ddf9ef3c038/muzzle/prototype/agents/explorer.py#L159">muzzle/prototype/agents/explorer.py:159</a> <small>4c9acd02b0c0</small></li><li><a href="https://github.com/gsiros/muzzle/blob/9f3effa1668fa29dcba8f2454e711ddf9ef3c038/muzzle/prototype/agents/explorer.py#L792">muzzle/prototype/agents/explorer.py:792–796</a> <small>4c9acd02b0c0</small></li><li>paper paper:p4 <small>d893e5adb758</small></li><li>paper paper:p5 <small>d893e5adb758</small></li><li><a href="https://github.com/gsiros/muzzle/blob/9f3effa1668fa29dcba8f2454e711ddf9ef3c038/run_rtm.py#L131">run_rtm.py:131–133</a> <small>5ae5c02aa8f7</small></li><li><a href="https://github.com/gsiros/muzzle/blob/9f3effa1668fa29dcba8f2454e711ddf9ef3c038/run_rtm.py#L137">run_rtm.py:137–140</a> <small>5ae5c02aa8f7</small></li><li><a href="https://github.com/gsiros/muzzle/blob/9f3effa1668fa29dcba8f2454e711ddf9ef3c038/muzzle/prototype/agents/explorer.py#L809">muzzle/prototype/agents/explorer.py:809–811</a> <small>4c9acd02b0c0</small></li></ul></details></section><h3>Invocation ledger</h3><table><thead><tr><th>Call</th><th>Stage</th><th>Status</th><th>Input/output tokens</th><th>Requested/actual</th></tr></thead><tbody><tr><td>1</td><td>declared_contract</td><td>completed</td><td>35042/4401</td><td>gpt-6.1-sol/unknown</td></tr><tr><td>2</td><td>extraction</td><td>completed</td><td>232940/10870</td><td>gpt-6.1-sol/unknown</td></tr><tr><td>3</td><td>citation_repair</td><td>completed</td><td>38590/452</td><td>gpt-6.1-sol/unknown</td></tr><tr><td>4</td><td>semantic_review</td><td>completed</td><td>239024/3359</td><td>gpt-6.1-sol/unknown</td></tr></tbody></table><details><summary>Input isolation, declaration, coverage and diagnostic metadata</summary><pre>{
+  &quot;input_audit&quot;: {
+    &quot;status&quot;: &quot;passed&quot;,
+    &quot;checked_artifacts&quot;: [
+      &quot;prepared.json&quot;,
+      &quot;combined_input.json&quot;,
+      &quot;request.json&quot;
+    ],
+    &quot;evaluation_label_fields_found&quot;: 0,
+    &quot;scope&quot;: &quot;Structured evaluation-label sidecar fields in supplied input artifacts; author data label channels and words inside original source are not evaluation labels. No gold files were opened.&quot;,
+    &quot;binding_metadata_matches&quot;: true,
+    &quot;request_hashes&quot;: {
+      &quot;prompt_sha256&quot;: &quot;72efd415abc99849cde2651077ceb215b618ef45a5bf6cbdf9f5c5084aed2d8e&quot;,
+      &quot;input_sha256&quot;: &quot;a0ec59efe24e91e54134cc9bdc4dcca5a68a9b73d7d57845c88853ff04542444&quot;,
+      &quot;model_content_sha256&quot;: &quot;ef6e252001f2ffcdac64cfe8abd1fe128dd086c9ddcdc48fd2c6542867dacebb&quot;
+    },
+    &quot;limits&quot;: {
+      &quot;input_binding_version&quot;: 2,
+      &quot;max_input_chars&quot;: 1200000,
+      &quot;max_code_chars&quot;: 500000,
+      &quot;model_data_characters&quot;: 841793
+    },
+    &quot;source_fetch&quot;: &quot;files&quot;,
+    &quot;require_source&quot;: true,
+    &quot;early_ingestion_failure&quot;: {
+      &quot;verified&quot;: false,
+      &quot;scope&quot;: &quot;not_applicable&quot;
+    },
+    &quot;paper_only_declaration&quot;: {
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;paper_only_payload_verified&quot;: true,
+      &quot;segment_count&quot;: 21,
+      &quot;source_type&quot;: &quot;application/pdf&quot;,
+      &quot;paper_sha256&quot;: &quot;d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0&quot;,
+      &quot;payload_sha256&quot;: &quot;df3376c683fd26863c9ca4bb04917333be9ab40c024d1dd5fee7055d62c7e646&quot;,
+      &quot;evaluation_label_fields_found&quot;: 0
+    },
+    &quot;frozen_review&quot;: {
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;input_binding&quot;: &quot;a0ec59efe24e91e54134cc9bdc4dcca5a68a9b73d7d57845c88853ff04542444&quot;,
+      &quot;proposal_matches_effective_automatic_extraction&quot;: true,
+      &quot;evaluation_label_fields_found&quot;: 0,
+      &quot;prompt_sha256&quot;: &quot;6ef31eea73316582c2fd476a9a4dcfbd411558f638b94bc8284911cebc4e6738&quot;,
+      &quot;schema_sha256&quot;: &quot;34cbc57e07baacc1e76513593c201ce8cde4edde73f167789030dab2f1f606c5&quot;,
+      &quot;review_input_sha256&quot;: &quot;8bd22805bc52f861cbc0795118d6fb530da7e578bb5f4ad33a1c3ad83bb85db3&quot;
+    },
+    &quot;acquisition_pass&quot;: {
+      &quot;status&quot;: &quot;not_reached&quot;
+    }
+  },
+  &quot;declared_contract&quot;: {
+    &quot;status&quot;: &quot;validated_untrusted_proposal&quot;,
+    &quot;artifact_presence&quot;: {
+      &quot;declared_contract.request.json&quot;: true,
+      &quot;declared_contract.response.json&quot;: true,
+      &quot;declared_contract.json&quot;: true
+    },
+    &quot;paper_sha256&quot;: &quot;d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0&quot;,
+    &quot;trust&quot;: &quot;untrusted_declared_contract_proposal&quot;,
+    &quot;semantic_review_required&quot;: true,
+    &quot;citations_grounded&quot;: false,
+    &quot;counts&quot;: {
+      &quot;knowledge_rules&quot;: 2,
+      &quot;qualified_fields&quot;: 33,
+      &quot;task_input_components&quot;: 5,
+      &quot;task_input_relationships&quot;: 4,
+      &quot;recipe_inputs&quot;: 3,
+      &quot;generated_artifacts&quot;: 3,
+      &quot;unresolved_questions&quot;: 5,
+      &quot;limitations&quot;: 3,
+      &quot;proposed_citations&quot;: 67,
+      &quot;located_citations&quot;: 66,
+      &quot;citation_errors&quot;: 1
+    },
+    &quot;qualification_counts&quot;: {
+      &quot;explicit&quot;: 30,
+      &quot;uncertain&quot;: 2,
+      &quot;unspecified&quot;: 1
+    },
+    &quot;field_qualifications&quot;: [
+      {
+        &quot;field&quot;: &quot;knowledge_rules[0].role&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 1,
+        &quot;located_citation_count&quot;: 1
+      },
+      {
+        &quot;field&quot;: &quot;knowledge_rules[0].phase&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 1,
+        &quot;located_citation_count&quot;: 1
+      },
+      {
+        &quot;field&quot;: &quot;knowledge_rules[0].source&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 2,
+        &quot;located_citation_count&quot;: 2
+      },
+      {
+        &quot;field&quot;: &quot;knowledge_rules[0].allowed_knowledge&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 1,
+        &quot;located_citation_count&quot;: 1
+      },
+      {
+        &quot;field&quot;: &quot;knowledge_rules[0].forbidden_knowledge&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 1,
+        &quot;located_citation_count&quot;: 1
+      },
+      {
+        &quot;field&quot;: &quot;knowledge_rules[0].scope&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 2,
+        &quot;located_citation_count&quot;: 2
+      },
+      {
+        &quot;field&quot;: &quot;knowledge_rules[0].exceptions&quot;,
+        &quot;qualification&quot;: &quot;uncertain&quot;,
+        &quot;proposed_citation_count&quot;: 3,
+        &quot;located_citation_count&quot;: 3
+      },
+      {
+        &quot;field&quot;: &quot;knowledge_rules[1].role&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 2,
+        &quot;located_citation_count&quot;: 2
+      },
+      {
+        &quot;field&quot;: &quot;knowledge_rules[1].phase&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 2,
+        &quot;located_citation_count&quot;: 2
+      },
+      {
+        &quot;field&quot;: &quot;knowledge_rules[1].source&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 2,
+        &quot;located_citation_count&quot;: 2
+      },
+      {
+        &quot;field&quot;: &quot;knowledge_rules[1].allowed_knowledge&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 2,
+        &quot;located_citation_count&quot;: 2
+      },
+      {
+        &quot;field&quot;: &quot;knowledge_rules[1].forbidden_knowledge&quot;,
+        &quot;qualification&quot;: &quot;unspecified&quot;,
+        &quot;proposed_citation_count&quot;: 0,
+        &quot;located_citation_count&quot;: 0
+      },
+      {
+        &quot;field&quot;: &quot;knowledge_rules[1].scope&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 2,
+        &quot;located_citation_count&quot;: 2
+      },
+      {
+        &quot;field&quot;: &quot;knowledge_rules[1].exceptions&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 1,
+        &quot;located_citation_count&quot;: 1
+      },
+      {
+        &quot;field&quot;: &quot;task_input_definition.definition&quot;,
+        &quot;qualification&quot;: &quot;uncertain&quot;,
+        &quot;proposed_citation_count&quot;: 3,
+        &quot;located_citation_count&quot;: 3
+      },
+      {
+        &quot;field&quot;: &quot;task_input_definition.components[0].definition&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 1,
+        &quot;located_citation_count&quot;: 1
+      },
+      {
+        &quot;field&quot;: &quot;task_input_definition.components[1].definition&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 2,
+        &quot;located_citation_count&quot;: 2
+      },
+      {
+        &quot;field&quot;: &quot;task_input_definition.components[2].definition&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 1,
+        &quot;located_citation_count&quot;: 1
+      },
+      {
+        &quot;field&quot;: &quot;task_input_definition.components[3].definition&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 2,
+        &quot;located_citation_count&quot;: 2
+      },
+      {
+        &quot;field&quot;: &quot;task_input_definition.components[4].definition&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 2,
+        &quot;located_citation_count&quot;: 2
+      },
+      {
+        &quot;field&quot;: &quot;task_input_definition.relationships[0].relationship&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 2,
+        &quot;located_citation_count&quot;: 2
+      },
+      {
+        &quot;field&quot;: &quot;task_input_definition.relationships[1].relationship&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 2,
+        &quot;located_citation_count&quot;: 2
+      },
+      {
+        &quot;field&quot;: &quot;task_input_definition.relationships[2].relationship&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 2,
+        &quot;located_citation_count&quot;: 2
+      },
+      {
+        &quot;field&quot;: &quot;task_input_definition.relationships[3].relationship&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 2,
+        &quot;located_citation_count&quot;: 2
+      },
+      {
+        &quot;field&quot;: &quot;construction_recipe.procedure&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 6,
+        &quot;located_citation_count&quot;: 6
+      },
+      {
+        &quot;field&quot;: &quot;construction_recipe.metadata_budget&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 4,
+        &quot;located_citation_count&quot;: 4
+      },
+      {
+        &quot;field&quot;: &quot;construction_recipe.scope&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 5,
+        &quot;located_citation_count&quot;: 5
+      },
+      {
+        &quot;field&quot;: &quot;construction_recipe.inputs[0].description&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 2,
+        &quot;located_citation_count&quot;: 2
+      },
+      {
+        &quot;field&quot;: &quot;construction_recipe.inputs[1].description&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 2,
+        &quot;located_citation_count&quot;: 2
+      },
+      {
+        &quot;field&quot;: &quot;construction_recipe.inputs[2].description&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 1,
+        &quot;located_citation_count&quot;: 1
+      },
+      {
+        &quot;field&quot;: &quot;construction_recipe.generated_artifacts[0].description&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 2,
+        &quot;located_citation_count&quot;: 1
+      },
+      {
+        &quot;field&quot;: &quot;construction_recipe.generated_artifacts[1].description&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 2,
+        &quot;located_citation_count&quot;: 2
+      },
+      {
+        &quot;field&quot;: &quot;construction_recipe.generated_artifacts[2].description&quot;,
+        &quot;qualification&quot;: &quot;explicit&quot;,
+        &quot;proposed_citation_count&quot;: 2,
+        &quot;located_citation_count&quot;: 2
+      }
+    ],
+    &quot;citation_error_code_counts&quot;: {
+      &quot;citation_validation_error&quot;: 1
+    },
+    &quot;stages&quot;: [
+      {
+        &quot;stage&quot;: &quot;declared_contract&quot;,
+        &quot;status&quot;: &quot;completed&quot;,
+        &quot;execution&quot;: &quot;fresh_paper_only_call&quot;,
+        &quot;citations_grounded&quot;: false,
+        &quot;semantic_review_required&quot;: true,
+        &quot;citation_error_count&quot;: 1,
+        &quot;trust&quot;: &quot;untrusted_declared_contract_proposal&quot;,
+        &quot;prompt_sha256&quot;: &quot;b80246fdffcae4ac4f53829ddef864365df347ae2b4adf76a3cf83fa1f6dff5b&quot;
+      }
+    ]
+  },
+  &quot;category_coverage&quot;: {
+    &quot;complete&quot;: false,
+    &quot;categories&quot;: [
+      {
+        &quot;category&quot;: &quot;knowledge_boundary_violation&quot;,
+        &quot;complete&quot;: false,
+        &quot;proposed_status&quot;: &quot;unresolved&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 179,
+            &quot;start&quot;: 111,
+            &quot;segment_id&quot;: &quot;paper:p5&quot;,
+            &quot;document_sha256&quot;: &quot;a0ec59efe24e91e54134cc9bdc4dcca5a68a9b73d7d57845c88853ff04542444&quot;,
+            &quot;source_kind&quot;: &quot;paper&quot;,
+            &quot;paper_sha256&quot;: &quot;d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0&quot;
+          },
+          {
+            &quot;end&quot;: 14680,
+            &quot;start&quot;: 14614,
+            &quot;line_start&quot;: 325,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/pair.py:L1-L399&quot;,
+            &quot;repository_revision&quot;: &quot;9f3effa1668fa29dcba8f2454e711ddf9ef3c038&quot;,
+            &quot;document_sha256&quot;: &quot;a0ec59efe24e91e54134cc9bdc4dcca5a68a9b73d7d57845c88853ff04542444&quot;,
+            &quot;line_end&quot;: 325,
+            &quot;source_kind&quot;: &quot;code&quot;,
+            &quot;file_sha256&quot;: &quot;d34697a2d00a3ebe806aea12491071a5b9b609eda1ded0d781f6ff7d5780a993&quot;,
+            &quot;repository_manifest_sha256&quot;: &quot;14d97f81a4d83366de8272a1ab6b44d89c165c905e0c702caf8b6421a90a453c&quot;,
+            &quot;path&quot;: &quot;muzzle/prototype/agents/pair.py&quot;,
+            &quot;repository_source&quot;: &quot;https://github.com/gsiros/muzzle&quot;
+          }
+        ]
+      },
+      {
+        &quot;category&quot;: &quot;construction_contract_mismatch&quot;,
+        &quot;complete&quot;: false,
+        &quot;proposed_status&quot;: &quot;unresolved&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 3232,
+            &quot;start&quot;: 3196,
+            &quot;segment_id&quot;: &quot;paper:p6&quot;,
+            &quot;document_sha256&quot;: &quot;a0ec59efe24e91e54134cc9bdc4dcca5a68a9b73d7d57845c88853ff04542444&quot;,
+            &quot;source_kind&quot;: &quot;paper&quot;,
+            &quot;paper_sha256&quot;: &quot;d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0&quot;
+          },
+          {
+            &quot;end&quot;: 4463,
+            &quot;start&quot;: 4415,
+            &quot;segment_id&quot;: &quot;paper:p8&quot;,
+            &quot;document_sha256&quot;: &quot;a0ec59efe24e91e54134cc9bdc4dcca5a68a9b73d7d57845c88853ff04542444&quot;,
+            &quot;source_kind&quot;: &quot;paper&quot;,
+            &quot;paper_sha256&quot;: &quot;d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0&quot;
+          },
+          {
+            &quot;end&quot;: 1278,
+            &quot;start&quot;: 1246,
+            &quot;line_start&quot;: 39,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/prompter.py:L1-L96&quot;,
+            &quot;repository_revision&quot;: &quot;9f3effa1668fa29dcba8f2454e711ddf9ef3c038&quot;,
+            &quot;document_sha256&quot;: &quot;a0ec59efe24e91e54134cc9bdc4dcca5a68a9b73d7d57845c88853ff04542444&quot;,
+            &quot;line_end&quot;: 39,
+            &quot;source_kind&quot;: &quot;code&quot;,
+            &quot;file_sha256&quot;: &quot;f38583c185c5bc5180aa529cea5f869a580d992429347bb1ed45d6370093eea8&quot;,
+            &quot;repository_manifest_sha256&quot;: &quot;14d97f81a4d83366de8272a1ab6b44d89c165c905e0c702caf8b6421a90a453c&quot;,
+            &quot;path&quot;: &quot;muzzle/prototype/agents/prompter.py&quot;,
+            &quot;repository_source&quot;: &quot;https://github.com/gsiros/muzzle&quot;
+          }
+        ]
+      },
+      {
+        &quot;category&quot;: &quot;task_acquisition_deployment_gap&quot;,
+        &quot;complete&quot;: true,
+        &quot;proposed_status&quot;: &quot;candidates&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 5398,
+            &quot;start&quot;: 5338,
+            &quot;segment_id&quot;: &quot;paper:p4&quot;,
+            &quot;document_sha256&quot;: &quot;a0ec59efe24e91e54134cc9bdc4dcca5a68a9b73d7d57845c88853ff04542444&quot;,
+            &quot;source_kind&quot;: &quot;paper&quot;,
+            &quot;paper_sha256&quot;: &quot;d893e5adb7586b2d460a086591d7b480d8afe23a3faf8046a6fc8affdb4c90d0&quot;
+          },
+          {
+            &quot;end&quot;: 33766,
+            &quot;start&quot;: 33522,
+            &quot;line_start&quot;: 792,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/explorer.py:L1-L973&quot;,
+            &quot;repository_revision&quot;: &quot;9f3effa1668fa29dcba8f2454e711ddf9ef3c038&quot;,
+            &quot;document_sha256&quot;: &quot;a0ec59efe24e91e54134cc9bdc4dcca5a68a9b73d7d57845c88853ff04542444&quot;,
+            &quot;line_end&quot;: 796,
+            &quot;source_kind&quot;: &quot;code&quot;,
+            &quot;file_sha256&quot;: &quot;4c9acd02b0c07150d30d7061c4596646bd72ef4e4eefee0472bca38436572ae4&quot;,
+            &quot;repository_manifest_sha256&quot;: &quot;14d97f81a4d83366de8272a1ab6b44d89c165c905e0c702caf8b6421a90a453c&quot;,
+            &quot;path&quot;: &quot;muzzle/prototype/agents/explorer.py&quot;,
+            &quot;repository_source&quot;: &quot;https://github.com/gsiros/muzzle&quot;
+          }
+        ]
+      }
+    ]
+  },
+  &quot;input_channels&quot;: {
+    &quot;assessment_status&quot;: &quot;reviewed&quot;,
+    &quot;candidate_count&quot;: 33,
+    &quot;complete&quot;: false,
+    &quot;truncated&quot;: true,
+    &quot;discovery_complete&quot;: false,
+    &quot;statistics&quot;: {
+      &quot;parsed_files&quot;: 112,
+      &quot;parsed_ast_nodes&quot;: 66365,
+      &quot;source_characters&quot;: 563435,
+      &quot;total_candidates&quot;: 33
+    },
+    &quot;limits&quot;: {
+      &quot;max_candidates&quot;: 48,
+      &quot;max_files&quot;: 160,
+      &quot;max_chars&quot;: 1000000,
+      &quot;max_ast_nodes&quot;: 120000,
+      &quot;max_trace_depth&quot;: 5
+    },
+    &quot;limitations&quot;: [
+      &quot;lexical_roles_and_channels_are_candidates_not_receipt_or_policy_facts&quot;,
+      &quot;static_python_subset_does_not_establish_repository_or_runtime_closure&quot;,
+      &quot;trace_depth_limit&quot;
+    ],
+    &quot;candidate_kind_counts&quot;: {
+      &quot;task&quot;: 2,
+      &quot;feedback&quot;: 3,
+      &quot;labels&quot;: 1,
+      &quot;other&quot;: 26,
+      &quot;question&quot;: 1
+    },
+    &quot;status_counts&quot;: {
+      &quot;unresolved&quot;: 32,
+      &quot;represented&quot;: 1
+    },
+    &quot;kind_status_counts&quot;: {
+      &quot;task:unresolved&quot;: 2,
+      &quot;feedback:unresolved&quot;: 3,
+      &quot;labels:unresolved&quot;: 1,
+      &quot;other:unresolved&quot;: 25,
+      &quot;question:unresolved&quot;: 1,
+      &quot;other:represented&quot;: 1
+    },
+    &quot;validation_error_codes&quot;: [],
+    &quot;candidates&quot;: [
+      {
+        &quot;candidate_id&quot;: &quot;channel:c708094480c0fe3885ec&quot;,
+        &quot;channel_kind&quot;: &quot;task&quot;,
+        &quot;path&quot;: &quot;muzzle/prototype/agents/pair.py&quot;,
+        &quot;role_hint&quot;: &quot;attacker_constructor_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;construction_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 10625,
+            &quot;start&quot;: 10569,
+            &quot;line_start&quot;: 239,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/pair.py:L1-L399&quot;,
+            &quot;line_end&quot;: 239
+          },
+          {
+            &quot;end&quot;: 9596,
+            &quot;start&quot;: 9573,
+            &quot;line_start&quot;: 217,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/pair.py:L1-L399&quot;,
+            &quot;line_end&quot;: 217
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:a59b3c50b5021a325b2e&quot;,
+        &quot;channel_kind&quot;: &quot;feedback&quot;,
+        &quot;path&quot;: &quot;modules/JailbreakingLLMs/main.py&quot;,
+        &quot;role_hint&quot;: &quot;attacker_constructor_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;construction_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 2312,
+            &quot;start&quot;: 2256,
+            &quot;line_start&quot;: 59,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/main.py:L1-L246&quot;,
+            &quot;line_end&quot;: 59
+          },
+          {
+            &quot;end&quot;: 2064,
+            &quot;start&quot;: 2059,
+            &quot;line_start&quot;: 55,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/main.py:L1-L246&quot;,
+            &quot;line_end&quot;: 55
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:8e56f901b76f5eb4e74c&quot;,
+        &quot;channel_kind&quot;: &quot;labels&quot;,
+        &quot;path&quot;: &quot;modules/JailbreakingLLMs/main.py&quot;,
+        &quot;role_hint&quot;: &quot;attacker_constructor_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;construction_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 2312,
+            &quot;start&quot;: 2256,
+            &quot;line_start&quot;: 59,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/main.py:L1-L246&quot;,
+            &quot;line_end&quot;: 59
+          },
+          {
+            &quot;end&quot;: 2057,
+            &quot;start&quot;: 2042,
+            &quot;line_start&quot;: 55,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/main.py:L1-L246&quot;,
+            &quot;line_end&quot;: 55
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:c02ee338f71b594e6d8d&quot;,
+        &quot;channel_kind&quot;: &quot;feedback&quot;,
+        &quot;path&quot;: &quot;muzzle/prototype/agents/pair.py&quot;,
+        &quot;role_hint&quot;: &quot;attacker_constructor_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;construction_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 10625,
+            &quot;start&quot;: 10569,
+            &quot;line_start&quot;: 239,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/pair.py:L1-L399&quot;,
+            &quot;line_end&quot;: 239
+          },
+          {
+            &quot;end&quot;: 9633,
+            &quot;start&quot;: 9620,
+            &quot;line_start&quot;: 218,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/pair.py:L1-L399&quot;,
+            &quot;line_end&quot;: 218
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:504996b1831c7a652dc5&quot;,
+        &quot;channel_kind&quot;: &quot;feedback&quot;,
+        &quot;path&quot;: &quot;muzzle/prototype/agents/pair.py&quot;,
+        &quot;role_hint&quot;: &quot;attacker_constructor_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;construction_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 10625,
+            &quot;start&quot;: 10569,
+            &quot;line_start&quot;: 239,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/pair.py:L1-L399&quot;,
+            &quot;line_end&quot;: 239
+          },
+          {
+            &quot;end&quot;: 10445,
+            &quot;start&quot;: 10433,
+            &quot;line_start&quot;: 235,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/pair.py:L1-L399&quot;,
+            &quot;line_end&quot;: 235
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:ffef2fdd253716de101c&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;modules/JailbreakingLLMs/PAIR/conversers.py&quot;,
+        &quot;role_hint&quot;: &quot;attacker_constructor_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;generation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 4649,
+            &quot;start&quot;: 4219,
+            &quot;line_start&quot;: 98,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/PAIR/conversers.py:L1-L202&quot;,
+            &quot;line_end&quot;: 103
+          },
+          {
+            &quot;end&quot;: 6691,
+            &quot;start&quot;: 6679,
+            &quot;line_start&quot;: 143,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/PAIR/conversers.py:L1-L202&quot;,
+            &quot;line_end&quot;: 143
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:903242dc21cc79797aa1&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;modules/JailbreakingLLMs/main.py&quot;,
+        &quot;role_hint&quot;: &quot;attacker_constructor_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;construction_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 2312,
+            &quot;start&quot;: 2256,
+            &quot;line_start&quot;: 59,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/main.py:L1-L246&quot;,
+            &quot;line_end&quot;: 59
+          },
+          {
+            &quot;end&quot;: 14099,
+            &quot;start&quot;: 14093,
+            &quot;line_start&quot;: 182,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/PAIR/system_prompts.py:L1-L408&quot;,
+            &quot;line_end&quot;: 182
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:a7bac2e27f97bea7a4e1&quot;,
+        &quot;channel_kind&quot;: &quot;question&quot;,
+        &quot;path&quot;: &quot;modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/llm/vllm.py&quot;,
+        &quot;role_hint&quot;: &quot;constructor_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;generation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 1897,
+            &quot;start&quot;: 1831,
+            &quot;line_start&quot;: 42,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/llm/vllm.py:L1-L46&quot;,
+            &quot;line_end&quot;: 42
+          },
+          {
+            &quot;end&quot;: 1790,
+            &quot;start&quot;: 1785,
+            &quot;line_start&quot;: 41,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/llm/vllm.py:L1-L46&quot;,
+            &quot;line_end&quot;: 41
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:317dfbac616194ba4c18&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;modules/JailbreakingLLMs/PAIR/conversers.py&quot;,
+        &quot;role_hint&quot;: &quot;constructor_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;generation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 9135,
+            &quot;start&quot;: 8768,
+            &quot;line_start&quot;: 196,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/PAIR/conversers.py:L1-L202&quot;,
+            &quot;line_end&quot;: 200
+          },
+          {
+            &quot;end&quot;: 8808,
+            &quot;start&quot;: 8796,
+            &quot;line_start&quot;: 196,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/PAIR/conversers.py:L1-L202&quot;,
+            &quot;line_end&quot;: 196
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:ac41a3cdabcc2fd5edb4&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;modules/JailbreakingLLMs/PAIR/language_models.py&quot;,
+        &quot;role_hint&quot;: &quot;model_recipient_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;model_request_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 3687,
+            &quot;start&quot;: 3313,
+            &quot;line_start&quot;: 85,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/PAIR/language_models.py:L1-L100&quot;,
+            &quot;line_end&quot;: 96
+          },
+          {
+            &quot;end&quot;: 3414,
+            &quot;start&quot;: 3404,
+            &quot;line_start&quot;: 87,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/PAIR/language_models.py:L1-L100&quot;,
+            &quot;line_end&quot;: 87
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:fcb5c66806f9fb314d6b&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/llm/litellm.py&quot;,
+        &quot;role_hint&quot;: &quot;model_recipient_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;model_request_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 2475,
+            &quot;start&quot;: 2152,
+            &quot;line_start&quot;: 58,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/llm/litellm.py:L1-L85&quot;,
+            &quot;line_end&quot;: 66
+          },
+          {
+            &quot;end&quot;: 2249,
+            &quot;start&quot;: 2243,
+            &quot;line_start&quot;: 60,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/llm/litellm.py:L1-L85&quot;,
+            &quot;line_end&quot;: 60
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:9c5b75b8cb95a938b32b&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/llm/vllm.py&quot;,
+        &quot;role_hint&quot;: &quot;constructor_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;generation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 1897,
+            &quot;start&quot;: 1831,
+            &quot;line_start&quot;: 42,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/llm/vllm.py:L1-L46&quot;,
+            &quot;line_end&quot;: 42
+          },
+          {
+            &quot;end&quot;: 1811,
+            &quot;start&quot;: 1805,
+            &quot;line_start&quot;: 41,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/llm/vllm.py:L1-L46&quot;,
+            &quot;line_end&quot;: 41
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:08286b78c986759e0fc4&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;muzzle/prototype/agents/dispatcher.py&quot;,
+        &quot;role_hint&quot;: &quot;model_recipient_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;model_request_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 2785,
+            &quot;start&quot;: 2471,
+            &quot;line_start&quot;: 68,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/dispatcher.py:L1-L112&quot;,
+            &quot;line_end&quot;: 74
+          },
+          {
+            &quot;end&quot;: 2565,
+            &quot;start&quot;: 2546,
+            &quot;line_start&quot;: 70,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/dispatcher.py:L1-L112&quot;,
+            &quot;line_end&quot;: 70
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:47aaee3c306102674e25&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;muzzle/prototype/agents/grafter.py&quot;,
+        &quot;role_hint&quot;: &quot;model_recipient_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;model_request_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 2067,
+            &quot;start&quot;: 1888,
+            &quot;line_start&quot;: 64,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/grafter.py:L1-L101&quot;,
+            &quot;line_end&quot;: 70
+          },
+          {
+            &quot;end&quot;: 1949,
+            &quot;start&quot;: 1930,
+            &quot;line_start&quot;: 66,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/grafter.py:L1-L101&quot;,
+            &quot;line_end&quot;: 66
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:55cf3b7507bbfb0a5313&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;muzzle/prototype/agents/prompter.py&quot;,
+        &quot;role_hint&quot;: &quot;model_recipient_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;model_request_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 2077,
+            &quot;start&quot;: 1722,
+            &quot;line_start&quot;: 53,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/prompter.py:L1-L96&quot;,
+            &quot;line_end&quot;: 62
+          },
+          {
+            &quot;end&quot;: 1816,
+            &quot;start&quot;: 1797,
+            &quot;line_start&quot;: 55,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/prompter.py:L1-L96&quot;,
+            &quot;line_end&quot;: 55
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:88040a9bc1e55b66d20f&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;muzzle/prototype/agents/summarizer.py&quot;,
+        &quot;role_hint&quot;: &quot;model_recipient_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;model_request_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 2211,
+            &quot;start&quot;: 1856,
+            &quot;line_start&quot;: 48,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/summarizer.py:L1-L129&quot;,
+            &quot;line_end&quot;: 57
+          },
+          {
+            &quot;end&quot;: 1950,
+            &quot;start&quot;: 1931,
+            &quot;line_start&quot;: 50,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/summarizer.py:L1-L129&quot;,
+            &quot;line_end&quot;: 50
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:09354f11807d3e01fe4e&quot;,
+        &quot;channel_kind&quot;: &quot;task&quot;,
+        &quot;path&quot;: &quot;muzzle/prototype/agents/judge.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 11026,
+            &quot;start&quot;: 10862,
+            &quot;line_start&quot;: 290,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/judge.py:L1-L405&quot;,
+            &quot;line_end&quot;: 293
+          },
+          {
+            &quot;end&quot;: 2471,
+            &quot;start&quot;: 2452,
+            &quot;line_start&quot;: 66,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/judge.py:L1-L405&quot;,
+            &quot;line_end&quot;: 66
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:6ddb012c5fd366933b22&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Flan.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 779,
+            &quot;start&quot;: 706,
+            &quot;line_start&quot;: 19,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Flan.py:L1-L21&quot;,
+            &quot;line_end&quot;: 19
+          },
+          {
+            &quot;end&quot;: 732,
+            &quot;start&quot;: 726,
+            &quot;line_start&quot;: 19,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Flan.py:L1-L21&quot;,
+            &quot;line_end&quot;: 19
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:0484629563b092758b3e&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/GPT.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 1473,
+            &quot;start&quot;: 1212,
+            &quot;line_start&quot;: 44,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/GPT.py:L1-L85&quot;,
+            &quot;line_end&quot;: 51
+          },
+          {
+            &quot;end&quot;: 1374,
+            &quot;start&quot;: 1310,
+            &quot;line_start&quot;: 46,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/GPT.py:L1-L85&quot;,
+            &quot;line_end&quot;: 48
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:398d53082262d187578e&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/GPT.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 2529,
+            &quot;start&quot;: 2194,
+            &quot;line_start&quot;: 74,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/GPT.py:L1-L85&quot;,
+            &quot;line_end&quot;: 82
+          },
+          {
+            &quot;end&quot;: 2339,
+            &quot;start&quot;: 2329,
+            &quot;line_start&quot;: 77,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/GPT.py:L1-L85&quot;,
+            &quot;line_end&quot;: 77
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:b6a0b7d0aaf8342962f3&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Llama.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 772,
+            &quot;start&quot;: 629,
+            &quot;line_start&quot;: 18,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Llama.py:L1-L24&quot;,
+            &quot;line_end&quot;: 21
+          },
+          {
+            &quot;end&quot;: 658,
+            &quot;start&quot;: 649,
+            &quot;line_start&quot;: 18,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Llama.py:L1-L24&quot;,
+            &quot;line_end&quot;: 18
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:c901971044ac97a24a3e&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Llama3.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 3348,
+            &quot;start&quot;: 3190,
+            &quot;line_start&quot;: 82,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Llama3.py:L1-L122&quot;,
+            &quot;line_end&quot;: 86
+          },
+          {
+            &quot;end&quot;: 3245,
+            &quot;start&quot;: 3236,
+            &quot;line_start&quot;: 83,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Llama3.py:L1-L122&quot;,
+            &quot;line_end&quot;: 83
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:0902e0b8c0cbc48ba1e8&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Llama3.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 4576,
+            &quot;start&quot;: 4416,
+            &quot;line_start&quot;: 112,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Llama3.py:L1-L122&quot;,
+            &quot;line_end&quot;: 116
+          },
+          {
+            &quot;end&quot;: 4473,
+            &quot;start&quot;: 4464,
+            &quot;line_start&quot;: 113,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Llama3.py:L1-L122&quot;,
+            &quot;line_end&quot;: 113
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:7e38343f4c313cae2683&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/PaLM2.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 2416,
+            &quot;start&quot;: 734,
+            &quot;line_start&quot;: 23,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/PaLM2.py:L1-L62&quot;,
+            &quot;line_end&quot;: 54
+          },
+          {
+            &quot;end&quot;: 821,
+            &quot;start&quot;: 818,
+            &quot;line_start&quot;: 25,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/PaLM2.py:L1-L62&quot;,
+            &quot;line_end&quot;: 25
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:4fbe8bb02dfbefc032b1&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/PaLM2.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 2570,
+            &quot;start&quot;: 2528,
+            &quot;line_start&quot;: 58,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/PaLM2.py:L1-L62&quot;,
+            &quot;line_end&quot;: 58
+          },
+          {
+            &quot;end&quot;: 2550,
+            &quot;start&quot;: 2547,
+            &quot;line_start&quot;: 58,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/PaLM2.py:L1-L62&quot;,
+            &quot;line_end&quot;: 58
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:8a73acfac7b1c8d6ba8c&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/QLoraModel.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 3477,
+            &quot;start&quot;: 3319,
+            &quot;line_start&quot;: 83,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/QLoraModel.py:L1-L145&quot;,
+            &quot;line_end&quot;: 87
+          },
+          {
+            &quot;end&quot;: 3374,
+            &quot;start&quot;: 3365,
+            &quot;line_start&quot;: 84,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/QLoraModel.py:L1-L145&quot;,
+            &quot;line_end&quot;: 84
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:37150c09cc4b6dcf1f96&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/QLoraModel.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 4455,
+            &quot;start&quot;: 4163,
+            &quot;line_start&quot;: 106,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/QLoraModel.py:L1-L145&quot;,
+            &quot;line_end&quot;: 113
+          },
+          {
+            &quot;end&quot;: 4218,
+            &quot;start&quot;: 4209,
+            &quot;line_start&quot;: 107,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/QLoraModel.py:L1-L145&quot;,
+            &quot;line_end&quot;: 107
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:8316cf9adf29b2c7af2b&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/QLoraModel.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 5634,
+            &quot;start&quot;: 5454,
+            &quot;line_start&quot;: 138,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/QLoraModel.py:L1-L145&quot;,
+            &quot;line_end&quot;: 142
+          },
+          {
+            &quot;end&quot;: 5511,
+            &quot;start&quot;: 5502,
+            &quot;line_start&quot;: 139,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/QLoraModel.py:L1-L145&quot;,
+            &quot;line_end&quot;: 139
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:6e0ec917f482ddb74cfb&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;extras/defense_eval/evaluate_defenses.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 9180,
+            &quot;start&quot;: 8991,
+            &quot;line_start&quot;: 269,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/evaluate_defenses.py:L1-L507&quot;,
+            &quot;line_end&quot;: 275
+          },
+          {
+            &quot;end&quot;: 9027,
+            &quot;start&quot;: 9021,
+            &quot;line_start&quot;: 270,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/evaluate_defenses.py:L1-L507&quot;,
+            &quot;line_end&quot;: 270
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:0c535d1237ae6a6ce61b&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;modules/JailbreakingLLMs/PAIR/judges.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 2698,
+            &quot;start&quot;: 2409,
+            &quot;line_start&quot;: 69,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/PAIR/judges.py:L1-L160&quot;,
+            &quot;line_end&quot;: 72
+          },
+          {
+            &quot;end&quot;: 2303,
+            &quot;start&quot;: 2297,
+            &quot;line_start&quot;: 68,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/PAIR/judges.py:L1-L160&quot;,
+            &quot;line_end&quot;: 68
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:4cf3287c4cc7f6088eff&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/classifier.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 6715,
+            &quot;start&quot;: 6577,
+            &quot;line_start&quot;: 56,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/classifier.py:L1-L181&quot;,
+            &quot;line_end&quot;: 58
+          },
+          {
+            &quot;end&quot;: 6489,
+            &quot;start&quot;: 6483,
+            &quot;line_start&quot;: 54,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/classifier.py:L1-L181&quot;,
+            &quot;line_end&quot;: 54
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:9387ec9542752688d004&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/classifier.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 8412,
+            &quot;start&quot;: 8274,
+            &quot;line_start&quot;: 104,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/classifier.py:L1-L181&quot;,
+            &quot;line_end&quot;: 106
+          },
+          {
+            &quot;end&quot;: 8186,
+            &quot;start&quot;: 8180,
+            &quot;line_start&quot;: 102,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/classifier.py:L1-L181&quot;,
+            &quot;line_end&quot;: 102
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:baee21017844035d06ae&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;path&quot;: &quot;muzzle/prototype/agents/judge.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 11026,
+            &quot;start&quot;: 10862,
+            &quot;line_start&quot;: 290,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/judge.py:L1-L405&quot;,
+            &quot;line_end&quot;: 293
+          },
+          {
+            &quot;end&quot;: 10916,
+            &quot;start&quot;: 10897,
+            &quot;line_start&quot;: 291,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/judge.py:L1-L405&quot;,
+            &quot;line_end&quot;: 291
+          }
+        ]
+      }
+    ],
+    &quot;proposed_assessment_counts&quot;: {
+      &quot;represented&quot;: 4,
+      &quot;unresolved&quot;: 28,
+      &quot;out_of_scope&quot;: 1
+    },
+    &quot;channels&quot;: [
+      {
+        &quot;candidate_id&quot;: &quot;channel:c708094480c0fe3885ec&quot;,
+        &quot;channel_kind&quot;: &quot;task&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_flow_mapping_not_established&quot;,
+        &quot;flow_index&quot;: 0,
+        &quot;path&quot;: &quot;muzzle/prototype/agents/pair.py&quot;,
+        &quot;role_hint&quot;: &quot;attacker_constructor_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;construction_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 10625,
+            &quot;start&quot;: 10569,
+            &quot;line_start&quot;: 239,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/pair.py:L1-L399&quot;,
+            &quot;line_end&quot;: 239
+          },
+          {
+            &quot;end&quot;: 9596,
+            &quot;start&quot;: 9573,
+            &quot;line_start&quot;: 217,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/pair.py:L1-L399&quot;,
+            &quot;line_end&quot;: 217
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:a59b3c50b5021a325b2e&quot;,
+        &quot;channel_kind&quot;: &quot;feedback&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;modules/JailbreakingLLMs/main.py&quot;,
+        &quot;role_hint&quot;: &quot;attacker_constructor_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;construction_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 2312,
+            &quot;start&quot;: 2256,
+            &quot;line_start&quot;: 59,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/main.py:L1-L246&quot;,
+            &quot;line_end&quot;: 59
+          },
+          {
+            &quot;end&quot;: 2064,
+            &quot;start&quot;: 2059,
+            &quot;line_start&quot;: 55,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/main.py:L1-L246&quot;,
+            &quot;line_end&quot;: 55
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:8e56f901b76f5eb4e74c&quot;,
+        &quot;channel_kind&quot;: &quot;labels&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;modules/JailbreakingLLMs/main.py&quot;,
+        &quot;role_hint&quot;: &quot;attacker_constructor_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;construction_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 2312,
+            &quot;start&quot;: 2256,
+            &quot;line_start&quot;: 59,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/main.py:L1-L246&quot;,
+            &quot;line_end&quot;: 59
+          },
+          {
+            &quot;end&quot;: 2057,
+            &quot;start&quot;: 2042,
+            &quot;line_start&quot;: 55,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/main.py:L1-L246&quot;,
+            &quot;line_end&quot;: 55
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:c02ee338f71b594e6d8d&quot;,
+        &quot;channel_kind&quot;: &quot;feedback&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_flow_mapping_not_established&quot;,
+        &quot;flow_index&quot;: 1,
+        &quot;path&quot;: &quot;muzzle/prototype/agents/pair.py&quot;,
+        &quot;role_hint&quot;: &quot;attacker_constructor_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;construction_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 10625,
+            &quot;start&quot;: 10569,
+            &quot;line_start&quot;: 239,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/pair.py:L1-L399&quot;,
+            &quot;line_end&quot;: 239
+          },
+          {
+            &quot;end&quot;: 9633,
+            &quot;start&quot;: 9620,
+            &quot;line_start&quot;: 218,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/pair.py:L1-L399&quot;,
+            &quot;line_end&quot;: 218
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:504996b1831c7a652dc5&quot;,
+        &quot;channel_kind&quot;: &quot;feedback&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;muzzle/prototype/agents/pair.py&quot;,
+        &quot;role_hint&quot;: &quot;attacker_constructor_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;construction_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 10625,
+            &quot;start&quot;: 10569,
+            &quot;line_start&quot;: 239,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/pair.py:L1-L399&quot;,
+            &quot;line_end&quot;: 239
+          },
+          {
+            &quot;end&quot;: 10445,
+            &quot;start&quot;: 10433,
+            &quot;line_start&quot;: 235,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/pair.py:L1-L399&quot;,
+            &quot;line_end&quot;: 235
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:ffef2fdd253716de101c&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;modules/JailbreakingLLMs/PAIR/conversers.py&quot;,
+        &quot;role_hint&quot;: &quot;attacker_constructor_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;generation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 4649,
+            &quot;start&quot;: 4219,
+            &quot;line_start&quot;: 98,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/PAIR/conversers.py:L1-L202&quot;,
+            &quot;line_end&quot;: 103
+          },
+          {
+            &quot;end&quot;: 6691,
+            &quot;start&quot;: 6679,
+            &quot;line_start&quot;: 143,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/PAIR/conversers.py:L1-L202&quot;,
+            &quot;line_end&quot;: 143
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:903242dc21cc79797aa1&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;modules/JailbreakingLLMs/main.py&quot;,
+        &quot;role_hint&quot;: &quot;attacker_constructor_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;construction_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 2312,
+            &quot;start&quot;: 2256,
+            &quot;line_start&quot;: 59,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/main.py:L1-L246&quot;,
+            &quot;line_end&quot;: 59
+          },
+          {
+            &quot;end&quot;: 14099,
+            &quot;start&quot;: 14093,
+            &quot;line_start&quot;: 182,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/PAIR/system_prompts.py:L1-L408&quot;,
+            &quot;line_end&quot;: 182
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:a7bac2e27f97bea7a4e1&quot;,
+        &quot;channel_kind&quot;: &quot;question&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/llm/vllm.py&quot;,
+        &quot;role_hint&quot;: &quot;constructor_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;generation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 1897,
+            &quot;start&quot;: 1831,
+            &quot;line_start&quot;: 42,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/llm/vllm.py:L1-L46&quot;,
+            &quot;line_end&quot;: 42
+          },
+          {
+            &quot;end&quot;: 1790,
+            &quot;start&quot;: 1785,
+            &quot;line_start&quot;: 41,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/llm/vllm.py:L1-L46&quot;,
+            &quot;line_end&quot;: 41
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:317dfbac616194ba4c18&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;modules/JailbreakingLLMs/PAIR/conversers.py&quot;,
+        &quot;role_hint&quot;: &quot;constructor_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;generation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 9135,
+            &quot;start&quot;: 8768,
+            &quot;line_start&quot;: 196,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/PAIR/conversers.py:L1-L202&quot;,
+            &quot;line_end&quot;: 200
+          },
+          {
+            &quot;end&quot;: 8808,
+            &quot;start&quot;: 8796,
+            &quot;line_start&quot;: 196,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/PAIR/conversers.py:L1-L202&quot;,
+            &quot;line_end&quot;: 196
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:ac41a3cdabcc2fd5edb4&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;modules/JailbreakingLLMs/PAIR/language_models.py&quot;,
+        &quot;role_hint&quot;: &quot;model_recipient_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;model_request_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 3687,
+            &quot;start&quot;: 3313,
+            &quot;line_start&quot;: 85,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/PAIR/language_models.py:L1-L100&quot;,
+            &quot;line_end&quot;: 96
+          },
+          {
+            &quot;end&quot;: 3414,
+            &quot;start&quot;: 3404,
+            &quot;line_start&quot;: 87,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/PAIR/language_models.py:L1-L100&quot;,
+            &quot;line_end&quot;: 87
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:fcb5c66806f9fb314d6b&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/llm/litellm.py&quot;,
+        &quot;role_hint&quot;: &quot;model_recipient_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;model_request_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 2475,
+            &quot;start&quot;: 2152,
+            &quot;line_start&quot;: 58,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/llm/litellm.py:L1-L85&quot;,
+            &quot;line_end&quot;: 66
+          },
+          {
+            &quot;end&quot;: 2249,
+            &quot;start&quot;: 2243,
+            &quot;line_start&quot;: 60,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/llm/litellm.py:L1-L85&quot;,
+            &quot;line_end&quot;: 60
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:9c5b75b8cb95a938b32b&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/llm/vllm.py&quot;,
+        &quot;role_hint&quot;: &quot;constructor_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;generation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 1897,
+            &quot;start&quot;: 1831,
+            &quot;line_start&quot;: 42,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/llm/vllm.py:L1-L46&quot;,
+            &quot;line_end&quot;: 42
+          },
+          {
+            &quot;end&quot;: 1811,
+            &quot;start&quot;: 1805,
+            &quot;line_start&quot;: 41,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/llm/vllm.py:L1-L46&quot;,
+            &quot;line_end&quot;: 41
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:08286b78c986759e0fc4&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;muzzle/prototype/agents/dispatcher.py&quot;,
+        &quot;role_hint&quot;: &quot;model_recipient_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;model_request_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 2785,
+            &quot;start&quot;: 2471,
+            &quot;line_start&quot;: 68,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/dispatcher.py:L1-L112&quot;,
+            &quot;line_end&quot;: 74
+          },
+          {
+            &quot;end&quot;: 2565,
+            &quot;start&quot;: 2546,
+            &quot;line_start&quot;: 70,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/dispatcher.py:L1-L112&quot;,
+            &quot;line_end&quot;: 70
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:47aaee3c306102674e25&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;muzzle/prototype/agents/grafter.py&quot;,
+        &quot;role_hint&quot;: &quot;model_recipient_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;model_request_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 2067,
+            &quot;start&quot;: 1888,
+            &quot;line_start&quot;: 64,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/grafter.py:L1-L101&quot;,
+            &quot;line_end&quot;: 70
+          },
+          {
+            &quot;end&quot;: 1949,
+            &quot;start&quot;: 1930,
+            &quot;line_start&quot;: 66,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/grafter.py:L1-L101&quot;,
+            &quot;line_end&quot;: 66
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:55cf3b7507bbfb0a5313&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;muzzle/prototype/agents/prompter.py&quot;,
+        &quot;role_hint&quot;: &quot;model_recipient_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;model_request_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 2077,
+            &quot;start&quot;: 1722,
+            &quot;line_start&quot;: 53,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/prompter.py:L1-L96&quot;,
+            &quot;line_end&quot;: 62
+          },
+          {
+            &quot;end&quot;: 1816,
+            &quot;start&quot;: 1797,
+            &quot;line_start&quot;: 55,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/prompter.py:L1-L96&quot;,
+            &quot;line_end&quot;: 55
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:88040a9bc1e55b66d20f&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;muzzle/prototype/agents/summarizer.py&quot;,
+        &quot;role_hint&quot;: &quot;model_recipient_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;model_request_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 2211,
+            &quot;start&quot;: 1856,
+            &quot;line_start&quot;: 48,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/summarizer.py:L1-L129&quot;,
+            &quot;line_end&quot;: 57
+          },
+          {
+            &quot;end&quot;: 1950,
+            &quot;start&quot;: 1931,
+            &quot;line_start&quot;: 50,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/summarizer.py:L1-L129&quot;,
+            &quot;line_end&quot;: 50
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:09354f11807d3e01fe4e&quot;,
+        &quot;channel_kind&quot;: &quot;task&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_flow_mapping_not_established&quot;,
+        &quot;flow_index&quot;: 2,
+        &quot;path&quot;: &quot;muzzle/prototype/agents/judge.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 11026,
+            &quot;start&quot;: 10862,
+            &quot;line_start&quot;: 290,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/judge.py:L1-L405&quot;,
+            &quot;line_end&quot;: 293
+          },
+          {
+            &quot;end&quot;: 2471,
+            &quot;start&quot;: 2452,
+            &quot;line_start&quot;: 66,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/judge.py:L1-L405&quot;,
+            &quot;line_end&quot;: 66
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:6ddb012c5fd366933b22&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Flan.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 779,
+            &quot;start&quot;: 706,
+            &quot;line_start&quot;: 19,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Flan.py:L1-L21&quot;,
+            &quot;line_end&quot;: 19
+          },
+          {
+            &quot;end&quot;: 732,
+            &quot;start&quot;: 726,
+            &quot;line_start&quot;: 19,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Flan.py:L1-L21&quot;,
+            &quot;line_end&quot;: 19
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:0484629563b092758b3e&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/GPT.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 1473,
+            &quot;start&quot;: 1212,
+            &quot;line_start&quot;: 44,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/GPT.py:L1-L85&quot;,
+            &quot;line_end&quot;: 51
+          },
+          {
+            &quot;end&quot;: 1374,
+            &quot;start&quot;: 1310,
+            &quot;line_start&quot;: 46,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/GPT.py:L1-L85&quot;,
+            &quot;line_end&quot;: 48
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:398d53082262d187578e&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/GPT.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 2529,
+            &quot;start&quot;: 2194,
+            &quot;line_start&quot;: 74,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/GPT.py:L1-L85&quot;,
+            &quot;line_end&quot;: 82
+          },
+          {
+            &quot;end&quot;: 2339,
+            &quot;start&quot;: 2329,
+            &quot;line_start&quot;: 77,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/GPT.py:L1-L85&quot;,
+            &quot;line_end&quot;: 77
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:b6a0b7d0aaf8342962f3&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Llama.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 772,
+            &quot;start&quot;: 629,
+            &quot;line_start&quot;: 18,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Llama.py:L1-L24&quot;,
+            &quot;line_end&quot;: 21
+          },
+          {
+            &quot;end&quot;: 658,
+            &quot;start&quot;: 649,
+            &quot;line_start&quot;: 18,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Llama.py:L1-L24&quot;,
+            &quot;line_end&quot;: 18
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:c901971044ac97a24a3e&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Llama3.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 3348,
+            &quot;start&quot;: 3190,
+            &quot;line_start&quot;: 82,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Llama3.py:L1-L122&quot;,
+            &quot;line_end&quot;: 86
+          },
+          {
+            &quot;end&quot;: 3245,
+            &quot;start&quot;: 3236,
+            &quot;line_start&quot;: 83,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Llama3.py:L1-L122&quot;,
+            &quot;line_end&quot;: 83
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:0902e0b8c0cbc48ba1e8&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Llama3.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 4576,
+            &quot;start&quot;: 4416,
+            &quot;line_start&quot;: 112,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Llama3.py:L1-L122&quot;,
+            &quot;line_end&quot;: 116
+          },
+          {
+            &quot;end&quot;: 4473,
+            &quot;start&quot;: 4464,
+            &quot;line_start&quot;: 113,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/Llama3.py:L1-L122&quot;,
+            &quot;line_end&quot;: 113
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:7e38343f4c313cae2683&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/PaLM2.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 2416,
+            &quot;start&quot;: 734,
+            &quot;line_start&quot;: 23,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/PaLM2.py:L1-L62&quot;,
+            &quot;line_end&quot;: 54
+          },
+          {
+            &quot;end&quot;: 821,
+            &quot;start&quot;: 818,
+            &quot;line_start&quot;: 25,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/PaLM2.py:L1-L62&quot;,
+            &quot;line_end&quot;: 25
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:4fbe8bb02dfbefc032b1&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/PaLM2.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 2570,
+            &quot;start&quot;: 2528,
+            &quot;line_start&quot;: 58,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/PaLM2.py:L1-L62&quot;,
+            &quot;line_end&quot;: 58
+          },
+          {
+            &quot;end&quot;: 2550,
+            &quot;start&quot;: 2547,
+            &quot;line_start&quot;: 58,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/PaLM2.py:L1-L62&quot;,
+            &quot;line_end&quot;: 58
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:8a73acfac7b1c8d6ba8c&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/QLoraModel.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 3477,
+            &quot;start&quot;: 3319,
+            &quot;line_start&quot;: 83,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/QLoraModel.py:L1-L145&quot;,
+            &quot;line_end&quot;: 87
+          },
+          {
+            &quot;end&quot;: 3374,
+            &quot;start&quot;: 3365,
+            &quot;line_start&quot;: 84,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/QLoraModel.py:L1-L145&quot;,
+            &quot;line_end&quot;: 84
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:37150c09cc4b6dcf1f96&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/QLoraModel.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 4455,
+            &quot;start&quot;: 4163,
+            &quot;line_start&quot;: 106,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/QLoraModel.py:L1-L145&quot;,
+            &quot;line_end&quot;: 113
+          },
+          {
+            &quot;end&quot;: 4218,
+            &quot;start&quot;: 4209,
+            &quot;line_start&quot;: 107,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/QLoraModel.py:L1-L145&quot;,
+            &quot;line_end&quot;: 107
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:8316cf9adf29b2c7af2b&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/QLoraModel.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 5634,
+            &quot;start&quot;: 5454,
+            &quot;line_start&quot;: 138,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/QLoraModel.py:L1-L145&quot;,
+            &quot;line_end&quot;: 142
+          },
+          {
+            &quot;end&quot;: 5511,
+            &quot;start&quot;: 5502,
+            &quot;line_start&quot;: 139,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/Open-Prompt-Injection/OpenPromptInjection/models/QLoraModel.py:L1-L145&quot;,
+            &quot;line_end&quot;: 139
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:6e0ec917f482ddb74cfb&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_exclusion_not_established&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;extras/defense_eval/evaluate_defenses.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 9180,
+            &quot;start&quot;: 8991,
+            &quot;line_start&quot;: 269,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/evaluate_defenses.py:L1-L507&quot;,
+            &quot;line_end&quot;: 275
+          },
+          {
+            &quot;end&quot;: 9027,
+            &quot;start&quot;: 9021,
+            &quot;line_start&quot;: 270,
+            &quot;segment_id&quot;: &quot;repo:extras/defense_eval/evaluate_defenses.py:L1-L507&quot;,
+            &quot;line_end&quot;: 270
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:0c535d1237ae6a6ce61b&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;modules/JailbreakingLLMs/PAIR/judges.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 2698,
+            &quot;start&quot;: 2409,
+            &quot;line_start&quot;: 69,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/PAIR/judges.py:L1-L160&quot;,
+            &quot;line_end&quot;: 72
+          },
+          {
+            &quot;end&quot;: 2303,
+            &quot;start&quot;: 2297,
+            &quot;line_start&quot;: 68,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/PAIR/judges.py:L1-L160&quot;,
+            &quot;line_end&quot;: 68
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:4cf3287c4cc7f6088eff&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/classifier.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 6715,
+            &quot;start&quot;: 6577,
+            &quot;line_start&quot;: 56,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/classifier.py:L1-L181&quot;,
+            &quot;line_end&quot;: 58
+          },
+          {
+            &quot;end&quot;: 6489,
+            &quot;start&quot;: 6483,
+            &quot;line_start&quot;: 54,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/classifier.py:L1-L181&quot;,
+            &quot;line_end&quot;: 54
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:9387ec9542752688d004&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;unresolved&quot;,
+        &quot;reason&quot;: &quot;channel_explicitly_unresolved&quot;,
+        &quot;flow_index&quot;: null,
+        &quot;path&quot;: &quot;modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/classifier.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 8412,
+            &quot;start&quot;: 8274,
+            &quot;line_start&quot;: 104,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/classifier.py:L1-L181&quot;,
+            &quot;line_end&quot;: 106
+          },
+          {
+            &quot;end&quot;: 8186,
+            &quot;start&quot;: 8180,
+            &quot;line_start&quot;: 102,
+            &quot;segment_id&quot;: &quot;repo:modules/JailbreakingLLMs/module/jailbreakbench/src/jailbreakbench/classifier.py:L1-L181&quot;,
+            &quot;line_end&quot;: 102
+          }
+        ]
+      },
+      {
+        &quot;candidate_id&quot;: &quot;channel:baee21017844035d06ae&quot;,
+        &quot;channel_kind&quot;: &quot;other&quot;,
+        &quot;status&quot;: &quot;represented&quot;,
+        &quot;reason&quot;: &quot;reviewed_matching_input_channel&quot;,
+        &quot;flow_index&quot;: 2,
+        &quot;path&quot;: &quot;muzzle/prototype/agents/judge.py&quot;,
+        &quot;role_hint&quot;: &quot;evaluator_candidate&quot;,
+        &quot;phase_hint&quot;: &quot;evaluation_candidate&quot;,
+        &quot;locators&quot;: [
+          {
+            &quot;end&quot;: 11026,
+            &quot;start&quot;: 10862,
+            &quot;line_start&quot;: 290,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/judge.py:L1-L405&quot;,
+            &quot;line_end&quot;: 293
+          },
+          {
+            &quot;end&quot;: 10916,
+            &quot;start&quot;: 10897,
+            &quot;line_start&quot;: 291,
+            &quot;segment_id&quot;: &quot;repo:muzzle/prototype/agents/judge.py:L1-L405&quot;,
+            &quot;line_end&quot;: 291
+          }
+        ]
+      }
+    ]
+  },
+  &quot;repository&quot;: {
+    &quot;url&quot;: &quot;https://github.com/gsiros/muzzle&quot;,
+    &quot;revision&quot;: &quot;9f3effa1668fa29dcba8f2454e711ddf9ef3c038&quot;,
+    &quot;manifest_sha256&quot;: &quot;14d97f81a4d83366de8272a1ab6b44d89c165c905e0c702caf8b6421a90a453c&quot;,
+    &quot;coverage&quot;: {
+      &quot;complete&quot;: true,
+      &quot;inventory_complete&quot;: true,
+      &quot;eligible_files&quot;: 106,
+      &quot;included_files&quot;: 106,
+      &quot;omitted_files&quot;: 0,
+      &quot;excluded_entries&quot;: 129,
+      &quot;characters&quot;: 445602,
+      &quot;max_characters&quot;: 500000,
+      &quot;scope&quot;: &quot;eligible UTF-8 author source plus bounded directly referenced repository evidence; unresolved dependencies and data remain unaudited&quot;,
+      &quot;reason&quot;: &quot;All eligible source files supplied&quot;,
+      &quot;omission_reasons&quot;: []
+    },
+    &quot;dependency_snapshot_count&quot;: 1,
+    &quot;expansion&quot;: {
+      &quot;added_files&quot;: 25,
+      &quot;added_bytes&quot;: 21498,
+      &quot;data_files&quot;: 0,
+      &quot;data_bytes&quot;: 0,
+      &quot;data_output_bytes&quot;: 0,
+      &quot;data_coverage_complete&quot;: false,
+      &quot;needed_count&quot;: 1025,
+      &quot;unresolved_count&quot;: 817,
+      &quot;over_limit_count&quot;: 1,
+      &quot;inspected_paths_count&quot;: 88
+    },
+    &quot;data_files&quot;: [],
+    &quot;data_file_count&quot;: 0,
+    &quot;data_witness_count&quot;: 0,
+    &quot;sampled_file_count&quot;: 0
+  },
+  &quot;inference&quot;: {
+    &quot;provider&quot;: &quot;codex&quot;,
+    &quot;requested_model&quot;: &quot;gpt-6.1-sol&quot;,
+    &quot;max_calls&quot;: 6,
+    &quot;invocation_count&quot;: 4,
+    &quot;calls&quot;: [
+      {
+        &quot;invocation&quot;: 1,
+        &quot;stage&quot;: &quot;declared_contract&quot;,
+        &quot;status&quot;: &quot;completed&quot;,
+        &quot;requested_model&quot;: &quot;gpt-6.1-sol&quot;,
+        &quot;actual_model&quot;: null,
+        &quot;actual_models&quot;: [],
+        &quot;request_sha256&quot;: &quot;9a7b8657e94eac7fa47d5e4b904ffc02d4661ae8f6c430fda048a0b6b08bdd98&quot;,
+        &quot;usage&quot;: {
+          &quot;input_tokens&quot;: 35042,
+          &quot;cached_input_tokens&quot;: 9984,
+          &quot;output_tokens&quot;: 4401,
+          &quot;reasoning_output_tokens&quot;: 73
+        },
+        &quot;diagnostic_codes&quot;: [],
+        &quot;execution&quot;: {
+          &quot;returncode&quot;: 0,
+          &quot;turn_completed&quot;: true,
+          &quot;fatal_error_count&quot;: 0,
+          &quot;error_notification_count&quot;: 0
+        },
+        &quot;elapsed_seconds&quot;: 96.178001,
+        &quot;cli_version&quot;: null,
+        &quot;event_shapes&quot;: {
+          &quot;thread.started&quot;: 1,
+          &quot;turn.started&quot;: 1,
+          &quot;item.completed&quot;: 1,
+          &quot;turn.completed&quot;: 1
+        },
+        &quot;diagnostics&quot;: [],
+        &quot;stderr_summary&quot;: {
+          &quot;bytes&quot;: 1388,
+          &quot;sha256&quot;: &quot;29aa47662746e5e6b3c673a1293c0565d59bbc7a6ce73523f8c0c8c5d7aa81d1&quot;,
+          &quot;category&quot;: &quot;cli_failed&quot;
+        }
+      },
+      {
+        &quot;invocation&quot;: 2,
+        &quot;stage&quot;: &quot;extraction&quot;,
+        &quot;status&quot;: &quot;completed&quot;,
+        &quot;requested_model&quot;: &quot;gpt-6.1-sol&quot;,
+        &quot;actual_model&quot;: null,
+        &quot;actual_models&quot;: [],
+        &quot;request_sha256&quot;: &quot;ab50cc9a5ebe689d8ba406c09056277bc9a77df33328c9947bb5039931e2aeeb&quot;,
+        &quot;usage&quot;: {
+          &quot;input_tokens&quot;: 232940,
+          &quot;cached_input_tokens&quot;: 0,
+          &quot;output_tokens&quot;: 10870,
+          &quot;reasoning_output_tokens&quot;: 162
+        },
+        &quot;diagnostic_codes&quot;: [],
+        &quot;execution&quot;: {
+          &quot;returncode&quot;: 0,
+          &quot;turn_completed&quot;: true,
+          &quot;fatal_error_count&quot;: 0,
+          &quot;error_notification_count&quot;: 0
+        },
+        &quot;elapsed_seconds&quot;: 225.001777,
+        &quot;cli_version&quot;: null,
+        &quot;event_shapes&quot;: {
+          &quot;thread.started&quot;: 1,
+          &quot;turn.started&quot;: 1,
+          &quot;item.completed&quot;: 1,
+          &quot;turn.completed&quot;: 1
+        },
+        &quot;diagnostics&quot;: [],
+        &quot;stderr_summary&quot;: {
+          &quot;bytes&quot;: 1679,
+          &quot;sha256&quot;: &quot;15ea06175b6526a00b7dca18db7761a950701b28c47921f31c292f084745c674&quot;,
+          &quot;category&quot;: &quot;cli_failed&quot;
+        }
+      },
+      {
+        &quot;invocation&quot;: 3,
+        &quot;stage&quot;: &quot;citation_repair&quot;,
+        &quot;status&quot;: &quot;completed&quot;,
+        &quot;requested_model&quot;: &quot;gpt-6.1-sol&quot;,
+        &quot;actual_model&quot;: null,
+        &quot;actual_models&quot;: [],
+        &quot;request_sha256&quot;: &quot;10d1d1b40a4a78078977c4bd51152e17e91ed6a321b0e48903d119191f812461&quot;,
+        &quot;usage&quot;: {
+          &quot;input_tokens&quot;: 38590,
+          &quot;cached_input_tokens&quot;: 0,
+          &quot;output_tokens&quot;: 452,
+          &quot;reasoning_output_tokens&quot;: 61
+        },
+        &quot;diagnostic_codes&quot;: [],
+        &quot;execution&quot;: {
+          &quot;returncode&quot;: 0,
+          &quot;turn_completed&quot;: true,
+          &quot;fatal_error_count&quot;: 0,
+          &quot;error_notification_count&quot;: 0
+        },
+        &quot;elapsed_seconds&quot;: 15.511376,
+        &quot;cli_version&quot;: null,
+        &quot;event_shapes&quot;: {
+          &quot;thread.started&quot;: 1,
+          &quot;turn.started&quot;: 1,
+          &quot;item.completed&quot;: 1,
+          &quot;turn.completed&quot;: 1
+        },
+        &quot;diagnostics&quot;: [],
+        &quot;stderr_summary&quot;: {
+          &quot;bytes&quot;: 1388,
+          &quot;sha256&quot;: &quot;dd5208792853f23cff7a2031dfcad6ded1ffda283ed6d4f0a6fb23b60f4bdc75&quot;,
+          &quot;category&quot;: &quot;cli_failed&quot;
+        }
+      },
+      {
+        &quot;invocation&quot;: 4,
+        &quot;stage&quot;: &quot;semantic_review&quot;,
+        &quot;status&quot;: &quot;completed&quot;,
+        &quot;requested_model&quot;: &quot;gpt-6.1-sol&quot;,
+        &quot;actual_model&quot;: null,
+        &quot;actual_models&quot;: [],
+        &quot;request_sha256&quot;: &quot;eba67c83177405db1c2e0c72ab89793951ffb5fbd3a918846b7a4bbb4aa8a9d1&quot;,
+        &quot;usage&quot;: {
+          &quot;input_tokens&quot;: 239024,
+          &quot;cached_input_tokens&quot;: 0,
+          &quot;output_tokens&quot;: 3359,
+          &quot;reasoning_output_tokens&quot;: 64
+        },
+        &quot;diagnostic_codes&quot;: [],
+        &quot;execution&quot;: {
+          &quot;returncode&quot;: 0,
+          &quot;turn_completed&quot;: true,
+          &quot;fatal_error_count&quot;: 0,
+          &quot;error_notification_count&quot;: 0
+        },
+        &quot;elapsed_seconds&quot;: 77.285557,
+        &quot;cli_version&quot;: null,
+        &quot;event_shapes&quot;: {
+          &quot;thread.started&quot;: 1,
+          &quot;turn.started&quot;: 1,
+          &quot;item.completed&quot;: 1,
+          &quot;turn.completed&quot;: 1
+        },
+        &quot;diagnostics&quot;: [],
+        &quot;stderr_summary&quot;: {
+          &quot;bytes&quot;: 1388,
+          &quot;sha256&quot;: &quot;cfbaed7f58bacc7337a7143b104c444db8212e93188b7ab0953a153d765c4b61&quot;,
+          &quot;category&quot;: &quot;cli_failed&quot;
+        }
+      }
+    ],
+    &quot;usage&quot;: {
+      &quot;input_tokens&quot;: 545596,
+      &quot;cached_input_tokens&quot;: 9984,
+      &quot;output_tokens&quot;: 19082,
+      &quot;reasoning_output_tokens&quot;: 360
+    },
+    &quot;usage_reporting_complete&quot;: true,
+    &quot;actual_model_unknown_invocations&quot;: 4,
+    &quot;preflight_failure_count&quot;: 0,
+    &quot;preflight_failure_codes&quot;: [],
+    &quot;stage_attribution&quot;: &quot;verified_cumulative_snapshot_prefix_lengths&quot;,
+    &quot;verified_stage_snapshot_count&quot;: 4,
+    &quot;recording_status&quot;: &quot;final_cumulative_ledger&quot;,
+    &quot;review_retry_count&quot;: 0,
+    &quot;observed_model_phases&quot;: [
+      &quot;declared_contract&quot;,
+      &quot;extraction&quot;,
+      &quot;citation_repair&quot;,
+      &quot;semantic_review&quot;
+    ],
+    &quot;model_phase_sequence_verified&quot;: true,
+    &quot;failed_invocation_count&quot;: 0
+  }
+}</pre></details></article></html>

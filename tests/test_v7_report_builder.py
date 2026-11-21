@@ -291,6 +291,30 @@ class V7ReportBuilderTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "current-run automatic proposal"):
                 builder.build(run, public, ["muzzle"])
 
+    def test_zero_call_early_ingestion_failure_is_reported_without_a_proposal(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            run, public = self.acquisition_fixture(Path(temporary))
+            directory = run / "audits/muzzle"
+            for path in directory.iterdir():
+                if path.name not in {"report.json", "report.html", "report.md"}:
+                    path.unlink()
+            save(directory / "result.json", {"source": "https://example.org/muzzle.pdf", "status": "failed",
+                "verdict": "technical_failure", "inconsistency": None,
+                "error": "Paper download timed out", "stages": [{"stage": "ingestion", "status": "failed", "error": "Paper download timed out"}]})
+            save(directory / "inference.json", {"calls": [], "model": "synthetic-model", "max_calls": 6,
+                "provider": "test-only", "usage": {}, "usage_reporting_complete": True})
+            report, manifest, combined = builder.build(run, public, ["muzzle"])
+            row = report["paper_results"][0]
+            self.assertEqual(row["paper_verdict"], "technical_failure")
+            self.assertEqual(row["inference"]["invocation_count"], 0)
+            self.assertTrue(row["input_audit"]["early_ingestion_failure"]["verified"])
+            self.assertEqual(row["declared_contract"]["status"], "not_reached")
+            builder.write_outputs(report, manifest, combined, public)
+            # The exception cannot cover an unrecorded prepared input or a later failure.
+            save(directory / "prepared.json", {"sha256": "not-an-early-failure"})
+            with self.assertRaisesRegex(ValueError, "fresh audit"):
+                builder.attempt(directory, run.resolve(), "muzzle", "https://example.org/muzzle.pdf")
+
 
 if __name__ == "__main__":
     unittest.main()

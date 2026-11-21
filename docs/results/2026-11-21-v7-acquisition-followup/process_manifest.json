@@ -1,0 +1,82 @@
+{
+  "schema_version": "v7-url-pilot-process-manifest-v1",
+  "hash_algorithm": "sha256",
+  "path_base": "relative to run_id directory",
+  "scope": "every raw run file, including driver and original per-paper reports",
+  "exclusions": [
+    "combined",
+    "combined-corrected",
+    "derivatives",
+    "deterministic_revalidation",
+    "generated",
+    "public",
+    "revalidated"
+  ],
+  "files": [
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup",
+      "path": "audits/muzzle/inference.json",
+      "bytes": 701,
+      "sha256": "3f36fd30241b7ac5564a3416ea6e239a559926ecf6953b56efa386768c238a42"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup",
+      "path": "audits/muzzle/report.html",
+      "bytes": 4993,
+      "sha256": "bb2046156ded2868c5f179f1d954405384c21a25459151f31ff5ea31def0450b"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup",
+      "path": "audits/muzzle/report.json",
+      "bytes": 1642,
+      "sha256": "a778171b9d8069a016f9e2b13f0a2ad5782dd276afdc5d36dcbc3481ae3e437b"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup",
+      "path": "audits/muzzle/report.md",
+      "bytes": 1717,
+      "sha256": "fccd327249c3930d89f0a4b22173c56738142161c4cd9b561f68b86333c24faa"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup",
+      "path": "audits/muzzle/result.json",
+      "bytes": 556,
+      "sha256": "11453207ad3f055bf481dc5bc0beb7874eeb904bcd3315e872951111cd16cafe"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup",
+      "path": "driver.py",
+      "bytes": 3101,
+      "sha256": "2fdd4a29597d9f5f1e61857ff893963fd8f7d3b3b27bff0efb182145448f7d93"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup",
+      "path": "driver_summary.json",
+      "bytes": 238,
+      "sha256": "27e78435209c8e5fbe3f577b950986f5cd0b515642376ca32716763f6642d1e3"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup",
+      "path": "frozen_config.json",
+      "bytes": 4078,
+      "sha256": "0fdf117a3f9571d8e485a843972f7e3c8e87a0e53c934feabb165daf5305c351"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup",
+      "path": "muzzle.process.log",
+      "bytes": 405,
+      "sha256": "879ef5a5dd83bdaea8c6c76d6d8be49f807b9462da7b082e276560efa44bab8a"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup",
+      "path": "runtime_integrity.json",
+      "bytes": 55,
+      "sha256": "41436442fd23e66961ec0ec8421e6d5160c6923cf33c31230fbd050ca215c6e8"
+    }
+  ],
+  "builder_sha256": "5a9f7403ae0a65707134b3f48ca0789319a73f46bec762c2571f28121675418b",
+  "helper_sha256": {
+    "summarize_v6_pilot.py": "0e3aab042feba9e26c4b42f1041e06cea0f0cebcbaf66a6a35241e51b45c370d",
+    "summarize_v6_followup.py": "a16e9482a16a14772e93b6be5d77dd553ed8a20ec1842ec981091eb2ea6ac4cc"
+  }
+}

@@ -309,7 +309,17 @@ def attempt(directory, run, paper_id, source):
     for name in ("report.json", "report.html", "report.md"):
         if not (directory / name).is_file():
             raise ValueError("V7 attempt lacks terminal reports")
-    if result.get("source") != source or result.get("requested_workflow") != "automatic_from_paper":
+    ledger_before_ingestion = base.read_json(directory / "inference.json", optional=True)
+    early_ingestion_failure = (result.get("status") == "failed"
+        and result.get("requested_workflow") is None
+        and ledger_before_ingestion.get("calls") == []
+        and not any((directory / name).exists() for name in (
+            "prepared.json", "combined_input.json", "extraction.json", "request.json",
+            "declared_contract.request.json", "acquisition_pass.request.json", "review.request.json"))
+        and len(result.get("stages", [])) == 1
+        and result["stages"][0].get("stage") == "ingestion"
+        and result["stages"][0].get("status") == "failed")
+    if result.get("source") != source or (result.get("requested_workflow") != "automatic_from_paper" and not early_ingestion_failure):
         raise ValueError("V7 attempt is not a fresh audit of the original frozen paper URL")
     if result["status"] == "completed" and result.get("schema_version") != 7:
         raise ValueError("completed V7 attempt has another decision schema")
@@ -336,6 +346,8 @@ def attempt(directory, run, paper_id, source):
             "semantic_review", "semantic_review_retry1"} or inference["calls"][-1]["status"] not in SUCCESS):
         raise ValueError("completed V7 result lacks a completed independent review")
     input_audit = base.input_audit(directory, request, combined)
+    input_audit["early_ingestion_failure"] = {"verified": early_ingestion_failure,
+        "scope": "Frozen paper URL matched; ingestion failed before any prepared input, proposal or model invocation." if early_ingestion_failure else "not_applicable"}
     input_audit["paper_only_declaration"] = declared_audit
     input_audit["frozen_review"] = review_payload_audit(directory, combined, extraction)
     acquisition, acquisition_audit = acquisition_summary(directory, combined, result, projector)
@@ -444,6 +456,8 @@ def build(run, public_dir, paper_ids=None):
             "max_calls_per_paper", "max_total_cli_calls", "model_timeout_seconds", "max_input_chars", "max_code_chars", "source_fetch", "require_source")},
         "review_retry_limit": retries,
         "acquisition_passes": acquisition_passes, "paper_ids": list(paper_ids),
+        "source_retry_lineage": {"source_retry_of": base.code(config.get("source_retry_of")),
+            "prior_model_invocations": config.get("prior_model_invocations") if type(config.get("prior_model_invocations")) is int else None},
         "code_files_sha256": {name: sha for name, sha in config.get("code_files", {}).items()
                               if base.relative_path(name) and base.HEX.fullmatch(str(sha))},
         "summary": summary, "paper_results": rows, "attempts": rows,

@@ -1,0 +1,55 @@
+{
+  "kind": "deterministic_gate_revalidation",
+  "model_calls": 0,
+  "manual_label_changes": false,
+  "change": "Same-task code identity does not require a redundant paper quote inside the relation axis; independent paper scenario and all other gates remain required.",
+  "runtime_sha256": {
+    "deployment_v7.py": "5332d57aed90b1ef9c32f603c8105bb3d7d79373456e5efe822f5f953a5beda6",
+    "extraction_v7.py": "8c23dd8e9a5bfbdea6a6dbbab90d60969af4fdf7193b1fb762ecf8367cec659c"
+  },
+  "papers": [
+    {
+      "paper_id": "obliinjection",
+      "parent_run_id": "2026-11-21-v7-url-pilot",
+      "original_verdict": "inconsistent",
+      "revalidated_verdict": "inconsistent",
+      "original_inconsistency": true,
+      "revalidated_inconsistency": true,
+      "confirmed_issue_types": [
+        "construction_contract_mismatch"
+      ],
+      "original_evidence_errors": [],
+      "revalidated_evidence_errors": [],
+      "parent_sha256": {
+        "extraction.repaired.json": "358d9972545b1d7cbf55cb2bd2aaae519b9675310e2c992fbd1af3f7767a1436",
+        "review.json": "58c4a23d433c17b29eabf361fd105df873c9a074a49a06910d354701b27e66f0",
+        "combined_input.json": "779483cca32faea9dab09f125bf9fee8b58032a209dbd03745a59af40a744732",
+        "result.json": "ac0f49d938ab12b7da3faa2e4dcb7a9a7a2c2eaa7e38cea5a10770d87dd6250e"
+      }
+    },
+    {
+      "paper_id": "muzzle",
+      "parent_run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "original_verdict": "insufficient_evidence",
+      "revalidated_verdict": "insufficient_evidence",
+      "original_inconsistency": null,
+      "revalidated_inconsistency": null,
+      "confirmed_issue_types": [],
+      "original_evidence_errors": [
+        "required_knowledge: citation must reference code, not paper",
+        "task_relation: both paper scenario and code identity evidence are required",
+        "dependency_flow: source/construction/knowledge citations do not match its grounded path"
+      ],
+      "revalidated_evidence_errors": [
+        "required_knowledge: citation must reference code, not paper",
+        "dependency_flow: source/construction/knowledge citations do not match its grounded path"
+      ],
+      "parent_sha256": {
+        "extraction.repaired.json": "3decf833b86d22f9598e1744c01a99d2fea2b14518f8d63aa87123a829771afa",
+        "review.json": "f79adaa85375258e01deb19d8b178793dcb68f83fd3136650c5ae63629c9b178",
+        "combined_input.json": "8515d56862540f2153a400acc8174dfbb497d994eb140f2ca3ff3cd155cc2f70",
+        "result.json": "ad206631ee5dbba126db8ec2190f2a58a2339cabdc68d8132a07bea359f89033"
+      }
+    }
+  ]
+}

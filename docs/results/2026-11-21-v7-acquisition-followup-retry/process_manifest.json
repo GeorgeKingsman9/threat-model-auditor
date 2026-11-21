@@ -1,0 +1,202 @@
+{
+  "schema_version": "v7-url-pilot-process-manifest-v1",
+  "hash_algorithm": "sha256",
+  "path_base": "relative to run_id directory",
+  "scope": "every raw run file, including driver and original per-paper reports",
+  "exclusions": [
+    "combined",
+    "combined-corrected",
+    "derivatives",
+    "deterministic_revalidation",
+    "generated",
+    "public",
+    "revalidated"
+  ],
+  "files": [
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "audits/muzzle/citation_repair.request.json",
+      "bytes": 130268,
+      "sha256": "1c32f87fc80aba2c5667f1dda94514ef1974ac7784ba986593bbc900ddf6a474"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "audits/muzzle/citation_repair.response.json",
+      "bytes": 2163,
+      "sha256": "b4c8275695b4e06798a70b1487cfc4c45e834c759572ede355f6daacc3ae0e64"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "audits/muzzle/combined_input.json",
+      "bytes": 2630887,
+      "sha256": "8515d56862540f2153a400acc8174dfbb497d994eb140f2ca3ff3cd155cc2f70"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "audits/muzzle/declared_contract.json",
+      "bytes": 56198,
+      "sha256": "3cb5f16296701445c278b208c66ca534577ba5cc431f4a9ec384acc2b3e9f45f"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "audits/muzzle/declared_contract.request.json",
+      "bytes": 98647,
+      "sha256": "df3376c683fd26863c9ca4bb04917333be9ab40c024d1dd5fee7055d62c7e646"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "audits/muzzle/declared_contract.response.json",
+      "bytes": 21383,
+      "sha256": "6d2f4db8f35565d7c610bf3975394f7737dc3af7313fad996369d04d1ff45d9c"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "audits/muzzle/extraction.json",
+      "bytes": 46752,
+      "sha256": "1ca176ea4d6f0e08e41118e0ae57dfe7aedbc8999c4a731dbf28bd94b9e45bce"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "audits/muzzle/extraction.repaired.json",
+      "bytes": 47968,
+      "sha256": "3decf833b86d22f9598e1744c01a99d2fea2b14518f8d63aa87123a829771afa"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "audits/muzzle/inference.citation_repair.json",
+      "bytes": 3776,
+      "sha256": "22afacf843cc86d4ccb5e6cec2b157ddc4b110c0307c62255736563cf0b62e69"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "audits/muzzle/inference.declared_contract.json",
+      "bytes": 1734,
+      "sha256": "6fd46af971d6e2e3e672d06828422fdfd4d60b8f59c23e7664fefc291ef4236b"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "audits/muzzle/inference.extraction.json",
+      "bytes": 2759,
+      "sha256": "d47ad40c7198f61333b757206f10d425366182eb2b3fb7a7b28230cb6bfa11eb"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "audits/muzzle/inference.json",
+      "bytes": 4795,
+      "sha256": "85f2a9e4d87af666ac3c9ddbb3b8eaeb18cd10645637c43a377b51ddd16d35cb"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "audits/muzzle/inference.semantic_review.json",
+      "bytes": 4795,
+      "sha256": "85f2a9e4d87af666ac3c9ddbb3b8eaeb18cd10645637c43a377b51ddd16d35cb"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "audits/muzzle/prepared.json",
+      "bytes": 366106,
+      "sha256": "f060fc91a92688baa885a8cd43997ebecaa2a7613e56335d3667ede12175113b"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "audits/muzzle/report.html",
+      "bytes": 1659075,
+      "sha256": "aa539f102de685a2f9aafc3e4c5a061a7fb0dd606768f669849c77e9ca11bf17"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "audits/muzzle/report.json",
+      "bytes": 1259398,
+      "sha256": "d41f506b7f7eb5d2a3595cf9fc850a8105c2671e082985916c686ea2a58bb944"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "audits/muzzle/report.md",
+      "bytes": 1242322,
+      "sha256": "ee1ebeb5dde5e03b4a95224c5353c883aff0479841f074b0936b85a42ec70469"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "audits/muzzle/repository.json",
+      "bytes": 1515162,
+      "sha256": "fdcdc7a8b1c0962a17ab3a905b526371eeb75d108718592b1aa4000ccfe08301"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "audits/muzzle/request.json",
+      "bytes": 605,
+      "sha256": "ebee15608688436461c1b5181c53dad7f29d3fbce544dc0ee37ac72862687a47"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "audits/muzzle/result.json",
+      "bytes": 1137965,
+      "sha256": "ad206631ee5dbba126db8ec2190f2a58a2339cabdc68d8132a07bea359f89033"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "audits/muzzle/review.contract.json",
+      "bytes": 16621,
+      "sha256": "08b18952ef0d2d10ed538ef00c48634b5819028ca8b55d043631ed50da325415"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "audits/muzzle/review.json",
+      "bytes": 14667,
+      "sha256": "f79adaa85375258e01deb19d8b178793dcb68f83fd3136650c5ae63629c9b178"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "audits/muzzle/review.request.json",
+      "bytes": 935733,
+      "sha256": "c1e0ce56fc19105ee547d96df0aa91c511c242f3904b9bac42684341f43e6b5a"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "audits/muzzle/source_acquisition.json",
+      "bytes": 43833,
+      "sha256": "0e99d807acd576657645c61d4ad44766082a75a2de87f38d15e1d6756898eb40"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "audits/muzzle/source_discovery.json",
+      "bytes": 10139,
+      "sha256": "f6e69dae3397a7d457c2abc8926c579bbec94ef47f05009fe50b236f37f663c3"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "driver.py",
+      "bytes": 3400,
+      "sha256": "649ae0cbacb5462140e1e9221e68ae7cb5dbe41cf2d42f9c1757083e6c9993c4"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "driver_summary.json",
+      "bytes": 233,
+      "sha256": "4dd6bbbaa8ae82371ad73c6dd7ab026554a0d9dcebe1fc4fb9b088a47dde6497"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "frozen_config.json",
+      "bytes": 4359,
+      "sha256": "09e381ab7bc0d99f4524d05c1f3142d3e01a0b1fbcc30060d13b1f7a3d2b1fc4"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "muzzle.process.log",
+      "bytes": 30541,
+      "sha256": "a6f306346f2fe7568e9ab1611c55e94133163a8746732f2ccc894f884acc2a17"
+    },
+    {
+      "run_id": "2026-11-21-v7-acquisition-followup-retry",
+      "path": "runtime_integrity.json",
+      "bytes": 55,
+      "sha256": "41436442fd23e66961ec0ec8421e6d5160c6923cf33c31230fbd050ca215c6e8"
+    }
+  ],
+  "builder_sha256": "5a9f7403ae0a65707134b3f48ca0789319a73f46bec762c2571f28121675418b",
+  "helper_sha256": {
+    "summarize_v6_pilot.py": "0e3aab042feba9e26c4b42f1041e06cea0f0cebcbaf66a6a35241e51b45c370d",
+    "summarize_v6_followup.py": "a16e9482a16a14772e93b6be5d77dd553ed8a20ec1842ec981091eb2ea6ac4cc"
+  }
+}

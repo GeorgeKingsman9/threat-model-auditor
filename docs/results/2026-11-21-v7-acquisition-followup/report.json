@@ -1,0 +1,486 @@
+{
+  "schema_version": "v7-url-pilot-summary-v1",
+  "run_id": "2026-11-21-v7-acquisition-followup",
+  "created_at": "2026-11-21T13:03:44.527245+00:00",
+  "code_commit": "557b2f6fafd8b09ff57c79137107fd0f68e3d2b2",
+  "frozen_config_sha256": "0fdf117a3f9571d8e485a843972f7e3c8e87a0e53c934feabb165daf5305c351",
+  "frozen_limits": {
+    "provider": "codex",
+    "requested_model": "gpt-6.1-sol",
+    "engine_version": 7,
+    "max_calls_per_paper": 6,
+    "max_total_cli_calls": 6,
+    "model_timeout_seconds": 420,
+    "max_input_chars": 1200000,
+    "max_code_chars": 500000,
+    "source_fetch": "files",
+    "require_source": true
+  },
+  "review_retry_limit": 1,
+  "acquisition_passes": 1,
+  "paper_ids": [
+    "muzzle"
+  ],
+  "source_retry_lineage": {
+    "source_retry_of": null,
+    "prior_model_invocations": null
+  },
+  "code_files_sha256": {
+    "acquisition_pass.py": "8da8aac826c9ad1c5e825688c947bc572569e82bdb121e88f9fc857f57f701e4",
+    "audit.py": "e024307c3235580339b1d807204cd1a76855680e9c84ee4cd068607424535698",
+    "benchmark.py": "444ba467c53ecea6af08e9b195996b9f8579c5a13416fea65c833415cfa06dae",
+    "call_boundaries.py": "939b8812406d0b0d038d72d3755a2514a977fbb97cdb7558d66ebea8794aa5cf",
+    "checker.py": "859d59dda2b4f465e6efd248b410ec4bdd68896e2adeb03eac32fc2c210cfb0c",
+    "citation_repair.py": "2d9c26d61067df9dd3f325a10c76c2fe5fd464daf6a4f1721e291a2b2b53b18b",
+    "codex_provider.py": "4b6b85c19dec574ea9ebbe0870dadede496cc8e6892f9ec332bac57e9efa61a4",
+    "construction_contracts.py": "c94ed2c038bcf401d640aca91b05e56151a0f16bce8ce67bb82dfd5cd4e1ac65",
+    "data_witnesses.py": "b91d1b82ae9c2a868364cf44ca07e87c8a28bd9b44d6cdad0c3f5f6a1929e928",
+    "declared_contract.py": "5bd21ed61c7c91c885ba53fc4ebe8ed3d227b3c21671861f7df450589920aa53",
+    "deployment_findings.py": "66fd323ec2c44e843176a77c93bf2bfca825e6df2fb985c04bd8daa10c698ad5",
+    "deployment_v7.py": "c6a71d196a218043312a6a1ef09c24141abcc79ff7fb6297287465d3dd154156",
+    "documents.py": "962e27cbbb55a118be813eaa4679470886ae9f9358a6f44e3b8ae7ef9588f33f",
+    "evidence_expansion.py": "355f9e507adf92b68f867a0f834e8ea8d9eadbcf9cb397d30c09de8c481400d9",
+    "extraction.py": "31142bffbf3a8e9974d063a8ab589609b7e556bfd8d666e96605d57c74e164d1",
+    "extraction_v3.py": "f2610495b29cd38fdcac5aa50756766dc3d96742547a552df6f8635268f898ac",
+    "extraction_v4.py": "9cdc1418f3c4bacaddd10e849dc4eed752d33567c7ea07fcc2596663c7c80097",
+    "extraction_v5.py": "e6cb06f2cec52922b5756fb586801beefd7df68964d7e84268decf98ca47a1ac",
+    "extraction_v6.py": "483b415781b8f472d3d8e1c262ef26f1bd36f9a13a9057c032bc952240830ee1",
+    "extraction_v7.py": "8c23dd8e9a5bfbdea6a6dbbab90d60969af4fdf7193b1fb762ecf8367cec659c",
+    "findings.py": "71582271ce512c1c7996709836b1f0a8b1c186ee89809a348c4581d9bb28ad4a",
+    "input_channels.py": "e159b91685faaafabc6e81088a9a5a5daaa7b1a2ffa912859feb5dd1296151d8",
+    "providers.py": "4ffc276927083e72671cbe6c5cb75068934cbe94265ec97c43b0bef5273d1dfa",
+    "repair_guard.py": "968d3232f3ef8f24f296ab661e61ed363f1cb1b9368f9fdab72d45f7c2eafb9a",
+    "replay_study.py": "c2a2539d159eb5689709552230533cb5788986860ac2a1114eeaf87d278c3489",
+    "reports.py": "8cd23db543ddb802ddfc0ce9851b97496f5c08ee1e856411de84e3839f3b6e9c",
+    "review_recovery.py": "6f87ddd5c6e2ca8f6fa238b190fc153d4a67bd49ae0c557dc0dfe33b5d166848",
+    "rule_catalog.py": "629923fcd180cf13ae25114dd7cd1364ad50bfbf18120191410df51ae2af6848",
+    "scan.py": "8f9cc077116f7d5f6ce83911ae85786a70929224470e2d60119d8bd57db7dcfa",
+    "scope_review.py": "c37baf0bf981c2aa03212555a90e8e09e3030811514eb7e433765cb4077a4640",
+    "source_bundle.py": "ef55ee2b46a4ed2ef0855cb572767938428e7a60d381c600ff948a9d2b54d5d5",
+    "source_discovery.py": "6ed8e9502044f4edfc2c0d1822c647872a49c3db0a680bdc37d14ca3ab35be62"
+  },
+  "summary": {
+    "papers": {
+      "count": 1,
+      "statuses": {
+        "failed": 1
+      },
+      "verdicts": {
+        "technical_failure": 1
+      },
+      "inconsistency_flags": {
+        "true": 0,
+        "false": 0,
+        "null": 1
+      },
+      "technical_failure_count": 1,
+      "insufficient_evidence_count": 0
+    },
+    "fresh_attempts": {
+      "count": 1,
+      "statuses": {
+        "failed": 1
+      },
+      "verdicts": {
+        "technical_failure": 1
+      },
+      "inconsistency_flags": {
+        "true": 0,
+        "false": 0,
+        "null": 1
+      },
+      "technical_failure_count": 1,
+      "insufficient_evidence_count": 0
+    },
+    "model_invocation_count": 0,
+    "failed_invocation_count": 0,
+    "review_retry_count": 0,
+    "claim_category_counts": {
+      "knowledge_boundary_violation": {},
+      "construction_contract_mismatch": {},
+      "task_acquisition_deployment_gap": {}
+    },
+    "usage": {
+      "cached_input_tokens": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_output_tokens": 0
+    },
+    "usage_reporting_complete": false,
+    "actual_model_unknown_invocations": 0,
+    "denominator_note": "1 fresh original-URL audit(s) only: MUZZLE. This cohort is separate from earlier runs; older outcomes, curated findings and expected labels do not enter its denominator or model input.",
+    "scope_note": "A typed paper result combines knowledge-boundary violations, explicit construction-contract mismatches and bounded task-acquisition/deployment gaps. These types are retained separately. A deployment gap does not prove forbidden or impossible knowledge, historical execution, or an ASR effect.",
+    "usage_note": "At most 6 wrapper calls per paper, 6 total; at most one identical-payload review retry and 1 acquisition pass. Failed calls remain counted. Cumulative ledgers are counted once. Unknown actual model IDs remain null; unreported usage does not prove zero use."
+  },
+  "paper_results": [
+    {
+      "paper_id": "muzzle",
+      "paper_name": "MUZZLE",
+      "run_id": "2026-11-21-v7-acquisition-followup",
+      "attempt_id": "audits/muzzle",
+      "selected_final": true,
+      "cohort_type": "fresh_v7_url_only_three_category_audit",
+      "status": "failed",
+      "paper_verdict": "technical_failure",
+      "knowledge_boundary_verdict": null,
+      "inconsistency": null,
+      "source": "https://www.usenix.org/system/files/usenixsecurity26-syros.pdf",
+      "reason": null,
+      "duration_seconds": 30.791,
+      "error_code": "timeout",
+      "document_sha256": null,
+      "confirmed_issue_types": [],
+      "stages": [
+        {
+          "stage": "ingestion",
+          "status": "failed",
+          "error_code": "timeout"
+        }
+      ],
+      "input_audit": {
+        "status": "passed",
+        "checked_artifacts": [],
+        "evaluation_label_fields_found": 0,
+        "scope": "Structured evaluation-label sidecar fields in supplied input artifacts; author data label channels and words inside original source are not evaluation labels. No gold files were opened.",
+        "binding_metadata_matches": false,
+        "request_hashes": {},
+        "limits": {},
+        "source_fetch": null,
+        "require_source": null,
+        "early_ingestion_failure": {
+          "verified": true,
+          "scope": "Frozen paper URL matched; ingestion failed before any prepared input, proposal or model invocation."
+        },
+        "paper_only_declaration": {
+          "status": "not_available",
+          "paper_only_payload_verified": null,
+          "segment_count": null
+        },
+        "frozen_review": {
+          "status": "not_reached"
+        },
+        "acquisition_pass": {
+          "status": "not_reached"
+        }
+      },
+      "inference": {
+        "provider": "codex",
+        "requested_model": "gpt-6.1-sol",
+        "max_calls": 6,
+        "invocation_count": 0,
+        "calls": [],
+        "usage": {
+          "input_tokens": 0,
+          "cached_input_tokens": 0,
+          "output_tokens": 0,
+          "reasoning_output_tokens": 0
+        },
+        "usage_reporting_complete": false,
+        "actual_model_unknown_invocations": 0,
+        "preflight_failure_count": 0,
+        "preflight_failure_codes": [],
+        "stage_attribution": "verified_cumulative_snapshot_prefix_lengths",
+        "verified_stage_snapshot_count": 0,
+        "recording_status": "final_cumulative_ledger",
+        "review_retry_count": 0,
+        "observed_model_phases": [],
+        "model_phase_sequence_verified": true,
+        "failed_invocation_count": 0
+      },
+      "declared_contract": {
+        "status": "not_reached",
+        "artifact_presence": {
+          "declared_contract.request.json": false,
+          "declared_contract.response.json": false,
+          "declared_contract.json": false
+        },
+        "paper_sha256": null,
+        "trust": null,
+        "semantic_review_required": null,
+        "citations_grounded": null,
+        "counts": {
+          "knowledge_rules": 0,
+          "qualified_fields": 0,
+          "task_input_components": 0,
+          "task_input_relationships": 0,
+          "recipe_inputs": 0,
+          "generated_artifacts": 0,
+          "unresolved_questions": 0,
+          "limitations": 0,
+          "proposed_citations": 0,
+          "located_citations": 0,
+          "citation_errors": 0
+        },
+        "qualification_counts": {},
+        "field_qualifications": [],
+        "citation_error_code_counts": {},
+        "stages": []
+      },
+      "acquisition_pass": {
+        "status": "not_requested_or_not_reached",
+        "artifact_presence": {
+          "acquisition_pass.request.json": false,
+          "acquisition_pass.response.json": false,
+          "acquisition_pass.checks.json": false,
+          "extraction.acquisition.json": false,
+          "acquisition_pass.failure.json": false
+        }
+      },
+      "repository": {
+        "url": null,
+        "revision": null,
+        "manifest_sha256": null,
+        "coverage": {
+          "omission_reasons": []
+        },
+        "dependency_snapshot_count": 0,
+        "expansion": {
+          "needed_count": 0,
+          "unresolved_count": 0,
+          "over_limit_count": 0,
+          "inspected_paths_count": 0
+        },
+        "data_files": [],
+        "data_file_count": 0,
+        "data_witness_count": 0,
+        "sampled_file_count": 0
+      },
+      "input_channels": {
+        "assessment_status": "not_assessed",
+        "candidate_count": 0,
+        "complete": null,
+        "truncated": null,
+        "discovery_complete": null,
+        "statistics": {},
+        "limits": {},
+        "limitations": [],
+        "candidate_kind_counts": {},
+        "status_counts": {},
+        "kind_status_counts": {},
+        "validation_error_codes": [],
+        "candidates": [],
+        "proposed_assessment_counts": {},
+        "channels": []
+      },
+      "claims": [],
+      "category_coverage": {
+        "complete": null,
+        "categories": []
+      },
+      "source_discovery": {
+        "status": null,
+        "reason": null,
+        "repository_url": null
+      },
+      "source_artifacts": {
+        "report.json": "audits/muzzle/report.json",
+        "result.json": "audits/muzzle/result.json",
+        "inference.json": "audits/muzzle/inference.json"
+      },
+      "construction": {
+        "finding_count": 0,
+        "blocks_negative": null,
+        "coverage": null,
+        "general_clean_established": null,
+        "proposed_finding_count": 0
+      },
+      "deployment": {
+        "finding_count": 0,
+        "blocks_negative": null,
+        "coverage": null,
+        "general_clean_established": null,
+        "proposed_finding_count": 0
+      }
+    }
+  ],
+  "attempts": [
+    {
+      "paper_id": "muzzle",
+      "paper_name": "MUZZLE",
+      "run_id": "2026-11-21-v7-acquisition-followup",
+      "attempt_id": "audits/muzzle",
+      "selected_final": true,
+      "cohort_type": "fresh_v7_url_only_three_category_audit",
+      "status": "failed",
+      "paper_verdict": "technical_failure",
+      "knowledge_boundary_verdict": null,
+      "inconsistency": null,
+      "source": "https://www.usenix.org/system/files/usenixsecurity26-syros.pdf",
+      "reason": null,
+      "duration_seconds": 30.791,
+      "error_code": "timeout",
+      "document_sha256": null,
+      "confirmed_issue_types": [],
+      "stages": [
+        {
+          "stage": "ingestion",
+          "status": "failed",
+          "error_code": "timeout"
+        }
+      ],
+      "input_audit": {
+        "status": "passed",
+        "checked_artifacts": [],
+        "evaluation_label_fields_found": 0,
+        "scope": "Structured evaluation-label sidecar fields in supplied input artifacts; author data label channels and words inside original source are not evaluation labels. No gold files were opened.",
+        "binding_metadata_matches": false,
+        "request_hashes": {},
+        "limits": {},
+        "source_fetch": null,
+        "require_source": null,
+        "early_ingestion_failure": {
+          "verified": true,
+          "scope": "Frozen paper URL matched; ingestion failed before any prepared input, proposal or model invocation."
+        },
+        "paper_only_declaration": {
+          "status": "not_available",
+          "paper_only_payload_verified": null,
+          "segment_count": null
+        },
+        "frozen_review": {
+          "status": "not_reached"
+        },
+        "acquisition_pass": {
+          "status": "not_reached"
+        }
+      },
+      "inference": {
+        "provider": "codex",
+        "requested_model": "gpt-6.1-sol",
+        "max_calls": 6,
+        "invocation_count": 0,
+        "calls": [],
+        "usage": {
+          "input_tokens": 0,
+          "cached_input_tokens": 0,
+          "output_tokens": 0,
+          "reasoning_output_tokens": 0
+        },
+        "usage_reporting_complete": false,
+        "actual_model_unknown_invocations": 0,
+        "preflight_failure_count": 0,
+        "preflight_failure_codes": [],
+        "stage_attribution": "verified_cumulative_snapshot_prefix_lengths",
+        "verified_stage_snapshot_count": 0,
+        "recording_status": "final_cumulative_ledger",
+        "review_retry_count": 0,
+        "observed_model_phases": [],
+        "model_phase_sequence_verified": true,
+        "failed_invocation_count": 0
+      },
+      "declared_contract": {
+        "status": "not_reached",
+        "artifact_presence": {
+          "declared_contract.request.json": false,
+          "declared_contract.response.json": false,
+          "declared_contract.json": false
+        },
+        "paper_sha256": null,
+        "trust": null,
+        "semantic_review_required": null,
+        "citations_grounded": null,
+        "counts": {
+          "knowledge_rules": 0,
+          "qualified_fields": 0,
+          "task_input_components": 0,
+          "task_input_relationships": 0,
+          "recipe_inputs": 0,
+          "generated_artifacts": 0,
+          "unresolved_questions": 0,
+          "limitations": 0,
+          "proposed_citations": 0,
+          "located_citations": 0,
+          "citation_errors": 0
+        },
+        "qualification_counts": {},
+        "field_qualifications": [],
+        "citation_error_code_counts": {},
+        "stages": []
+      },
+      "acquisition_pass": {
+        "status": "not_requested_or_not_reached",
+        "artifact_presence": {
+          "acquisition_pass.request.json": false,
+          "acquisition_pass.response.json": false,
+          "acquisition_pass.checks.json": false,
+          "extraction.acquisition.json": false,
+          "acquisition_pass.failure.json": false
+        }
+      },
+      "repository": {
+        "url": null,
+        "revision": null,
+        "manifest_sha256": null,
+        "coverage": {
+          "omission_reasons": []
+        },
+        "dependency_snapshot_count": 0,
+        "expansion": {
+          "needed_count": 0,
+          "unresolved_count": 0,
+          "over_limit_count": 0,
+          "inspected_paths_count": 0
+        },
+        "data_files": [],
+        "data_file_count": 0,
+        "data_witness_count": 0,
+        "sampled_file_count": 0
+      },
+      "input_channels": {
+        "assessment_status": "not_assessed",
+        "candidate_count": 0,
+        "complete": null,
+        "truncated": null,
+        "discovery_complete": null,
+        "statistics": {},
+        "limits": {},
+        "limitations": [],
+        "candidate_kind_counts": {},
+        "status_counts": {},
+        "kind_status_counts": {},
+        "validation_error_codes": [],
+        "candidates": [],
+        "proposed_assessment_counts": {},
+        "channels": []
+      },
+      "claims": [],
+      "category_coverage": {
+        "complete": null,
+        "categories": []
+      },
+      "source_discovery": {
+        "status": null,
+        "reason": null,
+        "repository_url": null
+      },
+      "source_artifacts": {
+        "report.json": "audits/muzzle/report.json",
+        "result.json": "audits/muzzle/result.json",
+        "inference.json": "audits/muzzle/inference.json"
+      },
+      "construction": {
+        "finding_count": 0,
+        "blocks_negative": null,
+        "coverage": null,
+        "general_clean_established": null,
+        "proposed_finding_count": 0
+      },
+      "deployment": {
+        "finding_count": 0,
+        "blocks_negative": null,
+        "coverage": null,
+        "general_clean_established": null,
+        "proposed_finding_count": 0
+      }
+    }
+  ],
+  "builder": {
+    "script": "scripts/summarize_v7_pilot.py",
+    "script_sha256": "5a9f7403ae0a65707134b3f48ca0789319a73f46bec762c2571f28121675418b",
+    "helpers": {
+      "summarize_v6_pilot.py": "0e3aab042feba9e26c4b42f1041e06cea0f0cebcbaf66a6a35241e51b45c370d",
+      "summarize_v6_followup.py": "a16e9482a16a14772e93b6be5d77dd553ed8a20ec1842ec981091eb2ea6ac4cc"
+    }
+  },
+  "public_evidence_policy": "Semantic findings, grounded metadata/offsets/hashes, process stages, diagnostic correlation data and usage only. No source payloads, original quotations, prompts, raw data, credentials, private paths or declaration narrative."
+}

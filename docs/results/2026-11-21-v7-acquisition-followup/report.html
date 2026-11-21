@@ -1,0 +1,121 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>V7 URL pilot</title><style>body{font:15px system-ui;max-width:1200px;margin:2rem auto;padding:0 1rem;color:#172331;line-height:1.5}table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:.55rem;border:1px solid #ccd3dd;text-align:left}article{margin:2rem 0;border-top:2px solid #8795a8;padding-top:1rem}.claim{padding:.8rem 1rem;margin:1rem 0;border-left:4px solid #a6afba;background:#f5f7f9}.confirmed{border-color:#356eb5}.unresolved{border-color:#be8c25}.refuted{border-color:#419367}summary{cursor:pointer;padding:.5rem 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;background:#f4f6f8;padding:1rem}code{overflow-wrap:anywhere}small{color:#566476}</style><h1>V7: original-URL audit results</h1><p>1 fresh original-URL audit(s) only: MUZZLE. This cohort is separate from earlier runs; older outcomes, curated findings and expected labels do not enter its denominator or model input.</p><p>A typed paper result combines knowledge-boundary violations, explicit construction-contract mismatches and bounded task-acquisition/deployment gaps. These types are retained separately. A deployment gap does not prove forbidden or impossible knowledge, historical execution, or an ASR effect.</p><table><thead><tr><th>Paper</th><th>Audit</th><th>Paper result</th><th>Knowledge boundary</th><th>Confirmed types</th><th>Calls</th><th>Review retries</th></tr></thead><tbody><tr><td>MUZZLE</td><td>failed</td><td>technical_failure</td><td>unknown</td><td>none</td><td>0</td><td>0</td></tr></tbody></table><p>At most 6 wrapper calls per paper, 6 total; at most one identical-payload review retry and 1 acquisition pass. Failed calls remain counted. Cumulative ledgers are counted once. Unknown actual model IDs remain null; unreported usage does not prove zero use.</p><p><a href="report.json">Structured report</a> · <a href="process_manifest.json">Original artifact hashes</a>.</p><article><h2>MUZZLE</h2><p>Original paper: <a href="https://www.usenix.org/system/files/usenixsecurity26-syros.pdf">https://www.usenix.org/system/files/usenixsecurity26-syros.pdf</a></p><p><strong>technical_failure</strong> · unknown</p><h3>Process</h3><ol><li><strong>ingestion</strong>: failed — timeout</li></ol><p>Source: unknown @ <code>unknown</code>; selected files unknown; data excerpts 0.</p><h3>Findings and unresolved checks</h3><h3>Invocation ledger</h3><table><thead><tr><th>Call</th><th>Stage</th><th>Status</th><th>Input/output tokens</th><th>Requested/actual</th></tr></thead><tbody></tbody></table><details><summary>Input isolation, declaration, coverage and diagnostic metadata</summary><pre>{
+  &quot;input_audit&quot;: {
+    &quot;status&quot;: &quot;passed&quot;,
+    &quot;checked_artifacts&quot;: [],
+    &quot;evaluation_label_fields_found&quot;: 0,
+    &quot;scope&quot;: &quot;Structured evaluation-label sidecar fields in supplied input artifacts; author data label channels and words inside original source are not evaluation labels. No gold files were opened.&quot;,
+    &quot;binding_metadata_matches&quot;: false,
+    &quot;request_hashes&quot;: {},
+    &quot;limits&quot;: {},
+    &quot;source_fetch&quot;: null,
+    &quot;require_source&quot;: null,
+    &quot;early_ingestion_failure&quot;: {
+      &quot;verified&quot;: true,
+      &quot;scope&quot;: &quot;Frozen paper URL matched; ingestion failed before any prepared input, proposal or model invocation.&quot;
+    },
+    &quot;paper_only_declaration&quot;: {
+      &quot;status&quot;: &quot;not_available&quot;,
+      &quot;paper_only_payload_verified&quot;: null,
+      &quot;segment_count&quot;: null
+    },
+    &quot;frozen_review&quot;: {
+      &quot;status&quot;: &quot;not_reached&quot;
+    },
+    &quot;acquisition_pass&quot;: {
+      &quot;status&quot;: &quot;not_reached&quot;
+    }
+  },
+  &quot;declared_contract&quot;: {
+    &quot;status&quot;: &quot;not_reached&quot;,
+    &quot;artifact_presence&quot;: {
+      &quot;declared_contract.request.json&quot;: false,
+      &quot;declared_contract.response.json&quot;: false,
+      &quot;declared_contract.json&quot;: false
+    },
+    &quot;paper_sha256&quot;: null,
+    &quot;trust&quot;: null,
+    &quot;semantic_review_required&quot;: null,
+    &quot;citations_grounded&quot;: null,
+    &quot;counts&quot;: {
+      &quot;knowledge_rules&quot;: 0,
+      &quot;qualified_fields&quot;: 0,
+      &quot;task_input_components&quot;: 0,
+      &quot;task_input_relationships&quot;: 0,
+      &quot;recipe_inputs&quot;: 0,
+      &quot;generated_artifacts&quot;: 0,
+      &quot;unresolved_questions&quot;: 0,
+      &quot;limitations&quot;: 0,
+      &quot;proposed_citations&quot;: 0,
+      &quot;located_citations&quot;: 0,
+      &quot;citation_errors&quot;: 0
+    },
+    &quot;qualification_counts&quot;: {},
+    &quot;field_qualifications&quot;: [],
+    &quot;citation_error_code_counts&quot;: {},
+    &quot;stages&quot;: []
+  },
+  &quot;category_coverage&quot;: {
+    &quot;complete&quot;: null,
+    &quot;categories&quot;: []
+  },
+  &quot;input_channels&quot;: {
+    &quot;assessment_status&quot;: &quot;not_assessed&quot;,
+    &quot;candidate_count&quot;: 0,
+    &quot;complete&quot;: null,
+    &quot;truncated&quot;: null,
+    &quot;discovery_complete&quot;: null,
+    &quot;statistics&quot;: {},
+    &quot;limits&quot;: {},
+    &quot;limitations&quot;: [],
+    &quot;candidate_kind_counts&quot;: {},
+    &quot;status_counts&quot;: {},
+    &quot;kind_status_counts&quot;: {},
+    &quot;validation_error_codes&quot;: [],
+    &quot;candidates&quot;: [],
+    &quot;proposed_assessment_counts&quot;: {},
+    &quot;channels&quot;: []
+  },
+  &quot;repository&quot;: {
+    &quot;url&quot;: null,
+    &quot;revision&quot;: null,
+    &quot;manifest_sha256&quot;: null,
+    &quot;coverage&quot;: {
+      &quot;omission_reasons&quot;: []
+    },
+    &quot;dependency_snapshot_count&quot;: 0,
+    &quot;expansion&quot;: {
+      &quot;needed_count&quot;: 0,
+      &quot;unresolved_count&quot;: 0,
+      &quot;over_limit_count&quot;: 0,
+      &quot;inspected_paths_count&quot;: 0
+    },
+    &quot;data_files&quot;: [],
+    &quot;data_file_count&quot;: 0,
+    &quot;data_witness_count&quot;: 0,
+    &quot;sampled_file_count&quot;: 0
+  },
+  &quot;inference&quot;: {
+    &quot;provider&quot;: &quot;codex&quot;,
+    &quot;requested_model&quot;: &quot;gpt-6.1-sol&quot;,
+    &quot;max_calls&quot;: 6,
+    &quot;invocation_count&quot;: 0,
+    &quot;calls&quot;: [],
+    &quot;usage&quot;: {
+      &quot;input_tokens&quot;: 0,
+      &quot;cached_input_tokens&quot;: 0,
+      &quot;output_tokens&quot;: 0,
+      &quot;reasoning_output_tokens&quot;: 0
+    },
+    &quot;usage_reporting_complete&quot;: false,
+    &quot;actual_model_unknown_invocations&quot;: 0,
+    &quot;preflight_failure_count&quot;: 0,
+    &quot;preflight_failure_codes&quot;: [],
+    &quot;stage_attribution&quot;: &quot;verified_cumulative_snapshot_prefix_lengths&quot;,
+    &quot;verified_stage_snapshot_count&quot;: 0,
+    &quot;recording_status&quot;: &quot;final_cumulative_ledger&quot;,
+    &quot;review_retry_count&quot;: 0,
+    &quot;observed_model_phases&quot;: [],
+    &quot;model_phase_sequence_verified&quot;: true,
+    &quot;failed_invocation_count&quot;: 0
+  }
+}</pre></details></article></html>

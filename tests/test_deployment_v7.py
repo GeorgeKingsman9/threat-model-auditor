@@ -272,6 +272,24 @@ class DeploymentV7Tests(unittest.TestCase):
         finding["task_relation"]["citations"] = finding["task_relation"]["citations"][:1]
         self.assertFalse(self.project(document, finding, review, flows)["has_confirmed_gap"])
 
+    def test_code_only_same_task_relation_uses_separately_grounded_paper_scope(self):
+        document, finding, review, flows = self.fixtures()
+        finding["task_relation"]["citations"] = finding["task_relation"]["citations"][1:]
+        result = self.project(document, finding, review, flows)
+        self.assertTrue(result["findings"][0]["axes"]["task_relation"]["supported"])
+        self.assertTrue(result["has_confirmed_gap"])
+        # This does not bypass independent semantic review.
+        review["task_relation_supported"] = False
+        self.assertFalse(self.project(document, finding, review, flows)["has_confirmed_gap"])
+
+    def test_future_task_relation_keeps_paper_and_code_evidence_requirement(self):
+        document, finding, review, flows = self.fixtures()
+        finding["task_relation"]["status"] = "future_task_transfer"
+        finding["task_relation"]["citations"] = finding["task_relation"]["citations"][1:]
+        result = self.project(document, finding, review, flows)
+        self.assertFalse(result["findings"][0]["axes"]["task_relation"]["supported"])
+        self.assertFalse(result["has_confirmed_gap"])
+
     def test_dependency_needs_matching_grounded_attacker_receipt(self):
         for damage in ("missing", "wrong_index", "delivery", "binding", "evaluator", "other_span", "other_document",
                        "alignment_unverified", "recipient_unverified", "binding_unverified", "tampered_locator"):
