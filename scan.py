@@ -46,7 +46,7 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
                 prepared=None, extraction=None, review=None, max_input_chars=600000,
                 repository=None, repo_revision=None, max_code_chars=320000, repair_citations=True,
                 auto_repository=True, source_fetch="auto", require_source=False, engine_version=4,
-                declared_contract=None, review_retries=0):
+                declared_contract=None, review_retries=0, acquisition_passes=0):
     """One document produces one result, including failures and pending stages."""
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=False)
@@ -67,6 +67,8 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
     try:
         if type(review_retries) is not int or review_retries not in {0, 1}:
             raise ValueError("review_retries must be zero or one")
+        if type(acquisition_passes) is not int or acquisition_passes not in {0, 1}:
+            raise ValueError("acquisition_passes must be zero or one")
         # Fixed historical outputs must never trigger a fresh source search or
         # acquire new evidence behind a saved model proposal's back.
         explicit_repository = repository is not None
@@ -240,6 +242,7 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
             "model_data_characters": payload_size,
             "source_fetch": source_fetch, "require_source": require_source,
             "requested_engine_version": engine_version, "review_retries": review_retries,
+            "acquisition_passes": acquisition_passes,
             "evidence_scope": "supplied_paper_and_source" if repository is not None else "supplied_document_only",
             "engine": type(client).__name__ if client else "no_model_or_replay",
         })
@@ -263,6 +266,42 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
                                   "flow_count": len(extraction["flows"]),
                                   "execution": "supplied_automatic_proposal" if supplied_extraction else "fresh_model_call"})
             row["effective_extraction_file"] = "extraction.json"
+            if (not supplied_extraction and extraction.get("schema_version") == 7 and acquisition_passes
+                    and not extraction["deployment_findings"]
+                    and any(item["category"] == "task_acquisition_deployment_gap" and item["status"] == "unresolved"
+                            for item in extraction["category_assessments"])):
+                maximum, calls = getattr(client, "max_calls", None), getattr(client, "calls", [])
+                remaining = maximum - len(calls) if type(maximum) is int and isinstance(calls, list) else 0
+                if remaining >= 2:
+                    from acquisition_pass import (SCHEMA as ACQUISITION_SCHEMA, PROMPT as ACQUISITION_PROMPT,
+                        prepare_acquisition_input, apply_acquisition_pass, prompt_hash as acquisition_prompt_hash)
+                    stage = "acquisition_pass"
+                    acquisition_input = prepare_acquisition_input(content, extraction)
+                    checked_payload_size(acquisition_input, max_input_chars)
+                    save_json(output_dir / "acquisition_pass.request.json", acquisition_input)
+                    try:
+                        response = generate_model(ACQUISITION_PROMPT, acquisition_input, ACQUISITION_SCHEMA)
+                        save_json(output_dir / "acquisition_pass.response.json", response)
+                        refined, notes = apply_acquisition_pass(extraction, response, evidence_document)
+                        save_json(output_dir / "extraction.acquisition.json", refined)
+                        save_json(output_dir / "acquisition_pass.checks.json", notes)
+                        extraction = refined
+                        row["effective_extraction_file"] = "extraction.acquisition.json"
+                        row["stages"].append({"stage": stage, "status": "completed",
+                            "prompt_sha256": acquisition_prompt_hash(), "checks": notes,
+                            "deployment_candidates": len(extraction["deployment_findings"]),
+                            "existing_classification_fields_modified": False})
+                    except (OSError, ValueError) as error:
+                        # A failed supplemental search cannot erase already
+                        # grounded independent candidates. The required final
+                        # review still runs on the unchanged original proposal.
+                        failure = {"stage": stage, "status": "failed", "error": str(error),
+                                   "original_proposal_preserved": True}
+                        save_json(output_dir / "acquisition_pass.failure.json", failure)
+                        row["stages"].append(failure)
+                else:
+                    row["stages"].append({"stage": "acquisition_pass", "status": "not_run",
+                                          "reason": "insufficient_budget_with_review_reserved"})
             if repository is not None:
                 if extraction["input_binding"] != evidence_document["sha256"]:
                     raise ValueError("supplied proposal is bound to different paper/source bytes")
@@ -401,6 +440,8 @@ def main(argv=None):
                         help="Default: V7 three-category audit; V4/V5/V6 retained for historical comparisons")
     parser.add_argument("--review-retries", type=int, choices=[0, 1], default=1,
                         help="V7 only: at most one counted retry of a failed review; never retry extraction or change models")
+    parser.add_argument("--no-acquisition-pass", action="store_true",
+                        help="Disable the one supplemental task-source pass for unresolved empty deployment categories")
     parser.add_argument("--resume-review", type=Path,
                         help="Recover a failed automatic review from unchanged stored inputs in a new output directory")
     parser.add_argument("--prepare-only", action="store_true", help="Read document without model calls")
@@ -466,7 +507,8 @@ def main(argv=None):
                           repair_citations=not args.no_citation_repair, auto_repository=not args.paper_only,
                           source_fetch=args.source_fetch, require_source=args.require_source,
                           engine_version=args.engine_version, declared_contract=contract,
-                          review_retries=args.review_retries)
+                          review_retries=args.review_retries,
+                          acquisition_passes=0 if args.no_acquisition_pass else 1)
         mode = "paper_source_audit" if args.repo else "document_audit" if args.paper_only else "automatic_paper_audit"
         report = make_report([row], "document_preparation" if args.prepare_only else mode)
         if client:

@@ -59,6 +59,54 @@ def _require_one_call(client):
         raise ValueError("review recovery requires at least one remaining counted call")
 
 
+def _load_acquisition(directory, hashes, engine, version, combined, effective, filename):
+    """Reapply the bounded supplemental pass, not its claimed classification."""
+    names = ("acquisition_pass.request.json", "acquisition_pass.response.json",
+             "acquisition_pass.checks.json", "extraction.acquisition.json")
+    if not any((directory / name).exists() for name in names):
+        if filename == "extraction.acquisition.json":
+            raise ValueError("parent effective acquisition proposal has no pass artifacts")
+        return {}
+    if version != 7:
+        raise ValueError("acquisition pass artifacts require V7")
+    from acquisition_pass import prepare_acquisition_input, apply_acquisition_pass
+    extras = {"extraction.json": _read(directory, "extraction.json", hashes),
+              names[0]: _read(directory, names[0], hashes)}
+    expected_request = prepare_acquisition_input(engine.model_content(combined), extras["extraction.json"])
+    if extras[names[0]] != expected_request:
+        raise ValueError("parent acquisition input differs from original bound proposal")
+    successful = any((directory / name).exists() for name in names[2:])
+    if successful:
+        for name in names[1:]:
+            extras[name] = _read(directory, name, hashes)
+        refined, notes = apply_acquisition_pass(extras["extraction.json"], extras[names[1]], combined)
+        if refined != extras["extraction.acquisition.json"] or notes != extras["acquisition_pass.checks.json"]:
+            raise ValueError("parent acquisition result/checks differ from revalidated pass")
+        if filename == "extraction.acquisition.json" and effective != refined:
+            raise ValueError("effective proposal differs from verified acquisition pass")
+        if filename == "extraction.repaired.json":
+            # A repair following the pass can alter only checked citation fields.
+            from citation_repair import citation_issues
+            from repair_guard import apply_bounded_choices
+            for name in ("citation_repair.request.json", "citation_repair.response.json"):
+                extras[name] = _read(directory, name, hashes)
+            repaired, _, _ = apply_bounded_choices(refined, extras["citation_repair.response.json"],
+                combined, citation_issues(refined, combined), extras["citation_repair.request.json"])
+            if repaired != effective:
+                raise ValueError("effective proposal differs from verified acquisition/citation recovery")
+        elif filename != "extraction.acquisition.json":
+            raise ValueError("successful acquisition pass is not the effective proposal")
+    else:
+        failure = _read(directory, "acquisition_pass.failure.json", hashes)
+        extras["acquisition_pass.failure.json"] = failure
+        if (failure.get("original_proposal_preserved") is not True
+                or filename == "extraction.acquisition.json"):
+            raise ValueError("failed acquisition pass cannot supply an effective new proposal")
+        if (directory / names[1]).exists():
+            extras[names[1]] = _read(directory, names[1], hashes)
+    return extras
+
+
 def _load_parent(directory, hashes, max_input_chars):
     result = _read(directory, "result.json", hashes)
     if (result.get("status") != "failed" or result.get("verdict") != "technical_failure"
@@ -83,7 +131,7 @@ def _load_parent(directory, hashes, max_input_chars):
     combined = _read(directory, "combined_input.json", hashes)
     request = _read(directory, "request.json", hashes)
     filename = result.get("effective_extraction_file", "extraction.json")
-    if filename not in {"extraction.json", "extraction.repaired.json"}:
+    if filename not in {"extraction.json", "extraction.repaired.json", "extraction.acquisition.json"}:
         raise ValueError("parent effective extraction filename is not recognized")
     extraction = _read(directory, filename, hashes)
     version = extraction.get("schema_version")
@@ -110,6 +158,7 @@ def _load_parent(directory, hashes, max_input_chars):
         rebuilt = engine.attach_declared_contract(rebuilt, contract)
     if rebuilt != combined:
         raise ValueError("parent combined evidence differs from its frozen paper/source artifacts")
+    extra_artifacts = _load_acquisition(directory, hashes, engine, version, combined, extraction, filename)
     content = {**engine.model_content(combined), "proposal": extraction}
     if len(json.dumps(content, ensure_ascii=False, sort_keys=True)) > max_input_chars:
         raise ValueError("recovery model payload exceeds its configured input limit")
@@ -140,7 +189,7 @@ def _load_parent(directory, hashes, max_input_chars):
             "discovery": discovery, "combined": combined, "extraction": extraction,
             "filename": filename, "request": request, "declared_contract": contract,
             "engine": engine, "engine_version": version, "content": content,
-            "prompt": prompt, "schema": schema, "mode": mode}
+            "prompt": prompt, "schema": schema, "mode": mode, "extra_artifacts": extra_artifacts}
 
 
 def resume_review(run_dir, output_dir, client, max_input_chars=1200000):
@@ -176,6 +225,9 @@ def resume_review(run_dir, output_dir, client, max_input_chars=1200000):
             _save(output / name, loaded[key])
         if loaded["declared_contract"] is not None:
             _save(output / "declared_contract.json", loaded["declared_contract"])
+        for name, value in loaded["extra_artifacts"].items():
+            if not (output / name).exists():
+                _save(output / name, value)
         row["effective_extraction_file"] = loaded["filename"]
         provenance = {"mode": loaded["mode"], "parent_attempt_id": parent.name,
             "parent_artifact_sha256": hashes, "original_request_prompt_sha256": loaded["request"].get("prompt_sha256"),

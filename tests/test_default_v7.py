@@ -13,11 +13,11 @@ import io
 import scan
 import extraction_v7 as v7
 from test_default_v6 import paper_contract
-from test_extraction_v6 import ExtractionV6Tests
+import test_extraction_v6 as v6_fixtures
 
 
 def fixtures():
-    paper, repository, _, extraction, review = ExtractionV6Tests().fixtures()
+    paper, repository, _, extraction, review = v6_fixtures.ExtractionV6Tests().fixtures()
     source = "https://example.org/new-unknown-paper.pdf"
     paper["source"] = source
     extraction.update(schema_version=7, construction_findings=[], category_assessments=[])
@@ -42,6 +42,8 @@ class Client:
         self.calls.append(entry)
         if "input_binding" not in content:
             return paper_contract(content["paper_sha256"])
+        if "dependency_audits" in schema.get("properties", {}):
+            return {"input_binding": content["input_binding"], "dependency_audits": []}
         if "proposal" in content:
             self.review_calls += 1
             if self.failure and self.review_calls == 1:
@@ -79,11 +81,12 @@ class DefaultV7Tests(unittest.TestCase):
             self.assertEqual(row["schema_version"], 7)
             self.assertIs(row["inconsistency"], True)
             self.assertEqual(row["confirmed_issue_types"], ["knowledge_boundary_violation"])
-            self.assertEqual(len(client.calls), 3)
+            self.assertEqual(len(client.calls), 4)
             self.assertEqual(set(client.payloads[0]), {"source_type", "segments", "paper_sha256"})
             self.assertNotIn("repository", client.payloads[0])
             self.assertNotIn('"expected"', json.dumps(client.payloads))
             self.assertIn("issue_type", row["findings"][0])
+            self.assertIn("acquisition_pass", [stage["stage"] for stage in row["stages"]])
 
     def test_failed_review_retries_once_with_identical_automatic_inputs(self):
         with tempfile.TemporaryDirectory() as temp:

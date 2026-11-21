@@ -86,15 +86,62 @@ class ReviewRecoveryTests(unittest.TestCase):
             self.assertTrue((self.root / "recovery" / filename).is_file(), filename)
 
     def add_saved_contract(self, prompt="Saved exact review prompt"):
-        payload = {**v6.model_content(self.document), "proposal": self.extraction}
-        contract = {"prompt": prompt, "schema": v6.REVIEW_SCHEMA,
+        engine = v6
+        if self.extraction["schema_version"] == 7:
+            import extraction_v7 as engine
+        payload = {**engine.model_content(self.document), "proposal": self.extraction}
+        contract = {"prompt": prompt, "schema": engine.REVIEW_SCHEMA,
                     "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest(),
-                    "schema_sha256": v4._hash_json(v6.REVIEW_SCHEMA),
+                    "schema_sha256": v4._hash_json(engine.REVIEW_SCHEMA),
                     "review_input_sha256": v4._hash_json(payload),
-                    "input_binding": self.document["sha256"], "engine_version": 6}
+                    "input_binding": self.document["sha256"], "engine_version": self.extraction["schema_version"]}
         self.write("review.request.json", payload)
         self.write("review.contract.json", contract)
         return contract
+
+    def add_acquisition_parent(self):
+        import acquisition_pass as acquisition
+        import extraction_v7 as v7
+        self.extraction.update(schema_version=7, construction_findings=[], category_assessments=[])
+        self.review.update(schema_version=7, construction_reviews=[], category_reviews=[])
+        request = acquisition.prepare_acquisition_input(v7.model_content(self.document), self.extraction)
+        response = {"input_binding": self.document["sha256"], "dependency_audits": [{
+            "flow_index": 0,
+            "evaluation_location": {"status": "unspecified", "description": "Not resolved.", "citations": []},
+            "first_knowledge": {"status": "unresolved", "description": "Not resolved.", "citations": []},
+            "observation_relation": {"status": "unresolved", "description": "Not resolved.", "citations": []},
+            "source_prefix": [], "deployment_finding": None, "reason": "No new evidence located."}]}
+        refined, notes = acquisition.apply_acquisition_pass(self.extraction, response, self.document)
+        self.write("extraction.json", self.extraction)
+        self.write("acquisition_pass.request.json", request)
+        self.write("acquisition_pass.response.json", response)
+        self.write("acquisition_pass.checks.json", notes)
+        self.write("extraction.acquisition.json", refined)
+        self.extraction = refined
+        result = json.loads((self.parent / "result.json").read_text())
+        result["effective_extraction_file"] = "extraction.acquisition.json"
+        self.write("result.json", result)
+        self.add_saved_contract()
+
+    def test_v7_acquisition_artifacts_are_revalidated_and_copied_before_review(self):
+        self.add_acquisition_parent()
+        before = self.hashes()
+        row, client = self.run_recovery()
+        self.assertEqual(row["status"], "completed")
+        self.assertEqual(len(client.calls), 1)
+        self.assertEqual(self.hashes(), before)
+        for filename in ("extraction.json", "extraction.acquisition.json", "acquisition_pass.checks.json",
+                         "acquisition_pass.request.json", "acquisition_pass.response.json"):
+            self.assertEqual(json.loads((self.root / "recovery" / filename).read_text()),
+                             json.loads((self.parent / filename).read_text()))
+
+    def test_tampered_acquisition_checks_fail_before_model(self):
+        self.add_acquisition_parent()
+        self.write("acquisition_pass.checks.json", [])
+        row, client = self.run_recovery()
+        self.assertEqual(row["status"], "failed")
+        self.assertIn("revalidated pass", row["error"])
+        self.assertEqual(client.calls, [])
 
     def test_saved_contract_keeps_exact_prompt_not_current_prompt(self):
         self.add_saved_contract()

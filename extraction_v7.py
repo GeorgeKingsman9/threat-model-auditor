@@ -101,6 +101,15 @@ scope. It asserts an unestablished deployment assumption, NOT impossible knowled
 an absent acquisition route, ASR inflation, or a hidden explicit deny. Mere silence,
 missing source, an unexplained argument or a speculative future-deployment claim
 is not sufficient. State every established fact and remaining assumption precisely.
+Separate the location of an experiment (sandbox versus live) from its claimed
+deployment scope (offline versus online). A sandbox-only ethics statement is
+not an offline-only threat-model exception to a separate online claim. A future
+unseen-task success/transfer theorem is not needed to PROPOSE a structured
+acquisition obligation; its absence alone also cannot CONFIRM a gap. Trace the
+original task source upstream of wrapper arguments, and distinguish first task
+knowledge from the later constructor-receipt time. Where online applicability
+and a task-conditioned path are both cited, record a possibly uncertain structured
+deployment candidate rather than replacing the source/timing analysis with prose.
 source_boundary.basis distinguishes affirmative allowed_observations or an
 explicit_knowledge_constraint from black_box_label_only or unresolved. actual_source.origin
 names the proved operator/configuration, observed/public channel or explicit known
@@ -142,6 +151,10 @@ task_acquisition_deployment_gap. Preserve explicit offline-only cases, permitted
 observation paths and stated known-task assumptions as possible refutations.
 Missing paths/black-box wording alone cannot establish a gap. Do not claim that
 acquisition is impossible, the attack ineffective, or a historical run differed.
+Sandbox evaluation location does not by itself retract an online threat-model
+claim. Check first acquisition and later receipt separately. Do not require an
+unseen-task success theorem to recognize a missing acquisition assumption; still
+require the positive scenario/dependency/temporal/materiality evidence for a gap.
 
 Review category assessments even if a corresponding findings list is empty; flag
 unexamined task-conditioning/proxy-generation obligations rather than accepting
