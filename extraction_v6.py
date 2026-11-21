@@ -53,6 +53,17 @@ give affirmative cited evidence and explain the receiver/branch distinction;
 unshown attacker delivery is unresolved, not proof of exclusion. If six flow slots
 are insufficient, explicitly retain remaining obligations as unresolved.
 
+When repository.declared_contract_proposal is present, it is an UNTRUSTED
+paper-only first-pass interpretation, not an authority, permission input or
+expected answer. Check every relevant interpretation against the original paper
+segments and cite those original segments (paper:<original ID>), never the
+proposal itself. Align paper-defined concepts and composite task inputs to code
+arguments by their semantics. A code variable with the same name need not have
+the same meaning; conversely a question stored separately may instantiate a
+paper-defined task/instruction component if the paper supports that mapping.
+Explain that mapping and any true uncertainty. A stated construction recipe
+alone does not imply a prohibition or create an exception to a knowledge rule.
+
 Data witnesses are exact excerpts of pinned author data, not generated summaries.
 Use only their supplied record/schema evidence. A filename such as shadow, train
 or test establishes neither synthetic origin nor separation from evaluated tasks.
@@ -89,6 +100,12 @@ citations and the normalized representation. Question receipt is distinct from
 document receipt. exclusion_supported requires affirmative evidence for the
 stated out-of-scope receiver/branch; lack of a shown path is not exclusion.
 Candidates are lexical/structural hints, never established facts or expected labels.
+
+The declared_contract_proposal is a separate untrusted paper-only interpretation.
+Independently verify or reject it using original paper definitions, equations,
+scope and explicit exceptions; do not use it as evidence. Check the semantic
+mapping of paper components to source arguments, rather than equating variable
+names. An extraction recipe alone is not a knowledge prohibition.
 
 Independently review all deployment findings by index. Keep paper deployment
 claim, conditional construction, required knowledge, provenance, scope and
@@ -136,6 +153,32 @@ def _data_projection(repository):
     }
 
 
+def _paper_domain(document):
+    """Recover the original citation IDs for the paper-only proposal validator."""
+    parts = []
+    for segment in document["segments"]:
+        if segment.get("source_kind") != "paper":
+            continue
+        part = copy.deepcopy(segment)
+        if not part["id"].startswith("paper:"):
+            raise ValueError("paper citation ID lacks its source-domain prefix")
+        part["id"] = part["id"][len("paper:"):]
+        part.pop("source_kind", None)
+        parts.append(part)
+    return {"sha256": document["paper_sha256"], "segments": parts,
+            "media_type": "application/pdf"}
+
+
+def attach_declared_contract(document, envelope):
+    """Bind a model suggestion without turning any of its text into evidence."""
+    from declared_contract import validate_contract
+    expected = validate_contract(envelope["proposal"], _paper_domain(document))
+    if envelope != expected:
+        raise ValueError("declared contract differs from its paper-only validation")
+    document["model_repository"]["declared_contract_proposal"] = copy.deepcopy(envelope)
+    return _refresh_binding(document)
+
+
 def combine_inputs(paper, repository):
     document = v5.combine_inputs(paper, repository)
     document["segments"].extend(_witness_segment(witness)
@@ -169,6 +212,11 @@ def validate_input_binding(document):
     inventory = document.get("model_repository", {}).get("input_channels")
     if inventory != discover_channels(document, max_candidates=CHANNEL_LIMIT):
         raise ValueError("input channel inventory differs from supplied source")
+    contract = document.get("model_repository", {}).get("declared_contract_proposal")
+    if contract is not None:
+        from declared_contract import validate_contract
+        if contract != validate_contract(contract["proposal"], _paper_domain(document)):
+            raise ValueError("declared contract differs from its paper-only validation")
 
 
 def model_content(document):

@@ -45,7 +45,8 @@ def checked_payload_size(content, limit):
 def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="uploaded_paper",
                 prepared=None, extraction=None, review=None, max_input_chars=600000,
                 repository=None, repo_revision=None, max_code_chars=320000, repair_citations=True,
-                auto_repository=True, source_fetch="auto", require_source=False, engine_version=4):
+                auto_repository=True, source_fetch="auto", require_source=False, engine_version=4,
+                declared_contract=None):
     """One document produces one result, including failures and pending stages."""
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=False)
@@ -169,7 +170,6 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
         if source_snapshot is not None:
             save_json(output_dir / "repository.json", source_snapshot)
             evidence_document = engine.combine_inputs(document, source_snapshot)
-            save_json(output_dir / "combined_input.json", evidence_document)
             row["repository"] = evidence_document["repository"]
             row["source_audit"] = {"status": "loaded", "repository": str(repository),
                                    "revision": source_snapshot["revision"], "coverage": source_snapshot["coverage"]}
@@ -183,6 +183,43 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
         if len(evidence_document["text"]) > max_input_chars:
             raise ValueError("document exceeds the configured model input limit; not silently truncated")
         row["input_mode"] = "paper_and_source" if source_snapshot is not None else "document_only"
+        # A fresh V6 source-aware audit first interprets the paper WITHOUT code.
+        # Its output remains a suggestion: both later calls must re-cite the
+        # original paper, and deterministic gates never read its policy fields.
+        use_contract = source_snapshot is not None and engine is sys.modules.get("extraction_v6")
+        if declared_contract is not None and (not use_contract or extraction is None):
+            raise ValueError("a saved declared contract is only for V6 proposal/review replay")
+        if use_contract and not prepare_only and (extraction is None or declared_contract is not None):
+            from declared_contract import (SCHEMA as CONTRACT_SCHEMA, PROMPT as CONTRACT_PROMPT,
+                                           prepare_contract_input, validate_contract,
+                                           prompt_hash as contract_prompt_hash)
+            stage = "declared_contract"
+            contract_input = prepare_contract_input(document)
+            checked_payload_size(contract_input, max_input_chars)
+            save_json(output_dir / "declared_contract.request.json", contract_input)
+            if declared_contract is None:
+                if client is None:
+                    raise ValueError("paper-only declaration extraction requires an inference engine")
+                maximum, calls = getattr(client, "max_calls", None), getattr(client, "calls", None)
+                if type(maximum) is int and isinstance(calls, list) and maximum - len(calls) < 3:
+                    raise ValueError("fresh V6 needs three calls (paper contract, mapping, review); repair needs a fourth")
+                proposal = generate_model(CONTRACT_PROMPT, contract_input, CONTRACT_SCHEMA)
+                save_json(output_dir / "declared_contract.response.json", proposal)
+                declared_contract = validate_contract(proposal, document)
+            else:
+                # Revalidate every saved locator against these exact paper bytes.
+                if declared_contract != validate_contract(declared_contract["proposal"], document):
+                    raise ValueError("saved declared contract validation differs from this paper")
+            save_json(output_dir / "declared_contract.json", declared_contract)
+            evidence_document = engine.attach_declared_contract(evidence_document, declared_contract)
+            row["stages"].append({"stage": stage, "status": "completed",
+                "execution": "fresh_paper_only_call" if extraction is None else "saved_automatic_proposal",
+                "prompt_sha256": contract_prompt_hash(),
+                "citations_grounded": declared_contract["citations_grounded"],
+                "citation_error_count": len(declared_contract["citation_errors"]),
+                "trust": declared_contract["trust"], "semantic_review_required": True})
+        if source_snapshot is not None:
+            save_json(output_dir / "combined_input.json", evidence_document)
         stage = "model_input_preparation"
         model_segments = [{"id": part["id"], "text": part.get("reading_order_text", part["text"])}
                           for part in evidence_document["segments"]]
@@ -236,12 +273,19 @@ def scan_source(source, output_dir, client=None, prepare_only=False, paper_id="u
                     save_json(output_dir / "citation_repair.request.json", repair_input)
                     response = generate_model(REPAIR_PROMPT, repair_input, CHOICE_SCHEMA)
                     save_json(output_dir / "citation_repair.response.json", response)
-                    extraction, accepted = apply_choices(extraction, response, evidence_document, issues, repair_input)
+                    rejected = []
+                    if extraction["schema_version"] == 6:
+                        from repair_guard import apply_bounded_choices
+                        extraction, accepted, rejected = apply_bounded_choices(
+                            extraction, response, evidence_document, issues, repair_input)
+                    else:
+                        extraction, accepted = apply_choices(extraction, response, evidence_document, issues, repair_input)
                     save_json(output_dir / "extraction.repaired.json", extraction)
                     row["effective_extraction_file"] = "extraction.repaired.json"
                     row["stages"].append({"stage": stage, "status": "completed", "issues_before": len(issues),
                         "accepted_replacements": len(accepted), "remaining_issues": len(citation_issues(extraction, evidence_document)),
-                        "classification_fields_modified": False, "accepted": accepted})
+                        "classification_fields_modified": False, "accepted": accepted,
+                        "rejected_choices": rejected})
                 elif issues:
                     row["stages"].append({"stage": "citation_repair", "status": "not_run", "issues": len(issues),
                         "reason": "disabled_or_fixed_review_or_insufficient_call_budget"})
@@ -335,6 +379,8 @@ def main(argv=None):
                         help="Resume a stored V4 automatic proposal with citation recovery and a fresh review")
     parser.add_argument("--extraction", type=Path, help="Replay a stored extraction JSON")
     parser.add_argument("--review", type=Path, help="Replay a stored semantic-review JSON")
+    parser.add_argument("--declared-contract", type=Path,
+                        help="Replay a saved V6 paper-only proposal envelope; ordinary audits create it automatically")
     add_engine_arguments(parser)
     args = parser.parse_args(argv)
     try:
@@ -346,6 +392,8 @@ def main(argv=None):
             raise ValueError("--proposal requires --repo and cannot be combined with fixed-output replay")
         if args.extraction and args.provider:
             raise ValueError("choose replay or model inference, not both")
+        if args.declared_contract and not (args.extraction or args.proposal):
+            raise ValueError("--declared-contract is only for saved proposal/review replay")
         if args.repo_revision and not args.repo:
             raise ValueError("--repo-revision requires --repo")
         if args.paper_only and args.repo:
@@ -356,12 +404,13 @@ def main(argv=None):
         proposal_path = args.proposal or args.extraction
         extraction = json.loads(proposal_path.read_text()) if proposal_path else None
         review = json.loads(args.review.read_text()) if args.review else None
+        contract = json.loads(args.declared_contract.read_text()) if args.declared_contract else None
         row = scan_source(args.source, args.output, client, args.prepare_only,
                           extraction=extraction, review=review, max_input_chars=args.max_input_chars,
                           repository=args.repo, repo_revision=args.repo_revision, max_code_chars=args.max_code_chars,
                           repair_citations=not args.no_citation_repair, auto_repository=not args.paper_only,
                           source_fetch=args.source_fetch, require_source=args.require_source,
-                          engine_version=args.engine_version)
+                          engine_version=args.engine_version, declared_contract=contract)
         mode = "paper_source_audit" if args.repo else "document_audit" if args.paper_only else "automatic_paper_audit"
         report = make_report([row], "document_preparation" if args.prepare_only else mode)
         if client:
