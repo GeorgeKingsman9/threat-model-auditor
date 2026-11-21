@@ -89,8 +89,8 @@ def _context_support(text, before_url=None, anchor=False, source_kind="paper"):
         # Named dependency/baseline availability does not become an author-code
         # statement merely because the surrounding paragraph discusses our work.
         nearby = left[max(0, match.start() - 120):match.end()]
-        own = re.search(r"\bour\s+(?:(?:source|official)\s+)?(?:code|implementation|data\s+and|software|artifacts?)", match.group(), re.I)
-        if not own and re.search(r"\b(?:baseline|dependency|dependencies|third[- ]party|prior\s+work|related\s+work|references?|authors?|library|we\s+(?:use|adopt)|et\s+al)\b|['’]s\s+(?:source\s+)?(?:code|implementation)\b", nearby, re.I):
+        own = re.search(r"\bour\s+(?:(?:source|official)\s+)?(?:code|implementation|data\s+and|software|artifacts?)", nearby, re.I)
+        if not own and re.search(r"\b(?:baseline|dependency|dependencies|third[- ]party|prior\s+work|related\s+work|library|we\s+(?:use|adopt))\b", nearby, re.I):
             return None
         suffix = left[match.end():]
         # A declaration attaches to the next URL/anchor, not an unrelated URL
@@ -292,6 +292,24 @@ def _host_wrapped_github_annotation(text, match, segment_id, annotations):
     return [{"url": url, "start": match.start(), "end": end} for url in sorted(matching)]
 
 
+def _host_wrap_context_supported(text, before_url):
+    """Apply extra ambiguity guards only to the new host-only recovery path.
+
+    Legacy full-URL and partial-prefix association retain their own context
+    contract. A named framework's possessive is not third-party evidence.
+    """
+    left = re.split(r"\r?\n[^\S\r\n]*\r?\n", text[:before_url])[-1]
+    matches = list(AVAILABILITY.finditer(left))
+    if not matches:
+        return False
+    match = matches[-1]
+    nearby = left[max(0, match.start() - 120):match.end()]
+    own = re.search(r"\bour\s+(?:(?:source|official)\s+)?(?:code|implementation|data\s+and|software|artifacts?)", match.group(), re.I)
+    return bool(own or not re.search(
+        r"\b(?:baseline|dependency|dependencies|third[- ]party|prior\s+work|related\s+work|references?|authors?|library|we\s+(?:use|adopt)|et\s+al)\b",
+        nearby, re.I))
+
+
 def discover_repository(document, source):
     """Discover one explicitly associated GitHub repository and pin its commit.
 
@@ -344,7 +362,8 @@ def discover_repository(document, source):
                 if support is None and PROJECT.search(before):
                     support = "explicitly_linked_project_page"
                 wrapped = (_host_wrapped_github_annotation(text, match, segment_id, annotations)
-                           if support == "self_described_code_availability" else [])
+                           if support == "self_described_code_availability"
+                           and _host_wrap_context_supported(context, match.start() - left) else [])
                 if wrapped:
                     for item in sorted(wrapped, key=lambda entry: entry["url"]):
                         full = item["url"]

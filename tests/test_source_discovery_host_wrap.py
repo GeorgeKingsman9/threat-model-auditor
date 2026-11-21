@@ -121,6 +121,40 @@ class HostWrappedSourceDiscoveryTests(unittest.TestCase):
         self.assertEqual(result["status"], "ambiguous")
         self.assertFalse(calls)
 
+    def test_named_framework_possessive_keeps_legacy_full_url_association(self):
+        for possessive in ("Framework's", "F RAMEWORK’s"):
+            with self.subTest(possessive=possessive):
+                full = "https://github.com/owner/framework"
+                result, calls = self.resolve(paper(possessive + " code is available at " + full + "."))
+                self.assertEqual(result["status"], "selected")
+                self.assertEqual(result["repository"], full)
+                self.assertEqual(len(calls), 1)
+
+    def test_named_framework_possessive_partial_prefix_survives_footer_and_same_page_annotation(self):
+        for possessive in ("Framework's", "F RAMEWORK’s"):
+            with self.subTest(possessive=possessive):
+                text = (possessive + " code is available at https://github.com/own\n\n"
+                        "1234\n\nAnnual Research Conference\n\n"
+                        "er/framework and the full paper includes artifacts.")
+                full = "https://github.com/owner/framework"
+                result, calls = self.resolve(paper(text, [full], reading_order=True))
+                self.assertEqual(result["status"], "selected")
+                self.assertEqual(result["repository"], full)
+                self.assertEqual(len(calls), 1)
+                evidence = result["evidence"][0]
+                self.assertEqual(evidence["association"], "code_availability_with_same_page_annotation")
+                self.assertEqual(evidence["visible_url_fragment"], "https://github.com/own")
+                self.assertEqual(evidence["annotation_url"], full)
+                start = evidence["context_start"]
+                self.assertEqual(text[start:start + len(evidence["context"])], evidence["context"])
+
+    def test_named_framework_possessive_also_does_not_trigger_host_wrap_third_party_guard(self):
+        full = "https://github.com/owner/framework"
+        result, calls = self.resolve(paper("Framework’s code is publicly available at https://github.com/\nowner/framework.", [full]))
+        self.assertEqual(result["status"], "selected")
+        self.assertEqual(result["repository"], full)
+        self.assertEqual(len(calls), 1)
+
 
 if __name__ == "__main__":
     unittest.main()
