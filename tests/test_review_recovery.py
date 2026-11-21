@@ -132,8 +132,8 @@ class ReviewRecoveryTests(unittest.TestCase):
         self.assertEqual(self.hashes(), before)
         for filename in ("extraction.json", "extraction.acquisition.json", "acquisition_pass.checks.json",
                          "acquisition_pass.request.json", "acquisition_pass.response.json"):
-            self.assertEqual(json.loads((self.root / "recovery" / filename).read_text()),
-                             json.loads((self.parent / filename).read_text()))
+            self.assertEqual((self.root / "recovery" / filename).read_bytes(),
+                             (self.parent / filename).read_bytes())
 
     def test_tampered_acquisition_checks_fail_before_model(self):
         self.add_acquisition_parent()

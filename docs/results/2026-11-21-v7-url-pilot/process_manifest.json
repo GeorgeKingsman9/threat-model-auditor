@@ -1,0 +1,358 @@
+{
+  "schema_version": "v7-url-pilot-process-manifest-v1",
+  "hash_algorithm": "sha256",
+  "path_base": "relative to run_id directory",
+  "scope": "every raw run file, including driver and original per-paper reports",
+  "exclusions": [
+    "combined",
+    "combined-corrected",
+    "derivatives",
+    "deterministic_revalidation",
+    "generated",
+    "public",
+    "revalidated"
+  ],
+  "files": [
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/muzzle/citation_repair.request.json",
+      "bytes": 60995,
+      "sha256": "960c92e3e5fe9e7b717dbcb3482e2b6cbc3b78bc8b4b8c08da8ba22fc0574af5"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/muzzle/citation_repair.response.json",
+      "bytes": 1041,
+      "sha256": "40400024810589aaedd21fe86058506d1747179ec52acdae5a8f667689363498"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/muzzle/combined_input.json",
+      "bytes": 2641064,
+      "sha256": "67f88bf36f2d6821c4258b0f4b95dfc27fd133fb3191ce23e7624ac85d9a0b7e"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/muzzle/declared_contract.json",
+      "bytes": 65627,
+      "sha256": "319471e54483a662d658a05af228c60de0af8b191fcb5d93037c0ef43992c2fa"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/muzzle/declared_contract.request.json",
+      "bytes": 98647,
+      "sha256": "df3376c683fd26863c9ca4bb04917333be9ab40c024d1dd5fee7055d62c7e646"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/muzzle/declared_contract.response.json",
+      "bytes": 25311,
+      "sha256": "4c800e151df688490c193a9934dadd26f9e10e7baa0c9b624b6ef379beaf7235"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/muzzle/extraction.json",
+      "bytes": 45808,
+      "sha256": "7729e563f60d85151c2a949481a92c2a0989bbab93f0f072b574c06b2baa0e8a"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/muzzle/extraction.repaired.json",
+      "bytes": 46246,
+      "sha256": "926f49c7bd3fbb579056a7762b47156e09b4be2717a29e17b3aced1d4ca30c25"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/muzzle/inference.citation_repair.json",
+      "bytes": 3769,
+      "sha256": "2ac441a696323a2987e781d0287fb60ae356fc72dd4a78043f534f9c7ac728fd"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/muzzle/inference.declared_contract.json",
+      "bytes": 1728,
+      "sha256": "8d50f331ebea9f0de968eb7036964d91fde42c3c013bba3aec0baa909b084ea8"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/muzzle/inference.extraction.json",
+      "bytes": 2752,
+      "sha256": "0c4d3fec267b93887f22dab7015734d76aded1616ac5304aa533bb22691202cf"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/muzzle/inference.json",
+      "bytes": 4788,
+      "sha256": "bafd5e529a8cce1a08c14b9b815182916f5abdd3748865fa045dcf1994a9e513"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/muzzle/inference.semantic_review.json",
+      "bytes": 4788,
+      "sha256": "bafd5e529a8cce1a08c14b9b815182916f5abdd3748865fa045dcf1994a9e513"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/muzzle/prepared.json",
+      "bytes": 366106,
+      "sha256": "f060fc91a92688baa885a8cd43997ebecaa2a7613e56335d3667ede12175113b"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/muzzle/report.html",
+      "bytes": 1550484,
+      "sha256": "4300a39c14a0bfd3cc02fb2a87b2a52c0cf6cceb6760281c0893e3eea6b789f4"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/muzzle/report.json",
+      "bytes": 1190934,
+      "sha256": "57f4835a42b190c04726a1a14a510b913b63e3ff9d458feb7de244d5a373dc8c"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/muzzle/report.md",
+      "bytes": 1155359,
+      "sha256": "7f78c3a0c2502c417f63ea31da3a1794398f98b2fc76e5545af5ad1ff04882d2"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/muzzle/repository.json",
+      "bytes": 1515162,
+      "sha256": "5194b1e1965b0beee2fa2bb5449c5802d8de834d56a98a037ca428ca160a1967"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/muzzle/request.json",
+      "bytes": 578,
+      "sha256": "38bc1f2e585a2a7846481f0da3fbca2ceeccfc92746ea67a684ad57e0d14694f"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/muzzle/result.json",
+      "bytes": 1074200,
+      "sha256": "a97c78c55c2e797aa84101a0a2a87f34c0d8806715ce0a7a68447a174ad4df04"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/muzzle/review.contract.json",
+      "bytes": 16297,
+      "sha256": "9080e371c4e92e4ebc17096bfbdb10421421086465e7efd7d50f2cccbd7272eb"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/muzzle/review.json",
+      "bytes": 13618,
+      "sha256": "125c1604bd99672d61b9059280a04b801fd351f7692f0a58dc7f5fd16b3f702f"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/muzzle/review.request.json",
+      "bytes": 944192,
+      "sha256": "d85c2f48c4b33e449edfc3b75e27f259717b14c0238a4dfcefaf16a0ec9737ca"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/muzzle/source_acquisition.json",
+      "bytes": 43830,
+      "sha256": "544d0e08c62f436906431cac980a512403b4b8a236d264d7784d2ab34102b9b1"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/muzzle/source_discovery.json",
+      "bytes": 10139,
+      "sha256": "f6e69dae3397a7d457c2abc8926c579bbec94ef47f05009fe50b236f37f663c3"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/obliinjection/citation_repair.request.json",
+      "bytes": 115030,
+      "sha256": "3d296685a46f5264411f4375ae7e318beb3c7270517f0abc004ad737007d9d8b"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/obliinjection/citation_repair.response.json",
+      "bytes": 1809,
+      "sha256": "086f54c6125f458a81d25cb35d9eba0c08a29af1512c53d36d459a633b1ce070"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/obliinjection/combined_input.json",
+      "bytes": 8259949,
+      "sha256": "779483cca32faea9dab09f125bf9fee8b58032a209dbd03745a59af40a744732"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/obliinjection/declared_contract.json",
+      "bytes": 66971,
+      "sha256": "044707ce5eb23fd3ffc3777b757133fe9de328a7dca27d81953e700055da986b"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/obliinjection/declared_contract.request.json",
+      "bytes": 99123,
+      "sha256": "008c9cc16f40e202c6616e7c85d9ccaabbdf5c0722975c135870a73737650669"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/obliinjection/declared_contract.response.json",
+      "bytes": 25464,
+      "sha256": "9540c4c972bedd645c718456d279c949b644c9010a2115d0b4bb0d314d3fceab"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/obliinjection/extraction.json",
+      "bytes": 50536,
+      "sha256": "432ffb79e290823f2d99567c9183f97e389d9c41041142a2550a41745a53c7fc"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/obliinjection/extraction.repaired.json",
+      "bytes": 51571,
+      "sha256": "358d9972545b1d7cbf55cb2bd2aaae519b9675310e2c992fbd1af3f7767a1436"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/obliinjection/inference.citation_repair.json",
+      "bytes": 3770,
+      "sha256": "f3eda15a231429ed8586183a3d9f64833514c4c9f94608e6fde9d62c1280d5db"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/obliinjection/inference.declared_contract.json",
+      "bytes": 1729,
+      "sha256": "887c720794819e182389363622f2f5e410dc1b279b41ce1afee0d1e9a8940149"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/obliinjection/inference.extraction.json",
+      "bytes": 2754,
+      "sha256": "3b257ee3c37cb3aa69c4194ad7f1c6aff0d00552113adddcdae2d6d899bf503b"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/obliinjection/inference.json",
+      "bytes": 4790,
+      "sha256": "c548364ab366cd1865b750fd71f8731b2b2027d56d60fde59df8acab1f5eead3"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/obliinjection/inference.semantic_review.json",
+      "bytes": 4790,
+      "sha256": "c548364ab366cd1865b750fd71f8731b2b2027d56d60fde59df8acab1f5eead3"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/obliinjection/prepared.json",
+      "bytes": 379065,
+      "sha256": "ffe6f2c2ca149262ad5d9b13c2e7db8a5281bcab2f6812874e3743da40dfed7f"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/obliinjection/report.html",
+      "bytes": 7882652,
+      "sha256": "f33b582c8ad86ce61451c6a23e93d7609321a95dd8c62a7ae70d166e84e58e9c"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/obliinjection/report.json",
+      "bytes": 7615274,
+      "sha256": "0d8b26cafc546b9a1849d5a5e39cb20a6ba402c91186a4b31bb08483c4d71f60"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/obliinjection/report.md",
+      "bytes": 7691539,
+      "sha256": "330cafbb7e6c6ba382a80302f60bec7ec7c84638fb33bb320b08aaa1348bb518"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/obliinjection/repository.json",
+      "bytes": 7441630,
+      "sha256": "605b297c4e1654dd58c993d033de781ad8a7a1479d9fadfe31c170cf73d2521d"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/obliinjection/request.json",
+      "bytes": 578,
+      "sha256": "8447a6a316a87d2258d9270ccf3fb928b2855b3f038fdc9df7968138dd8d64e2"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/obliinjection/result.json",
+      "bytes": 7567547,
+      "sha256": "ac0f49d938ab12b7da3faa2e4dcb7a9a7a2c2eaa7e38cea5a10770d87dd6250e"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/obliinjection/review.contract.json",
+      "bytes": 16297,
+      "sha256": "5ac531620ce3350700ace8e1c5a21208d87ecb58a7af1d0fc538f8a7c431a20d"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/obliinjection/review.json",
+      "bytes": 11348,
+      "sha256": "58c4a23d433c17b29eabf361fd105df873c9a074a49a06910d354701b27e66f0"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/obliinjection/review.request.json",
+      "bytes": 546724,
+      "sha256": "6fc10d940486ee842016142b952b8a35cd99e98cd788fb95994cdcdc50458657"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/obliinjection/source_acquisition.json",
+      "bytes": 13525,
+      "sha256": "f288e814ba60216e2f14541a3aafa9f393c0531d59a90513d752a12478cfef59"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "audits/obliinjection/source_discovery.json",
+      "bytes": 10594,
+      "sha256": "34a379fffe75c9d35d9444c9b7c025776bc13277c32cd0241755f3b8431d659c"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "driver.py",
+      "bytes": 3791,
+      "sha256": "c1a9d6c5d26a2a939ea09f2bd8d863e884e4df11ee976ac514e7f9da6dbcbb70"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "driver_summary.json",
+      "bytes": 526,
+      "sha256": "6845b1908d012c71da93d4d4c1806f0e7205489862afabd99d9708d33fc4c566"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "frozen_config.json",
+      "bytes": 4086,
+      "sha256": "b3d0a79f287d4069a413de3c4a2c8dd5430d199364e4d82563d29f2afe6f129d"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "muzzle.process.log",
+      "bytes": 832,
+      "sha256": "fefd62ef824b4efa80b97d5cc1f38cf7156fa84f865e30b961814b894c57c3e4"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "obliinjection.process.log",
+      "bytes": 10706,
+      "sha256": "f978f68d752b76f993179e63693a0053c143282271ed64de23c54a63b2137b9d"
+    },
+    {
+      "run_id": "2026-11-21-v7-url-pilot",
+      "path": "runtime_integrity.json",
+      "bytes": 55,
+      "sha256": "41436442fd23e66961ec0ec8421e6d5160c6923cf33c31230fbd050ca215c6e8"
+    }
+  ],
+  "builder_sha256": "f38f9ab6456cbdf31d91808ba53e7f5b4f8847c3e538d5d7091b9a9d7080cfd3",
+  "helper_sha256": {
+    "summarize_v6_pilot.py": "0e3aab042feba9e26c4b42f1041e06cea0f0cebcbaf66a6a35241e51b45c370d",
+    "summarize_v6_followup.py": "a16e9482a16a14772e93b6be5d77dd553ed8a20ec1842ec981091eb2ea6ac4cc"
+  }
+}

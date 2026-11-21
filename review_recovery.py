@@ -51,6 +51,21 @@ def _same_parent(directory, hashes):
         raise ValueError("parent artifacts changed during review recovery")
 
 
+def _copy_parent(directory, output, name, hashes):
+    """Preserve the validated artifact's bytes, not a JSON reserialization."""
+    source = directory / name
+    expected = hashes.get(name)
+    if expected is None or source.is_symlink() or not source.is_file():
+        raise ValueError("recovery cannot copy an unvalidated parent artifact")
+    data = source.read_bytes()
+    if hashlib.sha256(data).hexdigest() != expected:
+        raise ValueError("parent artifact changed before recovery copying")
+    with (output / name).open("xb") as stream:
+        stream.write(data)
+    if _digest(source) != expected or _digest(output / name) != expected:
+        raise ValueError("parent artifact bytes changed during recovery copying")
+
+
 def _require_one_call(client):
     if client is None or not callable(getattr(client, "generate", None)):
         raise ValueError("review recovery requires an explicit inference client")
@@ -222,12 +237,12 @@ def resume_review(run_dir, output_dir, client, max_input_chars=1200000):
         for name, key in (("prepared.json", "prepared"), ("repository.json", "repository"),
                           ("source_discovery.json", "discovery"), ("combined_input.json", "combined"),
                           ("request.json", "request"), (loaded["filename"], "extraction")):
-            _save(output / name, loaded[key])
+            _copy_parent(parent, output, name, hashes)
         if loaded["declared_contract"] is not None:
-            _save(output / "declared_contract.json", loaded["declared_contract"])
+            _copy_parent(parent, output, "declared_contract.json", hashes)
         for name, value in loaded["extra_artifacts"].items():
             if not (output / name).exists():
-                _save(output / name, value)
+                _copy_parent(parent, output, name, hashes)
         row["effective_extraction_file"] = loaded["filename"]
         provenance = {"mode": loaded["mode"], "parent_attempt_id": parent.name,
             "parent_artifact_sha256": hashes, "original_request_prompt_sha256": loaded["request"].get("prompt_sha256"),
